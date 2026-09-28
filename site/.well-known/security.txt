@@ -1,0 +1,6 @@
+Contact: mailto:security@agent-fleet.org
+Contact: https://github.com/k-k1/agent-fleet/security/advisories/new
+Expires: 2027-09-01T00:00:00.000Z
+Preferred-Languages: en, ja
+Canonical: https://agent-fleet.org/.well-known/security.txt
+Policy: https://github.com/k-k1/agent-fleet/blob/develop/SECURITY.md

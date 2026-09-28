@@ -1,0 +1,18 @@
+# Cloudflare Pages response headers.
+# script-src / connect-src admit Cloudflare Web Analytics only: when it is switched on
+# for the Pages project it injects its beacon from these two hosts, and the page
+# itself ships no script at all.
+/*
+  Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' https://static.cloudflareinsights.com; connect-src 'self' https://cloudflareinsights.com; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Strict-Transport-Security: max-age=31536000
+
+# File names are not content-hashed, so keep caching short enough for a re-sync to show.
+/assets/*
+  Cache-Control: public, max-age=86400
+
+# The production *.pages.dev alias duplicates agent-fleet.org; keep it out of search.
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex

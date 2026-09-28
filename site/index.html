@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Fleet — a self-hosted operations layer for AI coding agents</title>
+  <meta name="description" content="Don't replace your coding agents. Operate them. Agent Fleet runs Claude Code, Codex, Copilot, Cursor and more on your own servers, with one console for the whole fleet.">
+  <link rel="canonical" href="https://agent-fleet.org/">
+  <link rel="alternate" hreflang="en" href="https://agent-fleet.org/">
+  <link rel="alternate" hreflang="ja" href="https://agent-fleet.org/ja/">
+  <link rel="alternate" hreflang="x-default" href="https://agent-fleet.org/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Agent Fleet">
+  <meta property="og:title" content="Agent Fleet — Don't replace your coding agents. Operate them.">
+  <meta property="og:description" content="A self-hosted operations layer for the coding agents your team already uses: isolated workspaces, real git worktrees, and one console to start, follow and steer every session.">
+  <meta property="og:url" content="https://agent-fleet.org/">
+  <meta property="og:image" content="https://agent-fleet.org/og-en.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Agent Fleet: Don't replace your coding agents. Operate them.">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0b1417">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/assets/brand/icon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/"><img src="/assets/brand/icon-192.png" alt="" width="30" height="30">Agent Fleet</a>
+    <nav class="site-nav" aria-label="Sections">
+      <a href="#fleet">Features</a>
+      <a href="#upstream">Upstream changes</a>
+      <a href="#security">Security</a>
+      <a href="#editions">Editions</a>
+      <a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/README.md">Docs</a>
+    </nav>
+    <div class="header-end">
+      <p class="lang"><span aria-current="true">English</span> · <a href="/ja/" hreflang="ja" lang="ja">日本語</a></p>
+      <a class="btn btn-ghost btn-small" href="https://github.com/k-k1/agent-fleet"><svg viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><span class="btn-label">GitHub</span></a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Self-hosted · Open source (Apache-2.0)</p>
+    <h1>Don't replace your coding agents. <span class="accent">Operate them.</span></h1>
+    <p class="lead">Agent Fleet is not another agent framework. It runs the coding-agent CLIs your team already uses — as they are — on your own servers, and takes on everything around them: isolated workspaces, real git worktrees, and one console to start, follow, steer and account for every session.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="https://github.com/k-k1/agent-fleet-dist#getting-started--which-edition">Get started</a>
+      <a class="btn btn-ghost" href="https://github.com/k-k1/agent-fleet">View the source</a>
+    </div>
+    <div class="agents">
+      <p>Runs today</p>
+      <ul>
+        <li>Claude Code</li><li>Codex CLI</li><li>GitHub Copilot CLI</li><li>Antigravity CLI</li><li>Cursor CLI</li><li>Kiro</li><li>OpenCode</li><li>Muse Code</li><li>llama.cpp</li>
+      </ul>
+    </div>
+    <figure class="shot">
+      <a href="/assets/img/console-en.webp"><img src="/assets/img/console-en.webp" width="3200" height="1960" fetchpriority="high" alt="The Agent Fleet Console: the repository tree with live sessions, a chat mirror of a running agent asking a question, and the repository's commit graph side by side"></a>
+    </figure>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="why">
+  <div class="wrap">
+    <div class="section-head center">
+      <h2 id="why">The agents stay. The operations move to one place.</h2>
+    </div>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17l6-5-6-5"/><path d="M12 19h8"/></svg></div>
+        <h3>Your agents, as they are</h3>
+        <p>Claude Code stays Claude Code and Codex stays Codex. Each CLI keeps its own sign-in, models and behaviour, so your team keeps the tools it already trusts — nine of them, side by side.</p>
+      </div>
+      <div class="pillar">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></div>
+        <h3>Work that doesn't wait for you</h3>
+        <p>Sessions run on the server, each in its own git worktree. Close your laptop: questions and permission requests reach you in the browser, on your phone, or in the session's Slack or Discord thread.</p>
+      </div>
+      <div class="pillar">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>Inside your company</h3>
+        <p>One company runs one deployment on its own infrastructure, so credentials, source and conversations stay inside it. The code is open, so you can audit the encryption and the isolation yourself.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" aria-labelledby="day">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">A day with Agent Fleet</p>
+      <h2 id="day">Hand work off in the morning. Answer from anywhere.</h2>
+    </div>
+    <ol class="day">
+      <li><time>09:00</time><strong>Hand off two issues</strong><p>One to Claude Code, another to Codex — each in its own git worktree.</p></li>
+      <li><time>09:10</time><strong>Close the laptop</strong><p>Leave. Both keep working on the server.</p></li>
+      <li><time>11:40</time><strong>Answer from your phone</strong><p>One asks for permission. The request arrives in that session's Slack thread, and you answer it there.</p></li>
+      <li><time>16:30</time><strong>Review at a desk</strong><p>The session list shows which finished and which wait on you; each worktree's changes are a click away.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section" id="fleet" aria-labelledby="fleet-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Fleet operations</p>
+      <h2 id="fleet-h">Operate a fleet, not a single chat</h2>
+      <p>What changes when a team runs many agent sessions at once — and what Agent Fleet takes care of.</p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-text">
+        <h3>Many sessions at once</h3>
+        <p>Across agent kinds, each in its own worktree. One view shows which sessions are working and which wait on a question, a plan or a permission prompt — the ones waiting on you are coloured so they stand out.</p>
+      </div>
+      <figure class="shot"><a href="/assets/img/overview-en.webp"><img src="/assets/img/overview-en.webp" width="3200" height="1400" loading="lazy" decoding="async" alt="Sessions overview: one card per running session, grouped by repository, with the state chip, model and context usage on each"></a></figure>
+    </div>
+
+    <div class="feature flip">
+      <div class="feature-text">
+        <h3>Follow and steer from the browser</h3>
+        <p>Every session is mirrored live. Questions, plans and permission prompts arrive as cards you answer in place.</p>
+        <ul>
+          <li>Or answer from the session's Discord / Slack thread, with buttons.</li>
+          <li>The Console works in a phone's browser.</li>
+        </ul>
+      </div>
+      <figure class="shot"><a href="/assets/img/mirror-en.webp"><img src="/assets/img/mirror-en.webp" width="2560" height="1800" loading="lazy" decoding="async" alt="Chat mirror: the agent's question rendered as an answerable card with the options it offered"></a></figure>
+    </div>
+
+    <div class="feature">
+      <div class="feature-text">
+        <h3>Sessions that start sessions</h3>
+        <p>A session can hand a review to another agent kind and get one report back. The fleet graph draws who started whom, what passed between them, and when each one was working.</p>
+      </div>
+      <figure class="shot"><a href="/assets/img/fleetgraph-en.webp"><img src="/assets/img/fleetgraph-en.webp" width="3200" height="1240" loading="lazy" decoding="async" alt="Fleet graph: one lane per session on a time axis, children under their parent, arrows for what passed between sessions, and each lane's state chip"></a></figure>
+    </div>
+
+    <div class="feature flip">
+      <div class="feature-text">
+        <h3>One yardstick for spend</h3>
+        <p>Tokens per feature, per agent and per model, over 24 hours, 7 days or 30 days. Calls that report no tokens are counted as unmeasured — never as free.</p>
+      </div>
+      <figure class="shot"><a href="/assets/img/usage-en.webp"><img src="/assets/img/usage-en.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="Usage tab: a stacked per-feature token chart over 30 days, KPI tiles, and breakdowns by feature, agent and model"></a></figure>
+    </div>
+
+    <div class="minor">
+      <div>
+        <h3>Unattended work</h3>
+        <p>Scheduled runs wake a stopped workspace and run the prompt. A turn cut short by a usage limit resumes when the limit lifts, so nothing sits dead until morning.</p>
+      </div>
+      <div>
+        <h3>One set of rules for every agent</h3>
+        <p>Fleet-wide policy and per-member instructions reach every agent kind in each CLI's own idiom. The memories Claude Code and Codex build up on their own are snapshotted and can be rolled back.</p>
+      </div>
+    </div>
+
+    <div class="gallery">
+      <figure>
+        <div class="shot"><a href="/assets/img/launch-en.webp"><img src="/assets/img/launch-en.webp" width="2800" height="1800" loading="lazy" decoding="async" alt="Launch dialog: pick the agent CLI, its model, reasoning effort, start mode and whether to run in a fresh git worktree"></a></div>
+        <figcaption><strong>Start anything from one dialog</strong> — agent, model, reasoning effort, start mode, and a fresh git worktree or the working copy as-is.</figcaption>
+      </figure>
+      <figure>
+        <div class="shot"><a href="/assets/img/split-en.webp"><img src="/assets/img/split-en.webp" width="3200" height="1960" loading="lazy" decoding="async" alt="Three panes: the chat mirror, a live terminal attached to a shell session, and the repository's working-tree changes with a commit box"></a></div>
+        <figcaption><strong>Split panes</strong> — mirror, live terminal and working-tree changes side by side; each pane can pop out into its own tab.</figcaption>
+      </figure>
+      <figure>
+        <div class="shot"><a href="/assets/img/scm-en.webp"><img src="/assets/img/scm-en.webp" width="3800" height="1800" loading="lazy" decoding="async" alt="Split panes: the commit graph with branch lanes on the left, the selected commit's diff on the right"></a></div>
+        <figcaption><strong>Real git, in the console</strong> — commit graph beside the selected commit's diff, plus staging and commit, per working copy and worktree.</figcaption>
+      </figure>
+      <figure>
+        <div class="shot"><a href="/assets/img/terminal-en.webp"><img src="/assets/img/terminal-en.webp" width="2560" height="1520" loading="lazy" decoding="async" alt="A terminal pane attached to a shell session, showing a build and a git status run"></a></div>
+        <figcaption><strong>A real terminal, too</strong> — every session, agent or plain shell, is attachable as a live PTY.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="upstream" aria-labelledby="upstream-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Upstream changes</p>
+      <h2 id="upstream-h">Built to survive upstream changes</h2>
+      <p>Agent CLIs change every few days. Supporting nine of them is only worth something if the support keeps working.</p>
+    </div>
+    <ol class="steps">
+      <li><h3>Pinned</h3><p>Every CLI is pinned to a version that was verified. Self-update is opt-in.</p></li>
+      <li><h3>Tested against the real CLI</h3><p>A daily watcher notices when a CLI publishes a new version and dispatches a contract test that drives the real CLI — its interactive TUI included — against what Agent Fleet depends on.</p></li>
+      <li><h3>Seen is not tested</h3><p>"We saw a new version" and "we tested it" are recorded separately, so a release that has not passed its contract is never mistaken for one that has.</p></li>
+    </ol>
+    <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/develop/docs/build/10-development.md#detecting-upstream-cli-breakage">How the two halves fit together →</a></p>
+  </div>
+</section>
+
+<section class="section" id="security" aria-labelledby="security-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Security</p>
+      <h2 id="security-h">Self-hosted, by design</h2>
+      <p>One company runs one deployment, on its own infrastructure. Companies are isolated by separate deployments, not by boundaries inside a shared service.</p>
+    </div>
+    <ul class="checks">
+      <li><h3>Your infrastructure</h3><p>A single Linux host with Docker Compose, or AWS. The same core either way.</p></li>
+      <li><h3>Isolated workspaces</h3><p>Each member gets a persistent container with cgroup CPU and memory quotas and per-user network isolation — a bubblewrap sandbox in the Docker-less native edition.</p></li>
+      <li><h3>Your identity provider</h3><p>Sign in with Google, Microsoft Entra ID, Okta or any OIDC provider. Tenants and member, admin and operator roles.</p></li>
+      <li><h3>Your own seats</h3><p>Each member signs in to the agent CLIs with their own account. The deployment neither bundles nor shares AI-provider credentials.</p></li>
+      <li><h3>Encrypted secrets</h3><p>Credentials are stored with envelope encryption: per-workspace keys wrapped by a tenant key.</p></li>
+      <li><h3>Auditable, and candid</h3><p>Apache-2.0 source. The <a href="https://github.com/k-k1/agent-fleet/blob/develop/SECURITY.md">security policy</a> documents the threat model and the residual risks an operator should understand.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section section-alt" id="editions" aria-labelledby="editions-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Editions</p>
+      <h2 id="editions-h">Choose where it runs</h2>
+      <p>Start on one Linux host. Move to AWS when you need task-level isolation — the choice is yours to revisit.</p>
+    </div>
+    <div class="editions">
+      <div class="edition recommended">
+        <span class="tag">Default</span>
+        <h3><code>compose</code></h3>
+        <p>A team, on one Linux host with Docker. Automatic TLS, sign-in through your identity provider.</p>
+      </div>
+      <div class="edition">
+        <span class="tag muted">No Docker</span>
+        <h3><code>native</code></h3>
+        <p>A single user on WSL2 or a personal Linux box. Installs into your home directory.</p>
+      </div>
+      <div class="edition">
+        <span class="tag muted">AWS, small team</span>
+        <h3><code>ec2-single</code></h3>
+        <p>Compose on one VM — the same operational model, on AWS.</p>
+      </div>
+      <div class="edition">
+        <span class="tag muted">AWS, isolation</span>
+        <h3><code>ecs</code> · <code>ecs-ec2</code></h3>
+        <p>Task-level isolation, per-user fault isolation and rolling image replacement.</p>
+      </div>
+    </div>
+    <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/operate/01-choose.md">Choosing a deployment target, costs included →</a></p>
+
+    <div class="try">
+      <div>
+        <h3>Try it on your own machine</h3>
+        <p>The native edition needs x86_64 Linux or WSL2 and no Docker. Each member signs in to the agent CLIs with their own account from the Console.</p>
+        <p><a href="https://github.com/k-k1/agent-fleet-dist#installing-the-native-edition-no-docker-wsl2--single-user-linux">Installer details</a> · <a href="https://github.com/k-k1/agent-fleet-dist#installing-the-docker-compose-edition-team-on-prem">Setting up compose for a team</a></p>
+      </div>
+      <pre><code>curl -fsSL https://raw.githubusercontent.com/k-k1/agent-fleet-dist/main/install.sh | bash
+af start
+<span class="c"># then open http://localhost:8099</span></code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="section closing" aria-labelledby="closing-h">
+  <div class="wrap">
+    <img src="/assets/brand/agent-fleet-banner.webp" width="1120" height="480" loading="lazy" decoding="async" alt="Agent Fleet illustration: agents at work in shipping containers around a lighthouse labelled Fleet Control">
+    <h2 id="closing-h">Close your laptop. The agents keep working.</h2>
+    <div class="actions">
+      <a class="btn btn-primary" href="https://github.com/k-k1/agent-fleet-dist#getting-started--which-edition">Get started</a>
+      <a class="btn btn-ghost" href="https://github.com/k-k1/agent-fleet/blob/develop/guide/README.md">Read the guide</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <a class="logo" href="/"><img src="/assets/brand/icon-192.png" alt="" width="30" height="30">Agent Fleet</a>
+      <nav aria-label="Project">
+        <a href="https://github.com/k-k1/agent-fleet">Source</a>
+        <a href="https://github.com/k-k1/agent-fleet-dist/releases">Releases</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/README.md">Documentation</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/develop/SECURITY.md">Security policy</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/develop/LICENSE">License (Apache-2.0)</a>
+        <a href="/ja/" hreflang="ja" lang="ja">日本語</a>
+      </nav>
+    </div>
+    <p class="fine">Report vulnerabilities privately through GitHub's security advisories or to <a href="mailto:security@agent-fleet.org">security@agent-fleet.org</a>. Claude Code, Codex, GitHub Copilot, Antigravity, Cursor, Kiro, OpenCode and Muse Code are trademarks of their respective owners; Agent Fleet is an independent open-source project and is not affiliated with or endorsed by them.</p>
+  </div>
+</footer>
+</body>
+</html>

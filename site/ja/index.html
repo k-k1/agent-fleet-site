@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Fleet — AI コーディングエージェントを運用する、自社ホストの基盤</title>
+  <meta name="description" content="エージェントは置き換えない。運用する。Agent Fleet は Claude Code・Codex・Copilot・Cursor などを自社のサーバーでそのまま動かし、フリート全体を 1 つの Console で運用します。">
+  <link rel="canonical" href="https://agent-fleet.org/ja/">
+  <link rel="alternate" hreflang="en" href="https://agent-fleet.org/">
+  <link rel="alternate" hreflang="ja" href="https://agent-fleet.org/ja/">
+  <link rel="alternate" hreflang="x-default" href="https://agent-fleet.org/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Agent Fleet">
+  <meta property="og:title" content="Agent Fleet — エージェントは置き換えない。運用する。">
+  <meta property="og:description" content="チームがいま使っているコーディングエージェントを、自社ホストで運用する基盤。隔離されたワークスペース、本物の git worktree、そしてすべてのセッションを起動・追跡・操縦する 1 つの Console。">
+  <meta property="og:url" content="https://agent-fleet.org/ja/">
+  <meta property="og:image" content="https://agent-fleet.org/og-ja.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Agent Fleet: エージェントは置き換えない。運用する。">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0b1417">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/assets/brand/icon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">本文へ移動</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/ja/"><img src="/assets/brand/icon-192.png" alt="" width="30" height="30">Agent Fleet</a>
+    <nav class="site-nav" aria-label="セクション">
+      <a href="#fleet">機能</a>
+      <a href="#upstream">上流の変化</a>
+      <a href="#security">セキュリティ</a>
+      <a href="#editions">エディション</a>
+      <a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/README.ja.md">ドキュメント</a>
+    </nav>
+    <div class="header-end">
+      <p class="lang"><a href="/" hreflang="en" lang="en">English</a> · <span aria-current="true">日本語</span></p>
+      <a class="btn btn-ghost btn-small" href="https://github.com/k-k1/agent-fleet"><svg viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><span class="btn-label">GitHub</span></a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">自社ホスト · オープンソース（Apache-2.0）</p>
+    <h1><span class="nb">エージェントは</span><span class="nb">置き換えない。</span><span class="nb accent">運用する。</span></h1>
+    <p class="lead">Agent Fleet は、新しいエージェントフレームワークではありません。チームがいま使っているコーディングエージェントの CLI を、そのまま自社のサーバーで動かし、その周りを引き受けます。隔離されたワークスペース、本物の git worktree、そしてすべてのセッションを起動し、追い、操縦し、費用を数える 1 つの Console です。</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="https://github.com/k-k1/agent-fleet-dist/blob/main/README.ja.md#はじめに--どの版を選ぶ">はじめる</a>
+      <a class="btn btn-ghost" href="https://github.com/k-k1/agent-fleet">ソースを見る</a>
+    </div>
+    <div class="agents">
+      <p>いま扱えるエージェント</p>
+      <ul>
+        <li>Claude Code</li><li>Codex CLI</li><li>GitHub Copilot CLI</li><li>Antigravity CLI</li><li>Cursor CLI</li><li>Kiro</li><li>OpenCode</li><li>Muse Code</li><li>llama.cpp</li>
+      </ul>
+    </div>
+    <figure class="shot">
+      <a href="/assets/img/console-ja.webp"><img src="/assets/img/console-ja.webp" width="3200" height="1960" fetchpriority="high" alt="Agent Fleet の Console。リポジトリのツリーと実行中のセッション、質問しているエージェントの会話ミラー、コミットグラフが並んでいる"></a>
+    </figure>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="why">
+  <div class="wrap">
+    <div class="section-head center">
+      <h2 id="why">エージェントはそのまま。運用は 1 か所に。</h2>
+    </div>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17l6-5-6-5"/><path d="M12 19h8"/></svg></div>
+        <h3>いまのエージェントを、そのまま</h3>
+        <p>Claude Code は Claude Code のまま、Codex は Codex のまま。どの CLI も自分のログイン・モデル・振る舞いのまま動くので、チームは使い慣れた道具を手放さずに済みます。9 種類を並べて使えます。</p>
+      </div>
+      <div class="pillar">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></div>
+        <h3>あなたを待たずに進む</h3>
+        <p>セッションはサーバーの上で、それぞれ自分の git worktree で動きます。ノートを閉じても、質問や許可確認はブラウザ、スマートフォン、セッションごとの Slack や Discord のスレッドに届きます。</p>
+      </div>
+      <div class="pillar">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>社内で完結する</h3>
+        <p>1 社 1 配備で、自分たちのインフラの上で動くので、資格情報もソースも会話も外に出ません。コードは公開しているので、暗号化と隔離の実装を自分で確かめられます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" aria-labelledby="day">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Agent Fleet のある一日</p>
+      <h2 id="day">朝に任せて、どこからでも答える。</h2>
+    </div>
+    <ol class="day">
+      <li><time>09:00</time><strong>2 つの Issue を任せる</strong><p>Claude Code と Codex に 1 つずつ。それぞれ自分の git worktree で。</p></li>
+      <li><time>09:10</time><strong>ノートを閉じる</strong><p>出かけても、どちらもサーバーの上で作業を続けます。</p></li>
+      <li><time>11:40</time><strong>スマートフォンから答える</strong><p>片方が許可を求めます。依頼はそのセッションの Slack スレッドに届き、そこで答えられます。</p></li>
+      <li><time>16:30</time><strong>机に戻って確かめる</strong><p>セッション一覧で、どれが終わり、どれがあなたを待っているかが分かります。各 worktree の変更はワンクリックで開けます。</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section" id="fleet" aria-labelledby="fleet-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">フリート運用</p>
+      <h2 id="fleet-h">1 つの会話ではなく、フリートとして運用する</h2>
+      <p>チームが何本ものエージェントセッションを同時に動かすと何が変わるか。そして Agent Fleet が何を引き受けるか。</p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-text">
+        <h3>何本ものセッションを同時に</h3>
+        <p>エージェントの種類をまたいで、それぞれ自分の worktree で。作業中か、質問・プラン・許可確認であなたを待っているかが 1 つの画面で分かり、あなたの返事を待っているものは色で目立ちます。</p>
+      </div>
+      <figure class="shot"><a href="/assets/img/overview-ja.webp"><img src="/assets/img/overview-ja.webp" width="3200" height="1400" loading="lazy" decoding="async" alt="セッション一覧。稼働中のセッションをリポジトリごとに 1 枚ずつカードで並べ、状態チップ・モデル・コンテキスト使用率が載る"></a></figure>
+    </div>
+
+    <div class="feature flip">
+      <div class="feature-text">
+        <h3>ブラウザから追って、操縦する</h3>
+        <p>どのセッションも会話がそのままミラーされます。質問・プラン・許可確認はカードで届き、その場で答えられます。</p>
+        <ul>
+          <li>セッションごとの Discord / Slack スレッドから、ボタンで答えることもできます。</li>
+          <li>Console はスマートフォンのブラウザでも使えます。</li>
+        </ul>
+      </div>
+      <figure class="shot"><a href="/assets/img/mirror-ja.webp"><img src="/assets/img/mirror-ja.webp" width="2560" height="1800" loading="lazy" decoding="async" alt="会話ミラー。エージェントの質問が、選択肢つきの答えられるカードとして描かれている"></a></figure>
+    </div>
+
+    <div class="feature">
+      <div class="feature-text">
+        <h3>セッションがセッションを起こす</h3>
+        <p>レビューを別の種類のエージェントに渡し、終わったら報告を 1 本受け取れます。フリート俯瞰図に、誰が誰を起こし、何をやり取りし、いつ動いていたかが描かれます。</p>
+      </div>
+      <figure class="shot"><a href="/assets/img/fleetgraph-ja.webp"><img src="/assets/img/fleetgraph-ja.webp" width="3200" height="1240" loading="lazy" decoding="async" alt="フリート俯瞰図。1 セッション 1 レーンを時間軸に描き、子は親の下、セッション間のやり取りは矢印、各レーンに状態チップ"></a></figure>
+    </div>
+
+    <div class="feature flip">
+      <div class="feature-text">
+        <h3>費用を 1 つの物差しで</h3>
+        <p>トークンを機能別・エージェント別・モデル別に、24 時間 / 7 日 / 30 日で。トークンを報告しない呼び出しは「未計測」として数え、無料には見せません。</p>
+      </div>
+      <figure class="shot"><a href="/assets/img/usage-ja.webp"><img src="/assets/img/usage-ja.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="使用量タブ。30 日ぶんの機能別トークン積み上げグラフ、KPI、機能／エージェント／モデル別の内訳"></a></figure>
+    </div>
+
+    <div class="minor">
+      <div>
+        <h3>人がいなくても進む</h3>
+        <p>スケジュール実行は止まっているワークスペースを起こしてプロンプトを走らせます。使用量の上限で切れたターンは上限が明けると再開するので、朝まで止まったままにはなりません。</p>
+      </div>
+      <div>
+        <h3>どのエージェントにも同じルールを</h3>
+        <p>フリート全体のポリシーとメンバーごとの指示を、どの種類のエージェントにもその CLI の流儀で届けます。Claude Code と Codex が自分で溜める記憶はスナップショットを取り、巻き戻せます。</p>
+      </div>
+    </div>
+
+    <div class="gallery">
+      <figure>
+        <div class="shot"><a href="/assets/img/launch-ja.webp"><img src="/assets/img/launch-ja.webp" width="2800" height="1800" loading="lazy" decoding="async" alt="起動ダイアログ。エージェント・モデル・推論の深さ・開始モード・新しい worktree で動かすかを選ぶ"></a></div>
+        <figcaption><strong>起動はこのダイアログ 1 つ</strong> — エージェント、モデル、推論の深さ、開始モード、そして新しい git worktree で動かすか作業コピーのままか。</figcaption>
+      </figure>
+      <figure>
+        <div class="shot"><a href="/assets/img/split-ja.webp"><img src="/assets/img/split-ja.webp" width="3200" height="1960" loading="lazy" decoding="async" alt="3 つのペイン。会話ミラー、shell セッションに繋がった端末、作業ツリーの変更とコミット欄"></a></div>
+        <figcaption><strong>ペインを並べる</strong> — ミラー・端末・作業ツリーの変更を横に並べられ、それぞれ別タブに出すこともできます。</figcaption>
+      </figure>
+      <figure>
+        <div class="shot"><a href="/assets/img/scm-ja.webp"><img src="/assets/img/scm-ja.webp" width="3800" height="1800" loading="lazy" decoding="async" alt="分割ペイン。左にブランチのレーンつきコミットグラフ、右に選んだコミットの差分"></a></div>
+        <figcaption><strong>本物の git を Console で</strong> — コミットグラフと選んだコミットの差分、ステージとコミットまで、作業コピー・worktree ごとに。</figcaption>
+      </figure>
+      <figure>
+        <div class="shot"><a href="/assets/img/terminal-ja.webp"><img src="/assets/img/terminal-ja.webp" width="2560" height="1520" loading="lazy" decoding="async" alt="shell セッションに繋がった端末ペインで、ビルドと git status を走らせている"></a></div>
+        <figcaption><strong>本物の端末もある</strong> — エージェントでも素の shell でも、どのセッションも生の端末として開けます。</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="upstream" aria-labelledby="upstream-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">上流の変化</p>
+      <h2 id="upstream-h">上流の変化に耐えるように作っている</h2>
+      <p>エージェントの CLI は数日おきに変わります。9 種類に対応していても、その対応が続かなければ意味がありません。</p>
+    </div>
+    <ol class="steps">
+      <li><h3>版を固定する</h3><p>どの CLI も、検証済みの版に固定しています。自動更新はオプトインです。</p></li>
+      <li><h3>実物の CLI で試す</h3><p>毎日の監視が CLI の新しい版の公開に気づき、実物の CLI を動かす契約テスト——対話 TUI も含めて——を走らせ、Agent Fleet が頼っている振る舞いを確かめます。</p></li>
+      <li><h3>「見た」と「試した」を分ける</h3><p>「新しい版を見た」と「試した」は別々に記録するので、契約を通っていない版を通った版と取り違えることはありません。</p></li>
+    </ol>
+    <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/develop/docs/build/10-development.ja.md#上流-cli-の破壊検知版ドリフト監視--contract-テスト">2 つの仕組みの組み合わせ方 →</a></p>
+  </div>
+</section>
+
+<section class="section" id="security" aria-labelledby="security-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">セキュリティ</p>
+      <h2 id="security-h">はじめから自社ホスト</h2>
+      <p>1 社 1 配備で、自分たちのインフラの上で動きます。会社どうしは、共有サービスの中の境界ではなく、配備そのものが別々であることで隔てられます。</p>
+    </div>
+    <ul class="checks">
+      <li><h3>自分たちのインフラ</h3><p>Docker Compose の Linux 1 台でも、AWS でも。中身は同じです。</p></li>
+      <li><h3>隔離されたワークスペース</h3><p>メンバーごとに持続するコンテナを用意し、cgroup で CPU とメモリを制限して、ネットワークも利用者ごとに隔離します。Docker を使わない native 版では bubblewrap のサンドボックスです。</p></li>
+      <li><h3>自社の IdP でサインイン</h3><p>Google、Microsoft Entra ID、Okta など OIDC のプロバイダーで。テナントと member / admin / operator のロールがあります。</p></li>
+      <li><h3>契約はメンバーごと</h3><p>エージェントの CLI には、メンバーが自分のアカウントでサインインします。配備が AI プロバイダーの資格情報を同梱したり共有したりすることはありません。</p></li>
+      <li><h3>秘密は暗号化して保存</h3><p>資格情報はエンベロープ暗号化で保存します。ワークスペースごとの鍵を、テナントの鍵で包みます。</p></li>
+      <li><h3>確かめられる、隠さない</h3><p>Apache-2.0 のソース。<a href="https://github.com/k-k1/agent-fleet/blob/develop/SECURITY.md">セキュリティポリシー</a>（英語）に、脅威モデルと、運用者が理解しておくべき残るリスクを書いています。</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section section-alt" id="editions" aria-labelledby="editions-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">エディション</p>
+      <h2 id="editions-h">どこで動かすかを選ぶ</h2>
+      <p>まずは Linux 1 台から。タスク単位の隔離が必要になったら AWS へ。あとから選び直すこともできます。</p>
+    </div>
+    <div class="editions">
+      <div class="edition recommended">
+        <span class="tag">既定</span>
+        <h3><code>compose</code></h3>
+        <p>チームで、Docker のある Linux 1 台に。TLS は自動、サインインは自社の IdP で。</p>
+      </div>
+      <div class="edition">
+        <span class="tag muted">Docker なし</span>
+        <h3><code>native</code></h3>
+        <p>WSL2 や個人の Linux で、1 人で使う。ホームディレクトリに入ります。</p>
+      </div>
+      <div class="edition">
+        <span class="tag muted">AWS・小規模チーム</span>
+        <h3><code>ec2-single</code></h3>
+        <p>VM 1 台の上の compose。運用の仕方はそのままで AWS へ。</p>
+      </div>
+      <div class="edition">
+        <span class="tag muted">AWS・隔離</span>
+        <h3><code>ecs</code> · <code>ecs-ec2</code></h3>
+        <p>タスク単位の隔離、利用者ごとの障害の切り分け、イメージの順次入れ替え。</p>
+      </div>
+    </div>
+    <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/operate/01-choose.ja.md">配備先の選び方（費用つき）→</a></p>
+
+    <div class="try">
+      <div>
+        <h3>手元のマシンで試す</h3>
+        <p>native 版は x86_64 の Linux か WSL2 で動き、Docker は要りません。エージェントの CLI には、各メンバーが Console から自分のアカウントでサインインします。</p>
+        <p><a href="https://github.com/k-k1/agent-fleet-dist/blob/main/README.ja.md#native-版の導入docker-不要wsl2--単一ユーザー-linux">インストーラーの詳細</a> · <a href="https://github.com/k-k1/agent-fleet-dist/blob/main/README.ja.md#docker-compose-版の導入チームオンプレ">チーム向けに compose を立てる</a></p>
+      </div>
+      <pre><code>curl -fsSL https://raw.githubusercontent.com/k-k1/agent-fleet-dist/main/install.sh | bash
+af start
+<span class="c"># そのあとブラウザで http://localhost:8099 を開く</span></code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="section closing" aria-labelledby="closing-h">
+  <div class="wrap">
+    <img src="/assets/brand/agent-fleet-banner.webp" width="1120" height="480" loading="lazy" decoding="async" alt="Agent Fleet のイラスト。Fleet Control と書かれた灯台のまわりで、コンテナの中のエージェントたちが働いている">
+    <h2 id="closing-h">ノートを閉じても、エージェントは動き続けます。</h2>
+    <div class="actions">
+      <a class="btn btn-primary" href="https://github.com/k-k1/agent-fleet-dist/blob/main/README.ja.md#はじめに--どの版を選ぶ">はじめる</a>
+      <a class="btn btn-ghost" href="https://github.com/k-k1/agent-fleet/blob/develop/guide/README.ja.md">ガイドを読む</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <a class="logo" href="/ja/"><img src="/assets/brand/icon-192.png" alt="" width="30" height="30">Agent Fleet</a>
+      <nav aria-label="プロジェクト">
+        <a href="https://github.com/k-k1/agent-fleet">ソース</a>
+        <a href="https://github.com/k-k1/agent-fleet-dist/releases">リリース</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/README.ja.md">ドキュメント</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/develop/SECURITY.md">セキュリティポリシー</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/develop/LICENSE">ライセンス（Apache-2.0）</a>
+        <a href="/" hreflang="en" lang="en">English</a>
+      </nav>
+    </div>
+    <p class="fine">脆弱性は GitHub のセキュリティアドバイザリーから、または <a href="mailto:security@agent-fleet.org">security@agent-fleet.org</a> へ非公開で報告してください。Claude Code、Codex、GitHub Copilot、Antigravity、Cursor、Kiro、OpenCode、Muse Code は各社の商標です。Agent Fleet は独立したオープンソースプロジェクトで、これらの提供元とは提携しておらず、承認も受けていません。</p>
+  </div>
+</footer>
+</body>
+</html>
