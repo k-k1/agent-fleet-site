@@ -99,14 +99,26 @@
   <div class="wrap">
     <div class="section-head">
       <p class="kicker">A day with Agent Fleet</p>
-      <h2 id="day">Hand work off in the morning. Answer from anywhere.</h2>
+      <h2 id="day">Hand work off in the morning. It keeps going through the night.</h2>
     </div>
-    <ol class="day">
-      <li><time>09:00</time><strong>Hand off two issues</strong><p>One to Claude Code, another to Codex — each in its own git worktree.</p></li>
-      <li><time>09:10</time><strong>Close the laptop</strong><p>Leave. Both keep working on the server.</p></li>
-      <li><time>11:40</time><strong>Answer from your phone</strong><p>One asks for permission. The request arrives in that session's Slack thread, and you answer it there.</p></li>
-      <li><time>16:30</time><strong>Review at a desk</strong><p>The session list shows which finished and which wait on you; each worktree's changes are a click away.</p></li>
-    </ol>
+    <div class="shift">
+      <p class="shift-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>Daytime</p>
+      <ol class="day">
+        <li><time>09:00</time><strong>Hand off two issues</strong><p>One to Claude Code, another to Codex — each in its own git worktree.</p></li>
+        <li><time>09:10</time><strong>Close the laptop</strong><p>Leave. Both keep working on the server.</p></li>
+        <li><time>11:40</time><strong>Answer from your phone</strong><p>One asks for permission. The request arrives in that session's Slack thread, and you answer it there.</p></li>
+        <li><time>16:30</time><strong>Review at a desk</strong><p>The session list shows which finished and which wait on you; each worktree's changes are a click away.</p></li>
+      </ol>
+    </div>
+    <div class="shift night">
+      <p class="shift-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>Overnight</p>
+      <ol class="day">
+        <li><time>18:00</time><strong>Leave the night shift a job</strong><p>Tell the assistant in plain words: "every night at 2:00, update the dependencies and run the tests."</p></li>
+        <li><time>02:00</time><strong>It runs while you sleep</strong><p>The schedule wakes the stopped workspace, starts the session and runs the prompt.</p></li>
+        <li><time>03:40</time><strong>A limit doesn't end the night</strong><p>If a usage limit cuts a turn short, it picks up on its own when the limit lifts.</p></li>
+        <li><time>08:30 <small>next day</small></time><strong>The results are waiting</strong><p>Each run is in the schedule's history, one click from the session it drove.</p></li>
+      </ol>
+    </div>
   </div>
 </section>
 
