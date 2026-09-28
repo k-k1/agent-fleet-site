@@ -13,7 +13,7 @@ copy for you. The rules below are the whole safety net.
 | Path | What |
 |---|---|
 | `site/` | Everything that is served, as is. No build step. |
-| `site/index.html`, `site/ja/index.html` | The two pages. One stylesheet, no JavaScript. |
+| `site/index.html`, `site/ja/index.html` | The two pages. One stylesheet; the only script is `assets/lightbox.js`, and the page works without it. |
 | `site/assets/img/` | Console screenshots, copied from a release of the distribution repository |
 | `site/assets/brand/` | Icons and the banner, from the main repository's `console/public/brand/` |
 | `site/og-*.png` | Social preview cards (generated) |

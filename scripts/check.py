@@ -55,6 +55,8 @@ class Page(html.parser.HTMLParser):
                 self.canonical = a.get("href")
             elif "href" in a:
                 self.links.append((tag, a["href"]))
+        if tag == "script" and "src" in a:
+            self.links.append((tag, a["src"]))
         if tag == "img":
             self.imgs.append(a)
             self.links.append((tag, a.get("src", "")))
