@@ -64,12 +64,18 @@ Both domains are registered at お名前.com (Onamae.com); DNS, hosting, redirec
 forwarding and analytics are on Cloudflare's free plan. In this order:
 
 1. **Zones.** Add `agent-fleet.org` and `agent-fleet.jp` to the Cloudflare account (free plan).
-   Cloudflare imports the existing records; fix them up before switching:
+   For `.jp` Cloudflare warns that the TLD is not supported — that is about moving the
+   *registration* to Cloudflare Registrar; choose to add the site anyway. The import probes
+   common names, and the parking DNS answers most of them, so each zone arrives with dozens of
+   junk `A`, `TXT` and `NS` records. Delete all of them except the ones kept below:
 
-   | Zone | Delete | Add (proxied) | Keep |
-   |---|---|---|---|
-   | `agent-fleet.org` | parking `A @` and `A www`, null MX `MX 0 .`, TXT `v=spf1 -all` | `AAAA www 100::` | — |
-   | `agent-fleet.jp` | parking `A @` and `A www` | `AAAA @ 100::`, `AAAA www 100::` | `MX 0 .`, TXT `v=spf1 -all` |
+   | Zone | Keep | Add (proxied) |
+   |---|---|---|
+   | `agent-fleet.org` | nothing | `AAAA www 100::` |
+   | `agent-fleet.jp` | TXT `v=spf1 -all` on the apex only | `AAAA @ 100::`, `AAAA www 100::` |
+
+   In the add form the apex is `@`; an emptied name field is rejected, and a stray
+   `@.agent-fleet.jp` means the record went to a subdomain named `@`.
 
    `100::` is Cloudflare's placeholder for a redirect-only hostname: the record has to exist and
    be proxied for a redirect rule to fire, and no request ever reaches the address. The null MX
@@ -80,7 +86,11 @@ forwarding and analytics are on Cloudflare's free plan. In this order:
    resolution); neither domain has one today. Wait for Cloudflare to report both zones Active.
 3. **Pages.** Workers & Pages → Create application → Pages → Connect to Git → this
    repository. Production branch `main`, framework preset *None*, build command empty, build
-   output directory `site`. Then Custom domains → add `agent-fleet.org`; Cloudflare creates the
+   output directory `site`. The *Create application* page opens on Workers; Pages is the small
+   link at its foot. If connecting GitHub fails with "could not be installed" although
+   <https://github.com/settings/installations> lists *Cloudflare Workers and Pages*, open that
+   installation in the popup, change *Repository access* (only `agent-fleet-site`) and *Save*:
+   the save sends the callback Cloudflare missed. Then Custom domains → add `agent-fleet.org`; Cloudflare creates the
    apex record itself. Do not create that record by hand first — a record the Pages project
    does not know about answers 522. Every pull request gets a preview URL, and `_headers`
    keeps the `*.pages.dev` alias out of search results.
@@ -93,7 +103,11 @@ forwarding and analytics are on Cloudflare's free plan. In this order:
    | `agent-fleet.jp` | `http*://agent-fleet.jp/*` | `https://agent-fleet.org/ja/${2}` |
    | `agent-fleet.jp` | `http*://www.agent-fleet.jp/*` | `https://agent-fleet.org/ja/${2}` |
 
-   Also turn on SSL/TLS → Edge Certificates → *Always Use HTTPS* for `agent-fleet.org`.
+   Also turn on SSL/TLS → Edge Certificates → *Always Use HTTPS* for `agent-fleet.org`, and
+   turn **off** Security → Settings → *Email Address Obfuscation*: it is on for a new zone,
+   rewrites the footer's `mailto:` into a `/cdn-cgi/` link and injects a decoder script, so
+   the served HTML no longer matches this repository and readers without JavaScript see
+   "[email protected]" instead of the security contact.
 5. **Mail.** On `agent-fleet.org`: Compute → Email Service → Email Routing. Add the
    maintainer's address as a destination and verify it from the message Cloudflare sends,
    then a routing rule `security@` → that destination; accept the MX / SPF / DKIM records it
@@ -113,6 +127,7 @@ curl -sI https://www.agent-fleet.org/ja/ | grep -i '^location'        # https://
 curl -sI https://agent-fleet.jp/ | grep -iE '^(HTTP|location)'        # 301, https://agent-fleet.org/ja/
 curl -s https://agent-fleet.org/.well-known/security.txt | head -1    # Contact: mailto:…
 curl -sI https://agent-fleet.org/ | grep -i content-security-policy   # _headers applied
+curl -s https://agent-fleet.org/ | cmp - site/index.html             # served as committed
 ```
 
 ## License
