@@ -127,7 +127,7 @@ curl -sI https://www.agent-fleet.org/ja/ | grep -i '^location'        # https://
 curl -sI https://agent-fleet.jp/ | grep -iE '^(HTTP|location)'        # 301, https://agent-fleet.org/ja/
 curl -s https://agent-fleet.org/.well-known/security.txt | head -1    # Contact: mailto:…
 curl -sI https://agent-fleet.org/ | grep -i content-security-policy   # _headers applied
-curl -s https://agent-fleet.org/ | cmp - site/index.html             # served as committed
+curl -s https://agent-fleet.org/ | cmp - site/index.html             # served as committed (not once Web Analytics injects its beacon)
 ```
 
 ## License
