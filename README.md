@@ -61,42 +61,54 @@ expiring (it fails 30 days ahead; move `Expires` forward, at most a year).
 ## Hosting (Cloudflare)
 
 Both domains are registered at お名前.com (Onamae.com); DNS, hosting, redirects, mail
-forwarding and analytics are on Cloudflare's free plan.
+forwarding and analytics are on Cloudflare's free plan. In this order:
 
-**Pages project**: connect this repository, production branch `main`, framework preset
-*None*, build command empty, build output directory `site`. Custom domains:
-`agent-fleet.org` and `www.agent-fleet.org`. Every pull request gets a preview URL, and
-`_headers` keeps the `*.pages.dev` alias out of search results.
+1. **Zones.** Add `agent-fleet.org` and `agent-fleet.jp` to the Cloudflare account (free plan).
+   Cloudflare imports the existing records; fix them up before switching:
 
-**DNS**: add `agent-fleet.org` and `agent-fleet.jp` as zones, then change each domain's name
-servers at お名前.com to the pair Cloudflare assigns. While the zone is imported, on
-`agent-fleet.org` delete the parking records and the null MX (`MX 0 .`) and `v=spf1 -all`
-TXT — Email Routing brings its own MX and SPF, and the null MX would reject mail. Keep the
-null MX and `-all` on `agent-fleet.jp`, which receives no mail.
+   | Zone | Delete | Add (proxied) | Keep |
+   |---|---|---|---|
+   | `agent-fleet.org` | parking `A @` and `A www`, null MX `MX 0 .`, TXT `v=spf1 -all` | `AAAA www 100::` | — |
+   | `agent-fleet.jp` | parking `A @` and `A www` | `AAAA @ 100::`, `AAAA www 100::` | `MX 0 .`, TXT `v=spf1 -all` |
 
-**Redirects** (Rules → Redirect Rules, one *single redirect* each, status 301, preserve query
-string):
+   `100::` is Cloudflare's placeholder for a redirect-only hostname: the record has to exist and
+   be proxied for a redirect rule to fire, and no request ever reaches the address. The null MX
+   on `.org` must go because Email Routing adds its own MX and SPF, and a null MX says the
+   domain takes no mail; `.jp` takes none, so it keeps them.
+2. **Name servers.** At お名前.com, point each domain at the two name servers Cloudflare
+   assigned. DNSSEC must be off at お名前.com before this (a DS record left behind breaks
+   resolution); neither domain has one today. Wait for Cloudflare to report both zones Active.
+3. **Pages.** Workers & Pages → Create application → Pages → Connect to Git → this
+   repository. Production branch `main`, framework preset *None*, build command empty, build
+   output directory `site`. Then Custom domains → add `agent-fleet.org`; Cloudflare creates the
+   apex record itself. Do not create that record by hand first — a record the Pages project
+   does not know about answers 522. Every pull request gets a preview URL, and `_headers`
+   keeps the `*.pages.dev` alias out of search results.
+4. **Redirects.** Rules → Redirect Rules → a single redirect per row, *Wildcard pattern*,
+   status 301, *Preserve query string* on:
 
-| Zone | When hostname is | Target (dynamic) |
-|---|---|---|
-| `agent-fleet.org` | `www.agent-fleet.org` | `concat("https://agent-fleet.org", http.request.uri.path)` |
-| `agent-fleet.jp` | `agent-fleet.jp` or `www.agent-fleet.jp` | `concat("https://agent-fleet.org/ja", http.request.uri.path)` |
+   | Zone | Request URL | Target URL |
+   |---|---|---|
+   | `agent-fleet.org` | `http*://www.agent-fleet.org/*` | `https://agent-fleet.org/${2}` |
+   | `agent-fleet.jp` | `http*://agent-fleet.jp/*` | `https://agent-fleet.org/ja/${2}` |
+   | `agent-fleet.jp` | `http*://www.agent-fleet.jp/*` | `https://agent-fleet.org/ja/${2}` |
 
-A redirect only fires on a proxied hostname, so `agent-fleet.jp` needs proxied placeholder
-records: `AAAA @ 100::` and `AAAA www 100::`, both proxied.
-
-**Mail**: Email Routing on `agent-fleet.org`, a custom address `security@agent-fleet.org`
-forwarding to the maintainer's verified address. Send a test message before anything points at
-it — the main repository's `SECURITY.md`, the page footer and `security.txt` all do.
-
-**Analytics** (optional): Pages project → Metrics → Web Analytics. It sets no cookies; its
-beacon's two hosts are already allowed by the CSP in `_headers`. Nothing else is loaded from a
-third party.
+   Also turn on SSL/TLS → Edge Certificates → *Always Use HTTPS* for `agent-fleet.org`.
+5. **Mail.** On `agent-fleet.org`: Compute → Email Service → Email Routing. Add the
+   maintainer's address as a destination and verify it from the message Cloudflare sends,
+   then a routing rule `security@` → that destination; accept the MX / SPF / DKIM records it
+   offers. Send a test message before anything points at the address — the main repository's
+   `SECURITY.md`, the page footer and `security.txt` all do. Routing only receives: a reply
+   goes out from the destination mailbox, under that address.
+6. **Analytics** (optional). Pages project → Metrics → Web Analytics. It sets no cookies; its
+   beacon's two hosts are already allowed by the CSP in `_headers`. Nothing else is loaded from
+   a third party.
 
 ### After switching DNS
 
 ```bash
 curl -sI https://agent-fleet.org/ | head -1                           # 200
+curl -sI http://agent-fleet.org/ | grep -i '^location'                # https://agent-fleet.org/
 curl -sI https://www.agent-fleet.org/ja/ | grep -i '^location'        # https://agent-fleet.org/ja/
 curl -sI https://agent-fleet.jp/ | grep -iE '^(HTTP|location)'        # 301, https://agent-fleet.org/ja/
 curl -s https://agent-fleet.org/.well-known/security.txt | head -1    # Contact: mailto:…
