@@ -80,7 +80,7 @@ forwarding and analytics are on Cloudflare's free plan. In this order:
    `100::` is Cloudflare's placeholder for a redirect-only hostname: the record has to exist and
    be proxied for a redirect rule to fire, and no request ever reaches the address. The null MX
    on `.org` must go because Email Routing adds its own MX and SPF, and a null MX says the
-   domain takes no mail; `.jp` takes none, so it keeps them.
+   domain takes no mail. `.jp` takes none, and its apex SPF `-all` says it sends none either.
 2. **Name servers.** At お名前.com, point each domain at the two name servers Cloudflare
    assigned. DNSSEC must be off at お名前.com before this (a DS record left behind breaks
    resolution); neither domain has one today. Wait for Cloudflare to report both zones Active.
@@ -90,30 +90,35 @@ forwarding and analytics are on Cloudflare's free plan. In this order:
    link at its foot. If connecting GitHub fails with "could not be installed" although
    <https://github.com/settings/installations> lists *Cloudflare Workers and Pages*, open that
    installation in the popup, change *Repository access* (only `agent-fleet-site`) and *Save*:
-   the save sends the callback Cloudflare missed. Then Custom domains → add `agent-fleet.org`; Cloudflare creates the
-   apex record itself. Do not create that record by hand first — a record the Pages project
+   the save sends the callback Cloudflare missed. Then Custom domains → add `agent-fleet.org`;
+   Cloudflare creates the apex record itself. Do not create that record by hand first — a record the Pages project
    does not know about answers 522. Every pull request gets a preview URL, and `_headers`
    keeps the `*.pages.dev` alias out of search results.
-4. **Redirects.** Rules → Redirect Rules → a single redirect per row, *Wildcard pattern*,
-   status 301, *Preserve query string* on:
+4. **Redirects.** Rules → Overview → *Rule templates* (the dashboard has no separate Redirect
+   Rules menu any more). All three are status 301 with *Preserve query string* on:
 
-   | Zone | Request URL | Target URL |
+   | Zone | Template | Settings |
    |---|---|---|
-   | `agent-fleet.org` | `http*://www.agent-fleet.org/*` | `https://agent-fleet.org/${2}` |
-   | `agent-fleet.jp` | `http*://agent-fleet.jp/*` | `https://agent-fleet.org/ja/${2}` |
-   | `agent-fleet.jp` | `http*://www.agent-fleet.jp/*` | `https://agent-fleet.org/ja/${2}` |
+   | `agent-fleet.org` | *Redirect from HTTP to HTTPS* | as offered |
+   | `agent-fleet.org` | *Redirect from WWW to root* | wildcard `https://www.*` → `https://${1}` |
+   | `agent-fleet.jp` | *Redirect to a different domain* | custom filter `(http.host eq "agent-fleet.jp") or (http.host eq "www.agent-fleet.jp")` → dynamic `concat("https://agent-fleet.org/ja", http.request.uri.path)` |
 
-   Also turn on SSL/TLS → Edge Certificates → *Always Use HTTPS* for `agent-fleet.org`, and
-   turn **off** Security → Settings → *Email Address Obfuscation*: it is on for a new zone,
+   The www-to-root rule only matches `https`, which is why the HTTP-to-HTTPS rule is needed:
+   `http://www.agent-fleet.org/` takes two hops. Deploying a rule for `www` or `.jp` warns that
+   the hostname may not be proxied — the check does not recognise the `100::` placeholder;
+   deploy anyway, and do not let it create another record.
+
+   Also turn **off** Security → Settings → *Email Address Obfuscation*: it is on for a new zone,
    rewrites the footer's `mailto:` into a `/cdn-cgi/` link and injects a decoder script, so
    the served HTML no longer matches this repository and readers without JavaScript see
    "[email protected]" instead of the security contact.
-5. **Mail.** On `agent-fleet.org`: Compute → Email Service → Email Routing. Add the
-   maintainer's address as a destination and verify it from the message Cloudflare sends,
-   then a routing rule `security@` → that destination; accept the MX / SPF / DKIM records it
-   offers. Send a test message before anything points at the address — the main repository's
-   `SECURITY.md`, the page footer and `security.txt` all do. Routing only receives: a reply
-   goes out from the destination mailbox, under that address.
+5. **Mail.** On `agent-fleet.org`: the zone's *Email* menu → Email Routing. Add the
+   maintainer's address under *Destination addresses* and verify it from the message Cloudflare
+   sends, then a routing rule `security@agent-fleet.org` → that destination, and accept the MX /
+   SPF / DKIM records it offers; leave the catch-all disabled. Send a test message from another
+   provider before anything points at the address — the main repository's `SECURITY.md`, the
+   page footer and `security.txt` all do. Routing only receives: a reply goes out from the
+   destination mailbox, under that address.
 6. **Analytics** (optional). Pages project → Metrics → Web Analytics. It sets no cookies; its
    beacon's two hosts are already allowed by the CSP in `_headers`. Nothing else is loaded from
    a third party.
@@ -124,6 +129,7 @@ forwarding and analytics are on Cloudflare's free plan. In this order:
 curl -sI https://agent-fleet.org/ | head -1                           # 200
 curl -sI http://agent-fleet.org/ | grep -i '^location'                # https://agent-fleet.org/
 curl -sI https://www.agent-fleet.org/ja/ | grep -i '^location'        # https://agent-fleet.org/ja/
+curl -sI http://www.agent-fleet.jp/ | grep -i '^location'             # https://agent-fleet.org/ja/
 curl -sI https://agent-fleet.jp/ | grep -iE '^(HTTP|location)'        # 301, https://agent-fleet.org/ja/
 curl -s https://agent-fleet.org/.well-known/security.txt | head -1    # Contact: mailto:…
 curl -sI https://agent-fleet.org/ | grep -i content-security-policy   # _headers applied
