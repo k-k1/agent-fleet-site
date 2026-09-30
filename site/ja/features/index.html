@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>機能 — Agent Fleet</title>
+  <meta name="description" content="Agent Fleet でできることの詳細。セッションがセッションを起こす、アシスタントでの障害対応、課題管理、ファイルビュアー、Git、MCP、統治、使用量。それぞれ利用ガイドへのリンク付き。">
+  <link rel="canonical" href="https://agent-fleet.org/ja/features/">
+  <link rel="alternate" hreflang="en" href="https://agent-fleet.org/features/">
+  <link rel="alternate" hreflang="ja" href="https://agent-fleet.org/ja/features/">
+  <link rel="alternate" hreflang="x-default" href="https://agent-fleet.org/features/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Agent Fleet">
+  <meta property="og:title" content="Agent Fleet — 機能">
+  <meta property="og:description" content="Agent Fleet でできることを、使い方の例と機能の一覧で。それぞれ利用ガイドへつながります。">
+  <meta property="og:url" content="https://agent-fleet.org/ja/features/">
+  <meta property="og:image" content="https://agent-fleet.org/og-ja.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Agent Fleet: エージェントは置き換えない。運用する。">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0b1417">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/assets/brand/icon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">本文へ移動</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/ja/"><img src="/assets/brand/icon-192.png" alt="" width="30" height="30">Agent Fleet</a>
+    <nav class="site-nav" aria-label="セクション">
+      <a href="/ja/#fleet">フリート運用</a>
+      <a href="/ja/features/" aria-current="page">機能</a>
+      <a href="/ja/#upstream">CLI の更新</a>
+      <a href="/ja/#security">セキュリティ</a>
+      <a href="/ja/#editions">エディション</a>
+      <a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/README.ja.md">ドキュメント</a>
+    </nav>
+    <div class="header-end">
+      <p class="lang"><a href="/features/" hreflang="en" lang="en">English</a> · <span aria-current="true">日本語</span></p>
+      <a class="btn btn-ghost btn-small" href="https://github.com/k-k1/agent-fleet"><svg viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><span class="btn-label">GitHub</span></a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="page-hero">
+  <div class="wrap">
+    <p class="kicker">機能</p>
+    <h1>エージェントのまわりのことを、<span class="nb">1 か所で</span></h1>
+    <p class="lead"><a href="/ja/">トップページ</a>では考え方を紹介しました。このページでは、それが実際に何になるかを見せます。まず使い方の例を 5 つ、続いて機能の一覧。数字があるものは数字を添え、利用ガイドの該当ページにつないでいます。</p>
+    <ul class="legend">
+      <li><span class="flag flag-off">既定はオフ</span>使う前に誰かがオンにする</li>
+      <li><span class="flag flag-aws">AWS 版のみ</span>AWS の版に依存する</li>
+      <li><span class="flag flag-exp">実験的</span>変わるかもしれない試作</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" id="walkthroughs" aria-labelledby="walkthroughs-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">使い方の例</p>
+      <h2 id="walkthroughs-h">5 つの使い方</h2>
+      <p>デモ用のバックエンドにつないだ Console で録画しました。クリックすると大きく表示します。</p>
+    </div>
+
+    <div class="case" id="orchestrate">
+      <div class="case-text">
+        <h3>3 つのエージェントにレビューを分担させる <span class="flag flag-off">既定はオフ</span></h3>
+        <p>Claude のセッションが設計レビューを 3 つに分け、それぞれを別のエージェントに任せます。</p>
+        <ol class="case-steps">
+          <li>Claude の親が子セッションを 3 本起動します。データモデルとマイグレーションは Codex、API の互換性は Antigravity、UI への影響は Muse Code。</li>
+          <li>子はそれぞれ自分の worktree で作業し、終わったら 1 回だけ報告するよう頼まれています。</li>
+          <li>親が 3 本の報告をまとめます。フリート俯瞰図には 4 本のレーンが時間軸に並び、起動とメッセージが矢印で描かれます。</li>
+        </ol>
+        <p class="note">「セッションからのセッション起動」と「セッション間メッセージ」は、どちらもオンにするまで使えません。子の同時本数は既定 3 本（1〜10）です。</p>
+        <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.ja.md#セッションから別のセッションを起こす子セッション">利用ガイドの「子セッション」→</a></p>
+      </div>
+      <figure class="shot"><a href="/assets/img/demo-orchestrate-ja.webp" data-lightbox><img src="/assets/img/demo-orchestrate-ja.webp" width="1280" height="856" loading="lazy" decoding="async" alt="録画: Claude のセッションが Codex・Antigravity・Muse Code のレビュー役を別々の worktree で起動し、報告を受けてまとめる。フリート俯瞰図に 4 本のレーン"></a></figure>
+    </div>
+
+    <div class="case flip" id="incident">
+      <div class="case-text">
+        <h3>障害の調査から修正まで <span class="flag flag-exp">実験的</span></h3>
+        <p>アシスタント 2 つで役割を分けます。片方は監視を読み、もう片方が作業を始めます。</p>
+        <ol class="case-steps">
+          <li>SRE アシスタントに、PagerDuty でいま開いているものを聞きます。インシデントを読み、CloudWatch のメトリクスとログから原因を絞り込みます。</li>
+          <li>SRE アシスタントは読み取り専用で、何も変更できず、セッションも起動できません。そこで修正はフリート・オペレーターに頼みます。</li>
+          <li>フリート・オペレーターが新しい worktree で Codex のセッションを起動して修正を任せ、そのセッションの報告は同じ会話に届きます。</li>
+        </ol>
+        <p class="note">アラートがチャットに自動で届くことはなく、こちらから聞きます。PagerDuty・Grafana・CloudWatch・AWS は「設定 › 運用・監視」で接続します。</p>
+        <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/13-ops-tooling.ja.md#pagerduty--grafana--cloudwatch--aws-は運用監視タブから接続できます推奨">利用ガイドの「運用ツール」→</a></p>
+      </div>
+      <figure class="shot"><a href="/assets/img/demo-sre-ja.webp" data-lightbox><img src="/assets/img/demo-sre-ja.webp" width="1280" height="856" loading="lazy" decoding="async" alt="録画: SRE アシスタントが PagerDuty のインシデントと CloudWatch を読んで修正案を出し、フリート・オペレーターが新しい worktree で Codex のセッションを起動する"></a></figure>
+    </div>
+
+    <div class="case" id="tickets">
+      <div class="case-text">
+        <h3>チケットから PR、そしてレビューまで</h3>
+        <p>左ペインの「課題管理」に、自分宛ての仕事が集まります。</p>
+        <ol class="case-steps">
+          <li>クエリを保存すると、GitHub の issue とプルリクエスト、Jira の課題、Bitbucket のプルリクエストが 1 つの一覧に並びます。</li>
+          <li>課題からセッションを起動すると、ブランチ名が命名規則から入ります（例: <code>feature/45-empty-list</code>）。作業は新しい worktree で。</li>
+          <li>プルリクエストを開くと、CI・競合・レビューが見えます。「レビューを始める」で、その PR の head ブランチを新しい worktree に取り出します。</li>
+        </ol>
+        <p class="note">一覧の行に CI と競合の印が付くのは GitHub のプルリクエストです。Bitbucket は詳細で確かめます。</p>
+        <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.ja.md#課題管理から始める">利用ガイドの「課題管理」→</a></p>
+      </div>
+      <figure class="shot"><a href="/assets/img/workitems-ja.webp" data-lightbox><img src="/assets/img/workitems-ja.webp" width="3200" height="2000" loading="lazy" decoding="async" alt="課題管理の一覧（PR の行に CI と競合の印）と、プルリクエストの詳細。ブランチ、競合、レビュー、CI 8 件中 1 件失敗、「レビューを始める」ボタン"></a></figure>
+    </div>
+
+    <div class="case flip" id="plan">
+      <div class="case-text">
+        <h3>プランを承認して、コミットまでブラウザで</h3>
+        <p>この流れに端末は要りません。</p>
+        <ol class="case-steps">
+          <li>プランモードで起動すると、エージェントはまずプランを出します。その場で承認するか、指摘を書き込むか、別のセッションにレビューさせます。</li>
+          <li>作業が始まります。作業コピーの変更は会話のすぐ隣に出ます。</li>
+          <li>ステージとコミットは、コミットグラフビューで自分で行います。作業コピーごとの本物の git です。</li>
+        </ol>
+        <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/07-chat-memo.ja.md#走っているエージェントの会話を読む返信する">利用ガイドの「会話を読む・返信する」→</a></p>
+      </div>
+      <figure class="shot"><a href="/assets/img/demo-plan-ja.webp" data-lightbox><img src="/assets/img/demo-plan-ja.webp" width="1280" height="856" loading="lazy" decoding="async" alt="録画: プランモードのエージェントがプランを出し、会話の中で承認。変更が隣に出て、ブラウザでステージしてコミットする"></a></figure>
+    </div>
+
+    <div class="case phone" id="phone">
+      <div class="case-text">
+        <h3>スマホで答える</h3>
+        <p>席を離れていても、Console はスマホのブラウザで動きます。</p>
+        <ol class="case-steps">
+          <li>セッション一覧で、どのセッションが自分を待っているかが分かります。</li>
+          <li>開いて、カードの質問に答えます。席にいるときと同じ操作です。</li>
+          <li>止まったところから続きを進め、一覧には完了と出ます。</li>
+        </ol>
+        <p class="note">チャットブリッジをつなぎ「返信で操縦（双方向）」をオンにすれば（既定はオフ）、そのセッションの Slack や Discord のスレッドからも答えられます。</p>
+        <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/05-terminal.ja.md#スマホでの操作">利用ガイドの「スマホでの操作」→</a></p>
+      </div>
+      <figure class="shot"><a href="/assets/img/demo-phone-ja.webp" data-lightbox><img src="/assets/img/demo-phone-ja.webp" width="780" height="1840" loading="lazy" decoding="async" alt="スマホでの録画: セッション一覧に質問中のセッションが出て、カードで答えるとセッションが最後まで進む"></a></figure>
+    </div>
+
+    <p class="more-all">夜間の定時実行や、利用上限の後の自動再開は、トップページの<a href="/ja/#day">「Agent Fleet のある一日」</a>で紹介しています。</p>
+  </div>
+</section>
+
+<section class="section section-alt" id="catalogue" aria-labelledby="catalogue-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">機能の一覧</p>
+      <h2 id="catalogue-h">できること</h2>
+      <p>分野ごとにまとめました。細かな条件や上限は、各カードからつながる利用ガイドが正です。</p>
+    </div>
+    <nav aria-label="分野">
+      <ul class="jump">
+        <li><a href="#together">セッション同士の協調</a></li>
+        <li><a href="#files">ファイルを読む・直す</a></li>
+        <li><a href="#intake">作業の入口</a></li>
+        <li><a href="#git">Console の中の Git</a></li>
+        <li><a href="#devenv">エージェントのまわりの開発環境</a></li>
+        <li><a href="#chat">チャットとアシスタント</a></li>
+        <li><a href="#ops">運用と SRE</a></li>
+        <li><a href="#mcp">MCP</a></li>
+        <li><a href="#engines">画像生成と自前のエンジン</a></li>
+        <li><a href="#hands">キーボード・スマホ・音声</a></li>
+        <li><a href="#governance">統治と管理</a></li>
+        <li><a href="#usage">使用量と費用</a></li>
+      </ul>
+    </nav>
+
+    <div class="cat" id="together">
+      <div class="cat-head cat-top">
+        <div>
+          <h3>セッション同士の協調</h3>
+          <p>セッションが別のセッションを起動し、メッセージを送り合えます。フリート・オペレーターがあなたの代わりにセッションを起動し、指示します。</p>
+        </div>
+        <figure class="shot"><a href="/assets/img/fleetgraph-ja.webp" data-lightbox><img src="/assets/img/fleetgraph-ja.webp" width="3200" height="1240" loading="lazy" decoding="async" alt="フリート俯瞰図: セッションごとのレーンが時間軸に並び、子は親の下に、やり取りは矢印で描かれる"></a></figure>
+      </div>
+      <ul class="cards">
+        <li>
+          <h4>子セッション <span class="flag flag-off">既定はオフ</span></h4>
+          <p>1 本のセッションが子を既定で同時 <b class="num">3</b> 本まで（<b class="num">1〜10</b>）起動できます。<b class="num">9</b> 種類のエージェントのどれでもよく、それぞれ新しい worktree で動きます。孫は作れません（1 段まで）。子は終わったら 1 回報告するよう頼まれます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.ja.md#セッションから別のセッションを起こす子セッション">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>セッション間メッセージ <span class="flag flag-off">既定はオフ</span></h4>
+          <p>依頼・質問・回答・共有の 4 種類。止まっている相手は再開してから受け取ります。1 通 <b class="num">16 KiB</b> まで、送り手ごとに 1 分 <b class="num">6</b> 通まで。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.ja.md#セッション同士でメッセージを送る">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>フリート俯瞰図</h4>
+          <p>セッションごとのレーンを時間軸に並べ、子は親の下に置きます。起動・引き継ぎ・指示・メッセージはすべて矢印で描きます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.ja.md#セッション同士の関係を時間で見るフリート俯瞰図">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>プランを別のモデルにレビューさせる</h4>
+          <p>承認待ちのプランから「別セッションでレビュー」を選び、別のエージェントとモデルにレビューさせます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/07-chat-memo.ja.md#プランを別のセッションにレビューさせる">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>フリート・オペレーター</h4>
+          <p>セッションの起動・指示・停止・再開を代わりに行う組み込みのアシスタント。資源を使う起動の前には確認を取ります。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/08-organising.ja.md#フリートオペレーターとは">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>セッション報告と自動走行 <span class="flag flag-off">既定はオフ</span></h4>
+          <p>セッションは、手が空いたとき・質問するとき・異常終了したときにオペレーターへ報告します。自動走行をオンにすると決まりきった質問には自分で答えます。無人での返信は既定 <b class="num">10</b> 回、最大 <b class="num">50</b> 回。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/08-organising.ja.md#セッション報告と自動応答">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>引き継ぎ</h4>
+          <p>会話を別のエージェントへ引き継ぎます。要約はオペレーターが下書きし、あなたが確かめてから始まります。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.ja.md#会話を引き継ぐhandoff">利用ガイド →</a></p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cat" id="files">
+      <div class="cat-head cat-top">
+        <div>
+          <h3>ファイルを読む・直す</h3>
+          <p>エージェントが書いたものもチームの資料も、Console の中のファイルビュアーで開けます。</p>
+        </div>
+        <figure class="shot"><a href="/assets/img/files-ja.webp" data-lightbox><img src="/assets/img/files-ja.webp" width="3600" height="2000" loading="lazy" decoding="async" alt="2 つのファイルペイン: 前付けと Mermaid のシーケンス図を含む Markdown と、draw.io の構成図"></a></figure>
+      </div>
+      <ul class="cards">
+        <li>
+          <h4>コード</h4>
+          <p>約 <b class="num">30</b> 言語のハイライト、git が変更と見る行の印、<b class="num">10,000</b> 行までのミニマップ。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/04-files.ja.md#ファイルビュアー">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>Markdown と Mermaid</h4>
+          <p>Mermaid の図をその場で描き、前付けは項目の一覧で見せます。<code>path:行</code> のリンクはそのファイルのその行を開きます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/04-files.ja.md#markdown-と-mermaid">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>Marp スライド</h4>
+          <p><code>marp: true</code> の Markdown はスライドとして開きます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/04-files.ja.md#marp-スライド">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>draw.io の図</h4>
+          <p>ネットにつながなくても表示できます。表示のみで、編集できるのは XML です。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/04-files.ja.md#図drawio">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>PDF</h4>
+          <p>文字を選択でき、拡大もできます。フォントを埋め込んでいない日本語の PDF も表示できます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/04-files.ja.md#pdf-と-office-文書">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>Office・ODF・EPUB</h4>
+          <p>Word・Excel・PowerPoint・OpenDocument・EPUB を、ブラウザの中で Markdown に変換して見せます（<b class="num">40 MB</b> まで）。簡易プレビューなので、書式・図形・画像は再現しません。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/04-files.ja.md#pdf-と-office-文書">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>画像とギャラリー</h4>
+          <p>PNG から AVIF・SVG まで、<b class="num">8 倍</b>まで拡大できます。ギャラリーのペインに画像が集まり、生成した画像の設定はワンクリックで見られます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/04-files.ja.md#画像ギャラリー">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>編集と AI の提案</h4>
+          <p>保存の競合を検出します。AI が提案した書き換えは、適用する前に差分で確かめられます（1 回の変更は <b class="num">2 MiB</b> まで）。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/04-files.ja.md#ai-に書き換えを提案させる">利用ガイド →</a></p>
+        </li>
+        <li class="not">
+          <h4>まだ対応していないもの</h4>
+          <p>数式（KaTeX）、CSV の表表示、Jupyter ノートブック、動画・音声。これらはテキストとして開くか、開けません。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/04-files.ja.md#ファイルビュアー">利用ガイド →</a></p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cat" id="intake">
+      <div class="cat-head cat-top">
+        <div>
+          <h3>作業の入口</h3>
+          <p>チケット、プルリクエスト、自分用のメモ、スケジュール。どれからでもセッションを始められます。</p>
+        </div>
+        <figure class="shot"><a href="/assets/img/workitems-ja.webp" data-lightbox><img src="/assets/img/workitems-ja.webp" width="3200" height="2000" loading="lazy" decoding="async" alt="課題管理の一覧（PR の行に CI と競合の印）と、「レビューを始める」ボタンのあるプルリクエストの詳細"></a></figure>
+      </div>
+      <ul class="cards">
+        <li>
+          <h4>3 つのトラッカーを 1 つの受信箱に</h4>
+          <p>GitHub の issue とプルリクエスト、Jira の課題、Bitbucket のプルリクエストを 1 つの一覧に。約 <b class="num">5</b> 分ごとに更新します。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.ja.md#一覧の読み方">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>CI と競合がひと目で</h4>
+          <p>GitHub のプルリクエストは一覧の行に CI と競合の印が付きます。詳細では CI・競合・レビュー・差分の量が見えます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.ja.md#プルリクエストの詳細">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>チケットに合わせたブランチ名</h4>
+          <p>課題から起動すると、ブランチ名と分岐元が命名規則から入ります。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.ja.md#行からセッションへ">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>プルリクエストからレビュー</h4>
+          <p>「レビューを始める」で、そのプルリクエストの head ブランチを新しい worktree に取り出します。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.ja.md#プルリクエストの詳細">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>メモキュー</h4>
+          <p>スマホで書き留めて、席に戻ってからセッションへ送れます。メモは端末ではなくあなたに付きます。アシスタントに整理させることもできます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/07-chat-memo.ja.md#メモキュー">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>定時実行</h4>
+          <p>フリート・オペレーターに「毎晩 2 時に…」と頼むだけ。止まっているワークスペースもスケジュールが起こして実行します。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/08-organising.ja.md#定時実行スケジュール">利用ガイド →</a></p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cat" id="git">
+      <div class="cat-head cat-top">
+        <div>
+          <h3>Console の中の Git</h3>
+          <p>作業コピーと worktree ごとに本物の git を。並行作業に要る後片付けも揃っています。</p>
+        </div>
+        <figure class="shot"><a href="/assets/img/scm-ja.webp" data-lightbox><img src="/assets/img/scm-ja.webp" width="3800" height="1800" loading="lazy" decoding="async" alt="分割ペイン: 左にブランチのレーン付きのコミットグラフ、右に選んだコミットの差分"></a></figure>
+      </div>
+      <ul class="cards">
+        <li>
+          <h4>コミットグラフ</h4>
+          <p>ブランチのレーンと差分、ステージとコミット、サブモジュールのグラフまで。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/03-code.ja.md#コミットグラフビューでコミットする">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>worktree と親の差</h4>
+          <p>worktree ごとに、親と比べた状態（同じ・未マージ・早送り可・分岐）を表示します。早送りはワンクリック。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/03-code.ja.md#リポジトリの行からセッションを起動する">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>ごみ箱から復元</h4>
+          <p>worktree を消しても、コミット・ブランチ・未コミットの変更を残します。復元すると同じ場所に、セッションごと戻ります。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.ja.md#まとめて片付ける掃除">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>内蔵の Git ホスティング</h4>
+          <p>Git LFS 付きの内部リポジトリを、テナントの中で共有できます。数と LFS の容量は管理者が決めます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/03-code.ja.md#内蔵の-git-プロバイダ内部-git">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>サブモジュールと LFS</h4>
+          <p>サブモジュールはクローンと一緒に取得します。SSH の URL は認証が通るよう HTTPS に書き換えます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/03-code.ja.md#submodule-と-git-lfs">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>Git Flow</h4>
+          <p>リポジトリの行から Git Flow を初期化できます。書くのは設定だけで、コミットもチェックアウトもしません。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/03-code.ja.md#git-flow-を初期化">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>Subversion</h4>
+          <p>SVN のリポジトリもチェックアウトできます（認証情報は保存可）。worktree とコミットグラフはありません。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/03-code.ja.md#subversionsvnリポジトリ">利用ガイド →</a></p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cat" id="devenv">
+      <div class="cat-head">
+        <div>
+          <h3>エージェントのまわりの開発環境</h3>
+          <p>データベース、ブラウザ、プレビューをワークスペースの中に。Docker は要りません。</p>
+        </div>
+      </div>
+      <ul class="cards">
+        <li>
+          <h4>作業コピーごとのデータベース</h4>
+          <p>作業コピーごとに Postgres または MySQL <b class="num">8.4</b>。Docker は要りません。<b class="num">30</b> 分つながりが無ければサーバーは止まります。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/03-code.ja.md#db-を使うテストを回す">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>ブラウザペイン</h4>
+          <p>開発サーバーを Console の中の本物のブラウザで。HMR・WebSocket・Cookie も動きます。ワークスペースごとに <b class="num">2</b> つまで、PC とタブレットで使えます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/10-integrations.ja.md#立ち上げた-web-を見る--ブラウザペインと軽量プレビュー">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>プレビュー URL <span class="flag flag-aws">AWS 版のみ</span></h4>
+          <p>ポートごとの URL を、テナントの人に見せたり、一時的にサインインなしで開けるようにしたりできます。プレビュー用サブドメインを発行する配備でだけ使えます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/10-integrations.ja.md#プレビュー用サブドメイン発行されている環境のみ">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>ブラウザを人に渡す</h4>
+          <p>エージェントがワンタイムコードの入力で止まったら、そのページを人に渡します。コードを入れて「操作完了」を押すだけです。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/10-integrations.ja.md#エージェントが開いたブラウザを代わりに操作する">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>本物の端末</h4>
+          <p>エージェントでも素のシェルでも、どのセッションにも端末（PTY）としてつなげます。スマホには制御キーの列が出ます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/05-terminal.ja.md">利用ガイド →</a></p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cat" id="chat">
+      <div class="cat-head cat-top">
+        <div>
+          <h3>チャットとアシスタント</h3>
+          <p>自分で形を決めるアシスタントと、エージェントを読む・答えるための助け。</p>
+        </div>
+        <figure class="shot"><a href="/assets/img/mirror-ja.webp" data-lightbox><img src="/assets/img/mirror-ja.webp" width="2560" height="1800" loading="lazy" decoding="async" alt="会話ミラー: エージェントの質問が、選択肢付きで答えられるカードとして出ている"></a></figure>
+      </div>
+      <ul class="cards">
+        <li>
+          <h4>自分のアシスタント</h4>
+          <p>アシスタントに人物像、エージェントとモデル、ツールの権限（なし・AF 読み取り・AF 書き込み）を決めて作れます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/07-chat-memo.ja.md#用途別のアシスタントと翻訳">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>ターンを使わない翻訳</h4>
+          <p>「翻訳」は、セッションの外で 1 回だけモデルを呼び、エージェントの回答を自分の言語で読ませます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.ja.md#回答を自分の言語で読む翻訳">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>返信候補</h4>
+          <p>自分の過去の返信から学ぶ候補のチップ。AI は使いません。✨ を押したときだけ AI に聞き、トークンを使います。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/07-chat-memo.ja.md#返信サジェスト">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>圧縮しても残る作業計画</h4>
+          <p>長くなったアシスタントの会話を圧縮しても（<b class="num">90%</b> を超えると自動）、作業計画は一字一句そのまま引き継ぎます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/07-chat-memo.ja.md#忘れさせたくないことは作業計画に置く">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>発言から分岐</h4>
+          <p>自分の過去の発言から会話を分岐させ、元の流れを残したまま別の方向を試せます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/07-chat-memo.ja.md#この発言から分岐する">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>会話の途中でエージェントを替える</h4>
+          <p>アシスタントの会話を、続きのまま別のエージェントやモデルへ移せます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/07-chat-memo.ja.md#会話の途中でエージェントを切り替える">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>Slack と Discord <span class="flag flag-off">既定はオフ</span></h4>
+          <p>セッションごとにスレッドができます。「返信で操縦（双方向）」をオンにすれば、そこからボタンで答えられます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/10-integrations.ja.md#discord--slack-と連携するチャットブリッジ">利用ガイド →</a></p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cat" id="ops">
+      <div class="cat-head">
+        <div>
+          <h3>運用と SRE</h3>
+          <p>監視をチャットから読み、AWS のコマンドは自分として実行します。</p>
+        </div>
+      </div>
+      <ul class="cards">
+        <li>
+          <h4>SRE アシスタント <span class="flag flag-exp">実験的</span></h4>
+          <p>PagerDuty・Grafana・CloudWatch・AWS を読みます。読み取り専用で、セッションは起動できません。アラートが自動で届くこともなく、こちらから聞きます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/13-ops-tooling.ja.md#pagerduty--grafana--cloudwatch--aws-は運用監視タブから接続できます推奨">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>AWS のツールは読み取りから</h4>
+          <p>Agent Toolkit for AWS は読み取り専用で始まります。書き込みのツールは別のスイッチで、実際のリソースを変更できます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/13-ops-tooling.ja.md#pagerduty--grafana--cloudwatch--aws-は運用監視タブから接続できます推奨">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>AWS コマンドの口座ガード</h4>
+          <p><code>af-aws-exec</code> は自分のプロファイルでコマンドを実行し、指定したアカウントのものでなければ断ります。ワークスペース自身のロールに黙って切り替わることはありません。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/10-integrations.ja.md#プロファイルを端末sdkビルドツールから使う">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>SSM でログイン</h4>
+          <p>社内のホストへ SSM Session Manager で入ります。サインインは IAM Identity Center で、AWS の秘密情報を Agent Fleet に保存しません。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/10-integrations.ja.md#社内の別ホストに入るssm">利用ガイド →</a></p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cat" id="mcp">
+      <div class="cat-head">
+        <div>
+          <h3>MCP</h3>
+          <p>エージェントに自分のツールを渡し、外から Agent Fleet を操作します。</p>
+        </div>
+      </div>
+      <ul class="cards">
+        <li>
+          <h4>自分の MCP サーバー</h4>
+          <p>stdio またはリモート HTTP のサーバーを登録できます。秘密情報は暗号化して保存します。セッションと、自分で作ったアシスタントに付けられます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/12-settings.ja.md#mcp-サーバー">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>外部の Claude から操作</h4>
+          <p>Claude Code や Claude Desktop から、MCP トークンで自分のワークスペースを操作できます。範囲は読み取り・書き込み・管理の 3 段階。期限は既定 <b class="num">90</b> 日で、取り消せます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/10-integrations.ja.md#外部の-claude-から自分のワークスペースを操作するmcp">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>テナントに配る</h4>
+          <p>テナント管理者が、リモートの MCP サーバーをテナント全員に一度に配れます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/admin/04-mcp-egress.ja.md#mcp-サーバーをテナント全員に配るあなたの権限">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>外部通信の統制</h4>
+          <p>配備の運用者は、MCP の外向き通信を許可リストで記録または制限できます。メンバーは設定から許可を申請します。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/admin/04-mcp-egress.ja.md#外部通信の統制egresssuper_admin-専用">利用ガイド →</a></p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cat" id="engines">
+      <div class="cat-head cat-top">
+        <div>
+          <h3>画像生成と自前のエンジン</h3>
+          <p>管理者がエンジンを用意した環境では、画像の生成もオープンなモデルの実行も配備の中で行えます。</p>
+        </div>
+        <figure class="shot"><a href="/assets/img/imagegen-ja.webp" data-lightbox><img src="/assets/img/imagegen-ja.webp" width="3600" height="2000" loading="lazy" decoding="async" alt="画像生成のスタジオ: 下書きを直すエージェントとの会話、設定付きの下書き、ジョブの待ち行列、生成された画像"></a></figure>
+      </div>
+      <ul class="cards">
+        <li>
+          <h4>スタジオ</h4>
+          <p>エージェントと話しながら下書きを直します。エージェントが試せるのは画面の下書きそのままを 1 枚ずつで、まとめて生成するボタンは人が押します。編集はすべて履歴に残り、戻れます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/04-files.ja.md#スタジオ--エージェントと会話で下書きを直す">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>ComfyUI のエンジン</h4>
+          <p>社内ネットワークの ComfyUI を使うことも、AWS で GPU のエンジンを動かすこともできます。登録は管理者が行います。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/admin/04-mcp-egress.ja.md#推論エンジン自前の-gpusuper_admin-専用">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>GPU は必要なときだけ <span class="flag flag-aws">AWS 版のみ</span></h4>
+          <p><code>ecs-ec2</code> 版では、ジョブが来たときに GPU インスタンスを起動し、手が空けば止めます。最初の 1 件は約 <b class="num">3</b> 分待ちます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/admin/04-mcp-egress.ja.md#推論エンジン自前の-gpusuper_admin-専用">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>llama.cpp のセッション</h4>
+          <p>Qwen3・GPT-OSS・Gemma などのオープンなモデルを、サインインなしで 1 本のセッションとして動かします。冷えた状態の最初のターンは数分かかります。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/06-agents.ja.md#lcpp">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>どのセッションからも画像を <span class="flag flag-off">既定はオフ</span></h4>
+          <p>セッションから画像生成をツールとして呼べるようにします。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.ja.md#セッションに画像を作らせる">利用ガイド →</a></p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cat" id="hands">
+      <div class="cat-head cat-top">
+        <div>
+          <h3>キーボード・スマホ・音声</h3>
+          <p>マウスなしでも、スマホからでも、耳だけでもフリートを追えます。</p>
+        </div>
+        <figure class="shot"><a href="/assets/img/split-ja.webp" data-lightbox><img src="/assets/img/split-ja.webp" width="3200" height="1960" loading="lazy" decoding="async" alt="3 つのペイン: 会話ミラー、シェルのセッションにつないだ端末、コミット欄付きの作業ツリーの変更"></a></figure>
+      </div>
+      <ul class="cards">
+        <li>
+          <h4>コマンドパレット</h4>
+          <p><kbd>Ctrl/⌘ P</kbd> でセッション・コマンド・変更ファイル・ファイルを探せます。自分を待っているセッションが先頭に出ます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/05-terminal.ja.md#コマンドパレット">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>リーダーキー</h4>
+          <p><kbd>Ctrl/⌘ K</kbd> で、短いキーの連続で操作するコマンドメニューが開きます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/12-settings.ja.md#キー操作">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>次の要対応へ</h4>
+          <p><kbd>Alt U</kbd> で、答えを待っているセッション、次に未読の通知がある所へ移ります。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/05-terminal.ja.md#ショートカット">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>ペイン</h4>
+          <p>最大 <b class="num">4 × 2</b> のペインを並べられます。どのペインもブラウザの別タブへ切り出せます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/05-terminal.ja.md#複数を並べるペイン">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>スマホで</h4>
+          <p>左右のスワイプで実行中のセッションを切り替えます。端末の下には Esc・Tab・矢印・^C などの制御キーが並びます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/05-terminal.ja.md#スマホでの操作">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>読み上げ <span class="flag flag-off">既定はオフ</span></h4>
+          <p>回答をセッションごとの声で読み上げ、声の左右はペインの位置に合わせます。声はずんだもん（VOICEVOX、管理者が起動）または Amazon Polly。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/12-settings.ja.md#読み上げ">利用ガイド →</a></p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cat" id="governance">
+      <div class="cat-head">
+        <div>
+          <h3>統治と管理</h3>
+          <p>どのエージェントにも届くルールと、管理者が握れる統制。</p>
+        </div>
+      </div>
+      <ul class="cards">
+        <li>
+          <h4>3 層のエージェント指示</h4>
+          <p>運用者が決めるワークスペースの方針、自分のエージェントへの指示、リポジトリの <code>CLAUDE.md</code> / <code>AGENTS.md</code>。それぞれの CLI の作法で届けます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/06-agents.ja.md#エージェントへの指示自分の働き方を一度だけ書く">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>エージェントメモリのスナップショット</h4>
+          <p>Claude Code と Codex が自分で覚えた記憶を、動いた後にスナップショットします。巻き戻せて、巻き戻しも取り消せます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/12-settings.ja.md#エージェントメモリ">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>使わないモデル</h4>
+          <p>契約で追加料金がかかるモデルを隠せます。選択肢から消え、そのモデルを指定した起動は断られます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/11-troubleshooting.ja.md#使いたいモデルが選べない指定したのに起動を断られる">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>監査ログ</h4>
+          <p>変更の操作を記録します。端末の入出力は保存しません。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/admin/03-audit-usage.ja.md#何が記録され何が記録されないか">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>メンバーごとの上限</h4>
+          <p>同時に動かせるセッション数と、メンバーごとのワークスペースの大きさ（メモリ・CPU・ディスク）。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/admin/02-limits.ja.md#メンバー個人のセッション上限あなたが設定できる">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>接続元の制限</h4>
+          <p>テナントに接続できる IPv4・IPv6 の範囲を絞れます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/admin/05-access.ja.md#接続元の制限">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>テナント独自のサインイン</h4>
+          <p>テナントは独自の OIDC プロバイダーや GitHub の組織でサインインできます。配備の管理者の承認が要ります。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/admin/05-access.ja.md#サインイン方式とログイン規則">利用ガイド →</a></p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cat" id="usage">
+      <div class="cat-head cat-top">
+        <div>
+          <h3>使用量と費用</h3>
+          <p>請求や上限に言われる前に、フリートが何を使ったかを知る。</p>
+        </div>
+        <figure class="shot"><a href="/assets/img/usage-ja.webp" data-lightbox><img src="/assets/img/usage-ja.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="使用量タブ: 機能別に積み上げた 30 日分のトークンのグラフ、KPI のタイル、機能・エージェント・モデル別の内訳"></a></figure>
+      </div>
+      <ul class="cards">
+        <li>
+          <h4>機能・エージェント・モデル別のトークン</h4>
+          <p><b class="num">24 時間</b>・<b class="num">7 日</b>・<b class="num">30 日</b>で見られます。トークンを報告しない呼び出しは「未計測」として数え、無料とは扱いません。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/12-settings.ja.md#エージェント使用量">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>API 換算相当額</h4>
+          <p>トークンを公開されている API の定価で換算した推定です。定額の契約で請求される額ではありません。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/12-settings.ja.md#エージェント使用量">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>上部バーの上限チップ</h4>
+          <p>Claude・Codex・Copilot・Antigravity・Muse Code の、契約の上限をどれだけ使ったかを示します。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/06-agents.ja.md#機能対応の早見表全種別">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>上限の後に自動で再開</h4>
+          <p>利用上限で止まったターンは、上限がリセットされると自動で再開します。Claude と、マネージドの Codex が対象です。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/09-collaboration.ja.md#ターンが中断されたとき">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>ワークスペースごとのクラウド費用 <span class="flag flag-aws">AWS 版のみ</span></h4>
+          <p>ワークスペースに直接ひもづく費用を、約 1 日遅れで表示します。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/12-settings.ja.md#クラウド費用">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>稼働時間のヒートマップ</h4>
+          <p>時刻と日付のマス目を、稼働時間またはセッション数で色分けします。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/12-settings.ja.md#稼働時間">利用ガイド →</a></p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section closing" aria-labelledby="closing-h">
+  <div class="wrap">
+    <h2 id="closing-h">手元のマシンで試す</h2>
+    <p class="lead">native 版は x86_64 の Linux か WSL2 で動き、Docker は要りません。</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="https://github.com/k-k1/agent-fleet-dist/blob/main/README.ja.md#はじめに--どの版を選ぶ">はじめる</a>
+      <a class="btn btn-ghost" href="https://github.com/k-k1/agent-fleet/blob/develop/guide/README.ja.md">ガイドを読む</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <a class="logo" href="/ja/"><img src="/assets/brand/icon-192.png" alt="" width="30" height="30">Agent Fleet</a>
+      <nav aria-label="プロジェクト">
+        <a href="https://github.com/k-k1/agent-fleet">ソース</a>
+        <a href="https://github.com/k-k1/agent-fleet-dist/releases">リリース</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/README.ja.md">ドキュメント</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/develop/SECURITY.md">セキュリティポリシー</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/develop/LICENSE">ライセンス（Apache-2.0）</a>
+        <a href="/features/" hreflang="en" lang="en">English</a>
+      </nav>
+    </div>
+    <p class="fine">脆弱性は GitHub のセキュリティアドバイザリーから、または <a href="mailto:security@agent-fleet.org">security@agent-fleet.org</a> へ非公開で報告してください。Claude Code、Codex、GitHub Copilot、Antigravity、Cursor、Kiro、OpenCode、Muse Code は各社の商標です。Agent Fleet は独立したオープンソースプロジェクトで、これらの提供元とは提携しておらず、承認も受けていません。</p>
+  </div>
+</footer>
+<script src="/assets/lightbox.js" defer></script>
+</body>
+</html>

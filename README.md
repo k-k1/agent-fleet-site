@@ -13,8 +13,9 @@ copy for you. The rules below are the whole safety net.
 | Path | What |
 |---|---|
 | `site/` | Everything that is served, as is. No build step. |
-| `site/index.html`, `site/ja/index.html` | The two pages. One stylesheet; the only script is `assets/lightbox.js`, and the page works without it. |
-| `site/assets/img/` | Console screenshots, copied from a release of the distribution repository |
+| `site/index.html`, `site/ja/index.html` | The landing page. One stylesheet; the only script is `assets/lightbox.js`, and the page works without it. |
+| `site/features/index.html`, `site/ja/features/index.html` | Features: walkthroughs, then a catalogue whose every card links into the user guide. |
+| `site/assets/img/` | Console screenshots and demo recordings, copied from a release (below) |
 | `site/assets/brand/` | Icons and the banner, from the main repository's `console/public/brand/` |
 | `site/og-*.png` | Social preview cards (generated) |
 | `site/_headers` | Response headers for Cloudflare Pages (CSP, HSTS, caching) |
@@ -33,8 +34,9 @@ copy for you. The rules below are the whole safety net.
 ## Updating the screenshots
 
 The screenshots are rendered in the main repository (`console/scripts/shots`) and seeded into
-[k-k1/agent-fleet-dist](https://github.com/k-k1/agent-fleet-dist) at release time. After a
-release:
+[k-k1/agent-fleet-dist](https://github.com/k-k1/agent-fleet-dist) at release time. The demo
+recordings (`demo-*.webp`, animated) are left out of the distribution repository for size, so
+the script takes them from the main repository at the same release tag. After a release:
 
 ```bash
 scripts/sync-shots.sh            # latest release; or: scripts/sync-shots.sh v0.24.0
