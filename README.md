@@ -121,8 +121,9 @@ forwarding and analytics are on Cloudflare's free plan. In this order:
    destination mailbox, under that address.
 6. **Analytics.** Pages project → Metrics → Web Analytics (on). The beacon is written into the
    pages at deploy time, so switching it on takes effect with the next deployment, not at once.
-   It uses no cookies or other client-side state; its script host is allowed by the CSP in
-   `_headers`, and on a proxied domain it reports to the site's own `/cdn-cgi/rum`. Ad blockers
+   It uses no cookies or other client-side state. The injected beacon loads from
+   `static.cloudflareinsights.com` and reports to `cloudflareinsights.com/cdn-cgi/rum`; the CSP
+   in `_headers` allows exactly those two hosts, so trimming either breaks it silently. Ad blockers
    stop it, so read its numbers as a floor; the zone's own Analytics counts every request,
    bots included. Nothing else is loaded from a third party.
 
