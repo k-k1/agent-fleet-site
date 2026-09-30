@@ -119,9 +119,12 @@ forwarding and analytics are on Cloudflare's free plan. In this order:
    provider before anything points at the address — the main repository's `SECURITY.md`, the
    page footer and `security.txt` all do. Routing only receives: a reply goes out from the
    destination mailbox, under that address.
-6. **Analytics** (optional). Pages project → Metrics → Web Analytics. It sets no cookies; its
-   beacon's two hosts are already allowed by the CSP in `_headers`. Nothing else is loaded from
-   a third party.
+6. **Analytics.** Pages project → Metrics → Web Analytics (on). The beacon is written into the
+   pages at deploy time, so switching it on takes effect with the next deployment, not at once.
+   It uses no cookies or other client-side state; its script host is allowed by the CSP in
+   `_headers`, and on a proxied domain it reports to the site's own `/cdn-cgi/rum`. Ad blockers
+   stop it, so read its numbers as a floor; the zone's own Analytics counts every request,
+   bots included. Nothing else is loaded from a third party.
 
 ### After switching DNS
 
