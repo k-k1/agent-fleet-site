@@ -7,6 +7,7 @@
 Exits 1 when anything is wrong. Standard library only, so CI needs no install step.
 """
 import datetime
+import hashlib
 import html.parser
 import pathlib
 import re
@@ -100,6 +101,20 @@ def is_local(url: str) -> bool:
     return url.startswith("/") or url.startswith(ORIGIN)
 
 
+# Cached for a day under a fixed name, so their URLs carry a content hash; see
+# scripts/stamp-assets.py.
+STAMPED = {"assets/site.css", "assets/lightbox.js"}
+
+
+def check_stamp(rel: str, url: str, target: pathlib.Path) -> None:
+    if target.relative_to(SITE).as_posix() not in STAMPED:
+        return
+    want = hashlib.sha256(target.read_bytes()).hexdigest()[:10]
+    got = urllib.parse.parse_qs(urllib.parse.urlsplit(url).query).get("v", [""])[0]
+    if got != want:
+        err(rel, f"{url} is stamped {got or 'nothing'}, the file is {want}; run scripts/stamp-assets.py")
+
+
 def check_page(path: pathlib.Path, pages: dict[pathlib.Path, Page], external: dict[str, set[str]]) -> None:
     rel = path.relative_to(SITE).as_posix()
     p = pages[path]
@@ -126,6 +141,7 @@ def check_page(path: pathlib.Path, pages: dict[pathlib.Path, Page], external: di
             frag = urllib.parse.urlsplit(url).fragment
             if frag and target in pages and frag not in pages[target].ids:
                 err(rel, f"{url}: no id {frag!r} on the target page")
+            check_stamp(rel, url, target)
             continue
         external.setdefault(url, set()).add(rel)
 

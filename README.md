@@ -30,6 +30,10 @@ copy for you. The rules below are the whole safety net.
   repository's README and `guide/`; do not describe something that has not shipped.
 - A link into the main repository points at `develop`; a heading anchor is checked against
   what GitHub actually renders (`scripts/check.py --online`).
+- **After editing `site/assets/site.css` or `lightbox.js`, run `scripts/stamp-assets.py`.**
+  `/assets/*` is cached for a day at Cloudflare's edge and in browsers, so the pages link
+  them as `?v=<content hash>`; without a new stamp a deploy serves the new HTML with
+  yesterday's stylesheet. `scripts/check.py` fails until the stamps match.
 
 ## Updating the screenshots
 
