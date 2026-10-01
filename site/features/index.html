@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Features — Agent Fleet</title>
+  <meta name="description" content="What Agent Fleet does, in detail: sessions that start sessions, incident response with assistants, the issue tracker, the file viewer, git, MCP, governance and usage — each with a link to the user guide.">
+  <link rel="canonical" href="https://agent-fleet.org/features/">
+  <link rel="alternate" hreflang="en" href="https://agent-fleet.org/features/">
+  <link rel="alternate" hreflang="ja" href="https://agent-fleet.org/ja/features/">
+  <link rel="alternate" hreflang="x-default" href="https://agent-fleet.org/features/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Agent Fleet">
+  <meta property="og:title" content="Agent Fleet — features">
+  <meta property="og:description" content="Walkthroughs and a catalogue of what Agent Fleet does, each linked to the user guide.">
+  <meta property="og:url" content="https://agent-fleet.org/features/">
+  <meta property="og:image" content="https://agent-fleet.org/og-en.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Agent Fleet: Don't replace your coding agents. Operate them.">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0b1417">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/assets/brand/icon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/"><img src="/assets/brand/icon-192.png" alt="" width="30" height="30">Agent Fleet</a>
+    <nav class="site-nav" aria-label="Sections">
+      <a href="/#fleet">Fleet</a>
+      <a href="/features/" aria-current="page">Features</a>
+      <a href="/#upstream">Upstream changes</a>
+      <a href="/#security">Security</a>
+      <a href="/#editions">Editions</a>
+      <a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/README.md">Docs</a>
+    </nav>
+    <div class="header-end">
+      <p class="lang"><span aria-current="true">English</span> · <a href="/ja/features/" hreflang="ja" lang="ja">日本語</a></p>
+      <a class="btn btn-ghost btn-small" href="https://github.com/k-k1/agent-fleet"><svg viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><span class="btn-label">GitHub</span></a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="page-hero">
+  <div class="wrap">
+    <p class="kicker">Features</p>
+    <h1>Everything around the agents, in one place</h1>
+    <p class="lead">The <a href="/">front page</a> shows the idea. This page shows what it adds up to: five walkthroughs, then the catalogue — each entry with a number where there is one and a link to the part of the user guide that covers it.</p>
+    <ul class="legend">
+      <li><span class="flag flag-off">Off by default</span>a switch someone has to turn on first</li>
+      <li><span class="flag flag-aws">AWS only</span>depends on the AWS editions</li>
+      <li><span class="flag flag-exp">Experimental</span>a proof of concept that may change</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" id="walkthroughs" aria-labelledby="walkthroughs-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">In practice</p>
+      <h2 id="walkthroughs-h">Five walkthroughs</h2>
+      <p>Recorded in the Console against a demo backend. Click a recording to see it full size.</p>
+    </div>
+
+    <div class="case" id="orchestrate">
+      <div class="case-text">
+        <h3>Split a review across three agents <span class="flag flag-off">Off by default</span></h3>
+        <p>A Claude session splits a design review three ways and gives each part to a different agent.</p>
+        <ol class="case-steps">
+          <li>The Claude parent starts three child sessions: Codex on the data model and migrations, Antigravity on API compatibility, Muse Code on the UI.</li>
+          <li>Each child works in its own worktree and is asked to report back once when it finishes.</li>
+          <li>The parent pulls the three reports together. The fleet graph shows four lanes on a time axis, with an arrow for every start and message.</li>
+        </ol>
+        <p class="note">Starting sessions from sessions and messages between sessions are both off until you switch them on. A parent runs 3 children at once by default (1–10).</p>
+        <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.md#starting-sessions-from-a-session-child-sessions">Child sessions in the guide →</a></p>
+      </div>
+      <figure class="shot"><a href="/assets/img/demo-orchestrate-en.webp" data-lightbox><img src="/assets/img/demo-orchestrate-en.webp" width="1280" height="856" loading="lazy" decoding="async" alt="Recording: a Claude session starts Codex, Antigravity and Muse Code reviewers, each in its own worktree; their reports come back and the fleet graph shows four lanes"></a></figure>
+    </div>
+
+    <div class="case flip" id="incident">
+      <div class="case-text">
+        <h3>From an incident to a fix <span class="flag flag-exp">Experimental</span></h3>
+        <p>Two assistants, two jobs: one reads the monitoring, the other starts the work.</p>
+        <ol class="case-steps">
+          <li>Ask the SRE assistant what is open on PagerDuty. It reads the incident, then the CloudWatch metrics and logs, and narrows down the cause.</li>
+          <li>The SRE assistant is read-only: it cannot change anything or start a session. So you take the fix to the Fleet Operator.</li>
+          <li>The Fleet Operator starts a Codex session in a new worktree with the fix as its task, and the session's report comes back to that conversation.</li>
+        </ol>
+        <p class="note">Alerts do not arrive in the chat on their own — you ask. PagerDuty, Grafana, CloudWatch and AWS are connected under Settings › Ops &amp; monitoring.</p>
+        <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/13-ops-tooling.md#pagerduty--grafana--cloudwatch--aws-connect-from-the-ops--monitoring-tab-recommended">Ops tooling in the guide →</a></p>
+      </div>
+      <figure class="shot"><a href="/assets/img/demo-sre-en.webp" data-lightbox><img src="/assets/img/demo-sre-en.webp" width="1280" height="856" loading="lazy" decoding="async" alt="Recording: the SRE assistant reads a PagerDuty incident and CloudWatch data and suggests a fix; the Fleet Operator starts a Codex session in a new worktree to make it"></a></figure>
+    </div>
+
+    <div class="case" id="tickets">
+      <div class="case-text">
+        <h3>From a ticket to a pull request, and its review</h3>
+        <p>The issue tracker in the left pane gathers the work waiting for you.</p>
+        <ol class="case-steps">
+          <li>Save a query, and GitHub issues and pull requests, Jira issues and Bitbucket pull requests land in one list.</li>
+          <li>Start a session from an issue. The branch name comes from your naming rules — <code>feature/45-empty-list</code>, say — in a new worktree.</li>
+          <li>Open a pull request: its details show CI, merge conflicts and reviews, and “Start review” checks out the PR's own head branch in a new worktree.</li>
+        </ol>
+        <p class="note">CI and conflict marks sit on the list rows for GitHub pull requests; for Bitbucket they are in the details.</p>
+        <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.md#starting-from-the-issue-tracker">The issue tracker in the guide →</a></p>
+      </div>
+      <figure class="shot"><a href="/assets/img/workitems-en.webp" data-lightbox><img src="/assets/img/workitems-en.webp" width="3200" height="2000" loading="lazy" decoding="async" alt="The issue tracker with CI and conflict marks on pull-request rows, and a pull request&#x27;s details: branches, merge conflicts, reviews, one of eight CI checks failing, and a Start review button"></a></figure>
+    </div>
+
+    <div class="case flip" id="plan">
+      <div class="case-text">
+        <h3>Approve the plan, then commit — in the browser</h3>
+        <p>Nothing in this loop needs a terminal.</p>
+        <ol class="case-steps">
+          <li>Started in plan mode, the agent proposes a plan first. Approve it in place — or write comments on it, or have another session review it.</li>
+          <li>It gets to work. The working copy's changes sit right beside the chat.</li>
+          <li>Stage and commit yourself from the commit graph view: real git, per working copy.</li>
+        </ol>
+        <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/07-chat-memo.md#reading-and-replying-to-a-running-agents-conversation">Answering a running agent in the guide →</a></p>
+      </div>
+      <figure class="shot"><a href="/assets/img/demo-plan-en.webp" data-lightbox><img src="/assets/img/demo-plan-en.webp" width="1280" height="856" loading="lazy" decoding="async" alt="Recording: an agent in plan mode proposes a plan, it is approved in the chat, the changes appear beside it, and they are staged and committed in the browser"></a></figure>
+    </div>
+
+    <div class="case phone" id="phone">
+      <div class="case-text">
+        <h3>Answer from your phone</h3>
+        <p>Away from the desk, the Console runs in your phone's browser.</p>
+        <ol class="case-steps">
+          <li>The sessions overview shows which session is waiting on you.</li>
+          <li>Open it and answer the question on its card, as you would at a desk.</li>
+          <li>It carries on where it stopped, and the list shows it done.</li>
+        </ol>
+        <p class="note">Or answer in the session's Slack or Discord thread, once the chat bridge is connected and “Reply to steer” is on (it is off by default).</p>
+        <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/05-terminal.md#using-it-on-a-phone">Using it on a phone, in the guide →</a></p>
+      </div>
+      <figure class="shot"><a href="/assets/img/demo-phone-en.webp" data-lightbox><img src="/assets/img/demo-phone-en.webp" width="780" height="1840" loading="lazy" decoding="async" alt="Recording on a phone: the sessions overview shows a session asking a question; it is answered on the card and the session finishes"></a></figure>
+    </div>
+
+    <p class="more-all">And overnight: scheduled runs and resuming after a usage limit are on the front page, in <a href="/#day">a day with Agent Fleet</a>.</p>
+  </div>
+</section>
+
+<section class="section section-alt" id="catalogue" aria-labelledby="catalogue-h">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Catalogue</p>
+      <h2 id="catalogue-h">What it can do</h2>
+      <p>Grouped by area. Every card links to the user guide, which is the authority on details and limits.</p>
+    </div>
+    <nav aria-label="Areas">
+      <ul class="jump">
+        <li><a href="#together">Sessions working together</a></li>
+        <li><a href="#files">Reading and editing files</a></li>
+        <li><a href="#intake">Where work comes in</a></li>
+        <li><a href="#git">Git, in the Console</a></li>
+        <li><a href="#devenv">A development environment around the agent</a></li>
+        <li><a href="#chat">Chat and assistants</a></li>
+        <li><a href="#ops">Operations and SRE</a></li>
+        <li><a href="#mcp">MCP</a></li>
+        <li><a href="#engines">Image generation and your own engines</a></li>
+        <li><a href="#hands">Keyboard, phone and voice</a></li>
+        <li><a href="#governance">Governance and administration</a></li>
+        <li><a href="#usage">Usage and cost</a></li>
+      </ul>
+    </nav>
+
+    <div class="cat" id="together">
+      <div class="cat-head cat-top">
+        <div>
+          <h3>Sessions working together</h3>
+          <p>A session can start other sessions and message them; the Fleet Operator starts and steers sessions for you.</p>
+        </div>
+        <figure class="shot"><a href="/assets/img/fleetgraph-en.webp" data-lightbox><img src="/assets/img/fleetgraph-en.webp" width="3200" height="1240" loading="lazy" decoding="async" alt="Fleet graph: one lane per session on a time axis, children under their parent, arrows for what passed between sessions"></a></figure>
+      </div>
+      <ul class="cards">
+        <li>
+          <h4>Child sessions <span class="flag flag-off">Off by default</span></h4>
+          <p>A session starts up to <b class="num">3</b> children at once by default (<b class="num">1–10</b>), of any of the <b class="num">9</b> agent kinds, each in a new worktree. One level deep: children cannot start their own. Each is asked to report back once.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.md#starting-sessions-from-a-session-child-sessions">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Messages between sessions <span class="flag flag-off">Off by default</span></h4>
+          <p>Four kinds — request, question, answer and FYI. A stopped recipient is resumed to receive it. Up to <b class="num">16 KiB</b> a message and <b class="num">6</b> a minute per sender.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.md#messages-between-sessions">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Fleet graph</h4>
+          <p>One lane per session on a time axis, children under their parent, and an arrow for every start, handoff, instruction and message.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.md#seeing-how-sessions-relate-over-time-the-fleet-graph">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>A second opinion on the plan</h4>
+          <p>From a plan waiting for approval, “Review in another session” lets you pick a different agent and model to review it.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/07-chat-memo.md#having-another-session-review-the-plan">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Fleet Operator</h4>
+          <p>A built-in assistant that starts, instructs, stops and resumes sessions for you — and asks before starting anything that uses resources.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/08-organising.md#what-is-the-fleet-operator">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Session reports and Autopilot <span class="flag flag-off">Off by default</span></h4>
+          <p>Sessions report to the operator when they go idle, ask something or exit abnormally. With Autopilot on it answers routine questions itself — <b class="num">10</b> unattended replies by default, <b class="num">50</b> at most.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/08-organising.md#session-reports-and-auto-reply">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Handoff</h4>
+          <p>Carry a conversation over to another agent. The operator drafts the summary, and you confirm it before anything starts.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.md#handing-a-conversation-off-handoff">In the guide →</a></p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cat" id="files">
+      <div class="cat-head cat-top">
+        <div>
+          <h3>Reading and editing files</h3>
+          <p>The file viewer opens what agents write and what your team keeps — without leaving the Console.</p>
+        </div>
+        <figure class="shot"><a href="/assets/img/files-en.webp" data-lightbox><img src="/assets/img/files-en.webp" width="3600" height="2000" loading="lazy" decoding="async" alt="Two file panes: a Markdown document with its front matter and a Mermaid sequence diagram, beside a draw.io architecture diagram"></a></figure>
+      </div>
+      <ul class="cards">
+        <li>
+          <h4>Code</h4>
+          <p>Highlighting for about <b class="num">30</b> languages, change bars on lines git sees as modified, and a minimap up to <b class="num">10,000</b> lines.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/04-files.md#file-viewer">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Markdown and Mermaid</h4>
+          <p>Mermaid diagrams render in place, front matter shows as a property list, and <code>path:line</code> links open the file at that line.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/04-files.md#markdown-and-mermaid">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Marp slides</h4>
+          <p>A Markdown file with <code>marp: true</code> opens as a slide deck.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/04-files.md#marp-slides">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>draw.io diagrams</h4>
+          <p>Rendered with no network access. Viewing only: you can edit the XML, not the drawing.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/04-files.md#diagrams-drawio">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>PDF</h4>
+          <p>Text selection and zoom. Japanese PDFs without embedded fonts render too.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/04-files.md#pdfs-and-office-documents">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Office, ODF and EPUB</h4>
+          <p>Word, Excel, PowerPoint, OpenDocument and EPUB, converted to Markdown in your browser, up to <b class="num">40 MB</b>. A plain preview: layout, shapes and images are not reproduced.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/04-files.md#pdfs-and-office-documents">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Images and the gallery</h4>
+          <p>PNG to AVIF and SVG, zoomable to <b class="num">8×</b>. A gallery pane collects pictures; a generated one's settings are one click away.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/04-files.md#image-gallery">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Editing, with AI proposals</h4>
+          <p>Save conflicts are detected, and an AI's proposed change is shown as a diff before you apply it (<b class="num">2 MiB</b> per change).</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/04-files.md#have-an-ai-propose-the-change">In the guide →</a></p>
+        </li>
+        <li class="not">
+          <h4>Not supported (yet)</h4>
+          <p>Math (KaTeX), CSV as a table, Jupyter notebooks, and video or audio. These open as text, or not at all.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/04-files.md#file-viewer">In the guide →</a></p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cat" id="intake">
+      <div class="cat-head cat-top">
+        <div>
+          <h3>Where work comes in</h3>
+          <p>Tickets, pull requests, notes to self and schedules — each can start a session.</p>
+        </div>
+        <figure class="shot"><a href="/assets/img/workitems-en.webp" data-lightbox><img src="/assets/img/workitems-en.webp" width="3200" height="2000" loading="lazy" decoding="async" alt="The issue tracker with CI and conflict marks on pull-request rows, and a pull request&#x27;s details with a Start review button"></a></figure>
+      </div>
+      <ul class="cards">
+        <li>
+          <h4>One inbox for three trackers</h4>
+          <p>GitHub issues and pull requests, Jira issues and Bitbucket pull requests in one list, refreshed about every <b class="num">5</b> minutes.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.md#reading-the-list">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>CI and conflicts at a glance</h4>
+          <p>Open GitHub pull requests carry CI and conflict marks in the list; a pull request's details show CI, conflicts, reviews and diff size.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.md#pull-request-details">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Branch named for the ticket</h4>
+          <p>Starting from an issue fills in the branch name and its base from your naming rules.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.md#from-a-row-to-a-session">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Review from a pull request</h4>
+          <p>“Start review” checks out the pull request's own head branch in a new worktree.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.md#pull-request-details">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Memo queue</h4>
+          <p>Jot a note on your phone and send it to a session from your desk: memos belong to you, not to a device. An assistant can sort them.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/07-chat-memo.md#memo-queue">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Scheduled runs</h4>
+          <p>Tell the Fleet Operator “every night at 2:00, …”. The schedule wakes a stopped workspace to run it.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/08-organising.md#scheduled-runs">In the guide →</a></p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cat" id="git">
+      <div class="cat-head cat-top">
+        <div>
+          <h3>Git, in the Console</h3>
+          <p>Real git per working copy and worktree, with the housekeeping that parallel work needs.</p>
+        </div>
+        <figure class="shot"><a href="/assets/img/scm-en.webp" data-lightbox><img src="/assets/img/scm-en.webp" width="3800" height="1800" loading="lazy" decoding="async" alt="Split panes: the commit graph with branch lanes on the left, the selected commit&#x27;s diff on the right"></a></figure>
+      </div>
+      <ul class="cards">
+        <li>
+          <h4>Commit graph</h4>
+          <p>Branch lanes and diffs, staging and commit, and the graphs of submodules.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/03-code.md#commit-in-the-commit-graph-view">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Worktrees against their parent</h4>
+          <p>Each worktree shows where it stands against its parent — even, unmerged, fast-forwardable or diverged — with a one-click fast-forward.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/03-code.md#launch-a-session-from-a-repository-row">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Restore from the trash</h4>
+          <p>Deleting a worktree keeps its commit, branch and uncommitted changes. Restoring puts it back at the same path, sessions included.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.md#tidying-up-in-bulk-cleanup">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Built-in git hosting</h4>
+          <p>Internal repositories with Git LFS, shared within your tenant. An administrator sets how many and how much LFS storage.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/03-code.md#the-built-in-git-provider-internal-git">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Submodules and LFS</h4>
+          <p>Submodules are fetched with the clone, and SSH URLs are rewritten to HTTPS so they authenticate.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/03-code.md#submodules-and-git-lfs">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Git Flow</h4>
+          <p>Initialize Git Flow for a repository from its row. It writes the configuration only — no commit, no checkout.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/03-code.md#initialize-git-flow">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Subversion</h4>
+          <p>Check out SVN repositories too, with saved credentials. No worktrees or commit graph there.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/03-code.md#subversion-svn-repositories">In the guide →</a></p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cat" id="devenv">
+      <div class="cat-head">
+        <div>
+          <h3>A development environment around the agent</h3>
+          <p>Databases, a browser and previews inside the workspace, with no Docker required.</p>
+        </div>
+      </div>
+      <ul class="cards">
+        <li>
+          <h4>Databases per working copy</h4>
+          <p>Postgres or MySQL <b class="num">8.4</b> for each working copy, with no Docker. The server stops after <b class="num">30</b> idle minutes.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/03-code.md#running-database-backed-tests">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Browser pane</h4>
+          <p>Your dev server in a real browser inside the Console — HMR, WebSockets and cookies work. <b class="num">2</b> per workspace, on desktop and tablet.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/10-integrations.md#viewing-a-web-app-you-started--browser-pane-and-lightweight-preview">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Preview URLs <span class="flag flag-aws">AWS only</span></h4>
+          <p>A URL per port that you can show to your tenant, or open without sign-in for a while. Issued only where the deployment provides preview subdomains.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/10-integrations.md#preview-subdomains-only-where-they-are-issued">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Hand the browser to a person</h4>
+          <p>When an agent reaches a one-time code, it hands you the page. You type the code and press “Action complete”.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/10-integrations.md#operating-a-browser-the-agent-opened">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>A real terminal</h4>
+          <p>Every session, agent or plain shell, is attachable as a live PTY — with a control-key row on phones.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/05-terminal.md">In the guide →</a></p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cat" id="chat">
+      <div class="cat-head cat-top">
+        <div>
+          <h3>Chat and assistants</h3>
+          <p>Assistants you shape yourself, and help reading and answering the agents.</p>
+        </div>
+        <figure class="shot"><a href="/assets/img/mirror-en.webp" data-lightbox><img src="/assets/img/mirror-en.webp" width="2560" height="1800" loading="lazy" decoding="async" alt="Chat mirror: the agent&#x27;s question rendered as an answerable card with the options it offered"></a></figure>
+      </div>
+      <ul class="cards">
+        <li>
+          <h4>Your own assistants</h4>
+          <p>Give an assistant a persona, an agent and model, and a tool permission: none, read or write access to Agent Fleet.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/07-chat-memo.md#purpose-built-assistants-and-translation">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Translation without a turn</h4>
+          <p>“Translate” reads an agent's answer in your language through one model call outside the session.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.md#reading-an-answer-in-your-own-language-translation">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Reply suggestions</h4>
+          <p>Chips learned from your own messages, with no AI involved. ✨ asks an AI, and spends tokens only when pressed.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/07-chat-memo.md#reply-suggestions">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>A work plan that survives compaction</h4>
+          <p>Compact a long assistant chat — automatically above <b class="num">90%</b> — and the work plan is carried over word for word.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/07-chat-memo.md#put-what-must-not-be-forgotten-in-the-work-plan">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Branch from a message</h4>
+          <p>Fork a conversation from one of your earlier messages, and try another direction without losing the first.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/07-chat-memo.md#branch-from-a-past-message">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Switch the agent mid-conversation</h4>
+          <p>Move an assistant chat to another agent or model and keep the conversation.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/07-chat-memo.md#switching-the-agent-mid-conversation">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Slack and Discord <span class="flag flag-off">Off by default</span></h4>
+          <p>Each session gets its own thread. With “Reply to steer” on, you answer there — with buttons.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/10-integrations.md#connecting-discord--slack-chat-bridge">In the guide →</a></p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cat" id="ops">
+      <div class="cat-head">
+        <div>
+          <h3>Operations and SRE</h3>
+          <p>Read your monitoring from a chat, and run AWS commands as yourself.</p>
+        </div>
+      </div>
+      <ul class="cards">
+        <li>
+          <h4>SRE assistant <span class="flag flag-exp">Experimental</span></h4>
+          <p>Reads PagerDuty, Grafana, CloudWatch and AWS. Read-only: it cannot start sessions, and alerts do not arrive on their own — you ask.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/13-ops-tooling.md#pagerduty--grafana--cloudwatch--aws-connect-from-the-ops--monitoring-tab-recommended">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>AWS tools, read-only first</h4>
+          <p>The Agent Toolkit for AWS starts read-only. Write tools are a separate switch, and they can change real resources.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/13-ops-tooling.md#pagerduty--grafana--cloudwatch--aws-connect-from-the-ops--monitoring-tab-recommended">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>AWS commands run only in the account you name</h4>
+          <p><code>af-aws-exec</code> runs a command as your profile and refuses unless it belongs to the account you name — so nothing falls back to the workspace's own role.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/10-integrations.md#using-the-profiles-from-the-terminal-sdks-and-build-tools">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>SSM login</h4>
+          <p>Reach in-house hosts through SSM Session Manager, signing in with IAM Identity Center. No AWS secrets are stored in Agent Fleet.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/10-integrations.md#logging-in-to-another-in-house-host-ssm">In the guide →</a></p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cat" id="mcp">
+      <div class="cat-head">
+        <div>
+          <h3>MCP</h3>
+          <p>Bring your own tools to the agents, and drive Agent Fleet from outside.</p>
+        </div>
+      </div>
+      <ul class="cards">
+        <li>
+          <h4>Your MCP servers</h4>
+          <p>Register stdio or remote HTTP servers, with secrets stored encrypted. Attach them to sessions and to the assistants you create.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/12-settings.md#mcp-servers">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Drive it from an external Claude</h4>
+          <p>Operate your workspace from Claude Code or Claude Desktop with an MCP token: read, write or admin scope, expiring after <b class="num">90</b> days by default, revocable.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/10-integrations.md#driving-your-workspace-from-an-external-claude-mcp">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Distribute to the tenant</h4>
+          <p>A tenant administrator hands a remote MCP server to everyone in the tenant at once.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/admin/04-mcp-egress.md#distributing-an-mcp-server-to-everyone-in-the-tenant-your-permission">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Outbound control</h4>
+          <p>The deployment's operator can log or enforce outbound MCP traffic against an allowlist; members request access from Settings.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/admin/04-mcp-egress.md#controlling-outbound-traffic-egress--super_admin-only">In the guide →</a></p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cat" id="engines">
+      <div class="cat-head cat-top">
+        <div>
+          <h3>Image generation and your own engines</h3>
+          <p>Where an administrator has set up an engine, generate pictures and run open models inside the deployment.</p>
+        </div>
+        <figure class="shot"><a href="/assets/img/imagegen-en.webp" data-lightbox><img src="/assets/img/imagegen-en.webp" width="3600" height="2000" loading="lazy" decoding="async" alt="Image generation studio: an agent chat that refines the draft prompt, the draft with its settings, the job queue and the generated pictures"></a></figure>
+      </div>
+      <ul class="cards">
+        <li>
+          <h4>The studio</h4>
+          <p>Talk to an agent to refine the draft. It may trial the exact draft on screen, one picture at a time; you press the button for the batch. Every edit is in the history, and you can go back.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/04-files.md#studio--refine-the-draft-by-talking-to-an-agent">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>ComfyUI engines</h4>
+          <p>Point the deployment at your own ComfyUI on the network, or run GPU engines on AWS. An administrator registers them.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/admin/04-mcp-egress.md#inference-engines-self-hosted-gpus--super_admin-only">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>A GPU only when it is needed <span class="flag flag-aws">AWS only</span></h4>
+          <p>On the <code>ecs-ec2</code> edition, a GPU instance starts when a job asks for it and stops once it idles. The first request waits about <b class="num">3</b> minutes.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/admin/04-mcp-egress.md#inference-engines-self-hosted-gpus--super_admin-only">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>llama.cpp sessions</h4>
+          <p>Run open models such as Qwen3, GPT-OSS and Gemma as a session of their own, with no sign-in. A cold first turn takes minutes.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/06-agents.md#lcpp">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Pictures from any session <span class="flag flag-off">Off by default</span></h4>
+          <p>Let sessions call the image generator as a tool.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.md#having-a-session-generate-an-image">In the guide →</a></p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cat" id="hands">
+      <div class="cat-head cat-top">
+        <div>
+          <h3>Keyboard, phone and voice</h3>
+          <p>Move through the fleet without the mouse, from a phone, or by ear.</p>
+        </div>
+        <figure class="shot"><a href="/assets/img/split-en.webp" data-lightbox><img src="/assets/img/split-en.webp" width="3200" height="1960" loading="lazy" decoding="async" alt="Three panes: the chat mirror, a live terminal attached to a shell session, and the repository&#x27;s working-tree changes with a commit box"></a></figure>
+      </div>
+      <ul class="cards">
+        <li>
+          <h4>Command palette</h4>
+          <p><kbd>Ctrl/⌘ P</kbd> finds sessions, commands, changed files and files — sessions waiting on you first.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/05-terminal.md#command-palette">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Leader key</h4>
+          <p><kbd>Ctrl/⌘ K</kbd> opens a command menu of short key sequences.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/12-settings.md#keys">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Next thing that needs you</h4>
+          <p><kbd>Alt U</kbd> jumps to the next session waiting on your answer, then to unread notifications.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/05-terminal.md#shortcuts">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Panes</h4>
+          <p>Up to <b class="num">4 × 2</b> panes side by side; any pane pops out into its own browser tab.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/05-terminal.md#arranging-multiple-views-panes">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>On a phone</h4>
+          <p>Swipe left and right through the running sessions. A row of control keys — Esc, Tab, arrows, ^C — sits under the terminal.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/05-terminal.md#using-it-on-a-phone">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Read aloud <span class="flag flag-off">Off by default</span></h4>
+          <p>Answers read out in a voice per session, placed left or right to match its pane. Zundamon (VOICEVOX, started by an administrator) or Amazon Polly.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/12-settings.md#speech">In the guide →</a></p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cat" id="governance">
+      <div class="cat-head">
+        <div>
+          <h3>Governance and administration</h3>
+          <p>Rules that reach every agent, and controls an administrator can hold.</p>
+        </div>
+      </div>
+      <ul class="cards">
+        <li>
+          <h4>Three layers of instructions</h4>
+          <p>The fleet policy from the operator, your own agent instructions, and each repository's <code>CLAUDE.md</code> / <code>AGENTS.md</code> — delivered in each CLI's own idiom.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/06-agents.md#agent-instructions-write-down-how-you-work-once">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Agent memory snapshots</h4>
+          <p>What Claude Code and Codex remember on their own is snapshotted after each run. Roll it back — and undo the rollback.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/12-settings.md#agent-memory">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Models you don't use</h4>
+          <p>Hide the models your plan bills extra for: they leave the pickers, and launches naming them are refused.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/11-troubleshooting.md#a-model-i-want-isnt-offered-or-launching-with-it-is-refused">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Audit log</h4>
+          <p>Changes are recorded; terminal input and output are not stored.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/admin/03-audit-usage.md#what-is-recorded-and-what-is-not">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Per-member limits</h4>
+          <p>Concurrent sessions, and each member's workspace size: memory, CPU and disk.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/admin/02-limits.md#per-member-session-limits-you-can-set-these">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Allowed networks</h4>
+          <p>Limit a tenant to IPv4 and IPv6 ranges you list.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/admin/05-access.md#allowed-networks">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>A tenant's own sign-in</h4>
+          <p>A tenant can bring its own OIDC provider or GitHub organization, once the deployment's administrator approves it.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/admin/05-access.md#sign-in-methods-and-login-rules">In the guide →</a></p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cat" id="usage">
+      <div class="cat-head cat-top">
+        <div>
+          <h3>Usage and cost</h3>
+          <p>Know what the fleet uses before the bill, or the limit, tells you.</p>
+        </div>
+        <figure class="shot"><a href="/assets/img/usage-en.webp" data-lightbox><img src="/assets/img/usage-en.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="Usage tab: a stacked per-feature token chart over 30 days, KPI tiles, and breakdowns by feature, agent and model"></a></figure>
+      </div>
+      <ul class="cards">
+        <li>
+          <h4>Tokens by feature, agent and model</h4>
+          <p>Over <b class="num">24 hours</b>, <b class="num">7</b> or <b class="num">30 days</b>. Calls that report no tokens count as unmeasured, never as free.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/12-settings.md#agent-usage">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>API-equivalent cost</h4>
+          <p>Tokens priced at the published API list price — an estimate, not what a flat subscription bills you.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/12-settings.md#agent-usage">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Plan limits on the top bar</h4>
+          <p>How much of each plan's limit is used, for Claude, Codex, Copilot, Antigravity and Muse Code.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/06-agents.md#feature-matrix-all-agent-kinds">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Resume after a limit</h4>
+          <p>A turn cut short by a usage limit picks up again once the limit resets — for Claude, and for Codex when Managed.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/09-collaboration.md#when-a-turn-is-interrupted">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Cloud cost per workspace <span class="flag flag-aws">AWS only</span></h4>
+          <p>The cost directly attributable to each workspace, about a day behind.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/12-settings.md#cloud-cost">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Running-time heatmap</h4>
+          <p>Hours of the day against dates, coloured by time running or by session count.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/12-settings.md#running-time">In the guide →</a></p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section closing" aria-labelledby="closing-h">
+  <div class="wrap">
+    <h2 id="closing-h">Try it on your own machine</h2>
+    <p class="lead">The native edition needs x86_64 Linux or WSL2 and no Docker.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="https://github.com/k-k1/agent-fleet-dist#getting-started--which-edition">Get started</a>
+      <a class="btn btn-ghost" href="https://github.com/k-k1/agent-fleet/blob/develop/guide/README.md">Read the guide</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <a class="logo" href="/"><img src="/assets/brand/icon-192.png" alt="" width="30" height="30">Agent Fleet</a>
+      <nav aria-label="Project">
+        <a href="https://github.com/k-k1/agent-fleet">Source</a>
+        <a href="https://github.com/k-k1/agent-fleet-dist/releases">Releases</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/README.md">Documentation</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/develop/SECURITY.md">Security policy</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/develop/LICENSE">License (Apache-2.0)</a>
+        <a href="/ja/features/" hreflang="ja" lang="ja">日本語</a>
+      </nav>
+    </div>
+    <p class="fine">Report vulnerabilities privately through GitHub's security advisories or to <a href="mailto:security@agent-fleet.org">security@agent-fleet.org</a>. Claude Code, Codex, GitHub Copilot, Antigravity, Cursor, Kiro, OpenCode and Muse Code are trademarks of their respective owners; Agent Fleet is an independent open-source project and is not affiliated with or endorsed by them.</p>
+  </div>
+</footer>
+<script src="/assets/lightbox.js" defer></script>
+</body>
+</html>
