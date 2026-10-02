@@ -85,9 +85,20 @@ strong { color: #fff; font-weight: 650; }
   .site-header .wrap { gap: 20px; }
   .site-nav { gap: 16px; }
 }
+/* Below that the nav becomes a second row that scrolls sideways, rather than disappearing:
+   on a phone it is the only way to the features page from the top of a page. */
 @media (max-width: 1000px) {
-  .site-nav { display: none; }
-  .site-header .wrap { justify-content: space-between; }
+  html { scroll-padding-top: 136px; }
+  .site-header .wrap { flex-wrap: wrap; height: auto; row-gap: 0; justify-content: space-between; padding-top: 8px; }
+  .logo, .header-end { min-height: 48px; }
+  .site-nav {
+    order: 3; flex: 0 0 100%; margin: 0; padding: 2px 28px 10px 0; gap: 20px;
+    overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    /* Fade the right edge so a clipped row reads as "more this way". */
+    mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
+  }
+  .site-nav::-webkit-scrollbar { display: none; }
+  .site-nav a { padding: 6px 0; }
 }
 /* Below this the logo, language switch and a labelled button overflow a 390px phone. */
 @media (max-width: 520px) {
@@ -330,7 +341,7 @@ h1, h2, h3 { text-wrap: balance; }
 
 /* ---- features page (/features/) ------------------------------------------ */
 
-.site-nav a[aria-current] { color: var(--text); }
+.site-nav a[aria-current] { color: var(--brand-hi); }
 
 .page-hero { padding: 72px 0 8px; text-align: left; }
 .page-hero h1 {
