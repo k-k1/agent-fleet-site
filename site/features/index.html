@@ -54,7 +54,7 @@
   <div class="wrap">
     <p class="kicker">Features</p>
     <h1>Everything around the agents, in one place</h1>
-    <p class="lead">The <a href="/">front page</a> shows the idea. This page shows what it adds up to: five walkthroughs, then the catalogue — each entry with a number where there is one and a link to the part of the user guide that covers it.</p>
+    <p class="lead">The <a href="/">front page</a> shows the idea. This page shows what it adds up to: five walkthroughs, then the catalogue, each entry with a number where there is one and a link to the part of the user guide that covers it.</p>
     <ul class="legend">
       <li><span class="flag flag-off">Off by default</span>a switch someone has to turn on first</li>
       <li><span class="flag flag-aws">AWS only</span>depends on the AWS editions</li>
@@ -95,7 +95,7 @@
           <li>The SRE assistant is read-only: it cannot change anything or start a session. So you take the fix to the Fleet Operator.</li>
           <li>The Fleet Operator starts a Codex session in a new worktree with the fix as its task, and the session's report comes back to that conversation.</li>
         </ol>
-        <p class="note">Alerts do not arrive in the chat on their own — you ask. PagerDuty, Grafana, CloudWatch and AWS are connected under Settings › Ops &amp; monitoring.</p>
+        <p class="note">Alerts do not arrive in the chat on their own; you have to ask. PagerDuty, Grafana, CloudWatch and AWS are connected under Settings › Ops &amp; monitoring.</p>
         <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/13-ops-tooling.md#pagerduty--grafana--cloudwatch--aws-connect-from-the-ops--monitoring-tab-recommended">Ops tooling in the guide →</a></p>
       </div>
       <figure class="shot"><a href="/assets/img/demo-sre-en.webp" data-lightbox><img src="/assets/img/demo-sre-en.webp" width="1280" height="856" loading="lazy" decoding="async" alt="Recording: the SRE assistant reads a PagerDuty incident and CloudWatch data and suggests a fix; the Fleet Operator starts a Codex session in a new worktree to make it"></a></figure>
@@ -107,7 +107,7 @@
         <p>The issue tracker in the left pane gathers the work waiting for you.</p>
         <ol class="case-steps">
           <li>Save a query, and GitHub issues and pull requests, Jira issues and Bitbucket pull requests land in one list.</li>
-          <li>Start a session from an issue. The branch name comes from your naming rules — <code>feature/45-empty-list</code>, say — in a new worktree.</li>
+          <li>Start a session from an issue. The branch name comes from your naming rules (<code>feature/45-empty-list</code>, say), and the work happens in a new worktree.</li>
           <li>Open a pull request: its details show CI, merge conflicts and reviews, and “Start review” checks out the PR's own head branch in a new worktree.</li>
         </ol>
         <p class="note">CI and conflict marks sit on the list rows for GitHub pull requests; for Bitbucket they are in the details.</p>
@@ -118,10 +118,10 @@
 
     <div class="case flip" id="plan">
       <div class="case-text">
-        <h3>Approve the plan, then commit — in the browser</h3>
+        <h3>Approve the plan, then commit, in the browser</h3>
         <p>Nothing in this loop needs a terminal.</p>
         <ol class="case-steps">
-          <li>Started in plan mode, the agent proposes a plan first. Approve it in place — or write comments on it, or have another session review it.</li>
+          <li>Started in plan mode, the agent proposes a plan first. Approve it in place, write comments on it, or have another session review it.</li>
           <li>It gets to work. The working copy's changes sit right beside the chat.</li>
           <li>Stage and commit yourself from the commit graph view: real git, per working copy.</li>
         </ol>
@@ -189,7 +189,7 @@
         </li>
         <li>
           <h4>Messages between sessions <span class="flag flag-off">Off by default</span></h4>
-          <p>Four kinds — request, question, answer and FYI. A stopped recipient is resumed to receive it. Up to <b class="num">16 KiB</b> a message and <b class="num">6</b> a minute per sender.</p>
+          <p>There are four kinds: request, question, answer and FYI. A stopped recipient is resumed to receive it. Up to <b class="num">16 KiB</b> a message and <b class="num">6</b> a minute per sender.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/02-sessions.md#messages-between-sessions">In the guide →</a></p>
         </li>
         <li>
@@ -204,12 +204,12 @@
         </li>
         <li>
           <h4>Fleet Operator</h4>
-          <p>A built-in assistant that starts, instructs, stops and resumes sessions for you — and asks before starting anything that uses resources.</p>
+          <p>A built-in assistant that starts, instructs, stops and resumes sessions for you, and asks before starting anything that uses resources.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/08-organising.md#what-is-the-fleet-operator">In the guide →</a></p>
         </li>
         <li>
           <h4>Session reports and Autopilot <span class="flag flag-off">Off by default</span></h4>
-          <p>Sessions report to the operator when they go idle, ask something or exit abnormally. With Autopilot on it answers routine questions itself — <b class="num">10</b> unattended replies by default, <b class="num">50</b> at most.</p>
+          <p>Sessions report to the operator when they go idle, ask something or exit abnormally. With Autopilot on it answers routine questions itself: <b class="num">10</b> unattended replies by default, <b class="num">50</b> at most.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/08-organising.md#session-reports-and-auto-reply">In the guide →</a></p>
         </li>
         <li>
@@ -224,7 +224,7 @@
       <div class="cat-head cat-top">
         <div>
           <h3>Reading and editing files</h3>
-          <p>The file viewer opens what agents write and what your team keeps — without leaving the Console.</p>
+          <p>The file viewer opens what agents write and what your team keeps, without leaving the Console.</p>
         </div>
         <figure class="shot"><a href="/assets/img/files-en.webp" data-lightbox><img src="/assets/img/files-en.webp" width="3600" height="2000" loading="lazy" decoding="async" alt="Two file panes: a Markdown document with its front matter and a Mermaid sequence diagram, beside a draw.io architecture diagram"></a></figure>
       </div>
@@ -281,7 +281,7 @@
       <div class="cat-head cat-top">
         <div>
           <h3>Where work comes in</h3>
-          <p>Tickets, pull requests, notes to self and schedules — each can start a session.</p>
+          <p>Tickets, pull requests, notes to self and schedules can each start a session.</p>
         </div>
         <figure class="shot"><a href="/assets/img/workitems-en.webp" data-lightbox><img src="/assets/img/workitems-en.webp" width="3200" height="2000" loading="lazy" decoding="async" alt="The issue tracker with CI and conflict marks on pull-request rows, and a pull request&#x27;s details with a Start review button"></a></figure>
       </div>
@@ -335,7 +335,7 @@
         </li>
         <li>
           <h4>Worktrees against their parent</h4>
-          <p>Each worktree shows where it stands against its parent — even, unmerged, fast-forwardable or diverged — with a one-click fast-forward.</p>
+          <p>Each worktree shows where it stands against its parent (even, unmerged, fast-forwardable or diverged), with a one-click fast-forward.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/03-code.md#launch-a-session-from-a-repository-row">In the guide →</a></p>
         </li>
         <li>
@@ -355,7 +355,7 @@
         </li>
         <li>
           <h4>Git Flow</h4>
-          <p>Initialize Git Flow for a repository from its row. It writes the configuration only — no commit, no checkout.</p>
+          <p>Initialize Git Flow for a repository from its row. It writes the configuration only, without committing or checking anything out.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/03-code.md#initialize-git-flow">In the guide →</a></p>
         </li>
         <li>
@@ -381,7 +381,7 @@
         </li>
         <li>
           <h4>Browser pane</h4>
-          <p>Your dev server in a real browser inside the Console — HMR, WebSockets and cookies work. <b class="num">2</b> per workspace, on desktop and tablet.</p>
+          <p>Your dev server in a real browser inside the Console, with HMR, WebSockets and cookies working. <b class="num">2</b> per workspace, on desktop and tablet.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/10-integrations.md#viewing-a-web-app-you-started--browser-pane-and-lightweight-preview">In the guide →</a></p>
         </li>
         <li>
@@ -396,7 +396,7 @@
         </li>
         <li>
           <h4>A real terminal</h4>
-          <p>Every session, agent or plain shell, is attachable as a live PTY — with a control-key row on phones.</p>
+          <p>Every session, agent or plain shell, can be attached as a live PTY, with a control-key row on phones.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/05-terminal.md">In the guide →</a></p>
         </li>
       </ul>
@@ -428,7 +428,7 @@
         </li>
         <li>
           <h4>A work plan that survives compaction</h4>
-          <p>Compact a long assistant chat — automatically above <b class="num">90%</b> — and the work plan is carried over word for word.</p>
+          <p>Compact a long assistant chat (it happens automatically above <b class="num">90%</b>) and the work plan is carried over word for word.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/07-chat-memo.md#put-what-must-not-be-forgotten-in-the-work-plan">In the guide →</a></p>
         </li>
         <li>
@@ -443,7 +443,7 @@
         </li>
         <li>
           <h4>Slack and Discord <span class="flag flag-off">Off by default</span></h4>
-          <p>Each session gets its own thread. With “Reply to steer” on, you answer there — with buttons.</p>
+          <p>Each session gets its own thread. With “Reply to steer” on, you answer there with buttons.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/10-integrations.md#connecting-discord--slack-chat-bridge">In the guide →</a></p>
         </li>
       </ul>
@@ -459,7 +459,7 @@
       <ul class="cards">
         <li>
           <h4>SRE assistant <span class="flag flag-exp">Experimental</span></h4>
-          <p>Reads PagerDuty, Grafana, CloudWatch and AWS. Read-only: it cannot start sessions, and alerts do not arrive on their own — you ask.</p>
+          <p>Reads PagerDuty, Grafana, CloudWatch and AWS. Read-only: it cannot start sessions, and alerts do not arrive on their own; you have to ask.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/13-ops-tooling.md#pagerduty--grafana--cloudwatch--aws-connect-from-the-ops--monitoring-tab-recommended">In the guide →</a></p>
         </li>
         <li>
@@ -469,7 +469,7 @@
         </li>
         <li>
           <h4>AWS commands run only in the account you name</h4>
-          <p><code>af-aws-exec</code> runs a command as your profile and refuses unless it belongs to the account you name — so nothing falls back to the workspace's own role.</p>
+          <p><code>af-aws-exec</code> runs a command as your profile and refuses unless it belongs to the account you name, so nothing falls back to the workspace's own role.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/10-integrations.md#using-the-profiles-from-the-terminal-sdks-and-build-tools">In the guide →</a></p>
         </li>
         <li>
@@ -559,7 +559,7 @@
       <ul class="cards">
         <li>
           <h4>Command palette</h4>
-          <p><kbd>Ctrl/⌘ P</kbd> finds sessions, commands, changed files and files — sessions waiting on you first.</p>
+          <p><kbd>Ctrl/⌘ P</kbd> finds sessions, commands, changed files and files, and lists sessions waiting on you first.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/05-terminal.md#command-palette">In the guide →</a></p>
         </li>
         <li>
@@ -579,7 +579,7 @@
         </li>
         <li>
           <h4>On a phone</h4>
-          <p>Swipe left and right through the running sessions. A row of control keys — Esc, Tab, arrows, ^C — sits under the terminal.</p>
+          <p>Swipe left and right through the running sessions. A row of control keys (Esc, Tab, arrows, ^C) sits under the terminal.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/05-terminal.md#using-it-on-a-phone">In the guide →</a></p>
         </li>
         <li>
@@ -600,12 +600,12 @@
       <ul class="cards">
         <li>
           <h4>Three layers of instructions</h4>
-          <p>The fleet policy from the operator, your own agent instructions, and each repository's <code>CLAUDE.md</code> / <code>AGENTS.md</code> — delivered in each CLI's own idiom.</p>
+          <p>The fleet policy from the operator, your own agent instructions, and each repository's <code>CLAUDE.md</code> / <code>AGENTS.md</code>, each delivered in its CLI's own idiom.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/06-agents.md#agent-instructions-write-down-how-you-work-once">In the guide →</a></p>
         </li>
         <li>
           <h4>Agent memory snapshots</h4>
-          <p>What Claude Code and Codex remember on their own is snapshotted after each run. Roll it back — and undo the rollback.</p>
+          <p>What Claude Code and Codex remember on their own is snapshotted after each run. You can roll it back, and undo the rollback.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/12-settings.md#agent-memory">In the guide →</a></p>
         </li>
         <li>
@@ -652,7 +652,7 @@
         </li>
         <li>
           <h4>API-equivalent cost</h4>
-          <p>Tokens priced at the published API list price — an estimate, not what a flat subscription bills you.</p>
+          <p>Tokens priced at the published API list price. It is an estimate, not what a flat subscription bills you.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/12-settings.md#agent-usage">In the guide →</a></p>
         </li>
         <li>
@@ -662,7 +662,7 @@
         </li>
         <li>
           <h4>Resume after a limit</h4>
-          <p>A turn cut short by a usage limit picks up again once the limit resets — for Claude, and for Codex when Managed.</p>
+          <p>A turn cut short by a usage limit picks up again once the limit resets. This works for Claude, and for Codex when Managed.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/member/09-collaboration.md#when-a-turn-is-interrupted">In the guide →</a></p>
         </li>
         <li>
