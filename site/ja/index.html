@@ -54,7 +54,7 @@
   <div class="wrap">
     <p class="eyebrow">自社ホスト · オープンソース（Apache-2.0）</p>
     <h1><span class="nb">エージェントは</span><span class="nb">置き換えない。</span><span class="nb accent">運用する。</span></h1>
-    <p class="lead">Agent Fleet は、新しいエージェントフレームワークではありません。チームがいま使っているコーディングエージェントの CLI を、そのまま自社のサーバーで動かし、その周りを引き受けます。隔離されたワークスペース、本物の git worktree、そしてすべてのセッションを起動し、追い、操縦し、費用を数える 1 つの Console です。</p>
+    <p class="lead">Agent Fleet は、新しいエージェントフレームワークではありません。チームがいま使っているコーディングエージェントの CLI を、そのまま自社のサーバーで動かし、その周りを引き受けます。引き受けるのは、隔離されたワークスペース、本物の git worktree、そしてすべてのセッションの起動・追跡・操縦・費用の集計を 1 か所で行う Console です。</p>
     <div class="actions">
       <a class="btn btn-primary" href="https://github.com/k-k1/agent-fleet-dist/blob/main/README.ja.md#はじめに--どの版を選ぶ">はじめる</a>
       <a class="btn btn-ghost" href="https://github.com/k-k1/agent-fleet">ソースを見る</a>
@@ -105,7 +105,7 @@
     <div class="shift">
       <p class="shift-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>日中</p>
       <ol class="day">
-        <li><time>09:00</time><strong>2 つの Issue を任せる</strong><p>Claude Code と Codex に 1 つずつ。それぞれ自分の git worktree で。</p></li>
+        <li><time>09:00</time><strong>2 つの Issue を任せる</strong><p>Claude Code と Codex に 1 つずつ任せます。どちらも自分の git worktree で作業します。</p></li>
         <li><time>09:10</time><strong>ノートを閉じる</strong><p>出かけても、どちらもサーバーの上で作業を続けます。</p></li>
         <li><time>11:40</time><strong>スマートフォンから答える</strong><p>片方が許可を求めます。依頼はそのセッションの Slack スレッドに届き、そこで答えられます。</p></li>
         <li><time>16:30</time><strong>机に戻って確かめる</strong><p>セッション一覧で、どれが終わり、どれがあなたを待っているかが分かります。各 worktree の変更はワンクリックで開けます。</p></li>
@@ -114,9 +114,9 @@
     <div class="shift night">
       <p class="shift-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>夜間</p>
       <ol class="day">
-        <li><time>18:00</time><strong>夜の仕事を頼んでおく</strong><p>アシスタントに普段の言葉で頼むだけ。「毎晩 2 時に依存ライブラリを更新して、テストを回して」。</p></li>
+        <li><time>18:00</time><strong>夜の仕事を頼んでおく</strong><p>アシスタントに「毎晩 2 時に依存ライブラリを更新して、テストを回して」と普段の言葉で頼むだけです。</p></li>
         <li><time>02:00</time><strong>寝ている間に動く</strong><p>スケジュールが止まっているワークスペースを起こし、セッションを立ち上げてプロンプトを走らせます。</p></li>
-        <li><time>03:40</time><strong>上限で止まっても終わらない</strong><p>使用量の上限でターンが切れても、上限が明けると自分で再開します。</p></li>
+        <li><time>03:40</time><strong>上限で止まっても終わらない</strong><p>使用量の上限でターンが切れても、上限がリセットされると自分で再開します。</p></li>
         <li><time><small>翌</small> 08:30</time><strong>朝には結果が待っている</strong><p>実行ごとの結果はスケジュールの履歴に残り、動いたセッションもワンクリックで開けます。</p></li>
       </ol>
     </div>
@@ -135,7 +135,7 @@
     <div class="feature">
       <div class="feature-text">
         <h3>何本ものセッションを同時に</h3>
-        <p>エージェントの種類をまたいで、それぞれ自分の worktree で。作業中か、質問・プラン・許可確認であなたを待っているかが 1 つの画面で分かり、あなたの返事を待っているものは色で目立ちます。</p>
+        <p>種類の違うエージェントを、それぞれ自分の worktree で同時に動かせます。作業中か、質問・プラン・許可確認であなたを待っているかが 1 つの画面で分かり、あなたの返事を待っているものは色で目立ちます。</p>
       </div>
       <figure class="shot"><a href="/assets/img/overview-ja.webp" data-lightbox><img src="/assets/img/overview-ja.webp" width="3200" height="1400" loading="lazy" decoding="async" alt="セッション一覧。稼働中のセッションをリポジトリごとに 1 枚ずつカードで並べ、状態チップ・モデル・コンテキスト使用率が載る"></a></figure>
     </div>
@@ -163,7 +163,7 @@
     <div class="feature flip">
       <div class="feature-text">
         <h3>費用を 1 つの物差しで</h3>
-        <p>トークンを機能別・エージェント別・モデル別に、24 時間 / 7 日 / 30 日で。トークンを報告しない呼び出しは「未計測」として数え、無料には見せません。</p>
+        <p>トークンの使用量を、機能別・エージェント別・モデル別に、24 時間・7 日・30 日の範囲で見られます。トークンを報告しない呼び出しは「未計測」として数え、無料には見せません。</p>
       </div>
       <figure class="shot"><a href="/assets/img/usage-ja.webp" data-lightbox><img src="/assets/img/usage-ja.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="使用量タブ。30 日ぶんの機能別トークン積み上げグラフ、KPI、機能／エージェント／モデル別の内訳"></a></figure>
     </div>
@@ -171,7 +171,7 @@
     <div class="minor">
       <div>
         <h3>人がいなくても進む</h3>
-        <p>スケジュール実行は止まっているワークスペースを起こしてプロンプトを走らせます。使用量の上限で切れたターンは上限が明けると再開するので、朝まで止まったままにはなりません。</p>
+        <p>スケジュール実行は止まっているワークスペースを起こしてプロンプトを走らせます。使用量の上限で切れたターンは上限がリセットされると再開するので、朝まで止まったままにはなりません。</p>
       </div>
       <div>
         <h3>どのエージェントにも同じルールを</h3>
@@ -182,19 +182,19 @@
     <div class="gallery">
       <figure>
         <div class="shot"><a href="/assets/img/launch-ja.webp" data-lightbox><img src="/assets/img/launch-ja.webp" width="2800" height="1800" loading="lazy" decoding="async" alt="起動ダイアログ。エージェント・モデル・推論の深さ・開始モード・新しい worktree で動かすかを選ぶ"></a></div>
-        <figcaption><strong>起動はこのダイアログ 1 つ</strong> — エージェント、モデル、推論の深さ、開始モード、そして新しい git worktree で動かすか作業コピーのままか。</figcaption>
+        <figcaption><strong>起動ダイアログ</strong>：エージェント、モデル、推論の深さ、開始モード、新しい git worktree で動かすか作業コピーのままかを選んで起動します。</figcaption>
       </figure>
       <figure>
         <div class="shot"><a href="/assets/img/split-ja.webp" data-lightbox><img src="/assets/img/split-ja.webp" width="3200" height="1960" loading="lazy" decoding="async" alt="3 つのペイン。会話ミラー、shell セッションに繋がった端末、作業ツリーの変更とコミット欄"></a></div>
-        <figcaption><strong>ペインを並べる</strong> — ミラー・端末・作業ツリーの変更を横に並べられ、それぞれ別タブに出すこともできます。</figcaption>
+        <figcaption><strong>ペインの分割</strong>：ミラー・端末・作業ツリーの変更を横に並べられます。どのペインも別のタブへ切り出せます。</figcaption>
       </figure>
       <figure>
         <div class="shot"><a href="/assets/img/scm-ja.webp" data-lightbox><img src="/assets/img/scm-ja.webp" width="3800" height="1800" loading="lazy" decoding="async" alt="分割ペイン。左にブランチのレーンつきコミットグラフ、右に選んだコミットの差分"></a></div>
-        <figcaption><strong>本物の git を Console で</strong> — コミットグラフと選んだコミットの差分、ステージとコミットまで、作業コピー・worktree ごとに。</figcaption>
+        <figcaption><strong>Console の中の git</strong>：作業コピーと worktree ごとに、コミットグラフと選んだコミットの差分を表示し、ステージとコミットまで行えます。</figcaption>
       </figure>
       <figure>
         <div class="shot"><a href="/assets/img/terminal-ja.webp" data-lightbox><img src="/assets/img/terminal-ja.webp" width="2560" height="1520" loading="lazy" decoding="async" alt="shell セッションに繋がった端末ペインで、ビルドと git status を走らせている"></a></div>
-        <figcaption><strong>本物の端末もある</strong> — エージェントでも素の shell でも、どのセッションも生の端末として開けます。</figcaption>
+        <figcaption><strong>端末</strong>：エージェントでも素の shell でも、どのセッションも生の端末として開けます。</figcaption>
       </figure>
     </div>
     <p class="more-all"><a href="/ja/features/#catalogue">すべての機能 →</a></p>
@@ -225,12 +225,12 @@
       <p>1 社 1 配備で、自分たちのインフラの上で動きます。会社どうしは、共有サービスの中の境界ではなく、配備そのものが別々であることで隔てられます。</p>
     </div>
     <ul class="checks">
-      <li><h3>自分たちのインフラ</h3><p>Docker Compose の Linux 1 台でも、AWS でも。中身は同じです。</p></li>
+      <li><h3>自分たちのインフラ</h3><p>Docker Compose で動かす Linux 1 台でも AWS でも、中身は同じです。</p></li>
       <li><h3>隔離されたワークスペース</h3><p>メンバーごとに持続するコンテナを用意し、cgroup で CPU とメモリを制限して、ネットワークも利用者ごとに隔離します。Docker を使わない native 版では bubblewrap のサンドボックスです。</p></li>
-      <li><h3>自社の IdP でサインイン</h3><p>Google、Microsoft Entra ID、Okta など OIDC のプロバイダーで。テナントと member / admin / operator のロールがあります。</p></li>
+      <li><h3>自社の IdP でサインイン</h3><p>Google、Microsoft Entra ID、Okta など、OIDC のプロバイダーでサインインできます。テナントと member / admin / operator のロールがあります。</p></li>
       <li><h3>契約はメンバーごと</h3><p>エージェントの CLI には、メンバーが自分のアカウントでサインインします。配備が AI プロバイダーの資格情報を同梱したり共有したりすることはありません。</p></li>
       <li><h3>秘密は暗号化して保存</h3><p>資格情報はエンベロープ暗号化で保存します。ワークスペースごとの鍵を、テナントの鍵で包みます。</p></li>
-      <li><h3>確かめられる、隠さない</h3><p>Apache-2.0 のソース。<a href="https://github.com/k-k1/agent-fleet/blob/develop/SECURITY.md">セキュリティポリシー</a>（英語）に、脅威モデルと、運用者が理解しておくべき残るリスクを書いています。</p></li>
+      <li><h3>確かめられる、隠さない</h3><p>ソースは Apache-2.0 で公開しています。<a href="https://github.com/k-k1/agent-fleet/blob/develop/SECURITY.md">セキュリティポリシー</a>（英語）に、脅威モデルと、運用者が理解しておくべき残るリスクを書いています。</p></li>
     </ul>
   </div>
 </section>
@@ -240,28 +240,28 @@
     <div class="section-head">
       <p class="kicker">エディション</p>
       <h2 id="editions-h">どこで動かすかを選ぶ</h2>
-      <p>まずは Linux 1 台から。タスク単位の隔離が必要になったら AWS へ。あとから選び直すこともできます。</p>
+      <p>最初は Linux 1 台で始められます。タスク単位の隔離が必要になったら AWS へ移せます。あとから選び直すこともできます。</p>
     </div>
     <div class="editions">
       <div class="edition recommended">
         <span class="tag">既定</span>
         <h3><code>compose</code></h3>
-        <p>チームで、Docker のある Linux 1 台に。TLS は自動、サインインは自社の IdP で。</p>
+        <p>チームで使う版です。Docker のある Linux 1 台で動き、TLS は自動で設定され、サインインには自社の IdP を使います。</p>
       </div>
       <div class="edition">
         <span class="tag muted">Docker なし</span>
         <h3><code>native</code></h3>
-        <p>WSL2 や個人の Linux で、1 人で使う。ホームディレクトリに入ります。</p>
+        <p>WSL2 や個人の Linux で、1 人で使う版です。ホームディレクトリにインストールします。</p>
       </div>
       <div class="edition">
         <span class="tag muted">AWS・小規模チーム</span>
         <h3><code>ec2-single</code></h3>
-        <p>VM 1 台の上の compose。運用の仕方はそのままで AWS へ。</p>
+        <p>compose を AWS の VM 1 台で動かす版です。運用の仕方は compose と同じです。</p>
       </div>
       <div class="edition">
         <span class="tag muted">AWS・隔離</span>
         <h3><code>ecs</code> · <code>ecs-ec2</code></h3>
-        <p>タスク単位の隔離、利用者ごとの障害の切り分け、イメージの順次入れ替え。</p>
+        <p>タスク単位の隔離、利用者ごとの障害の切り分け、イメージの順次入れ替えに対応した版です。</p>
       </div>
     </div>
     <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/operate/01-choose.ja.md">配備先の選び方（費用つき）→</a></p>
