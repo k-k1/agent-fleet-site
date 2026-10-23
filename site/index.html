@@ -25,7 +25,7 @@
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/assets/brand/icon-192.png" type="image/png" sizes="192x192">
   <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
-  <link rel="stylesheet" href="/assets/site.css?v=02ada35300">
+  <link rel="stylesheet" href="/assets/site.css?v=3d933b7167">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -155,12 +155,24 @@
     <div class="feature">
       <div class="feature-text">
         <h3>Sessions that start sessions</h3>
-        <p>A session can hand a review to another agent kind and get one report back. The fleet graph draws who started whom, what passed between them, and when each one was working.</p>
+        <p>A session can hand a review to another agent kind and get one report back, or move its whole job to another kind when its usage limit runs out. The fleet graph draws who started whom, what passed between them, and when each one was working.</p>
       </div>
       <figure class="shot"><a href="/assets/img/fleetgraph-en.webp" data-lightbox><img src="/assets/img/fleetgraph-en.webp" width="3200" height="1240" loading="lazy" decoding="async" alt="Fleet graph: one lane per session on a time axis, children under their parent, arrows for what passed between sessions, and each lane's state chip"></a></figure>
     </div>
 
     <div class="feature flip">
+      <div class="feature-text">
+        <h3>One memory, every agent</h3>
+        <p>With Agent memory on, what one session saves is read by the next session of any kind. Every change records the agent and session that made it, and you can edit, pin, forget or revert it from the Console.</p>
+        <ul>
+          <li>Off by default; each member turns it on.</li>
+          <li>Your own Claude Code or Claude Desktop can read it too.</li>
+        </ul>
+      </div>
+      <figure class="shot"><a href="/assets/img/memory-en.webp" data-lightbox><img src="/assets/img/memory-en.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="Settings, Agent memory: memories written by sessions of four agent kinds and by the member, one opened with its scope, author and use count"></a></figure>
+    </div>
+
+    <div class="feature">
       <div class="feature-text">
         <h3>One yardstick for spend</h3>
         <p>Token use is broken down by feature, agent and model, over 24 hours, 7 days or 30 days. Calls that report no tokens are counted as unmeasured, never as free.</p>
@@ -174,8 +186,8 @@
         <p>Scheduled runs wake a stopped workspace and run the prompt. A Claude Code, Muse Code or Managed Codex turn cut short by a usage limit resumes when the limit lifts. Any other session can move to an agent that still has quota, so nothing sits dead until morning.</p>
       </div>
       <div>
-        <h3>Shared rules and a shared memory</h3>
-        <p>Fleet-wide policy and per-member instructions reach each agent kind in its CLI's own idiom; Cursor is the one kind that takes neither. With Agent memory on, every kind reads and writes the same memory, and each change records who made it and can be reverted.</p>
+        <h3>Rules that reach every agent</h3>
+        <p>Fleet-wide policy and per-member instructions reach each agent kind in its CLI's own idiom; Cursor is the one kind that takes neither. The memories Claude Code and Codex build up on their own are snapshotted and can be rolled back.</p>
       </div>
     </div>
 
@@ -240,7 +252,7 @@
     <div class="section-head">
       <p class="kicker">Editions</p>
       <h2 id="editions-h">Choose where it runs</h2>
-      <p>Start on one Linux host. Move to AWS when you need task-level isolation, and change your mind later if you want.</p>
+      <p>Start on one Linux host. Move to AWS when you need task-level isolation, and change your mind later if you want. Google Cloud is in preview.</p>
     </div>
     <div class="editions">
       <div class="edition recommended">
@@ -262,6 +274,11 @@
         <span class="tag muted">AWS, isolation</span>
         <h3><code>ecs</code> · <code>ecs-ec2</code></h3>
         <p>Task-level isolation, per-user fault isolation and rolling image replacement.</p>
+      </div>
+      <div class="edition">
+        <span class="tag muted">Google Cloud, preview</span>
+        <h3><code>kubernetes</code> · GKE</h3>
+        <p>Runs on a GKE Standard cluster, but is not supported for production yet: homes have no backup, and there are no browser features or per-member cost.</p>
       </div>
     </div>
     <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/operate/01-choose.md">Choosing a deployment target, costs included →</a></p>

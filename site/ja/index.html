@@ -25,7 +25,7 @@
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/assets/brand/icon-192.png" type="image/png" sizes="192x192">
   <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
-  <link rel="stylesheet" href="/assets/site.css?v=02ada35300">
+  <link rel="stylesheet" href="/assets/site.css?v=3d933b7167">
 </head>
 <body>
 <a class="skip" href="#main">本文へ移動</a>
@@ -155,12 +155,24 @@
     <div class="feature">
       <div class="feature-text">
         <h3>セッションがセッションを起こす</h3>
-        <p>レビューを別の種類のエージェントに渡し、終わったら報告を 1 本受け取れます。フリート俯瞰図に、誰が誰を起こし、何をやり取りし、いつ動いていたかが描かれます。</p>
+        <p>レビューを別の種類のエージェントに渡し、終わったら報告を 1 本受け取れます。利用上限が尽きたら、仕事ごと別の種類へ移すこともできます。フリート俯瞰図に、誰が誰を起こし、何をやり取りし、いつ動いていたかが描かれます。</p>
       </div>
       <figure class="shot"><a href="/assets/img/fleetgraph-ja.webp" data-lightbox><img src="/assets/img/fleetgraph-ja.webp" width="3200" height="1240" loading="lazy" decoding="async" alt="フリート俯瞰図。1 セッション 1 レーンを時間軸に描き、子は親の下、セッション間のやり取りは矢印、各レーンに状態チップ"></a></figure>
     </div>
 
     <div class="feature flip">
+      <div class="feature-text">
+        <h3>どのエージェントにも同じメモリ</h3>
+        <p>エージェントメモリをオンにすると、あるセッションが保存したことを、次のセッションが種類に関係なく読みます。変更ごとに書いたエージェントとセッションが残り、Console から編集・ピン留め・忘れさせる・取り消すことができます。</p>
+        <ul>
+          <li>既定はオフで、メンバーごとにオンにします。</li>
+          <li>自分の Claude Code や Claude Desktop からも読めます。</li>
+        </ul>
+      </div>
+      <figure class="shot"><a href="/assets/img/memory-ja.webp" data-lightbox><img src="/assets/img/memory-ja.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="設定のエージェントメモリ。4 種類のエージェントのセッションとメンバーが書いたメモリの一覧と、範囲・書き手・使用回数つきで開いた 1 件"></a></figure>
+    </div>
+
+    <div class="feature">
       <div class="feature-text">
         <h3>費用を 1 つの物差しで</h3>
         <p>トークンの使用量を、機能別・エージェント別・モデル別に、24 時間・7 日・30 日の範囲で見られます。トークンを報告しない呼び出しは「未計測」として数え、無料には見せません。</p>
@@ -174,8 +186,8 @@
         <p>スケジュール実行は止まっているワークスペースを起こしてプロンプトを走らせます。Claude Code、Muse Code、マネージドの Codex は、使用量の上限で切れたターンを上限のリセット後に再開します。ほかのセッションは利用枠の残っているエージェントへ移せるので、朝まで止まったままにはなりません。</p>
       </div>
       <div>
-        <h3>ルールも記憶も共有する</h3>
-        <p>フリート全体のポリシーとメンバーごとの指示を、各エージェントにその CLI の流儀で届けます。Cursor だけはどちらも受け取りません。エージェントメモリをオンにすると、どの種類のエージェントも同じメモリを読み書きします。変更ごとに誰が書いたかが残り、元に戻せます。</p>
+        <h3>どのエージェントにもルールを</h3>
+        <p>フリート全体のポリシーとメンバーごとの指示を、各エージェントにその CLI の流儀で届けます。Cursor だけはどちらも受け取りません。Claude Code と Codex が自分で溜める記憶はスナップショットを取り、巻き戻せます。</p>
       </div>
     </div>
 
@@ -240,7 +252,7 @@
     <div class="section-head">
       <p class="kicker">エディション</p>
       <h2 id="editions-h">どこで動かすかを選ぶ</h2>
-      <p>最初は Linux 1 台で始められます。タスク単位の隔離が必要になったら AWS へ移せます。あとから選び直すこともできます。</p>
+      <p>最初は Linux 1 台で始められます。タスク単位の隔離が必要になったら AWS へ移せます。あとから選び直すこともできます。Google Cloud はプレビューです。</p>
     </div>
     <div class="editions">
       <div class="edition recommended">
@@ -262,6 +274,11 @@
         <span class="tag muted">AWS・隔離</span>
         <h3><code>ecs</code> · <code>ecs-ec2</code></h3>
         <p>タスク単位の隔離、利用者ごとの障害の切り分け、イメージの順次入れ替えに対応した版です。</p>
+      </div>
+      <div class="edition">
+        <span class="tag muted">Google Cloud・プレビュー</span>
+        <h3><code>kubernetes</code> · GKE</h3>
+        <p>GKE Standard のクラスターで動きますが、本番向けのサポートはまだです。home のバックアップ、ブラウザの機能、メンバーごとの費用はありません。</p>
       </div>
     </div>
     <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/operate/01-choose.ja.md">配備先の選び方（費用つき）→</a></p>

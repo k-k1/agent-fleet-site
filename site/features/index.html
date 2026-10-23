@@ -25,7 +25,7 @@
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/assets/brand/icon-192.png" type="image/png" sizes="192x192">
   <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
-  <link rel="stylesheet" href="/assets/site.css?v=02ada35300">
+  <link rel="stylesheet" href="/assets/site.css?v=3d933b7167">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -54,7 +54,7 @@
   <div class="wrap">
     <p class="kicker">Features</p>
     <h1>Everything around the agents, in one place</h1>
-    <p class="lead">The <a href="/">front page</a> shows the idea. This page shows what it adds up to: five walkthroughs, then the catalogue, each entry with a number where there is one and a link to the part of the user guide that covers it.</p>
+    <p class="lead">The <a href="/">front page</a> shows the idea. This page shows what it adds up to: seven walkthroughs, then the catalogue, each entry with a number where there is one and a link to the part of the user guide that covers it.</p>
     <ul class="legend">
       <li><span class="flag flag-off">Off by default</span>a switch someone has to turn on first</li>
       <li><span class="flag flag-aws">AWS only</span>depends on the AWS editions</li>
@@ -67,8 +67,8 @@
   <div class="wrap">
     <div class="section-head">
       <p class="kicker">In practice</p>
-      <h2 id="walkthroughs-h">Five walkthroughs</h2>
-      <p>Recorded in the Console against a demo backend. Click a recording to see it full size.</p>
+      <h2 id="walkthroughs-h">Seven walkthroughs</h2>
+      <p>Recorded and captured in the Console against a demo backend. Click a picture to see it full size.</p>
     </div>
 
     <div class="case" id="orchestrate">
@@ -130,6 +130,36 @@
       <figure class="shot"><a href="/assets/img/demo-plan-en.webp" data-lightbox><img src="/assets/img/demo-plan-en.webp" width="1280" height="856" loading="lazy" decoding="async" alt="Recording: an agent in plan mode proposes a plan, it is approved in the chat, the changes appear beside it, and they are staged and committed in the browser"></a></figure>
     </div>
 
+    <div class="case" id="move">
+      <div class="case-text">
+        <h3>When a limit stops the work, move it to another agent</h3>
+        <p>A session that hits its usage limit does not have to wait for the reset.</p>
+        <ol class="case-steps">
+          <li>A band above the chat offers the move, with the agents that still have quota first. “Move to another agent…” is in the session menu too.</li>
+          <li>Pick the agent. The dialog lists what goes along: uncommitted changes, commits not yet pushed, and follow-ups not yet sent.</li>
+          <li>The new session starts in the same working copy and reads a handover file of the conversation first. No AI writes a summary, and the original session stops.</li>
+        </ol>
+        <p class="note">Claude Code, Codex, OpenCode, Copilot, Antigravity, Muse Code and Kiro can take a moved session. A session that is working, or waits on a question or a plan, has to finish or be answered first.</p>
+        <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/02-sessions.md#moving-a-session-to-another-agent-move">Moving a session, in the guide →</a></p>
+      </div>
+      <figure class="shot"><a href="/assets/img/move-en.webp" data-lightbox><img src="/assets/img/move-en.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="The move dialog: Codex and OpenCode as targets, the reasons the other agents are not offered, the uncommitted changes and the commit that go along, and one queued instruction"></a></figure>
+    </div>
+
+    <div class="case flip" id="memory-walk">
+      <div class="case-text">
+        <h3>One memory, every agent <span class="flag flag-off">Off by default</span></h3>
+        <p>What one session learns, the next session of any kind already knows.</p>
+        <ol class="case-steps">
+          <li>Turn on Agent memory in Settings. Sessions of every kind get the memory tools, and Claude Code's own memory can be imported.</li>
+          <li>A Claude Code session saves how to run the checkout tests. The next morning a Codex session reads it before it starts.</li>
+          <li>Every memory shows who wrote it and from which session. Pin, edit or forget it, or revert a change, from the Console.</li>
+        </ol>
+        <p class="note">Suggestions from finished sessions are a separate switch, also off by default. Your own Claude Code or Claude Desktop can read the memory through <code>/mcp</code>.</p>
+        <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/14-agent-memory.md#agent-memory">Agent memory, in the guide →</a></p>
+      </div>
+      <figure class="shot"><a href="/assets/img/memory-en.webp" data-lightbox><img src="/assets/img/memory-en.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="Settings, Agent memory: memories written by Claude Code, Codex, Copilot and OpenCode sessions and by the member, one pinned memory opened"></a></figure>
+    </div>
+
     <div class="case phone" id="phone">
       <div class="case-text">
         <h3>Answer from your phone</h3>
@@ -159,6 +189,8 @@
     <nav aria-label="Areas">
       <ul class="jump">
         <li><a href="#together">Sessions working together</a></li>
+        <li><a href="#memory">Agent memory</a></li>
+        <li><a href="#team">Working with teammates</a></li>
         <li><a href="#files">Reading and editing files</a></li>
         <li><a href="#intake">Where work comes in</a></li>
         <li><a href="#git">Git, in the Console</a></li>
@@ -217,6 +249,79 @@
           <p>Carry a conversation over to another agent. The operator drafts the summary, and you confirm it before anything starts.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/02-sessions.md#handing-a-conversation-off-handoff">In the guide →</a></p>
         </li>
+        <li>
+          <h4>Move to another agent</h4>
+          <p>Carry on in another agent kind with no AI summary in between: the conversation goes into a handover file, the new agent starts in the same working copy, and the original session stops. A session stopped at its usage limit offers the move itself.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/02-sessions.md#moving-a-session-to-another-agent-move">In the guide →</a></p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cat" id="memory">
+      <div class="cat-head">
+        <div>
+          <h3>Agent memory</h3>
+          <p>One memory that every agent kind shares, and the snapshots of what each CLI remembers on its own.</p>
+        </div>
+      </div>
+      <ul class="cards">
+        <li>
+          <h4>One memory for every agent <span class="flag flag-off">Off by default</span></h4>
+          <p>Every agent kind reads and writes the same memory through its MCP tools, with a user scope and a scope per project. Pinned memories come first in what agents read at the start of work. A search returns <b class="num">20</b> hits by default, <b class="num">50</b> at most.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/14-agent-memory.md#agent-memory">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Every change, and its author</h4>
+          <p>The Console lists each change with the agent and session that made it. Edit, pin or forget a memory, bring a forgotten one back, purge its past revisions, or revert a change.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/14-agent-memory.md#changes">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Memories suggested from finished sessions <span class="flag flag-off">Off by default</span></h4>
+          <p>A finished conversation is reviewed and memories are proposed; nothing is saved until you approve it. Only Claude Code runs the review today, with at most <b class="num">250</b> helper calls per workspace a day. Running it automatically is a second switch, also off.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/14-agent-memory.md#settings">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Bring in what agents already know</h4>
+          <p>Import Claude Code's auto-memory, Muse Code's memory or a memory bundle, and write memories back to Claude Code's own memory.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/14-agent-memory.md#import--export">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Use it from your own Claude <span class="flag flag-off">Off by default</span></h4>
+          <p>Claude Code or Claude Desktop on another machine reads the memory through <code>/mcp</code>, and writes it if you allow that, with your MCP token or an OAuth sign-in where the operator has turned it on. A tenant administrator can block it.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/14-agent-memory.md#using-agent-fleet-memory-from-an-external-agent">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Memory snapshots</h4>
+          <p>What Claude Code and Codex remember on their own is snapshotted a few minutes after an agent stops. You can roll it back, and undo the rollback.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/14-agent-memory.md#memory-snapshots">In the guide →</a></p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cat" id="team">
+      <div class="cat-head cat-top">
+        <div>
+          <h3>Working with teammates</h3>
+          <p>Requests, sessions and limits that pass between members of a tenant.</p>
+        </div>
+        <figure class="shot"><a href="/assets/img/inbox-en.webp" data-lightbox><img src="/assets/img/inbox-en.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="The inbox: a request waiting for someone, a request this member took with the session started from it, and a direct message"></a></figure>
+      </div>
+      <ul class="cards">
+        <li>
+          <h4>Ask a teammate: the inbox</h4>
+          <p>Send a message or a request to members of your tenant. One recipient takes a request, can start a session from it, attach sessions and a pull request, and mark it done. Up to <b class="num">20</b> recipients and <b class="num">30</b> sends an hour.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/09-collaboration.md#asking-a-teammate-the-inbox">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Hand a session to another member</h4>
+          <p>From the handoff card in the chat, pass a session to someone it is shared with. When unpushed work would be lost, “Push, then send” pushes it first.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/09-collaboration.md#handing-a-session-to-another-member">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Limit board <span class="flag flag-off">Off by default</span></h4>
+          <p>Show teammates where you stand on usage limits: the state only, a band per quota, or the exact value. A value goes stale after <b class="num">60</b> minutes, and a tenant administrator can switch the board off.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/09-collaboration.md#showing-teammates-where-you-stand-on-usage-limits">In the guide →</a></p>
+        </li>
       </ul>
     </div>
 
@@ -268,6 +373,16 @@
           <h4>Editing, with AI proposals</h4>
           <p>Save conflicts are detected, and an AI's proposed change is shown as a diff before you apply it (<b class="num">2 MiB</b> per change).</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/04-files.md#have-an-ai-propose-the-change">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Open a shell from a folder</h4>
+          <p>Right-click a folder to start a shell session in it, named after the folder.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/04-files.md#open-a-shell-from-a-folder">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Download a folder as zip</h4>
+          <p>Up to <b class="num">20,000</b> files and <b class="num">512 MiB</b>, leaving out <code>.git</code> and <code>node_modules</code>.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/04-files.md#download-a-folder-as-zip">In the guide →</a></p>
         </li>
         <li class="not">
           <h4>Not supported (yet)</h4>
@@ -399,6 +514,16 @@
           <p>A plain shell, or an agent started as Terminal (CLI), can be attached as a live PTY, with a control-key row on phones. Managed sessions show the chat only.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/05-terminal.md">In the guide →</a></p>
         </li>
+        <li>
+          <h4>CLIs already signed in</h4>
+          <p><code>gh</code>, <code>jira</code> and <code>bkt</code> in every session sign in through your connections, so agents work with GitHub, Jira and Bitbucket without a token in the shell. The <code>jira</code> wrapper retries reads on a flaky network and can edit and delete comments.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/10-integrations.md#clis-that-are-already-signed-in">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Sign in with Google on a preview URL</h4>
+          <p>An app that signs in with Google can sign in on its preview URL through a development identity provider instead, with test personas and copy-ready configuration. On by default wherever preview subdomains are issued.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/10-integrations.md#signing-in-with-google-on-a-preview-url-development-oidc-idp">In the guide →</a></p>
+        </li>
       </ul>
     </div>
 
@@ -446,6 +571,16 @@
           <p>Each session gets its own thread. With “Reply to steer” on, you answer there with buttons.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/10-integrations.md#connecting-discord--slack-chat-bridge">In the guide →</a></p>
         </li>
+        <li>
+          <h4>Hold follow-ups while a turn runs</h4>
+          <p>Queue follow-ups instead of sending them at once. They go out one turn at a time when the agent finishes, and you can edit, reorder or send one right away.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/07-chat-memo.md#holding-follow-ups-before-sending-send-queue">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Export a conversation as Markdown</h4>
+          <p>Three levels from the session menu: the conversation only, with tool names, or with tool output. Strings that look like secrets are masked.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/02-sessions.md#saving-a-conversation-as-markdown">In the guide →</a></p>
+        </li>
       </ul>
     </div>
 
@@ -453,7 +588,7 @@
       <div class="cat-head">
         <div>
           <h3>Operations and SRE</h3>
-          <p>Read your monitoring from a chat, and run AWS commands as yourself.</p>
+          <p>Read your monitoring from a chat, and run AWS and Google Cloud commands as yourself.</p>
         </div>
       </div>
       <ul class="cards">
@@ -476,6 +611,11 @@
           <h4>SSM login</h4>
           <p>Reach in-house hosts through SSM Session Manager, signing in with IAM Identity Center. No AWS secrets are stored in Agent Fleet.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/15-cloud-accounts.md#logging-in-to-another-in-house-host-ssm">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Google Cloud commands as yourself</h4>
+          <p><code>af-gcloud-exec</code> runs gcloud, <code>kubectl</code> against GKE and Terraform as your own Google Cloud profile, with a short-lived token renewed in the background. No Google credential is stored.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/15-cloud-accounts.md#running-commands-in-google-cloud-as-you-af-gcloud-exec">In the guide →</a></p>
         </li>
       </ul>
     </div>
@@ -604,11 +744,6 @@
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/06-agents.md#agent-instructions-write-down-how-you-work-once">In the guide →</a></p>
         </li>
         <li>
-          <h4>Memory snapshots</h4>
-          <p>What Claude Code and Codex remember on their own is snapshotted a few minutes after an agent stops. You can roll it back, and undo the rollback.</p>
-          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/14-agent-memory.md#memory-snapshots">In the guide →</a></p>
-        </li>
-        <li>
           <h4>Models you don't use</h4>
           <p>Hide the models your plan bills extra for: they leave the pickers, and launches naming them are refused.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/11-troubleshooting.md#a-model-i-want-isnt-offered-or-launching-with-it-is-refused">In the guide →</a></p>
@@ -632,6 +767,11 @@
           <h4>A tenant's own sign-in</h4>
           <p>A tenant can bring its own OIDC provider or GitHub organization, once the deployment's administrator approves it.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/admin/05-access.md#sign-in-methods-and-login-rules">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>A member roster that flags trouble</h4>
+          <p>Tenant administrators see members as cards with their state, home disk, sessions and last activity, and can filter for those who need attention, such as a home that is nearly full.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/admin/01-members.md#the-roster-cards">In the guide →</a></p>
         </li>
       </ul>
     </div>
@@ -674,6 +814,11 @@
           <h4>Running-time heatmap</h4>
           <p>Hours of the day against dates, coloured by time running or by session count.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/12-settings.md#running-time">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>A budget per session</h4>
+          <p>Give a session a budget in US dollars. It stops after the turn that reaches it, and a turn that runs to <b class="num">2×</b> the budget is halted. The spend is an estimate at list price, and some agents report too little to be stopped.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/02-sessions.md#a-spend-budget--pausing-a-session-that-spends-too-much">In the guide →</a></p>
         </li>
       </ul>
     </div>

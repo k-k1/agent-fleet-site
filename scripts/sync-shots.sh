@@ -25,7 +25,7 @@ if [ -z "$ref" ]; then
     | python3 -c 'import json,sys; print(json.load(sys.stdin)["tag_name"])')"
 fi
 
-scenes=(console overview fleetgraph mirror usage launch split scm terminal files workitems imagegen memory inbox sessionmenu move)
+scenes=(console overview fleetgraph mirror usage launch split scm terminal files workitems imagegen memory inbox move)
 demos=(orchestrate sre plan phone)
 
 fetch() { # repo, file
