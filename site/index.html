@@ -116,7 +116,7 @@
       <ol class="day">
         <li><time>18:00</time><strong>Leave the night shift a job</strong><p>Tell the assistant in plain words: "every night at 2:00, update the dependencies and run the tests."</p></li>
         <li><time>02:00</time><strong>It runs while you sleep</strong><p>The schedule wakes the stopped workspace, starts the session and runs the prompt.</p></li>
-        <li><time>03:40</time><strong>A limit doesn't end the night</strong><p>If a usage limit cuts a turn short, it picks up on its own when the limit lifts.</p></li>
+        <li><time>03:40</time><strong>A limit doesn't end the night</strong><p>If a usage limit cuts a Claude Code turn short, the turn picks up on its own when the limit lifts.</p></li>
         <li><time>08:30 <small>next day</small></time><strong>The results are waiting</strong><p>Each run is in the schedule's history, one click from the session it drove.</p></li>
       </ol>
     </div>
@@ -171,11 +171,11 @@
     <div class="minor">
       <div>
         <h3>Unattended work</h3>
-        <p>Scheduled runs wake a stopped workspace and run the prompt. A turn cut short by a usage limit resumes when the limit lifts, so nothing sits dead until morning.</p>
+        <p>Scheduled runs wake a stopped workspace and run the prompt. A Claude Code, Muse Code or Managed Codex turn cut short by a usage limit resumes when the limit lifts. Any other session can move to an agent that still has quota, so nothing sits dead until morning.</p>
       </div>
       <div>
-        <h3>One set of rules for every agent</h3>
-        <p>Fleet-wide policy and per-member instructions reach every agent kind in each CLI's own idiom. The memories Claude Code and Codex build up on their own are snapshotted and can be rolled back.</p>
+        <h3>Shared rules and a shared memory</h3>
+        <p>Fleet-wide policy and per-member instructions reach each agent kind in its CLI's own idiom; Cursor is the one kind that takes neither. With Agent memory on, every kind reads and writes the same memory, and each change records who made it and can be reverted.</p>
       </div>
     </div>
 
@@ -194,7 +194,7 @@
       </figure>
       <figure>
         <div class="shot"><a href="/assets/img/terminal-en.webp" data-lightbox><img src="/assets/img/terminal-en.webp" width="2560" height="1520" loading="lazy" decoding="async" alt="A terminal pane attached to a shell session, showing a build and a git status run"></a></div>
-        <figcaption><strong>A real terminal, too</strong>: every session, agent or plain shell, can be attached as a live PTY.</figcaption>
+        <figcaption><strong>A real terminal, too</strong>: a plain shell, or an agent started as Terminal (CLI), can be attached as a live PTY.</figcaption>
       </figure>
     </div>
     <p class="more-all"><a href="/features/#catalogue">All features →</a></p>
@@ -225,9 +225,9 @@
       <p>One company runs one deployment, on its own infrastructure. Companies are isolated by separate deployments, not by boundaries inside a shared service.</p>
     </div>
     <ul class="checks">
-      <li><h3>Your infrastructure</h3><p>A single Linux host with Docker Compose, or AWS. The same core either way.</p></li>
+      <li><h3>Your infrastructure</h3><p>A single Linux host with Docker Compose, AWS, or Google Cloud on GKE (a preview). The same core everywhere.</p></li>
       <li><h3>Isolated workspaces</h3><p>Each member gets a persistent container with cgroup CPU and memory quotas and per-user network isolation. The Docker-less native edition uses a bubblewrap sandbox instead.</p></li>
-      <li><h3>Your identity provider</h3><p>Sign in with Google, Microsoft Entra ID, Okta or any OIDC provider. It supports tenants, and member, admin and operator roles.</p></li>
+      <li><h3>Your identity provider</h3><p>Sign in with Google, Microsoft Entra ID, Okta, any OIDC provider or a GitHub organization. It supports tenants, with member, tenant administrator and deployment administrator roles.</p></li>
       <li><h3>Your own seats</h3><p>Each member signs in to the agent CLIs with their own account. The deployment neither bundles nor shares AI-provider credentials.</p></li>
       <li><h3>Encrypted secrets</h3><p>Credentials are stored with envelope encryption: per-workspace keys wrapped by a tenant key.</p></li>
       <li><h3>Auditable, and candid</h3><p>The source is Apache-2.0. The <a href="https://github.com/k-k1/agent-fleet/blob/main/SECURITY.md">security policy</a> documents the threat model and the residual risks an operator should understand.</p></li>
@@ -269,7 +269,7 @@
     <div class="try">
       <div>
         <h3>Try it on your own machine</h3>
-        <p>The native edition needs x86_64 Linux or WSL2 and no Docker. Each member signs in to the agent CLIs with their own account from the Console.</p>
+        <p>The native edition needs Linux on x86_64 or arm64, or WSL2, and no Docker. Each member signs in to the agent CLIs with their own account from the Console.</p>
         <p><a href="https://github.com/k-k1/agent-fleet-dist#installing-the-native-edition-no-docker-wsl2--single-user-linux">Installer details</a> · <a href="https://github.com/k-k1/agent-fleet-dist#installing-the-docker-compose-edition-team-on-prem">Setting up compose for a team</a></p>
       </div>
       <pre><code>curl -fsSL https://raw.githubusercontent.com/k-k1/agent-fleet-dist/main/install.sh | bash

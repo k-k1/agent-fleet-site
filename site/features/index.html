@@ -208,8 +208,8 @@
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/08-organising.md#what-is-the-fleet-operator">In the guide →</a></p>
         </li>
         <li>
-          <h4>Session reports and Autopilot <span class="flag flag-off">Off by default</span></h4>
-          <p>Sessions report to the operator when they go idle, ask something or exit abnormally. With Autopilot on it answers routine questions itself: <b class="num">10</b> unattended replies by default, <b class="num">50</b> at most.</p>
+          <h4>Session reports and Autopilot</h4>
+          <p>A session the operator instructed reports back when it goes idle, stops at a question or a plan, or exits abnormally. The operator replies on its own, up to <b class="num">10</b> times in a row without you by default (<b class="num">50</b> at most). Autopilot, off by default, also answers routine questions and takes plans through review to approval.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/08-organising.md#session-reports-and-auto-reply">In the guide →</a></p>
         </li>
         <li>
@@ -381,22 +381,22 @@
         </li>
         <li>
           <h4>Browser pane</h4>
-          <p>Your dev server in a real browser inside the Console, with HMR, WebSockets and cookies working. <b class="num">2</b> per workspace, on desktop and tablet.</p>
+          <p>Your dev server in a real browser inside the Console, with HMR, WebSockets and cookies working. <b class="num">2</b> per workspace, on desktop and tablet. Not available on ECS Fargate or the GKE preview.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/10-integrations.md#viewing-a-web-app-you-started--browser-pane-and-lightweight-preview">In the guide →</a></p>
         </li>
         <li>
-          <h4>Preview URLs <span class="flag flag-aws">AWS only</span></h4>
+          <h4>Preview URLs</h4>
           <p>A URL per port that you can show to your tenant, or open without sign-in for a while. Issued only where the deployment provides preview subdomains.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/10-integrations.md#preview-subdomains-only-where-they-are-issued">In the guide →</a></p>
         </li>
         <li>
           <h4>Hand the browser to a person</h4>
-          <p>When an agent reaches a one-time code, it hands you the page. You type the code and press “Action complete”.</p>
+          <p>When an agent reaches a one-time code, it hands you the page. You type the code and press “Action complete”. Not available on ECS Fargate or the GKE preview.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/10-integrations.md#operating-a-browser-the-agent-opened">In the guide →</a></p>
         </li>
         <li>
           <h4>A real terminal</h4>
-          <p>Every session, agent or plain shell, can be attached as a live PTY, with a control-key row on phones.</p>
+          <p>A plain shell, or an agent started as Terminal (CLI), can be attached as a live PTY, with a control-key row on phones. Managed sessions show the chat only.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/05-terminal.md">In the guide →</a></p>
         </li>
       </ul>
@@ -490,13 +490,13 @@
       <ul class="cards">
         <li>
           <h4>Your MCP servers</h4>
-          <p>Register stdio or remote HTTP servers, with secrets stored encrypted. Attach them to sessions and to the assistants you create.</p>
+          <p>Register a remote server with no authentication, a Bearer token, custom headers or OAuth, or run a stdio server. Secrets are stored encrypted, and an OAuth token stays in the workspace behind a local relay, never in a CLI's configuration. Attach servers to sessions and to the assistants you create.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/12-settings.md#mcp-servers">In the guide →</a></p>
         </li>
         <li>
-          <h4>Drive it from an external Claude</h4>
-          <p>Operate your workspace from Claude Code or Claude Desktop with an MCP token: read, write or admin scope, expiring after <b class="num">90</b> days by default, revocable.</p>
-          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/10-integrations.md#driving-your-workspace-from-an-external-claude-mcp">In the guide →</a></p>
+          <h4>Drive it from an external agent</h4>
+          <p>Operate your workspace from Claude Code or Claude Desktop with an MCP token: read, write or admin scope, expiring after <b class="num">90</b> days by default, revocable. Once the operator turns it on, claude.ai, ChatGPT and Claude Code can sign in with OAuth instead, with read or write access; such a connection ends after <b class="num">30</b> days unused.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/10-integrations.md#using-your-workspace-from-an-external-agent-mcp">In the guide →</a></p>
         </li>
         <li>
           <h4>Distribute to the tenant</h4>
@@ -515,7 +515,7 @@
       <div class="cat-head cat-top">
         <div>
           <h3>Image generation and your own engines</h3>
-          <p>Where an administrator has set up an engine, generate pictures and run open models inside the deployment.</p>
+          <p>Generate pictures on an engine an administrator set up, or through your own Codex or Antigravity sign-in, and run open models inside the deployment.</p>
         </div>
         <figure class="shot"><a href="/assets/img/imagegen-en.webp" data-lightbox><img src="/assets/img/imagegen-en.webp" width="3600" height="2000" loading="lazy" decoding="async" alt="Image generation studio: an agent chat that refines the draft prompt, the draft with its settings, the job queue and the generated pictures"></a></figure>
       </div>
@@ -532,7 +532,7 @@
         </li>
         <li>
           <h4>A GPU only when it is needed <span class="flag flag-aws">AWS only</span></h4>
-          <p>On the <code>ecs-ec2</code> edition, a GPU instance starts when a job asks for it and stops once it idles. The first request waits about <b class="num">3</b> minutes.</p>
+          <p>On the <code>ecs-ec2</code> edition, a GPU instance starts when a job asks for it and stops once it idles. The first image job waits about <b class="num">3</b> minutes, and a chat engine about <b class="num">9</b>.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/admin/04-mcp-egress.md#inference-engines-self-hosted-gpus--super_admin-only">In the guide →</a></p>
         </li>
         <li>
@@ -559,7 +559,7 @@
       <ul class="cards">
         <li>
           <h4>Command palette</h4>
-          <p><kbd>Ctrl/⌘ P</kbd> finds sessions, commands, changed files and files, and lists sessions waiting on you first.</p>
+          <p><kbd>Ctrl/⌘ P</kbd> finds sessions, commands, changed files and files, and lists sessions waiting on you first. It also searches past conversations and, while Agent memory is on, the memory.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/05-terminal.md#command-palette">In the guide →</a></p>
         </li>
         <li>
@@ -600,13 +600,13 @@
       <ul class="cards">
         <li>
           <h4>Three layers of instructions</h4>
-          <p>The fleet policy from the operator, your own agent instructions, and each repository's <code>CLAUDE.md</code> / <code>AGENTS.md</code>, each delivered in its CLI's own idiom.</p>
+          <p>The fleet policy from the operator and your own agent instructions reach each CLI in its own idiom; Cursor takes neither. The third layer is each repository's <code>CLAUDE.md</code> / <code>AGENTS.md</code>, which the CLI reads itself (opencode reads only <code>AGENTS.md</code>).</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/06-agents.md#agent-instructions-write-down-how-you-work-once">In the guide →</a></p>
         </li>
         <li>
-          <h4>Agent memory snapshots</h4>
-          <p>What Claude Code and Codex remember on their own is snapshotted after each run. You can roll it back, and undo the rollback.</p>
-          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/14-agent-memory.md#agent-memory">In the guide →</a></p>
+          <h4>Memory snapshots</h4>
+          <p>What Claude Code and Codex remember on their own is snapshotted a few minutes after an agent stops. You can roll it back, and undo the rollback.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/14-agent-memory.md#memory-snapshots">In the guide →</a></p>
         </li>
         <li>
           <h4>Models you don't use</h4>
@@ -658,12 +658,12 @@
         <li>
           <h4>Plan limits on the top bar</h4>
           <p>How much of each plan's limit is used, for Claude, Codex, Copilot, Antigravity and Muse Code.</p>
-          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/ref/agents.md">In the guide →</a></p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/06-agents.md#model-prices-and-usage-chips">In the guide →</a></p>
         </li>
         <li>
           <h4>Resume after a limit</h4>
-          <p>A turn cut short by a usage limit picks up again once the limit resets. This works for Claude, and for Codex when Managed.</p>
-          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/09-collaboration.md#when-a-turn-is-interrupted">In the guide →</a></p>
+          <p>A turn cut short by a usage limit picks up again once the limit resets. This works for Claude, Muse Code, and Codex when Managed; any other session can move to an agent that still has quota.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/ref/agents.md#states-shown-in-the-mirror">In the guide →</a></p>
         </li>
         <li>
           <h4>Cloud cost per workspace <span class="flag flag-aws">AWS only</span></h4>
@@ -683,7 +683,7 @@
 <section class="section closing" aria-labelledby="closing-h">
   <div class="wrap">
     <h2 id="closing-h">Try it on your own machine</h2>
-    <p class="lead">The native edition needs x86_64 Linux or WSL2 and no Docker.</p>
+    <p class="lead">The native edition needs Linux on x86_64 or arm64, or WSL2, and no Docker.</p>
     <div class="actions">
       <a class="btn btn-primary" href="https://github.com/k-k1/agent-fleet-dist#getting-started--which-edition">Get started</a>
       <a class="btn btn-ghost" href="https://github.com/k-k1/agent-fleet/blob/main/guide/README.md">Read the guide</a>

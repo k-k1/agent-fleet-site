@@ -116,7 +116,7 @@
       <ol class="day">
         <li><time>18:00</time><strong>夜の仕事を頼んでおく</strong><p>アシスタントに「毎晩 2 時に依存ライブラリを更新して、テストを回して」と普段の言葉で頼むだけです。</p></li>
         <li><time>02:00</time><strong>寝ている間に動く</strong><p>スケジュールが止まっているワークスペースを起こし、セッションを立ち上げてプロンプトを走らせます。</p></li>
-        <li><time>03:40</time><strong>上限で止まっても終わらない</strong><p>使用量の上限でターンが切れても、上限がリセットされると自分で再開します。</p></li>
+        <li><time>03:40</time><strong>上限で止まっても終わらない</strong><p>Claude Code のターンが使用量の上限で切れても、上限がリセットされると自分で再開します。</p></li>
         <li><time><small>翌</small> 08:30</time><strong>朝には結果が待っている</strong><p>実行ごとの結果はスケジュールの履歴に残り、動いたセッションもワンクリックで開けます。</p></li>
       </ol>
     </div>
@@ -171,11 +171,11 @@
     <div class="minor">
       <div>
         <h3>人がいなくても進む</h3>
-        <p>スケジュール実行は止まっているワークスペースを起こしてプロンプトを走らせます。使用量の上限で切れたターンは上限がリセットされると再開するので、朝まで止まったままにはなりません。</p>
+        <p>スケジュール実行は止まっているワークスペースを起こしてプロンプトを走らせます。Claude Code、Muse Code、マネージドの Codex は、使用量の上限で切れたターンを上限のリセット後に再開します。ほかのセッションは利用枠の残っているエージェントへ移せるので、朝まで止まったままにはなりません。</p>
       </div>
       <div>
-        <h3>どのエージェントにも同じルールを</h3>
-        <p>フリート全体のポリシーとメンバーごとの指示を、どの種類のエージェントにもその CLI の流儀で届けます。Claude Code と Codex が自分で溜める記憶はスナップショットを取り、巻き戻せます。</p>
+        <h3>ルールも記憶も共有する</h3>
+        <p>フリート全体のポリシーとメンバーごとの指示を、各エージェントにその CLI の流儀で届けます。Cursor だけはどちらも受け取りません。エージェントメモリをオンにすると、どの種類のエージェントも同じメモリを読み書きします。変更ごとに誰が書いたかが残り、元に戻せます。</p>
       </div>
     </div>
 
@@ -194,7 +194,7 @@
       </figure>
       <figure>
         <div class="shot"><a href="/assets/img/terminal-ja.webp" data-lightbox><img src="/assets/img/terminal-ja.webp" width="2560" height="1520" loading="lazy" decoding="async" alt="shell セッションに繋がった端末ペインで、ビルドと git status を走らせている"></a></div>
-        <figcaption><strong>端末</strong>：エージェントでも素の shell でも、どのセッションも生の端末として開けます。</figcaption>
+        <figcaption><strong>端末</strong>：素の shell や、ターミナル（CLI）で起動したエージェントは、生の端末として開けます。</figcaption>
       </figure>
     </div>
     <p class="more-all"><a href="/ja/features/#catalogue">すべての機能 →</a></p>
@@ -225,9 +225,9 @@
       <p>1 社 1 配備で、自分たちのインフラの上で動きます。会社どうしは、共有サービスの中の境界ではなく、配備そのものが別々であることで隔てられます。</p>
     </div>
     <ul class="checks">
-      <li><h3>自分たちのインフラ</h3><p>Docker Compose で動かす Linux 1 台でも AWS でも、中身は同じです。</p></li>
+      <li><h3>自分たちのインフラ</h3><p>Docker Compose で動かす Linux 1 台でも、AWS でも、Google Cloud の GKE（プレビュー）でも、中身は同じです。</p></li>
       <li><h3>隔離されたワークスペース</h3><p>メンバーごとに持続するコンテナを用意し、cgroup で CPU とメモリを制限して、ネットワークも利用者ごとに隔離します。Docker を使わない native 版では bubblewrap のサンドボックスです。</p></li>
-      <li><h3>自社の IdP でサインイン</h3><p>Google、Microsoft Entra ID、Okta など、OIDC のプロバイダーでサインインできます。テナントと member / admin / operator のロールがあります。</p></li>
+      <li><h3>自社の IdP でサインイン</h3><p>Google、Microsoft Entra ID、Okta などの OIDC のプロバイダーや、GitHub の組織でサインインできます。テナントがあり、メンバー、テナント管理者、配備管理者のロールがあります。</p></li>
       <li><h3>契約はメンバーごと</h3><p>エージェントの CLI には、メンバーが自分のアカウントでサインインします。配備が AI プロバイダーの資格情報を同梱したり共有したりすることはありません。</p></li>
       <li><h3>秘密は暗号化して保存</h3><p>資格情報はエンベロープ暗号化で保存します。ワークスペースごとの鍵を、テナントの鍵で包みます。</p></li>
       <li><h3>確かめられる、隠さない</h3><p>ソースは Apache-2.0 で公開しています。<a href="https://github.com/k-k1/agent-fleet/blob/main/SECURITY.md">セキュリティポリシー</a>（英語）に、脅威モデルと、運用者が理解しておくべき残るリスクを書いています。</p></li>
@@ -269,7 +269,7 @@
     <div class="try">
       <div>
         <h3>手元のマシンで試す</h3>
-        <p>native 版は x86_64 の Linux か WSL2 で動き、Docker は要りません。エージェントの CLI には、各メンバーが Console から自分のアカウントでサインインします。</p>
+        <p>native 版は x86_64 か arm64 の Linux、または WSL2 で動き、Docker は要りません。エージェントの CLI には、各メンバーが Console から自分のアカウントでサインインします。</p>
         <p><a href="https://github.com/k-k1/agent-fleet-dist/blob/main/README.ja.md#native-版の導入docker-不要wsl2--単一ユーザー-linux">インストーラーの詳細</a> · <a href="https://github.com/k-k1/agent-fleet-dist/blob/main/README.ja.md#docker-compose-版の導入チームオンプレ">チーム向けに compose を立てる</a></p>
       </div>
       <pre><code>curl -fsSL https://raw.githubusercontent.com/k-k1/agent-fleet-dist/main/install.sh | bash

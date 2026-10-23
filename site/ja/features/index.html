@@ -208,8 +208,8 @@
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/08-organising.ja.md#フリートオペレーターとは">利用ガイド →</a></p>
         </li>
         <li>
-          <h4>セッション報告と自動走行 <span class="flag flag-off">既定はオフ</span></h4>
-          <p>セッションは、作業が一段落したとき、質問があるとき、異常終了したときにオペレーターへ報告します。自動走行をオンにすると、定型的な質問にはオペレーターが代わりに答えます。人を介さない返信の上限は既定 <b class="num">10</b> 回、最大 <b class="num">50</b> 回です。</p>
+          <h4>セッション報告と自動走行</h4>
+          <p>オペレーターが指示したセッションは、作業が一段落したとき、質問やプランで止まったとき、異常終了したときに報告します。オペレーターは報告に自分で返信し、人を介さない返信は既定で <b class="num">10</b> 回、最大 <b class="num">50</b> 回まで続けます。自動走行（既定はオフ）をオンにすると、定型的な質問にも答え、プランをレビューから承認まで進めます。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/08-organising.ja.md#セッション報告と自動応答">利用ガイド →</a></p>
         </li>
         <li>
@@ -381,22 +381,22 @@
         </li>
         <li>
           <h4>ブラウザペイン</h4>
-          <p>開発サーバーの画面を、Console の中の実際のブラウザで確認できます。HMR・WebSocket・Cookie も動きます。ワークスペースごとに <b class="num">2</b> つまで、PC とタブレットで使えます。</p>
+          <p>開発サーバーの画面を、Console の中の実際のブラウザで確認できます。HMR・WebSocket・Cookie も動きます。ワークスペースごとに <b class="num">2</b> つまで、PC とタブレットで使えます。ECS の Fargate と GKE（プレビュー）では使えません。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/10-integrations.ja.md#立ち上げた-web-を見る--ブラウザペインと軽量プレビュー">利用ガイド →</a></p>
         </li>
         <li>
-          <h4>プレビュー URL <span class="flag flag-aws">AWS 版のみ</span></h4>
+          <h4>プレビュー URL</h4>
           <p>ポートごとに URL が発行され、同じテナントのメンバーに見せたり、一時的にサインインなしで開けるようにしたりできます。プレビュー用サブドメインを発行する配備でだけ使えます。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/10-integrations.ja.md#プレビュー用サブドメイン発行されている環境のみ">利用ガイド →</a></p>
         </li>
         <li>
           <h4>ブラウザを人に渡す</h4>
-          <p>エージェントがワンタイムコードの入力で止まったら、その画面をあなたに渡します。コードを入れて「操作完了」を押すだけです。</p>
+          <p>エージェントがワンタイムコードの入力で止まったら、その画面をあなたに渡します。コードを入れて「操作完了」を押すだけです。ECS の Fargate と GKE（プレビュー）では使えません。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/10-integrations.ja.md#エージェントが開いたブラウザを代わりに操作する">利用ガイド →</a></p>
         </li>
         <li>
           <h4>本物の端末</h4>
-          <p>エージェントでも素のシェルでも、どのセッションにも端末（PTY）として接続できます。スマホには制御キーの列が出ます。</p>
+          <p>素のシェルや、ターミナル（CLI）で起動したエージェントには、端末（PTY）として接続できます。スマホには制御キーの列が出ます。マネージドのセッションはチャットの表示だけです。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/05-terminal.ja.md">利用ガイド →</a></p>
         </li>
       </ul>
@@ -490,13 +490,13 @@
       <ul class="cards">
         <li>
           <h4>自分の MCP サーバー</h4>
-          <p>stdio またはリモート HTTP のサーバーを登録できます。秘密情報は暗号化して保存します。セッションと、自分で作ったアシスタントに付けられます。</p>
+          <p>リモートのサーバーを、認証なし・Bearer トークン・カスタムヘッダー・OAuth のどれかで登録できます。stdio のサーバーも動かせます。秘密情報は暗号化して保存し、OAuth のトークンはワークスペース内の中継の奥に置くので、CLI の設定には書かれません。セッションと、自分で作ったアシスタントに付けられます。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/12-settings.ja.md#mcp-サーバー">利用ガイド →</a></p>
         </li>
         <li>
-          <h4>外部の Claude から操作</h4>
-          <p>Claude Code や Claude Desktop から、MCP トークンで自分のワークスペースを操作できます。範囲は読み取り・書き込み・管理の 3 段階。期限は既定 <b class="num">90</b> 日で、取り消せます。</p>
-          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/10-integrations.ja.md#外部の-claude-から自分のワークスペースを操作するmcp">利用ガイド →</a></p>
+          <h4>外部のエージェントから操作</h4>
+          <p>Claude Code や Claude Desktop から、MCP トークンで自分のワークスペースを操作できます。範囲は読み取り・書き込み・管理の 3 段階で、期限は既定 <b class="num">90</b> 日、取り消しもできます。運用者がオンにすれば、claude.ai・ChatGPT・Claude Code はトークンの代わりに OAuth でサインインして、読み取りか書き込みの権限で接続できます。この接続は <b class="num">30</b> 日使わないと切れます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/10-integrations.ja.md#外部のエージェントからワークスペースを使うmcp">利用ガイド →</a></p>
         </li>
         <li>
           <h4>テナントに配る</h4>
@@ -515,7 +515,7 @@
       <div class="cat-head cat-top">
         <div>
           <h3>画像生成と自前のエンジン</h3>
-          <p>管理者がエンジンを用意した環境では、画像の生成もオープンなモデルの実行も配備の中で行えます。</p>
+          <p>管理者が用意したエンジンか、自分の Codex や Antigravity のサインインで画像を生成できます。オープンなモデルも配備の中で動かせます。</p>
         </div>
         <figure class="shot"><a href="/assets/img/imagegen-ja.webp" data-lightbox><img src="/assets/img/imagegen-ja.webp" width="3600" height="2000" loading="lazy" decoding="async" alt="画像生成のスタジオ: 下書きを直すエージェントとの会話、設定付きの下書き、ジョブの待ち行列、生成された画像"></a></figure>
       </div>
@@ -532,7 +532,7 @@
         </li>
         <li>
           <h4>GPU は必要なときだけ <span class="flag flag-aws">AWS 版のみ</span></h4>
-          <p><code>ecs-ec2</code> 版では、ジョブが来たときに GPU インスタンスを起動し、使われなくなれば停止します。最初のジョブは起動を約 <b class="num">3</b> 分待ちます。</p>
+          <p><code>ecs-ec2</code> 版では、ジョブが来たときに GPU インスタンスを起動し、使われなくなれば停止します。最初の画像のジョブは起動を約 <b class="num">3</b> 分、チャットのエンジンは約 <b class="num">9</b> 分待ちます。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/admin/04-mcp-egress.ja.md#推論エンジン自前の-gpusuper_admin-専用">利用ガイド →</a></p>
         </li>
         <li>
@@ -559,7 +559,7 @@
       <ul class="cards">
         <li>
           <h4>コマンドパレット</h4>
-          <p><kbd>Ctrl/⌘ P</kbd> でセッション・コマンド・変更ファイル・ファイルを探せます。自分を待っているセッションが先頭に出ます。</p>
+          <p><kbd>Ctrl/⌘ P</kbd> でセッション・コマンド・変更ファイル・ファイルを探せます。自分を待っているセッションが先頭に出ます。過去の会話も、エージェントメモリがオンならメモリも検索できます。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/05-terminal.ja.md#コマンドパレット">利用ガイド →</a></p>
         </li>
         <li>
@@ -600,13 +600,13 @@
       <ul class="cards">
         <li>
           <h4>3 層のエージェント指示</h4>
-          <p>運用者が決めるワークスペースの方針、自分のエージェントへの指示、リポジトリの <code>CLAUDE.md</code> / <code>AGENTS.md</code>。それぞれの CLI に合った形式で渡します。</p>
+          <p>運用者が決めるワークスペースの方針と、自分のエージェントへの指示は、それぞれの CLI に合った形式で渡します。Cursor はどちらも受け取りません。3 層目はリポジトリの <code>CLAUDE.md</code> / <code>AGENTS.md</code> で、CLI が自分で読みます（opencode が読むのは <code>AGENTS.md</code> だけです）。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/06-agents.ja.md#エージェントへの指示自分の働き方を一度だけ書く">利用ガイド →</a></p>
         </li>
         <li>
-          <h4>エージェントメモリのスナップショット</h4>
-          <p>Claude Code と Codex が自分で覚えた記憶を、作業が終わるたびに保存します。以前の状態に戻せるうえ、戻す直前の状態も保存されるので、戻したこと自体も取り消せます。</p>
-          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/14-agent-memory.ja.md#エージェントメモリ">利用ガイド →</a></p>
+          <h4>メモリのスナップショット</h4>
+          <p>Claude Code と Codex が自分で覚えた記憶を、エージェントが止まって数分後に保存します。以前の状態に戻せるうえ、戻す直前の状態も保存されるので、戻したこと自体も取り消せます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/14-agent-memory.ja.md#メモリのスナップショット">利用ガイド →</a></p>
         </li>
         <li>
           <h4>使わないモデル</h4>
@@ -658,12 +658,12 @@
         <li>
           <h4>上部バーの上限チップ</h4>
           <p>Claude・Codex・Copilot・Antigravity・Muse Code について、契約の利用上限のうちどれだけ使ったかを表示します。</p>
-          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/ref/agents.ja.md">利用ガイド →</a></p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/06-agents.ja.md#モデルの価格と使用量チップ">利用ガイド →</a></p>
         </li>
         <li>
           <h4>上限の後に自動で再開</h4>
-          <p>利用上限で止まったターンは、上限がリセットされると自動で再開します。Claude と、マネージドの Codex が対象です。</p>
-          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/member/09-collaboration.ja.md#ターンが中断されたとき">利用ガイド →</a></p>
+          <p>利用上限で止まったターンは、上限がリセットされると自動で再開します。Claude、Muse Code、マネージドの Codex が対象です。ほかのセッションは、利用枠の残っているエージェントへ移せます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/ref/agents.ja.md#ミラーに出る状態">利用ガイド →</a></p>
         </li>
         <li>
           <h4>ワークスペースごとのクラウド費用 <span class="flag flag-aws">AWS 版のみ</span></h4>
@@ -683,7 +683,7 @@
 <section class="section closing" aria-labelledby="closing-h">
   <div class="wrap">
     <h2 id="closing-h">手元のマシンで試す</h2>
-    <p class="lead">native 版は x86_64 の Linux か WSL2 で動き、Docker は要りません。</p>
+    <p class="lead">native 版は x86_64 か arm64 の Linux、または WSL2 で動き、Docker は要りません。</p>
     <div class="actions">
       <a class="btn btn-primary" href="https://github.com/k-k1/agent-fleet-dist/blob/main/README.ja.md#はじめに--どの版を選ぶ">はじめる</a>
       <a class="btn btn-ghost" href="https://github.com/k-k1/agent-fleet/blob/main/guide/README.ja.md">ガイドを読む</a>
