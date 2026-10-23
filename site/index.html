@@ -25,7 +25,7 @@
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/assets/brand/icon-192.png" type="image/png" sizes="192x192">
   <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
-  <link rel="stylesheet" href="/assets/site.css?v=02ada35300">
+  <link rel="stylesheet" href="/assets/site.css?v=3d933b7167">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -39,7 +39,7 @@
       <a href="#upstream">Upstream changes</a>
       <a href="#security">Security</a>
       <a href="#editions">Editions</a>
-      <a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/README.md">Docs</a>
+      <a href="https://github.com/k-k1/agent-fleet/blob/main/guide/README.md">Docs</a>
     </nav>
     <div class="header-end">
       <p class="lang"><span aria-current="true">English</span> · <a href="/ja/" hreflang="ja" lang="ja">日本語</a></p>
@@ -116,7 +116,7 @@
       <ol class="day">
         <li><time>18:00</time><strong>Leave the night shift a job</strong><p>Tell the assistant in plain words: "every night at 2:00, update the dependencies and run the tests."</p></li>
         <li><time>02:00</time><strong>It runs while you sleep</strong><p>The schedule wakes the stopped workspace, starts the session and runs the prompt.</p></li>
-        <li><time>03:40</time><strong>A limit doesn't end the night</strong><p>If a usage limit cuts a turn short, it picks up on its own when the limit lifts.</p></li>
+        <li><time>03:40</time><strong>A limit doesn't end the night</strong><p>If a usage limit cuts a Claude Code turn short, the turn picks up on its own when the limit lifts.</p></li>
         <li><time>08:30 <small>next day</small></time><strong>The results are waiting</strong><p>Each run is in the schedule's history, one click from the session it drove.</p></li>
       </ol>
     </div>
@@ -155,12 +155,24 @@
     <div class="feature">
       <div class="feature-text">
         <h3>Sessions that start sessions</h3>
-        <p>A session can hand a review to another agent kind and get one report back. The fleet graph draws who started whom, what passed between them, and when each one was working.</p>
+        <p>A session can hand a review to another agent kind and get one report back, or move its whole job to another kind when its usage limit runs out. The fleet graph draws who started whom, what passed between them, and when each one was working.</p>
       </div>
       <figure class="shot"><a href="/assets/img/fleetgraph-en.webp" data-lightbox><img src="/assets/img/fleetgraph-en.webp" width="3200" height="1240" loading="lazy" decoding="async" alt="Fleet graph: one lane per session on a time axis, children under their parent, arrows for what passed between sessions, and each lane's state chip"></a></figure>
     </div>
 
     <div class="feature flip">
+      <div class="feature-text">
+        <h3>One memory, every agent</h3>
+        <p>With Agent memory on, what one session saves is read by the next session of any kind. Every change records the agent and session that made it, and you can edit, pin, forget or revert it from the Console.</p>
+        <ul>
+          <li>It is off by default, and each member turns it on.</li>
+          <li>Your own Claude Code or Claude Desktop can read it too.</li>
+        </ul>
+      </div>
+      <figure class="shot"><a href="/assets/img/memory-en.webp" data-lightbox><img src="/assets/img/memory-en.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="Settings, Agent memory: memories written by sessions of four agent kinds and by the member, one opened with its scope, author and use count"></a></figure>
+    </div>
+
+    <div class="feature">
       <div class="feature-text">
         <h3>One yardstick for spend</h3>
         <p>Token use is broken down by feature, agent and model, over 24 hours, 7 days or 30 days. Calls that report no tokens are counted as unmeasured, never as free.</p>
@@ -171,11 +183,11 @@
     <div class="minor">
       <div>
         <h3>Unattended work</h3>
-        <p>Scheduled runs wake a stopped workspace and run the prompt. A turn cut short by a usage limit resumes when the limit lifts, so nothing sits dead until morning.</p>
+        <p>Scheduled runs wake a stopped workspace and run the prompt. A Claude Code, Muse Code or Managed Codex turn cut short by a usage limit resumes when the limit lifts. Any other session can move to an agent that still has quota, so nothing sits dead until morning.</p>
       </div>
       <div>
-        <h3>One set of rules for every agent</h3>
-        <p>Fleet-wide policy and per-member instructions reach every agent kind in each CLI's own idiom. The memories Claude Code and Codex build up on their own are snapshotted and can be rolled back.</p>
+        <h3>Rules that reach every agent</h3>
+        <p>Fleet-wide policy and per-member instructions reach each agent kind in its CLI's own idiom; Cursor is the one kind that takes neither. The memories Claude Code and Codex build up on their own are snapshotted and can be rolled back.</p>
       </div>
     </div>
 
@@ -194,7 +206,7 @@
       </figure>
       <figure>
         <div class="shot"><a href="/assets/img/terminal-en.webp" data-lightbox><img src="/assets/img/terminal-en.webp" width="2560" height="1520" loading="lazy" decoding="async" alt="A terminal pane attached to a shell session, showing a build and a git status run"></a></div>
-        <figcaption><strong>A real terminal, too</strong>: every session, agent or plain shell, can be attached as a live PTY.</figcaption>
+        <figcaption><strong>A real terminal, too</strong>: a plain shell, or an agent started as Terminal (CLI), can be attached as a live PTY.</figcaption>
       </figure>
     </div>
     <p class="more-all"><a href="/features/#catalogue">All features →</a></p>
@@ -213,7 +225,7 @@
       <li><h3>Tested against the real CLI</h3><p>A daily watcher notices when a CLI publishes a new version and dispatches a contract test that drives the real CLI, its interactive TUI included, against what Agent Fleet depends on.</p></li>
       <li><h3>Seen is not tested</h3><p>"We saw a new version" and "we tested it" are recorded separately, so a release that has not passed its contract is never mistaken for one that has.</p></li>
     </ol>
-    <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/develop/docs/build/10-development.md#detecting-upstream-cli-breakage">How the two halves fit together →</a></p>
+    <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/main/docs/build/10-development.md#detecting-upstream-cli-breakage">How the two halves fit together →</a></p>
   </div>
 </section>
 
@@ -225,12 +237,12 @@
       <p>One company runs one deployment, on its own infrastructure. Companies are isolated by separate deployments, not by boundaries inside a shared service.</p>
     </div>
     <ul class="checks">
-      <li><h3>Your infrastructure</h3><p>A single Linux host with Docker Compose, or AWS. The same core either way.</p></li>
+      <li><h3>Your infrastructure</h3><p>A single Linux host with Docker Compose, AWS, or Google Cloud on GKE (a preview). The same core everywhere.</p></li>
       <li><h3>Isolated workspaces</h3><p>Each member gets a persistent container with cgroup CPU and memory quotas and per-user network isolation. The Docker-less native edition uses a bubblewrap sandbox instead.</p></li>
-      <li><h3>Your identity provider</h3><p>Sign in with Google, Microsoft Entra ID, Okta or any OIDC provider. It supports tenants, and member, admin and operator roles.</p></li>
+      <li><h3>Your identity provider</h3><p>Sign in with Google, Microsoft Entra ID, Okta, any OIDC provider or a GitHub organization. It supports tenants, with member, tenant administrator and deployment administrator roles.</p></li>
       <li><h3>Your own seats</h3><p>Each member signs in to the agent CLIs with their own account. The deployment neither bundles nor shares AI-provider credentials.</p></li>
       <li><h3>Encrypted secrets</h3><p>Credentials are stored with envelope encryption: per-workspace keys wrapped by a tenant key.</p></li>
-      <li><h3>Auditable, and candid</h3><p>The source is Apache-2.0. The <a href="https://github.com/k-k1/agent-fleet/blob/develop/SECURITY.md">security policy</a> documents the threat model and the residual risks an operator should understand.</p></li>
+      <li><h3>Auditable, and candid</h3><p>The source is Apache-2.0. The <a href="https://github.com/k-k1/agent-fleet/blob/main/SECURITY.md">security policy</a> documents the threat model and the residual risks an operator should understand.</p></li>
     </ul>
   </div>
 </section>
@@ -240,7 +252,7 @@
     <div class="section-head">
       <p class="kicker">Editions</p>
       <h2 id="editions-h">Choose where it runs</h2>
-      <p>Start on one Linux host. Move to AWS when you need task-level isolation, and change your mind later if you want.</p>
+      <p>Start on one Linux host. Move to AWS when you need task-level isolation, and change your mind later if you want. Google Cloud is in preview.</p>
     </div>
     <div class="editions">
       <div class="edition recommended">
@@ -263,13 +275,18 @@
         <h3><code>ecs</code> · <code>ecs-ec2</code></h3>
         <p>Task-level isolation, per-user fault isolation and rolling image replacement.</p>
       </div>
+      <div class="edition">
+        <span class="tag muted">Google Cloud, preview</span>
+        <h3><code>kubernetes</code> · GKE</h3>
+        <p>It runs on a GKE Standard cluster but is not supported for production yet: homes have no backup, and there are no browser features or per-member cost.</p>
+      </div>
     </div>
-    <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/operate/01-choose.md">Choosing a deployment target, costs included →</a></p>
+    <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/operate/01-choose.md">Choosing a deployment target, costs included →</a></p>
 
     <div class="try">
       <div>
         <h3>Try it on your own machine</h3>
-        <p>The native edition needs x86_64 Linux or WSL2 and no Docker. Each member signs in to the agent CLIs with their own account from the Console.</p>
+        <p>The native edition needs Linux on x86_64 or arm64, or WSL2, and no Docker. Each member signs in to the agent CLIs with their own account from the Console.</p>
         <p><a href="https://github.com/k-k1/agent-fleet-dist#installing-the-native-edition-no-docker-wsl2--single-user-linux">Installer details</a> · <a href="https://github.com/k-k1/agent-fleet-dist#installing-the-docker-compose-edition-team-on-prem">Setting up compose for a team</a></p>
       </div>
       <pre><code>curl -fsSL https://raw.githubusercontent.com/k-k1/agent-fleet-dist/main/install.sh | bash
@@ -285,7 +302,7 @@ af start
     <h2 id="closing-h">Close your laptop. The agents keep working.</h2>
     <div class="actions">
       <a class="btn btn-primary" href="https://github.com/k-k1/agent-fleet-dist#getting-started--which-edition">Get started</a>
-      <a class="btn btn-ghost" href="https://github.com/k-k1/agent-fleet/blob/develop/guide/README.md">Read the guide</a>
+      <a class="btn btn-ghost" href="https://github.com/k-k1/agent-fleet/blob/main/guide/README.md">Read the guide</a>
     </div>
   </div>
 </section>
@@ -299,9 +316,9 @@ af start
       <nav aria-label="Project">
         <a href="https://github.com/k-k1/agent-fleet">Source</a>
         <a href="https://github.com/k-k1/agent-fleet-dist/releases">Releases</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/README.md">Documentation</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/develop/SECURITY.md">Security policy</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/develop/LICENSE">License (Apache-2.0)</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/main/guide/README.md">Documentation</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/main/SECURITY.md">Security policy</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/main/LICENSE">License (Apache-2.0)</a>
         <a href="/ja/" hreflang="ja" lang="ja">日本語</a>
       </nav>
     </div>

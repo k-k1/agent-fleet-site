@@ -25,7 +25,7 @@
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/assets/brand/icon-192.png" type="image/png" sizes="192x192">
   <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
-  <link rel="stylesheet" href="/assets/site.css?v=02ada35300">
+  <link rel="stylesheet" href="/assets/site.css?v=3d933b7167">
 </head>
 <body>
 <a class="skip" href="#main">本文へ移動</a>
@@ -39,7 +39,7 @@
       <a href="#upstream">CLI の更新</a>
       <a href="#security">セキュリティ</a>
       <a href="#editions">エディション</a>
-      <a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/README.ja.md">ドキュメント</a>
+      <a href="https://github.com/k-k1/agent-fleet/blob/main/guide/README.ja.md">ドキュメント</a>
     </nav>
     <div class="header-end">
       <p class="lang"><a href="/" hreflang="en" lang="en">English</a> · <span aria-current="true">日本語</span></p>
@@ -116,7 +116,7 @@
       <ol class="day">
         <li><time>18:00</time><strong>夜の仕事を頼んでおく</strong><p>アシスタントに「毎晩 2 時に依存ライブラリを更新して、テストを回して」と普段の言葉で頼むだけです。</p></li>
         <li><time>02:00</time><strong>寝ている間に動く</strong><p>スケジュールが止まっているワークスペースを起こし、セッションを立ち上げてプロンプトを走らせます。</p></li>
-        <li><time>03:40</time><strong>上限で止まっても終わらない</strong><p>使用量の上限でターンが切れても、上限がリセットされると自分で再開します。</p></li>
+        <li><time>03:40</time><strong>上限で止まっても終わらない</strong><p>Claude Code のターンが使用量の上限で切れても、上限がリセットされると自分で再開します。</p></li>
         <li><time><small>翌</small> 08:30</time><strong>朝には結果が待っている</strong><p>実行ごとの結果はスケジュールの履歴に残り、動いたセッションもワンクリックで開けます。</p></li>
       </ol>
     </div>
@@ -155,12 +155,24 @@
     <div class="feature">
       <div class="feature-text">
         <h3>セッションがセッションを起こす</h3>
-        <p>レビューを別の種類のエージェントに渡し、終わったら報告を 1 本受け取れます。フリート俯瞰図に、誰が誰を起こし、何をやり取りし、いつ動いていたかが描かれます。</p>
+        <p>レビューを別の種類のエージェントに渡し、終わったら報告を 1 本受け取れます。利用上限が尽きたら、仕事ごと別の種類へ移すこともできます。フリート俯瞰図に、誰が誰を起こし、何をやり取りし、いつ動いていたかが描かれます。</p>
       </div>
       <figure class="shot"><a href="/assets/img/fleetgraph-ja.webp" data-lightbox><img src="/assets/img/fleetgraph-ja.webp" width="3200" height="1240" loading="lazy" decoding="async" alt="フリート俯瞰図。1 セッション 1 レーンを時間軸に描き、子は親の下、セッション間のやり取りは矢印、各レーンに状態チップ"></a></figure>
     </div>
 
     <div class="feature flip">
+      <div class="feature-text">
+        <h3>どのエージェントにも同じメモリ</h3>
+        <p>エージェントメモリをオンにすると、あるセッションが保存したことを、次のセッションが種類に関係なく読みます。変更ごとに書いたエージェントとセッションが残り、Console から編集・ピン留め・忘れさせる・取り消すことができます。</p>
+        <ul>
+          <li>既定はオフで、メンバーごとにオンにします。</li>
+          <li>自分の Claude Code や Claude Desktop からも読めます。</li>
+        </ul>
+      </div>
+      <figure class="shot"><a href="/assets/img/memory-ja.webp" data-lightbox><img src="/assets/img/memory-ja.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="設定のエージェントメモリ。4 種類のエージェントのセッションとメンバーが書いたメモリの一覧と、範囲・書き手・使用回数つきで開いた 1 件"></a></figure>
+    </div>
+
+    <div class="feature">
       <div class="feature-text">
         <h3>費用を 1 つの物差しで</h3>
         <p>トークンの使用量を、機能別・エージェント別・モデル別に、24 時間・7 日・30 日の範囲で見られます。トークンを報告しない呼び出しは「未計測」として数え、無料には見せません。</p>
@@ -171,11 +183,11 @@
     <div class="minor">
       <div>
         <h3>人がいなくても進む</h3>
-        <p>スケジュール実行は止まっているワークスペースを起こしてプロンプトを走らせます。使用量の上限で切れたターンは上限がリセットされると再開するので、朝まで止まったままにはなりません。</p>
+        <p>スケジュール実行は止まっているワークスペースを起こしてプロンプトを走らせます。Claude Code、Muse Code、マネージドの Codex は、使用量の上限で切れたターンを上限のリセット後に再開します。ほかのセッションは利用枠の残っているエージェントへ移せるので、朝まで止まったままにはなりません。</p>
       </div>
       <div>
-        <h3>どのエージェントにも同じルールを</h3>
-        <p>フリート全体のポリシーとメンバーごとの指示を、どの種類のエージェントにもその CLI の流儀で届けます。Claude Code と Codex が自分で溜める記憶はスナップショットを取り、巻き戻せます。</p>
+        <h3>どのエージェントにもルールを</h3>
+        <p>フリート全体のポリシーとメンバーごとの指示を、各エージェントにその CLI の流儀で届けます。Cursor だけはどちらも受け取りません。Claude Code と Codex が自分で溜める記憶はスナップショットを取り、巻き戻せます。</p>
       </div>
     </div>
 
@@ -194,7 +206,7 @@
       </figure>
       <figure>
         <div class="shot"><a href="/assets/img/terminal-ja.webp" data-lightbox><img src="/assets/img/terminal-ja.webp" width="2560" height="1520" loading="lazy" decoding="async" alt="shell セッションに繋がった端末ペインで、ビルドと git status を走らせている"></a></div>
-        <figcaption><strong>端末</strong>：エージェントでも素の shell でも、どのセッションも生の端末として開けます。</figcaption>
+        <figcaption><strong>端末</strong>：素の shell や、ターミナル（CLI）で起動したエージェントは、生の端末として開けます。</figcaption>
       </figure>
     </div>
     <p class="more-all"><a href="/ja/features/#catalogue">すべての機能 →</a></p>
@@ -213,7 +225,7 @@
       <li><h3>新しい版は実物で試す</h3><p>新しい版が出ると毎日の監視が気づき、その CLI を実際に動かすテストを走らせます。対話画面（TUI）も含めて、Agent Fleet が頼っている振る舞いが変わっていないかを確かめます。</p></li>
       <li><h3>未検証の版と取り違えない</h3><p>「新しい版が出た」ことと「その版がテストを通った」ことは別々に記録します。まだ通っていない版を、通った版と取り違えることはありません。</p></li>
     </ol>
-    <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/develop/docs/build/10-development.ja.md#上流-cli-の破壊検知版ドリフト監視--contract-テスト">版の固定とテストの仕組み →</a></p>
+    <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/main/docs/build/10-development.ja.md#上流-cli-の破壊検知版ドリフト監視--contract-テスト">版の固定とテストの仕組み →</a></p>
   </div>
 </section>
 
@@ -225,12 +237,12 @@
       <p>1 社 1 配備で、自分たちのインフラの上で動きます。会社どうしは、共有サービスの中の境界ではなく、配備そのものが別々であることで隔てられます。</p>
     </div>
     <ul class="checks">
-      <li><h3>自分たちのインフラ</h3><p>Docker Compose で動かす Linux 1 台でも AWS でも、中身は同じです。</p></li>
+      <li><h3>自分たちのインフラ</h3><p>Docker Compose で動かす Linux 1 台でも、AWS でも、Google Cloud の GKE（プレビュー）でも、中身は同じです。</p></li>
       <li><h3>隔離されたワークスペース</h3><p>メンバーごとに持続するコンテナを用意し、cgroup で CPU とメモリを制限して、ネットワークも利用者ごとに隔離します。Docker を使わない native 版では bubblewrap のサンドボックスです。</p></li>
-      <li><h3>自社の IdP でサインイン</h3><p>Google、Microsoft Entra ID、Okta など、OIDC のプロバイダーでサインインできます。テナントと member / admin / operator のロールがあります。</p></li>
+      <li><h3>自社の IdP でサインイン</h3><p>Google、Microsoft Entra ID、Okta などの OIDC のプロバイダーや、GitHub の組織でサインインできます。テナントがあり、メンバー、テナント管理者、配備管理者のロールがあります。</p></li>
       <li><h3>契約はメンバーごと</h3><p>エージェントの CLI には、メンバーが自分のアカウントでサインインします。配備が AI プロバイダーの資格情報を同梱したり共有したりすることはありません。</p></li>
       <li><h3>秘密は暗号化して保存</h3><p>資格情報はエンベロープ暗号化で保存します。ワークスペースごとの鍵を、テナントの鍵で包みます。</p></li>
-      <li><h3>確かめられる、隠さない</h3><p>ソースは Apache-2.0 で公開しています。<a href="https://github.com/k-k1/agent-fleet/blob/develop/SECURITY.md">セキュリティポリシー</a>（英語）に、脅威モデルと、運用者が理解しておくべき残るリスクを書いています。</p></li>
+      <li><h3>確かめられる、隠さない</h3><p>ソースは Apache-2.0 で公開しています。<a href="https://github.com/k-k1/agent-fleet/blob/main/SECURITY.md">セキュリティポリシー</a>（英語）に、脅威モデルと、運用者が理解しておくべき残るリスクを書いています。</p></li>
     </ul>
   </div>
 </section>
@@ -240,7 +252,7 @@
     <div class="section-head">
       <p class="kicker">エディション</p>
       <h2 id="editions-h">どこで動かすかを選ぶ</h2>
-      <p>最初は Linux 1 台で始められます。タスク単位の隔離が必要になったら AWS へ移せます。あとから選び直すこともできます。</p>
+      <p>最初は Linux 1 台で始められます。タスク単位の隔離が必要になったら AWS へ移せます。あとから選び直すこともできます。Google Cloud はプレビューです。</p>
     </div>
     <div class="editions">
       <div class="edition recommended">
@@ -263,13 +275,18 @@
         <h3><code>ecs</code> · <code>ecs-ec2</code></h3>
         <p>タスク単位の隔離、利用者ごとの障害の切り分け、イメージの順次入れ替えに対応した版です。</p>
       </div>
+      <div class="edition">
+        <span class="tag muted">Google Cloud・プレビュー</span>
+        <h3><code>kubernetes</code> · GKE</h3>
+        <p>GKE Standard のクラスターで動きますが、本番向けのサポートはまだです。home のバックアップ、ブラウザの機能、メンバーごとの費用はありません。</p>
+      </div>
     </div>
-    <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/operate/01-choose.ja.md">配備先の選び方（費用つき）→</a></p>
+    <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/operate/01-choose.ja.md">配備先の選び方（費用つき）→</a></p>
 
     <div class="try">
       <div>
         <h3>手元のマシンで試す</h3>
-        <p>native 版は x86_64 の Linux か WSL2 で動き、Docker は要りません。エージェントの CLI には、各メンバーが Console から自分のアカウントでサインインします。</p>
+        <p>native 版は x86_64 か arm64 の Linux、または WSL2 で動き、Docker は要りません。エージェントの CLI には、各メンバーが Console から自分のアカウントでサインインします。</p>
         <p><a href="https://github.com/k-k1/agent-fleet-dist/blob/main/README.ja.md#native-版の導入docker-不要wsl2--単一ユーザー-linux">インストーラーの詳細</a> · <a href="https://github.com/k-k1/agent-fleet-dist/blob/main/README.ja.md#docker-compose-版の導入チームオンプレ">チーム向けに compose を立てる</a></p>
       </div>
       <pre><code>curl -fsSL https://raw.githubusercontent.com/k-k1/agent-fleet-dist/main/install.sh | bash
@@ -285,7 +302,7 @@ af start
     <h2 id="closing-h">ノートを閉じても、エージェントは動き続けます。</h2>
     <div class="actions">
       <a class="btn btn-primary" href="https://github.com/k-k1/agent-fleet-dist/blob/main/README.ja.md#はじめに--どの版を選ぶ">はじめる</a>
-      <a class="btn btn-ghost" href="https://github.com/k-k1/agent-fleet/blob/develop/guide/README.ja.md">ガイドを読む</a>
+      <a class="btn btn-ghost" href="https://github.com/k-k1/agent-fleet/blob/main/guide/README.ja.md">ガイドを読む</a>
     </div>
   </div>
 </section>
@@ -299,9 +316,9 @@ af start
       <nav aria-label="プロジェクト">
         <a href="https://github.com/k-k1/agent-fleet">ソース</a>
         <a href="https://github.com/k-k1/agent-fleet-dist/releases">リリース</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/develop/guide/README.ja.md">ドキュメント</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/develop/SECURITY.md">セキュリティポリシー</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/develop/LICENSE">ライセンス（Apache-2.0）</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/main/guide/README.ja.md">ドキュメント</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/main/SECURITY.md">セキュリティポリシー</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/main/LICENSE">ライセンス（Apache-2.0）</a>
         <a href="/" hreflang="en" lang="en">English</a>
       </nav>
     </div>

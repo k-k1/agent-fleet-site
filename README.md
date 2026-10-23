@@ -28,7 +28,7 @@ copy for you. The rules below are the whole safety net.
   the main repository's own terms (README.ja.md and the Console's Japanese UI).
 - **Every claim has to be true of a released version.** The wording comes from the main
   repository's README and `guide/`; do not describe something that has not shipped.
-- A link into the main repository points at `develop`; a heading anchor is checked against
+- A link into the main repository points at `main`; a heading anchor is checked against
   what GitHub actually renders (`scripts/check.py --online`).
 - **After editing `site/assets/site.css` or `lightbox.js`, run `scripts/stamp-assets.py`.**
   `/assets/*` is cached for a day at Cloudflare's edge and in browsers, so the pages link
