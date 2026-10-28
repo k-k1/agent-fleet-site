@@ -154,7 +154,7 @@
           <li>Claude Code のセッションが、決済のテストの流し方を保存します。翌朝、Codex のセッションは作業の前にそれを読みます。</li>
           <li>どのメモリにも、書いたエージェントとセッションが残ります。Console からピン留め・編集・忘れさせることも、変更の取り消しもできます。</li>
         </ol>
-        <p class="note">終わったセッションからの提案は別のスイッチで、こちらも既定はオフです。自分の Claude Code や Claude Desktop からも、<code>/mcp</code> 経由でメモリを読めます。</p>
+        <p class="note">終わったセッションからの提案は別のスイッチで、こちらも既定はオフです。自分の Claude Code や Claude Desktop からは <code>/mcp</code> 経由で、claude.ai からはメモリ専用の <code>/mcp/memory</code> 経由でメモリを使えます。</p>
         <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/18-agent-memory.ja.md#エージェントメモリ">エージェントメモリ、利用ガイド →</a></p>
       </div>
       <figure class="shot"><a href="/assets/img/memory-ja.webp" data-lightbox><img src="/assets/img/memory-ja.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="設定のエージェントメモリ。Claude Code・Codex・Copilot・OpenCode のセッションとメンバーが書いたメモリと、開いたピン留めの 1 件"></a></figure>
@@ -287,7 +287,7 @@
         </li>
         <li>
           <h4>自分の Claude から使う <span class="flag flag-off">既定はオフ</span></h4>
-          <p>別のマシンの Claude Code や Claude Desktop から、<code>/mcp</code> 経由でメモリを読めます。許可すれば書き込みもできます。接続には MCP トークンを使うか、運用者がオンにしていれば OAuth でサインインします。テナント管理者は止めることもできます。</p>
+          <p>別のマシンの Claude Code や Claude Desktop からは <code>/mcp</code> 経由で、claude.ai からはメモリ専用の <code>/mcp/memory</code> 経由でメモリを読めます。許可すれば書き込みもできます。接続には MCP トークンを使うか、運用者がオンにしていれば OAuth でサインインします。テナント管理者は止めることもできます。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/18-agent-memory.ja.md#外部のエージェントから-agent-fleet-のメモリを使う">利用ガイド →</a></p>
         </li>
         <li>
@@ -309,7 +309,7 @@
       <ul class="cards">
         <li>
           <h4>メンバーに頼む: 受信箱</h4>
-          <p>同じテナントのメンバーに、メッセージや依頼を送れます。依頼は受け取った 1 人が引き受け、そこからセッションを始めたり、セッションや PR を添えたりして、完了にします。宛先は <b class="num">20</b> 人まで、送信は 1 時間に <b class="num">30</b> 回までです。</p>
+          <p>同じテナントのメンバーに、メッセージや依頼を送れます。セッションも <b class="num">5</b> つまで添えられます。依頼は受け取った 1 人が引き受け、そこからセッションを始め、PR とブランチを記録して、完了にします。宛先は <b class="num">20</b> 人まで、送信は 1 時間に <b class="num">30</b> 回までです。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/12-collaboration.ja.md#メンバーに頼む-受信箱">利用ガイド →</a></p>
         </li>
         <li>
@@ -371,7 +371,7 @@
         </li>
         <li>
           <h4>編集と AI の提案</h4>
-          <p>保存の競合を検出します。AI が提案した書き換えは、適用する前に差分で確かめられます（1 回の変更は <b class="num">2 MiB</b> まで）。</p>
+          <p>保存の競合を検出します。AI が提案した書き換えは、適用する前に差分で確かめられます。1 回に保存できるのは <b class="num">2 MiB</b> までです。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/07-files.ja.md#ai-に書き換えを提案させる">利用ガイド →</a></p>
         </li>
         <li>
@@ -496,7 +496,7 @@
         </li>
         <li>
           <h4>ブラウザペイン</h4>
-          <p>開発サーバーの画面を、Console の中の実際のブラウザで確認できます。HMR・WebSocket・Cookie も動きます。ワークスペースごとに <b class="num">2</b> つまで、PC とタブレットで使えます。ECS の Fargate と GKE（プレビュー）では使えません。</p>
+          <p>開発サーバーの画面を、Console の中の実際のブラウザで確認できます。HMR・WebSocket・Cookie も動きます。ワークスペースごとに <b class="num">2</b> つまで、PC・タブレット・スマートフォンで使えます。ECS の Fargate と GKE（プレビュー）では使えません。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/14-preview-browser.ja.md#立ち上げた-web-を見る--ブラウザペインと軽量プレビュー">利用ガイド →</a></p>
         </li>
         <li>
@@ -635,17 +635,17 @@
         </li>
         <li>
           <h4>外部のエージェントから操作</h4>
-          <p>Claude Code や Claude Desktop から、MCP トークンで自分のワークスペースを操作できます。範囲は読み取り・書き込み・管理の 3 段階で、期限は既定 <b class="num">90</b> 日、取り消しもできます。運用者がオンにすれば、claude.ai・ChatGPT・Claude Code はトークンの代わりに OAuth でサインインして、読み取りか書き込みの権限で接続できます。この接続は <b class="num">30</b> 日使わないと切れます。</p>
+          <p>Claude Code や Claude Desktop から、MCP トークンで自分のワークスペースを操作できます。範囲は読み取り・書き込み・管理の 3 段階で、期限は既定 <b class="num">90</b> 日、取り消しもできます。運用者がオンにすれば、claude.ai・ChatGPT・Claude Code・Codex はトークンの代わりに OAuth でサインインして、読み取りか書き込みの権限で接続できます。この接続は、<b class="num">30</b> 日使わないか、許可してから <b class="num">90</b> 日たつと切れます。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/19-outside-access.ja.md#外部のエージェントからワークスペースを使うmcp">利用ガイド →</a></p>
         </li>
         <li>
           <h4>テナントに配る</h4>
-          <p>テナント管理者が、リモートの MCP サーバーをテナント全員に一度に配れます。</p>
+          <p>テナント管理者が、リモートの MCP サーバーをテナント全員に一度に配れます。認証情報は、共通の値を配る、各メンバーが入力する、各メンバーが自分で OAuth サインインする、の 3 通りから選べます。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/admin/04-mcp-outside.ja.md#mcp-サーバーをテナント全員に配るあなたの権限">利用ガイド →</a></p>
         </li>
         <li>
           <h4>外部通信の統制</h4>
-          <p>配備の運用者は、MCP の外向き通信を許可リストで記録または制限できます。メンバーは設定から許可を申請します。</p>
+          <p>配備の運用者は、ワークスペースの接続先を記録し、そこから許可リストを作れます。メンバーは設定から接続先の許可を申請します。許可リストでワークスペースを実際に制限できるのは、AWS でオプションの egress ゲートウェイ（プレビュー）を通したときだけです。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/operate/04-secure.ja.md#egress-統制の運用">利用ガイド →</a></p>
         </li>
       </ul>

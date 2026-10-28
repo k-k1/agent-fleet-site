@@ -154,7 +154,7 @@
           <li>A Claude Code session saves how to run the checkout tests. The next morning a Codex session reads it before it starts.</li>
           <li>Every memory shows who wrote it and from which session. Pin, edit or forget it, or revert a change, from the Console.</li>
         </ol>
-        <p class="note">Suggestions from finished sessions are a separate switch, also off by default. Your own Claude Code or Claude Desktop can read the memory through <code>/mcp</code>.</p>
+        <p class="note">Suggestions from finished sessions are a separate switch, also off by default. Your own Claude Code or Claude Desktop can use the memory through <code>/mcp</code>, and claude.ai through the memory-only <code>/mcp/memory</code>.</p>
         <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/18-agent-memory.md#agent-memory">Agent memory, in the guide →</a></p>
       </div>
       <figure class="shot"><a href="/assets/img/memory-en.webp" data-lightbox><img src="/assets/img/memory-en.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="Settings, Agent memory: memories written by Claude Code, Codex, Copilot and OpenCode sessions and by the member, one pinned memory opened"></a></figure>
@@ -287,7 +287,7 @@
         </li>
         <li>
           <h4>Use it from your own Claude <span class="flag flag-off">Off by default</span></h4>
-          <p>Claude Code or Claude Desktop on another machine reads the memory through <code>/mcp</code>, and writes it if you allow that, with your MCP token or an OAuth sign-in where the operator has turned it on. A tenant administrator can block it.</p>
+          <p>Claude Code or Claude Desktop on another machine reads the memory through <code>/mcp</code>, and claude.ai through the memory-only <code>/mcp/memory</code>; each writes it if you allow that, with your MCP token or an OAuth sign-in where the operator has turned it on. A tenant administrator can block it.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/18-agent-memory.md#using-agent-fleet-memory-from-an-external-agent">In the guide →</a></p>
         </li>
         <li>
@@ -309,7 +309,7 @@
       <ul class="cards">
         <li>
           <h4>Ask a teammate: the inbox</h4>
-          <p>Send a message or a request to members of your tenant. One recipient takes a request, can start a session from it, attach sessions and a pull request, and mark it done. Up to <b class="num">20</b> recipients and <b class="num">30</b> sends an hour.</p>
+          <p>Send a message or a request to members of your tenant, with up to <b class="num">5</b> sessions attached. One recipient takes a request, can start a session from it, records its pull request and branch, and marks it done. Up to <b class="num">20</b> recipients and <b class="num">30</b> sends an hour.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/12-collaboration.md#asking-a-teammate-the-inbox">In the guide →</a></p>
         </li>
         <li>
@@ -371,7 +371,7 @@
         </li>
         <li>
           <h4>Editing, with AI proposals</h4>
-          <p>Save conflicts are detected, and an AI's proposed change is shown as a diff before you apply it (<b class="num">2 MiB</b> per change).</p>
+          <p>Save conflicts are detected, and an AI's proposed change is shown as a diff before you apply it. A save is up to <b class="num">2 MiB</b>.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/07-files.md#have-an-ai-propose-the-change">In the guide →</a></p>
         </li>
         <li>
@@ -496,7 +496,7 @@
         </li>
         <li>
           <h4>Browser pane</h4>
-          <p>Your dev server in a real browser inside the Console, with HMR, WebSockets and cookies working. <b class="num">2</b> per workspace, on desktop and tablet. It is not available on ECS Fargate or the GKE preview.</p>
+          <p>Your dev server in a real browser inside the Console, with HMR, WebSockets and cookies working. <b class="num">2</b> per workspace, on desktop, tablet and phone. It is not available on ECS Fargate or the GKE preview.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/14-preview-browser.md#viewing-a-web-app-you-started--browser-pane-and-lightweight-preview">In the guide →</a></p>
         </li>
         <li>
@@ -635,17 +635,17 @@
         </li>
         <li>
           <h4>Drive it from an external agent</h4>
-          <p>Operate your workspace from Claude Code or Claude Desktop with an MCP token: read, write or admin scope, expiring after <b class="num">90</b> days by default, revocable. Once the operator turns it on, claude.ai, ChatGPT and Claude Code can sign in with OAuth instead, with read or write access; such a connection ends after <b class="num">30</b> days unused.</p>
+          <p>Operate your workspace from Claude Code or Claude Desktop with an MCP token: read, write or admin scope, expiring after <b class="num">90</b> days by default, revocable. Once the operator turns it on, claude.ai, ChatGPT, Claude Code and Codex can sign in with OAuth instead, with read or write access; such a connection ends after <b class="num">30</b> days unused or <b class="num">90</b> days after you allowed it.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/19-outside-access.md#using-your-workspace-from-an-external-agent-mcp">In the guide →</a></p>
         </li>
         <li>
           <h4>Distribute to the tenant</h4>
-          <p>A tenant administrator hands a remote MCP server to everyone in the tenant at once.</p>
+          <p>A tenant administrator hands a remote MCP server to everyone in the tenant at once: with shared values, with a credential each member enters, or with an OAuth sign-in each member makes for themselves.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/admin/04-mcp-outside.md#distributing-an-mcp-server-to-everyone-in-the-tenant-your-permission">In the guide →</a></p>
         </li>
         <li>
           <h4>Outbound control</h4>
-          <p>The deployment's operator can log or enforce outbound MCP traffic against an allowlist; members request access from Settings.</p>
+          <p>The deployment's operator records where workspaces connect and builds an allowlist from it; members request a host from Settings. Enforcing it holds a workspace only on AWS behind the optional egress gateway, a preview.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/operate/04-secure.md#operating-egress-control">In the guide →</a></p>
         </li>
       </ul>
