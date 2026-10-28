@@ -21,6 +21,11 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 SITE = ROOT / "site"
 ORIGIN = "https://agent-fleet.org"
 HREFLANGS = {"en", "ja", "x-default"}
+# Links into the main repository name the release the copy describes, the same one the
+# screenshots came from. On main they broke the day the guide was reorganised (#2640),
+# long before any release shipped the new layout.
+MAIN_BLOB = "https://github.com/k-k1/agent-fleet/blob/"
+RELEASE = (ROOT / "scripts" / "shots-ref.txt").read_text(encoding="utf-8").strip()
 
 errors: list[str] = []
 
@@ -143,6 +148,8 @@ def check_page(path: pathlib.Path, pages: dict[pathlib.Path, Page], external: di
                 err(rel, f"{url}: no id {frag!r} on the target page")
             check_stamp(rel, url, target)
             continue
+        if url.startswith(MAIN_BLOB) and not url.startswith(f"{MAIN_BLOB}{RELEASE}/"):
+            err(rel, f"{url} is not pinned to {RELEASE} (scripts/shots-ref.txt)")
         external.setdefault(url, set()).add(rel)
 
     for img in p.imgs:

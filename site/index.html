@@ -39,7 +39,7 @@
       <a href="#upstream">Upstream changes</a>
       <a href="#security">Security</a>
       <a href="#editions">Editions</a>
-      <a href="https://github.com/k-k1/agent-fleet/blob/main/guide/README.md">Docs</a>
+      <a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/README.md">Docs</a>
     </nav>
     <div class="header-end">
       <p class="lang"><span aria-current="true">English</span> · <a href="/ja/" hreflang="ja" lang="ja">日本語</a></p>
@@ -166,7 +166,7 @@
         <p>With Agent memory on, what one session saves is read by the next session of any kind. Every change records the agent and session that made it, and you can edit, pin, forget or revert it from the Console.</p>
         <ul>
           <li>It is off by default, and each member turns it on.</li>
-          <li>Your own Claude Code or Claude Desktop can read it too.</li>
+          <li>Your own Claude Code, Claude Desktop or claude.ai can use it too.</li>
         </ul>
       </div>
       <figure class="shot"><a href="/assets/img/memory-en.webp" data-lightbox><img src="/assets/img/memory-en.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="Settings, Agent memory: memories written by sessions of four agent kinds and by the member, one opened with its scope, author and use count"></a></figure>
@@ -225,7 +225,7 @@
       <li><h3>Tested against the real CLI</h3><p>A daily watcher notices when a CLI publishes a new version and dispatches a contract test that drives the real CLI, its interactive TUI included, against what Agent Fleet depends on.</p></li>
       <li><h3>Seen is not tested</h3><p>"We saw a new version" and "we tested it" are recorded separately, so a release that has not passed its contract is never mistaken for one that has.</p></li>
     </ol>
-    <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/main/docs/build/10-development.md#detecting-upstream-cli-breakage">How the two halves fit together →</a></p>
+    <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/docs/build/10-development.md#detecting-upstream-cli-breakage">How the two halves fit together →</a></p>
   </div>
 </section>
 
@@ -242,7 +242,7 @@
       <li><h3>Your identity provider</h3><p>Sign in with Google, Microsoft Entra ID, Okta, any OIDC provider or a GitHub organization. It supports tenants, with member, tenant administrator and deployment administrator roles.</p></li>
       <li><h3>Your own seats</h3><p>Each member signs in to the agent CLIs with their own account. The deployment neither bundles nor shares AI-provider credentials.</p></li>
       <li><h3>Encrypted secrets</h3><p>Credentials are stored with envelope encryption: per-workspace keys wrapped by a tenant key.</p></li>
-      <li><h3>Auditable, and candid</h3><p>The source is Apache-2.0. The <a href="https://github.com/k-k1/agent-fleet/blob/main/SECURITY.md">security policy</a> documents the threat model and the residual risks an operator should understand.</p></li>
+      <li><h3>Auditable, and candid</h3><p>The source is Apache-2.0. The <a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/SECURITY.md">security policy</a> documents the threat model and the residual risks an operator should understand.</p></li>
     </ul>
   </div>
 </section>
@@ -281,7 +281,7 @@
         <p>It runs on a GKE Standard cluster but is not supported for production yet: homes have no backup, and there are no browser features or per-member cost.</p>
       </div>
     </div>
-    <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/main/guide/operate/01-choose.md">Choosing a deployment target, costs included →</a></p>
+    <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/operate/01-choose.md">Choosing a deployment target, costs included →</a></p>
 
     <div class="try">
       <div>
@@ -302,7 +302,7 @@ af start
     <h2 id="closing-h">Close your laptop. The agents keep working.</h2>
     <div class="actions">
       <a class="btn btn-primary" href="https://github.com/k-k1/agent-fleet-dist#getting-started--which-edition">Get started</a>
-      <a class="btn btn-ghost" href="https://github.com/k-k1/agent-fleet/blob/main/guide/README.md">Read the guide</a>
+      <a class="btn btn-ghost" href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/README.md">Read the guide</a>
     </div>
   </div>
 </section>
@@ -316,9 +316,9 @@ af start
       <nav aria-label="Project">
         <a href="https://github.com/k-k1/agent-fleet">Source</a>
         <a href="https://github.com/k-k1/agent-fleet-dist/releases">Releases</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/main/guide/README.md">Documentation</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/main/SECURITY.md">Security policy</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/main/LICENSE">License (Apache-2.0)</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/README.md">Documentation</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/SECURITY.md">Security policy</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/LICENSE">License (Apache-2.0)</a>
         <a href="/ja/" hreflang="ja" lang="ja">日本語</a>
       </nav>
     </div>

@@ -28,8 +28,12 @@ copy for you. The rules below are the whole safety net.
   the main repository's own terms (README.ja.md and the Console's Japanese UI).
 - **Every claim has to be true of a released version.** The wording comes from the main
   repository's README and `guide/`; do not describe something that has not shipped.
-- A link into the main repository points at `main`; a heading anchor is checked against
-  what GitHub actually renders (`scripts/check.py --online`).
+- A link into the main repository (`github.com/k-k1/agent-fleet/blob/…`) names the release
+  in `scripts/shots-ref.txt`, never `main`: the guide is reorganised on `main` between
+  releases, and a link there breaks the day that merges. `scripts/check.py` fails on any
+  other ref; a heading anchor is checked against what GitHub actually renders
+  (`scripts/check.py --online`). Links into agent-fleet-dist stay on `main`, which is
+  always the latest release.
 - **After editing `site/assets/site.css` or `lightbox.js`, run `scripts/stamp-assets.py`.**
   `/assets/*` is cached for a day at Cloudflare's edge and in browsers, so the pages link
   them as `?v=<content hash>`; without a new stamp a deploy serves the new HTML with
@@ -48,7 +52,10 @@ scripts/render-og.py             # the social cards show the console screenshot
 scripts/check.py --online
 ```
 
-`scripts/shots-ref.txt` records the release the screenshots came from. If a scene's image size
+`scripts/shots-ref.txt` records the release the screenshots came from, and every link into
+the main repository has to name the same release: move them in the same commit
+(`sed -i 's#agent-fleet/blob/v0.36.0/#agent-fleet/blob/v0.37.0/#' site/*.html site/*/*.html site/ja/*/*.html`),
+then let `scripts/check.py --online` find the headings that moved. If a scene's image size
 changes, the page's `width` / `height` attributes must follow; `scripts/check.py` fails until
 they do.
 
