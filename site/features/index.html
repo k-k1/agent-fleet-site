@@ -109,8 +109,9 @@
           <li>Save a query, and GitHub issues and pull requests, Jira issues and Bitbucket pull requests land in one list.</li>
           <li>Start a session from an issue. The branch name comes from your naming rules (<code>feature/45-empty-list</code>, say), and the work happens in a new worktree.</li>
           <li>Open a pull request: its details show CI, merge conflicts and reviews, and “Start review” checks out the PR's own head branch in a new worktree.</li>
+          <li>When GitHub says it can be merged, press Merge in the same details and confirm. Agents never merge; you do.</li>
         </ol>
-        <p class="note">CI and conflict marks sit on the list rows for GitHub pull requests; for Bitbucket they are in the details.</p>
+        <p class="note">CI and conflict marks sit on the list rows for GitHub pull requests; for Bitbucket they are in the details. A row that changed since you last looked gets a dot and a bold title.</p>
         <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/03-starting-sessions.md#starting-from-the-issue-tracker">The issue tracker in the guide →</a></p>
       </div>
       <figure class="shot"><a href="/assets/img/workitems-en.webp" data-lightbox><img src="/assets/img/workitems-en.webp" width="3200" height="2000" loading="lazy" decoding="async" alt="The issue tracker with CI and conflict marks on pull-request rows, and a pull request&#x27;s details: branches, merge conflicts, reviews, one of eight CI checks failing, and a Start review button"></a></figure>
@@ -272,7 +273,7 @@
         </li>
         <li>
           <h4>Every change, and its author</h4>
-          <p>The Console lists each change with the agent and session that made it. Edit, pin or forget a memory, bring a forgotten one back, purge its past revisions, or revert a change.</p>
+          <p>The Console lists each change with the agent and session that made it. Edit, pin or forget a memory, bring a forgotten one back, purge its past revisions, or revert a change. The list pages back to the very first change.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/18-agent-memory.md#changes">In the guide →</a></p>
         </li>
         <li>
@@ -314,7 +315,7 @@
         </li>
         <li>
           <h4>Hand a session to another member</h4>
-          <p>From the handoff card in the chat, pass a session to someone it is shared with. When unpushed work would be lost, “Push, then send” pushes it first.</p>
+          <p>From the session's menu or a handoff card in the chat, pass a session to someone it is shared with. When unpushed work would be lost, “Push, then send” pushes it first.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/12-collaboration.md#handing-a-session-to-another-member">In the guide →</a></p>
         </li>
         <li>
@@ -356,7 +357,7 @@
         </li>
         <li>
           <h4>PDF</h4>
-          <p>Text selection and zoom. Japanese PDFs without embedded fonts render too.</p>
+          <p>Text selection, zoom, and Ctrl/⌘ F to find across every page. Japanese PDFs without embedded fonts render too.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/07-files.md#pdfs-and-office-documents">In the guide →</a></p>
         </li>
         <li>
@@ -403,12 +404,17 @@
       <ul class="cards">
         <li>
           <h4>One inbox for three trackers</h4>
-          <p>GitHub issues and pull requests, Jira issues and Bitbucket pull requests in one list, refreshed about every <b class="num">5</b> minutes.</p>
+          <p>GitHub issues and pull requests, Jira issues and Bitbucket pull requests in one list, refreshed about every <b class="num">5</b> minutes. A row with new activity gets a dot and a bold title, and GitHub and Bitbucket rows show their comment count.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/03-starting-sessions.md#reading-the-list">In the guide →</a></p>
         </li>
         <li>
           <h4>CI and conflicts at a glance</h4>
           <p>Open GitHub pull requests carry CI and conflict marks in the list; a pull request's details show CI, conflicts, reviews and diff size.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/03-starting-sessions.md#pull-request-details">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Merge from the details</h4>
+          <p>A GitHub pull request that GitHub says can be merged gets a Merge button, with a confirmation naming base ← head and the method. Bitbucket pull requests have none.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/03-starting-sessions.md#pull-request-details">In the guide →</a></p>
         </li>
         <li>
@@ -524,6 +530,11 @@
           <p>An app that signs in with Google can sign in on its preview URL through a development identity provider instead, with test personas and copy-ready configuration. It is on by default wherever preview subdomains are issued.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/14-preview-browser.md#signing-in-with-google-on-a-preview-url-development-oidc-idp">In the guide →</a></p>
         </li>
+        <li>
+          <h4>Toolchains</h4>
+          <p>The exact JDK and Node.js patch in use, an update to the newest patch with no restart, and Uninstall for the versions you no longer need.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/20-settings.md#toolchains">In the guide →</a></p>
+        </li>
       </ul>
     </div>
 
@@ -564,6 +575,11 @@
         <li>
           <h4>Switch the agent mid-conversation</h4>
           <p>Move an assistant chat to another agent or model and keep the conversation.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/10-chat-memo.md#switching-the-agent-mid-conversation">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Past a usage limit</h4>
+          <p>A chat turn that fails on a usage or rate limit before it shows anything is re-run once on the next usable agent in your priority list, with a notice. The conversation keeps its agent.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/10-chat-memo.md#switching-the-agent-mid-conversation">In the guide →</a></p>
         </li>
         <li>
@@ -630,7 +646,7 @@
       <ul class="cards">
         <li>
           <h4>Your MCP servers</h4>
-          <p>Register a remote server with no authentication, a Bearer token, custom headers or OAuth, or run a stdio server. Secrets are stored encrypted, and an OAuth token stays in the workspace behind a local relay, never in a CLI's configuration. Attach servers to sessions and to the assistants you create.</p>
+          <p>Register a remote server with no authentication, a Bearer token, custom headers or OAuth, or run a stdio server. Secrets are stored encrypted, and an OAuth token stays in the workspace behind a local relay, never in a CLI's configuration. Attach servers to sessions and to the assistants you create, from Settings › MCP servers (used by sessions).</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/20-settings.md#mcp-servers-used-by-sessions">In the guide →</a></p>
         </li>
         <li>
@@ -642,11 +658,6 @@
           <h4>Distribute to the tenant</h4>
           <p>A tenant administrator hands a remote MCP server to everyone in the tenant at once: with shared values, with a credential each member enters, or with an OAuth sign-in each member makes for themselves.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/admin/04-mcp-outside.md#distributing-an-mcp-server-to-everyone-in-the-tenant-your-permission">In the guide →</a></p>
-        </li>
-        <li>
-          <h4>Outbound control</h4>
-          <p>The deployment's operator records where workspaces connect and builds an allowlist from it; members request a host from Settings. Enforcing it holds a workspace only on AWS behind the optional egress gateway, a preview.</p>
-          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/operate/04-secure.md#operating-egress-control">In the guide →</a></p>
         </li>
       </ul>
     </div>
@@ -744,6 +755,11 @@
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/09-agents.md#agent-instructions-write-down-how-you-work-once">In the guide →</a></p>
         </li>
         <li>
+          <h4>Your agents’ skills, read-only</h4>
+          <p>Which skill folders each CLI reads, which copy wins when two share a name, and what each file says: personal skills in Settings › Skills, a repository’s from its row menu.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/20-settings.md#skills">In the guide →</a></p>
+        </li>
+        <li>
           <h4>Models you don't use</h4>
           <p>Hide the models your plan bills extra for: they leave the pickers, and launches naming them are refused.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/21-troubleshooting.md#a-model-i-want-isnt-offered-or-launching-with-it-is-refused">In the guide →</a></p>
@@ -762,6 +778,11 @@
           <h4>Allowed networks</h4>
           <p>Limit a tenant to IPv4 and IPv6 ranges you list.</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/admin/05-access.md#allowed-networks">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Outbound control</h4>
+          <p>The deployment's operator records where workspaces connect and builds an allowlist from it; members request a host from Settings. Enforcing it holds a workspace only on AWS behind the optional egress gateway, a preview.</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/operate/04-secure.md#operating-egress-control">In the guide →</a></p>
         </li>
         <li>
           <h4>A tenant's own sign-in</h4>

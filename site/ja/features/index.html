@@ -109,8 +109,9 @@
           <li>クエリを保存すると、GitHub の issue とプルリクエスト、Jira の課題、Bitbucket のプルリクエストが 1 つの一覧に並びます。</li>
           <li>課題からセッションを起動すると、ブランチ名が命名規則に沿って自動で入り（例: <code>feature/45-empty-list</code>）、新しい worktree で作業が始まります。</li>
           <li>プルリクエストを開くと、CI・競合・レビューが見えます。「レビューを始める」で、その PR の head ブランチを新しい worktree にチェックアウトします。</li>
+          <li>GitHub が「マージできる」と言っていれば、同じ詳細画面の「マージ」を押して確認します。マージするのはエージェントではなく、あなたです。</li>
         </ol>
-        <p class="note">一覧の行に CI と競合の印が付くのは GitHub のプルリクエストです。Bitbucket のプルリクエストでは、詳細画面で確認します。</p>
+        <p class="note">一覧の行に CI と競合の印が付くのは GitHub のプルリクエストです。Bitbucket のプルリクエストでは、詳細画面で確認します。前に見たあとで変わった行には、点が付いてタイトルが太字になります。</p>
         <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/03-starting-sessions.ja.md#課題管理から始める">利用ガイドの「課題管理」→</a></p>
       </div>
       <figure class="shot"><a href="/assets/img/workitems-ja.webp" data-lightbox><img src="/assets/img/workitems-ja.webp" width="3200" height="2000" loading="lazy" decoding="async" alt="課題管理の一覧（PR の行に CI と競合の印）と、プルリクエストの詳細。ブランチ、競合、レビュー、CI 8 件中 1 件失敗、「レビューを始める」ボタン"></a></figure>
@@ -272,7 +273,7 @@
         </li>
         <li>
           <h4>変更と書き手がすべて残る</h4>
-          <p>Console は、変更ごとにそれを書いたエージェントとセッションを並べます。メモリの編集・ピン留め・忘れさせることも、忘れさせたものを戻すことも、過去の版の削除や変更の取り消しもできます。</p>
+          <p>Console は、変更ごとにそれを書いたエージェントとセッションを並べます。メモリの編集・ピン留め・忘れさせることも、忘れさせたものを戻すことも、過去の版の削除や変更の取り消しもできます。一覧は最初の変更までさかのぼれます。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/18-agent-memory.ja.md#変更">利用ガイド →</a></p>
         </li>
         <li>
@@ -314,7 +315,7 @@
         </li>
         <li>
           <h4>セッションを別のメンバーに渡す</h4>
-          <p>チャットの引き継ぎカードから、共有している相手にセッションを渡せます。push していない作業が失われるときは、「push してから送る」で先に push します。</p>
+          <p>セッションのメニューかチャットの引き継ぎカードから、共有している相手にセッションを渡せます。push していない作業が失われるときは、「push してから送る」で先に push します。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/12-collaboration.ja.md#別のメンバーにセッションを引き継ぐ">利用ガイド →</a></p>
         </li>
         <li>
@@ -356,7 +357,7 @@
         </li>
         <li>
           <h4>PDF</h4>
-          <p>文字を選択でき、拡大もできます。フォントを埋め込んでいない日本語の PDF も表示できます。</p>
+          <p>文字を選択でき、拡大もできます。Ctrl/⌘ F で全ページを検索できます。フォントを埋め込んでいない日本語の PDF も表示できます。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/07-files.ja.md#pdf-と-office-文書">利用ガイド →</a></p>
         </li>
         <li>
@@ -403,12 +404,17 @@
       <ul class="cards">
         <li>
           <h4>3 つのトラッカーを 1 つの受信箱に</h4>
-          <p>GitHub の issue とプルリクエスト、Jira の課題、Bitbucket のプルリクエストを 1 つの一覧に。約 <b class="num">5</b> 分ごとに更新します。</p>
+          <p>GitHub の issue とプルリクエスト、Jira の課題、Bitbucket のプルリクエストを 1 つの一覧に。約 <b class="num">5</b> 分ごとに更新します。新しい動きのあった行には点が付いてタイトルが太字になり、GitHub と Bitbucket の行にはコメント数も出ます。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/03-starting-sessions.ja.md#一覧の読み方">利用ガイド →</a></p>
         </li>
         <li>
           <h4>CI と競合がひと目で</h4>
           <p>GitHub のプルリクエストは一覧の行に CI と競合の印が付きます。詳細画面では CI・競合・レビュー・差分の量を確認できます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/03-starting-sessions.ja.md#プルリクエストの詳細">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>詳細画面からマージ</h4>
+          <p>GitHub が「マージできる」と言っている GitHub のプルリクエストには「マージ」ボタンが出ます。base ← head とマージ方法を示す確認のあとでマージします。Bitbucket のプルリクエストにはありません。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/03-starting-sessions.ja.md#プルリクエストの詳細">利用ガイド →</a></p>
         </li>
         <li>
@@ -524,6 +530,11 @@
           <p>Google でサインインするアプリは、プレビュー URL では開発用の IdP でサインインできます。テスト用ペルソナと、そのまま貼れる設定が用意されています。プレビュー用サブドメインがある配備では、既定でオンです。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/14-preview-browser.ja.md#プレビュー-url-で-google-サインインを使う開発用-oidc-idp">利用ガイド →</a></p>
         </li>
+        <li>
+          <h4>ツールチェーン</h4>
+          <p>使っている JDK と Node.js の正確なパッチが分かり、新しいパッチへは再起動なしで更新できます。要らなくなった版はアンインストールできます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/20-settings.ja.md#ツールチェーン">利用ガイド →</a></p>
+        </li>
       </ul>
     </div>
 
@@ -564,6 +575,11 @@
         <li>
           <h4>会話の途中でエージェントを替える</h4>
           <p>アシスタントの会話を、続きのまま別のエージェントやモデルへ移せます。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/10-chat-memo.ja.md#会話の途中でエージェントを切り替える">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>利用上限で止まらない</h4>
+          <p>利用上限やレート制限で、何も表示する前に失敗したターンは、優先順位で次に使えるエージェントで 1 回だけ実行し直し、お知らせが出ます。会話のエージェントはそのままです。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/10-chat-memo.ja.md#会話の途中でエージェントを切り替える">利用ガイド →</a></p>
         </li>
         <li>
@@ -630,7 +646,7 @@
       <ul class="cards">
         <li>
           <h4>自分の MCP サーバー</h4>
-          <p>リモートのサーバーを、認証なし・Bearer トークン・カスタムヘッダー・OAuth のどれかで登録できます。stdio のサーバーも動かせます。秘密情報は暗号化して保存し、OAuth のトークンはワークスペース内の中継の奥に置くので、CLI の設定には書かれません。セッションと、自分で作ったアシスタントに付けられます。</p>
+          <p>リモートのサーバーを、認証なし・Bearer トークン・カスタムヘッダー・OAuth のどれかで登録できます。stdio のサーバーも動かせます。秘密情報は暗号化して保存し、OAuth のトークンはワークスペース内の中継の奥に置くので、CLI の設定には書かれません。設定の「MCP サーバー（セッションで使う）」から、セッションと、自分で作ったアシスタントに付けられます。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/20-settings.ja.md#mcp-サーバーセッションで使う">利用ガイド →</a></p>
         </li>
         <li>
@@ -642,11 +658,6 @@
           <h4>テナントに配る</h4>
           <p>テナント管理者が、リモートの MCP サーバーをテナント全員に一度に配れます。認証情報は、共通の値を配る、各メンバーが入力する、各メンバーが自分で OAuth サインインする、の 3 通りから選べます。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/admin/04-mcp-outside.ja.md#mcp-サーバーをテナント全員に配るあなたの権限">利用ガイド →</a></p>
-        </li>
-        <li>
-          <h4>外部通信の統制</h4>
-          <p>配備の運用者は、ワークスペースの接続先を記録し、そこから許可リストを作れます。メンバーは設定から接続先の許可を申請します。許可リストでワークスペースを実際に制限できるのは、AWS でオプションの egress ゲートウェイ（プレビュー）を通したときだけです。</p>
-          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/operate/04-secure.ja.md#egress-統制の運用">利用ガイド →</a></p>
         </li>
       </ul>
     </div>
@@ -744,6 +755,11 @@
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/09-agents.ja.md#エージェントへの指示自分の働き方を一度だけ書く">利用ガイド →</a></p>
         </li>
         <li>
+          <h4>エージェントのスキルを読み取り専用で</h4>
+          <p>各 CLI が読むスキルのフォルダ、同じ名前が 2 つあるときにどれが優先されるか、ファイルの中身が見られます。個人のスキルは設定の「スキル」、リポジトリのスキルはその行のメニューから。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/20-settings.ja.md#スキル">利用ガイド →</a></p>
+        </li>
+        <li>
           <h4>使わないモデル</h4>
           <p>契約で追加料金がかかるモデルを隠せます。選択肢から消え、そのモデルを指定した起動は断られます。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/member/21-troubleshooting.ja.md#使いたいモデルが選べない指定したのに起動を断られる">利用ガイド →</a></p>
@@ -762,6 +778,11 @@
           <h4>接続元の制限</h4>
           <p>テナントに接続できる IPv4・IPv6 の範囲を絞れます。</p>
           <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/admin/05-access.ja.md#接続元の制限">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>外部通信の統制</h4>
+          <p>配備の運用者は、ワークスペースの接続先を記録し、そこから許可リストを作れます。メンバーは設定から接続先の許可を申請します。許可リストでワークスペースを実際に制限できるのは、AWS でオプションの egress ゲートウェイ（プレビュー）を通したときだけです。</p>
+          <p class="guide"><a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/operate/04-secure.ja.md#egress-統制の運用">利用ガイド →</a></p>
         </li>
         <li>
           <h4>テナント独自のサインイン</h4>
