@@ -241,6 +241,8 @@
       <li><h3>Isolated workspaces</h3><p>Each member gets a persistent container with cgroup CPU and memory quotas and per-user network isolation. The Docker-less native edition uses a bubblewrap sandbox instead.</p></li>
       <li><h3>Your identity provider</h3><p>Sign in with Google, Microsoft Entra ID, Okta, any OIDC provider or a GitHub organization. It supports tenants, with member, tenant administrator and deployment administrator roles.</p></li>
       <li><h3>Your own seats</h3><p>Each member signs in to the agent CLIs with their own account. The deployment neither bundles nor shares AI-provider credentials.</p></li>
+      <li><h3>Outbound traffic on record</h3><p>On AWS, an optional egress gateway (a preview) sends workspace web traffic out through one address, records each connection with its workspace, and can enforce an allowlist. It drops other traffic, such as git over SSH. <a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/guide/operate/01-choose.md#choosing-the-egress-route-on-aws">Choosing the egress route</a></p></li>
+      <li><h3>An audit trail</h3><p>Operations that change or destroy something are written to the tenant's audit log, with who did them. Terminal input and output are not stored.</p></li>
       <li><h3>Encrypted secrets</h3><p>Credentials are stored with envelope encryption: per-workspace keys wrapped by a tenant key.</p></li>
       <li><h3>Auditable, and candid</h3><p>The source is Apache-2.0. The <a href="https://github.com/k-k1/agent-fleet/blob/v0.36.0/SECURITY.md">security policy</a> documents the threat model and the residual risks an operator should understand.</p></li>
     </ul>
