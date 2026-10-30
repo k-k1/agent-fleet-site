@@ -237,7 +237,7 @@
       <p>One company runs one deployment, on its own infrastructure. Companies are isolated by separate deployments, not by boundaries inside a shared service.</p>
     </div>
     <ul class="checks">
-      <li><h3>Your infrastructure</h3><p>A single Linux host with Docker Compose, AWS, or Google Cloud on GKE (a preview). The same core everywhere.</p></li>
+      <li><h3>Your infrastructure</h3><p>A single Linux host with Docker Compose, AWS, or Google Cloud on GKE (a preview), or an Apple Silicon Mac for one user. The same core everywhere.</p></li>
       <li><h3>Isolated workspaces</h3><p>Each member gets a persistent container with cgroup CPU and memory quotas and per-user network isolation. The Docker-less native edition uses a bubblewrap sandbox instead.</p></li>
       <li><h3>Your identity provider</h3><p>Sign in with Google, Microsoft Entra ID, Okta, any OIDC provider or a GitHub organization. It supports tenants, with member, tenant administrator and deployment administrator roles.</p></li>
       <li><h3>Your own seats</h3><p>Each member signs in to the agent CLIs with their own account. The deployment neither bundles nor shares AI-provider credentials.</p></li>
@@ -268,6 +268,11 @@
         <p>A single user on WSL2 or a personal Linux box. Installs into your home directory.</p>
       </div>
       <div class="edition">
+        <span class="tag muted">Mac, single user</span>
+        <h3>Apple Silicon</h3>
+        <p>For one user: the <code>compose</code> edition on Docker Desktop, OrbStack or colima, or the <code>native</code> package inside a Linux VM (Lima, an OrbStack machine). Intel Macs and team deployments on a Mac are not covered.</p>
+      </div>
+      <div class="edition">
         <span class="tag muted">AWS, small team</span>
         <h3><code>ec2-single</code></h3>
         <p>Compose on one AWS VM, operated the same way as on your own host.</p>
@@ -288,8 +293,8 @@
     <div class="try">
       <div>
         <h3>Try it on your own machine</h3>
-        <p>The native edition needs Linux on x86_64 or arm64, or WSL2, and no Docker. Each member signs in to the agent CLIs with their own account from the Console.</p>
-        <p><a href="https://github.com/k-k1/agent-fleet-dist#installing-the-native-edition-no-docker-wsl2--single-user-linux">Installer details</a> · <a href="https://github.com/k-k1/agent-fleet-dist#installing-the-docker-compose-edition-team-on-prem">Setting up compose for a team</a></p>
+        <p>The native edition needs Linux on x86_64 or arm64, WSL2, or a Linux VM on an Apple Silicon Mac, and no Docker. On a Mac you can also run the Compose edition on Docker Desktop, OrbStack or colima, for one user. Each member signs in to the agent CLIs with their own account from the Console.</p>
+        <p><a href="https://github.com/k-k1/agent-fleet-dist#installing-the-native-edition-no-docker-wsl2--single-user-linux">Installer details</a> · <a href="https://github.com/k-k1/agent-fleet-dist#installing-the-docker-compose-edition-team-on-prem">Setting up compose for a team</a> · <a href="https://github.com/k-k1/agent-fleet-dist#getting-started--which-edition">Mac (Apple Silicon)</a></p>
       </div>
       <pre><code>curl -fsSL https://raw.githubusercontent.com/k-k1/agent-fleet-dist/main/install.sh | bash
 af start
