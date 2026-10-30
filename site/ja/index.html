@@ -237,7 +237,7 @@
       <p>1 社 1 配備で、自分たちのインフラの上で動きます。会社どうしは、共有サービスの中の境界ではなく、配備そのものが別々であることで隔てられます。</p>
     </div>
     <ul class="checks">
-      <li><h3>自分たちのインフラ</h3><p>Docker Compose で動かす Linux 1 台でも、AWS でも、Google Cloud の GKE（プレビュー）でも、中身は同じです。</p></li>
+      <li><h3>自分たちのインフラ</h3><p>Docker Compose で動かす Linux 1 台でも、AWS でも、Google Cloud の GKE（プレビュー）でも、1 人で使うなら Apple Silicon の Mac でも、中身は同じです。</p></li>
       <li><h3>隔離されたワークスペース</h3><p>メンバーごとに持続するコンテナを用意し、cgroup で CPU とメモリを制限して、ネットワークも利用者ごとに隔離します。Docker を使わない native 版では bubblewrap のサンドボックスです。</p></li>
       <li><h3>自社の IdP でサインイン</h3><p>Google、Microsoft Entra ID、Okta などの OIDC のプロバイダーや、GitHub の組織でサインインできます。テナントがあり、メンバー、テナント管理者、配備管理者のロールがあります。</p></li>
       <li><h3>契約はメンバーごと</h3><p>エージェントの CLI には、メンバーが自分のアカウントでサインインします。配備が AI プロバイダーの資格情報を同梱したり共有したりすることはありません。</p></li>
@@ -268,6 +268,11 @@
         <p>WSL2 や個人の Linux で、1 人で使う版です。ホームディレクトリにインストールします。</p>
       </div>
       <div class="edition">
+        <span class="tag muted">Mac・1 人で使う</span>
+        <h3>Apple Silicon</h3>
+        <p>1 人で使う場合に、Docker Desktop・OrbStack・colima 上の <code>compose</code> 版か、Linux の VM（Lima、OrbStack のマシン）の中の <code>native</code> パッケージで動かせます。Intel の Mac と、Mac でのチーム向け配備は対象外です。</p>
+      </div>
+      <div class="edition">
         <span class="tag muted">AWS・小規模チーム</span>
         <h3><code>ec2-single</code></h3>
         <p>compose を AWS の VM 1 台で動かす版です。運用の仕方は compose と同じです。</p>
@@ -288,8 +293,8 @@
     <div class="try">
       <div>
         <h3>手元のマシンで試す</h3>
-        <p>native 版は x86_64 か arm64 の Linux、または WSL2 で動き、Docker は要りません。エージェントの CLI には、各メンバーが Console から自分のアカウントでサインインします。</p>
-        <p><a href="https://github.com/k-k1/agent-fleet-dist/blob/main/README.ja.md#native-版の導入docker-不要wsl2--単一ユーザー-linux">インストーラーの詳細</a> · <a href="https://github.com/k-k1/agent-fleet-dist/blob/main/README.ja.md#docker-compose-版の導入チームオンプレ">チーム向けに compose を立てる</a></p>
+        <p>native 版は x86_64 か arm64 の Linux、WSL2、または Apple Silicon の Mac 上の Linux VM で動き、Docker は要りません。Mac では、1 人で使う場合に限り、Docker Desktop・OrbStack・colima 上の compose 版も使えます。エージェントの CLI には、各メンバーが Console から自分のアカウントでサインインします。</p>
+        <p><a href="https://github.com/k-k1/agent-fleet-dist/blob/main/README.ja.md#native-版の導入docker-不要wsl2--単一ユーザー-linux">インストーラーの詳細</a> · <a href="https://github.com/k-k1/agent-fleet-dist/blob/main/README.ja.md#docker-compose-版の導入チームオンプレ">チーム向けに compose を立てる</a> · <a href="https://github.com/k-k1/agent-fleet-dist/blob/main/README.ja.md#はじめに--どの版を選ぶ">Mac（Apple Silicon）</a></p>
       </div>
       <pre><code>curl -fsSL https://raw.githubusercontent.com/k-k1/agent-fleet-dist/main/install.sh | bash
 af start
