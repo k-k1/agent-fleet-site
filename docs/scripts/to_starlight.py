@@ -1,0 +1,242 @@
+#!/usr/bin/env python3
+"""Turn the staged guide (deploy/release/stage-docs.sh output) into Starlight content.
+
+    to_starlight.py <staged-dir> <site-dir> <git-ref>
+
+The guide stays GitHub-shaped in the repository (x.md + x.ja.md, an H1 per page, a
+language-switch line, relative .md links); everything Starlight needs is derived here so
+the source never has to know a website exists.
+"""
+import json
+import re
+import shutil
+import sys
+from pathlib import Path
+
+BASE = "/docs"
+REPO = "https://github.com/k-k1/agent-fleet"
+REVERSE = {}
+
+# Where each staged file lives in the repository, for "edit on GitHub" and for relative
+# links that point outside the staged tree (runbooks link to their own scripts).
+RUNBOOK_SRC = {
+    "compose": "deploy/compose/README.md",
+    "native": "deploy/native/README.md",
+    "wsl": "deploy/local/README-wsl.md",
+    "aws-ecs": "deploy/aws/ecs/README.md",
+    "aws-ec2-single": "deploy/aws/ec2-single/README.md",
+    "kubernetes": "deploy/kubernetes/README.md",
+}
+
+LANG_LINE = re.compile(r"^(English \| \[日本語\]\([^)]*\)|\[English\]\([^)]*\) \| 日本語)\s*$")
+H1 = re.compile(r"^# (.+?)\s*$")
+FRONT = re.compile(r"\A---\n(.*?)\n---\n", re.S)
+LINK = re.compile(r"(!?\[(?:[^\]\\]|\\.)*\])\(([^)\s]+)((?:\s+\"[^\"]*\")?)\)")
+NUM = re.compile(r"^(\d+)-")
+ALERT = re.compile(r"^> \[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\n((?:>.*\n?)+)", re.M)
+ASIDE = {"NOTE": "note", "TIP": "tip", "IMPORTANT": "note", "WARNING": "caution", "CAUTION": "danger"}
+
+
+def alert_to_aside(m):
+    body = re.sub(r"^> ?", "", m.group(2), flags=re.M).rstrip("\n")
+    return f":::{ASIDE[m.group(1)]}\n{body}\n:::\n"
+
+
+
+def repo_path(rel: Path) -> str:
+    parts = rel.parts
+    if parts[:2] == ("operate", "runbooks") and rel.stem in RUNBOOK_SRC:
+        return RUNBOOK_SRC[rel.stem]
+    if parts[:2] == ("ref", "releases"):
+        return "deploy/release/notes/" + "/".join(parts[2:])
+    return "guide/" + rel.as_posix()
+
+
+def webp_width(path: Path):
+    """Canvas width of a WebP (VP8X / VP8 / VP8L), or None."""
+    if path.suffix != ".webp":
+        return None
+    b = path.read_bytes()[:40]
+    if b[:4] != b"RIFF" or b[8:12] != b"WEBP":
+        return None
+    kind = b[12:16]
+    if kind == b"VP8X":
+        return 1 + int.from_bytes(b[24:27], "little")
+    if kind == b"VP8 ":
+        return int.from_bytes(b[26:28], "little") & 0x3FFF
+    if kind == b"VP8L":
+        return 1 + (int.from_bytes(b[21:25], "little") & 0x3FFF)
+    return None
+
+
+def split_lang(rel: Path):
+    """member/01-x.ja.md -> ('ja', member/01-x)."""
+    name = rel.name
+    if name.endswith(".ja.md"):
+        return "ja", rel.with_name(name[: -len(".ja.md")])
+    return "en", rel.with_name(name[: -len(".md")])
+
+
+def slug_of(stem: Path) -> str:
+    s = stem.as_posix()
+    if stem.name == "README":
+        s = stem.parent.as_posix()
+        s = "" if s == "." else s
+    return s.lower()
+
+
+def url_of(lang: str, stem: Path) -> str:
+    s = slug_of(stem)
+    prefix = BASE + ("/ja" if lang == "ja" else "")
+    return f"{prefix}/{s}/" if s else f"{prefix}/"
+
+
+def yaml_str(s: str) -> str:
+    return json.dumps(s, ensure_ascii=False)  # JSON strings are valid YAML scalars
+
+
+def main():
+    staged, site, ref = Path(sys.argv[1]), Path(sys.argv[2]), sys.argv[3]
+    out = site / "src/content/docs"
+    pub = site / "public"
+    for d in (out, pub / "assets"):
+        if d.exists():
+            shutil.rmtree(d)
+        d.mkdir(parents=True)
+    for a in (staged / "assets").iterdir():
+        shutil.copy2(a, pub / "assets" / a.name)
+
+    unresolved = []
+    global REVERSE
+    REVERSE = {repo_path(p.relative_to(staged)): p.relative_to(staged) for p in staged.rglob("*.md")}
+    for src in sorted(staged.rglob("*.md")):
+        rel = src.relative_to(staged)
+        lang, stem = split_lang(rel)
+        text = src.read_text(encoding="utf-8")
+
+        meta = {}
+        m = FRONT.match(text)
+        if m:
+            for line in m.group(1).splitlines():
+                k, _, v = line.partition(":")
+                meta[k.strip()] = v.strip().strip('"')
+            text = text[m.end():]
+
+        lines = text.split("\n")
+        title = None
+        body = []
+        in_fence = False
+        for line in lines:
+            if line.lstrip().startswith("```"):
+                in_fence = not in_fence
+            if not in_fence:
+                if LANG_LINE.match(line):
+                    continue
+                if title is None:
+                    h = H1.match(line)
+                    if h:
+                        title = h.group(1)
+                        continue
+            body.append(line)
+        if title is None:  # release notes have no H1
+            title = ("v" + stem.name) if stem.parent.name == "releases" else stem.name
+
+        def fix(mt):
+            label, target, ttl = mt.groups()
+            if re.match(r"^[a-z][a-z0-9+.-]*:", target) or target.startswith("#"):
+                return mt.group(0)
+            path, _, frag = target.partition("#")
+            frag = "#" + frag if frag else ""
+            tgt = (rel.parent / path)
+            # normalise ../ without touching the filesystem
+            parts = []
+            for p in tgt.parts:
+                if p == "..":
+                    if parts:
+                        parts.pop()
+                    else:
+                        parts.append(p)
+                elif p != ".":
+                    parts.append(p)
+            tgt = Path(*parts) if parts else Path(".")
+            if path.endswith(".md") and (staged / tgt).is_file():
+                tl, ts = split_lang(tgt)
+                return f"{label}({url_of(tl, ts)}{frag}{ttl})"
+            if tgt.parts and tgt.parts[0] == "assets" and (staged / tgt).is_file():
+                w = webp_width(staged / tgt)
+                if label.startswith("!") and w:
+                    # Screenshots are taken at 2x: show them at their CSS size, never stretched.
+                    alt = label[2:-1].replace('"', "&quot;")
+                    return f'<img src="{BASE}/{tgt.as_posix()}" alt="{alt}" width="{w // 2}" loading="lazy" />'
+                return f"{label}({BASE}/{tgt.as_posix()}{ttl})"
+            # Outside the staged tree: point at the repository at the same ref.
+            origin = Path(repo_path(rel)).parent / path
+            norm = []
+            for p in origin.parts:
+                if p == "..":
+                    norm and norm.pop()
+                elif p != ".":
+                    norm.append(p)
+            back = REVERSE.get("/".join(norm))
+            if back is not None:
+                tl, ts = split_lang(back)
+                return f"{label}({url_of(tl, ts)}{frag}{ttl})"
+            kind = "tree" if path.endswith("/") or "." not in Path(path).name else "blob"
+            unresolved.append(f"{rel}: {target}")
+            return f"{label}({REPO}/{kind}/{ref}/{'/'.join(norm)}{frag}{ttl})"
+
+        res, in_fence = [], False
+        for line in body:
+            if line.lstrip().startswith("```"):
+                in_fence = not in_fence
+            if in_fence:
+                res.append(line)
+                continue
+            # Leave inline code alone: `[text](src/app.ts)` is an example, not a link.
+            # (A link whose label is code, [`x`](y), starts outside the span and is kept.)
+            spans = [m2.span() for m2 in re.finditer(r"(`+).*?\1", line)]
+            res.append(LINK.sub(
+                lambda mt: mt.group(0) if any(a0 <= mt.start() < b0 for a0, b0 in spans) else fix(mt),
+                line))
+        body_text = ALERT.sub(alert_to_aside, "\n".join(res)).lstrip("\n")
+
+        fm = [f"title: {yaml_str(title)}"]
+        if not slug_of(stem):  # the home pages sit in the user-guide topic
+            fm.append("topic: user")
+        if slug_of(stem):  # the two home pages take their id from index.md
+            fm.append(f"slug: {yaml_str(('ja/' if lang == 'ja' else '') + slug_of(stem))}")
+        if meta.get("audience"):
+            fm.append(f"description: {yaml_str(meta['audience'])}")
+        n = NUM.match(stem.name)
+        sb = []
+        short = re.sub(r"^\d+\.\s+", "", title)
+        if short != title:
+            sb.append(f"  label: {yaml_str(short)}")
+        v = re.fullmatch(r"(\d+)\.(\d+)\.(\d+)", stem.name)
+        if v:  # newest release first
+            a, b, c = map(int, v.groups())
+            sb.append(f"  order: {-(a * 1000000 + b * 1000 + c)}")
+        elif stem.name == "SUMMARY":
+            sb.append("  order: -999999999")
+        if meta.get("order"):
+            sb.append(f"  order: {int(meta['order'])}")
+        elif n:
+            sb.append(f"  order: {int(n.group(1))}")
+        elif stem.name == "README":
+            sb.append("  order: 0")
+        if sb:
+            fm.append("sidebar:\n" + "\n".join(sb))
+        fm.append(f"editUrl: {yaml_str(f'{REPO}/edit/main/{repo_path(rel)}')}")
+
+        dst = out / (("ja/" if lang == "ja" else "") + rel.parent.as_posix()) / (
+            ("index" if stem.name == "README" else stem.name) + ".md")
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        dst.write_text("---\n" + "\n".join(fm) + "\n---\n\n" + body_text, encoding="utf-8")
+
+    print(f"converted; {len(unresolved)} links sent to GitHub:")
+    for u in unresolved:
+        print("  " + u)
+
+
+if __name__ == "__main__":
+    main()
