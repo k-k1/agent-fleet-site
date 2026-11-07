@@ -1,0 +1,2 @@
+/* Option / command names in a table's first column must not break inside: `--profile <name>`. */
+.sl-markdown-content td:first-child code { white-space: nowrap; }
