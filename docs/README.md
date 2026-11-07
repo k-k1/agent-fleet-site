@@ -55,12 +55,14 @@ other branch name for a preview.
 
 ## Pilot pages
 
+A pilot page moves into agent-fleet's `guide/` when it is rewritten, and is deleted here in the same step: a pilot copy
+would overwrite the guide's page in every preview. Already in `guide/`: `user/integrations/aws-sso` (k-k1/agent-fleet#3566),
+`ref/aws-profiles`, `ref/cli/README` and `ref/cli/af-aws-exec`.
+
 | Page | State |
 |---|---|
 | `user/start/overview`, `quickstart`, `concepts` | First draft. Written before the page model existed, so they still need a rework |
-| `user/integrations/aws-sso` | Agreed model. Fact-checked by another model (17 statements: 0 wrong, 5 misleading, fixed). The role-assumption section was added afterwards and is not yet checked |
 | `user/security/credentials` | AWS section only |
-| `ref/cli/README`, `ref/cli/af-aws-exec` | From `--help`. Not yet fact-checked |
 | `ref/mcp/README` | Generated from the inventory. Not yet fact-checked; admin-tool visibility details are unverified |
 
 ## Review feedback so far (from the user)
