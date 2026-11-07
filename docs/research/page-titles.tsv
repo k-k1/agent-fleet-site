@@ -157,7 +157,6 @@ operate/aws-ecs/teardown	撤去する	ECS
 operate/aws-ecs/iam	デプロイに必要な IAM 権限	ECS
 operate/aws-ecs/template-size	テンプレートの大きさの上限に気をつける	ECS
 operate/aws-ecs/troubleshooting	ECS で困ったとき	ECS
-operate/aws-ecs/prove-out	動作確認の手順（開発者向け）	ECS
 operate/kubernetes/overview	Kubernetes 構成の全体像	Kubernetes
 operate/kubernetes/gke	GKE に構築する	Kubernetes
 operate/kubernetes/other-clusters	ほかのクラスターに構築する	Kubernetes
@@ -167,7 +166,6 @@ operate/kubernetes/alerts	アラートを設定する	Kubernetes
 operate/kubernetes/nodes	ノードを入れ替える・止まったノードに対処する	Kubernetes
 operate/kubernetes/pause	一時停止する・費用を見る	Kubernetes
 operate/kubernetes/teardown	撤去する	Kubernetes
-operate/kubernetes/live-harness	実環境での試験（開発者向け）	Kubernetes
 operate/compose/install	Docker Compose で構築する	Docker Compose
 operate/compose/macos	macOS（Apple Silicon）で動かす	Docker Compose
 operate/compose/workspace-listener	ワークスペースから CP に届かないとき	Docker Compose

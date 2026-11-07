@@ -263,8 +263,8 @@ deploy/aws/ecs/README.md	Remote MCP and MCP OAuth (optional, off by default)	ope
 deploy/aws/ecs/README.md	Timers, GitHub sign-in extras and LAN / borrowed engines (optional, empty by default)	operate/aws-ecs/options
 deploy/aws/ecs/README.md	WAF (optional, off by default)	operate/aws-ecs/options
 deploy/aws/ecs/README.md	Alarms — the Control Plane cannot reach its database (set this one)	operate/aws-ecs/alarms
-deploy/aws/ecs/README.md	Prove-out sequence	operate/aws-ecs/prove-out
-deploy/aws/ecs/README.md	E2E completion gate (frozen spec §20b.7.14)	operate/aws-ecs/prove-out
+deploy/aws/ecs/README.md	Prove-out sequence	internal
+deploy/aws/ecs/README.md	E2E completion gate (frozen spec §20b.7.14)	internal
 deploy/aws/ecs/README.md	ECR push (before S3)	operate/aws-ecs/install
 deploy/aws/ecs/README.md	Upgrade (runbook)	operate/aws-ecs/upgrade
 deploy/aws/ecs/README.md	The 51,200-byte wall (why a deploy can stop working without anyone touching it)	operate/aws-ecs/template-size
@@ -296,7 +296,7 @@ deploy/kubernetes/README.md	Residue cleanup	operate/kubernetes/nodes
 deploy/kubernetes/README.md	Node disk	operate/kubernetes/nodes
 deploy/kubernetes/README.md	Pausing	operate/kubernetes/pause
 deploy/kubernetes/README.md	The bill	operate/kubernetes/pause
-deploy/kubernetes/README.md	The live harness	operate/kubernetes/live-harness
+deploy/kubernetes/README.md	The live harness	internal
 deploy/kubernetes/README.md	Tearing down	operate/kubernetes/teardown
 deploy/compose/README.md		operate/compose/install
 deploy/compose/README.md	Backup & restore	operate/run/backup-restore

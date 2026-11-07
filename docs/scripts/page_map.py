@@ -95,7 +95,8 @@ def main():
             src = f.removesuffix('.md') if level == 1 else f"{f.removesuffix('.md')} › {title}"
             if not any(src.startswith(s + ' ›') or s == src for s in pages[page][1]):
                 pages[page][1].append(src)
-    missing = sorted(set(pages) - set(titles))
+    # INTERNAL is not a page: developer-only material that stays in the main repository's docs/ and is not published.
+    missing = sorted(set(pages) - set(titles) - {INTERNAL})
     if missing:
         sys.exit('no title in page-titles.tsv for: ' + ', '.join(missing))
     shelves = defaultdict(int)
@@ -103,7 +104,8 @@ def main():
         shelves[page.split('/')[0]] += 1
     new = [p for p in titles if p not in pages]
     print(f'{len(rows)} headings in {len(files)} files -> {len(titles)} pages {dict(shelves)}, '
-          f'{len(new)} without an old source', file=sys.stderr)
+          f'{len(new)} without an old source, {pages[INTERNAL][0] if INTERNAL in pages else 0} words not published',
+          file=sys.stderr)
     if '--write' not in sys.argv:
         return
 
@@ -130,6 +132,8 @@ def main():
             sys.exit(f'{doc.name}: expected one "generated:{name}" block, found {n}')
     doc.write_text(text)
 
+
+INTERNAL = 'internal'
 
 SHELVES = {'user': 'ユーザーガイド（user/）', 'admin': 'チーム管理（admin/）',
            'operate': 'セルフホスト（operate/）', 'ref': 'リファレンス（ref/）'}

@@ -41,14 +41,15 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 `deploy/` の runbook 6 本も、ガイドと同じく作業ごとのページに分けます（`stage-docs.sh` が `operate/runbooks/` にコピーして出荷しているので、
 ガイドの一部として読まれます）。
 
-- **ECS**（28,773 語）は約 21 ページ、**Kubernetes**（11,122 語）は 10 ページに分けます。
+- **ECS**（28,773 語）は 20 ページ、**Kubernetes**（11,122 語）は 9 ページに分けます。
 - **Docker Compose** のバックアップ・アップグレード・閉じたネットワークへの導入は、`operate/run/` の同じ作業のページにまとめます。
   **ネイティブパッケージ**の読み上げ・ComfyUI・ほかのデプロイのエンジンを借りる節は、`operate/engines/` のページにまとめます。
 - **WSL** と **EC2 1 台**は 1 ページのままにします。
 - ガイドの `operate/11-slot-pool` は ECS の運用なので、ECS のグループの「スロットを入れ替える・止める」に移します。
 - **ECS の「EC2 スロットプールを使う」**（約 5,000 語）は見出しがなく、表では 1 ページです。書き直すときに、使い始める／マシンの種類を選ぶ（Graviton を含む）／
   ホームの置き場所・休止・予備のコピー／困ったとき、の 4 ページに分けます。
-- **開発者向けの節**（ECS の「動作確認の手順」、Kubernetes の「実環境での試験」）は、公開するかどうかをまだ決めていません。表では「（開発者向け）」を付けたページにしています。
+- **開発者向けの節は公開しません**（ユーザーと合意）。ECS の「Prove-out sequence」「E2E completion gate」と Kubernetes の「The live harness」は、
+  表では行き先を `internal` にしています。分割するときに agent-fleet の `docs/` 側（開発者向けの文書）へ移します。
 - `deploy/` 側のファイルの分けかた（`README.md` を目次にして、同じディレクトリーにページを並べる）と `stage-docs.sh` の直しは、分割するときにまとめて行います。
 
 ## 新しいページ構成
@@ -355,7 +356,6 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `operate/aws-ecs/iam` | デプロイに必要な IAM 権限 | `deploy/aws/ecs/README › Minimal IAM (deploying principal)` | 455 |
 | `operate/aws-ecs/template-size` | テンプレートの大きさの上限に気をつける | `deploy/aws/ecs/README › The 51,200-byte wall (why a deploy can stop working without anyone touching it)` | 929 |
 | `operate/aws-ecs/troubleshooting` | ECS で困ったとき | `deploy/aws/ecs/README › Known behavior: a cold Start answers `starting`, not `running`` | 598 |
-| `operate/aws-ecs/prove-out` | 動作確認の手順（開発者向け） | `deploy/aws/ecs/README › Prove-out sequence`<br>`deploy/aws/ecs/README › E2E completion gate (frozen spec §20b.7.14)` | 236 |
 
 **Kubernetes**
 
@@ -370,7 +370,6 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `operate/kubernetes/nodes` | ノードを入れ替える・止まったノードに対処する | `deploy/kubernetes/README › Upgrading nodes (planned)`<br>`deploy/kubernetes/README › Unplanned drain`<br>`deploy/kubernetes/README › A node that stopped answering`<br>`deploy/kubernetes/README › Residue cleanup`<br>`deploy/kubernetes/README › Node disk` | 1057 |
 | `operate/kubernetes/pause` | 一時停止する・費用を見る | `deploy/kubernetes/README › Pausing`<br>`deploy/kubernetes/README › The bill` | 491 |
 | `operate/kubernetes/teardown` | 撤去する | `deploy/kubernetes/README › Tearing down` | 695 |
-| `operate/kubernetes/live-harness` | 実環境での試験（開発者向け） | `deploy/kubernetes/README › The live harness` | 1259 |
 
 **Docker Compose**
 
@@ -1129,8 +1128,8 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `deploy/aws/ecs/README.md` | 　　Timers, GitHub sign-in extras and LAN / borrowed engines (optional, empty by default) | 127 | `operate/aws-ecs/options` |
 | `deploy/aws/ecs/README.md` | 　　Alarms — the Control Plane cannot reach its database (set this one) | 241 | `operate/aws-ecs/alarms` |
 | `deploy/aws/ecs/README.md` | 　　WAF (optional, off by default) | 267 | `operate/aws-ecs/options` |
-| `deploy/aws/ecs/README.md` | 　Prove-out sequence | 166 | `operate/aws-ecs/prove-out` |
-| `deploy/aws/ecs/README.md` | 　E2E completion gate (frozen spec §20b.7.14) | 70 | `operate/aws-ecs/prove-out` |
+| `deploy/aws/ecs/README.md` | 　Prove-out sequence | 166 | `internal` |
+| `deploy/aws/ecs/README.md` | 　E2E completion gate (frozen spec §20b.7.14) | 70 | `internal` |
 | `deploy/aws/ecs/README.md` | 　ECR push (before S3) | 220 | `operate/aws-ecs/install` |
 | `deploy/aws/ecs/README.md` | 　Upgrade (runbook) | 744 | `operate/aws-ecs/upgrade` |
 | `deploy/aws/ecs/README.md` | 　　Upgrading: slot AMIs follow Amazon's SSM parameters (#3318) | 136 | `operate/aws-ecs/upgrade` |
@@ -1188,7 +1187,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `deploy/kubernetes/README.md` | 　　Node disk | 73 | `operate/kubernetes/nodes` |
 | `deploy/kubernetes/README.md` | 　　Pausing | 371 | `operate/kubernetes/pause` |
 | `deploy/kubernetes/README.md` | 　　The bill | 120 | `operate/kubernetes/pause` |
-| `deploy/kubernetes/README.md` | 　The live harness | 1259 | `operate/kubernetes/live-harness` |
+| `deploy/kubernetes/README.md` | 　The live harness | 1259 | `internal` |
 | `deploy/kubernetes/README.md` | 　Tearing down | 695 | `operate/kubernetes/teardown` |
 | `deploy/compose/README.md` | Deploy on premises with Docker Compose | 257 | `operate/compose/install` |
 | `deploy/compose/README.md` | 　Prerequisites | 244 | `operate/compose/install` |
