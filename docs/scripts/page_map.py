@@ -6,7 +6,7 @@ Usage: page_map.py <agent-fleet checkout> [--write]
 --write regenerates the parts of research/page-map.ja.md between the "generated" markers: the new page tree (from
 research/page-titles.tsv) and the full old-section table. Without it the script only checks.
 
-Every H1-H3 heading of every English guide page must land on a new page: a rule names a file (whole file) or a
+Every H1-H3 heading of every English guide page and shipped runbook must land on a new page: a rule names a file (whole file) or a
 heading in it, and a heading rule also covers that heading's sub-headings. A rule that matches no heading fails the
 check, because a renamed heading would otherwise silently fall back to the file's default.
 """
@@ -33,6 +33,22 @@ def outline(path):
     return out
 
 
+# The runbooks ship in the guide too (deploy/release/stage-docs.sh copies them into operate/runbooks/), so they are
+# split by the same map. Their rules name them by their path in the repository.
+RUNBOOKS = [
+    'deploy/aws/ecs/README.md',
+    'deploy/kubernetes/README.md',
+    'deploy/compose/README.md',
+    'deploy/native/README.md',
+    'deploy/local/README-wsl.md',
+    'deploy/aws/ec2-single/README.md',
+]
+
+
+def source(guide, f):
+    return guide.parent / f if f.startswith('deploy/') else guide / f
+
+
 def main():
     guide = pathlib.Path(sys.argv[1]) / 'guide'
     rules, used = {}, set()
@@ -45,13 +61,14 @@ def main():
         rules[(f, h)] = page
     errors, rows = [], []
     files = sorted(p.relative_to(guide).as_posix() for p in guide.rglob('*.md') if not p.name.endswith('.ja.md'))
+    files += RUNBOOKS
     for f in files:
         if (f, '') not in rules:
             errors.append(f'{f}: no whole-file rule')
             continue
         used.add((f, ''))
         stack = []  # (level, page) of enclosing headings that carry a rule
-        for level, title, words in outline(guide / f):
+        for level, title, words in outline(source(guide, f)):
             stack = [s for s in stack if s[0] < level]
             page = rules.get((f, title))
             if page:

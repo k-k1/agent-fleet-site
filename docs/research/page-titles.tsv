@@ -137,6 +137,46 @@ operate/overview	セルフホストの全体像	はじめに
 operate/choose	デプロイ先を選ぶ	はじめに
 operate/install	インストールする	インストール
 operate/install-decisions	テナントとプロビジョニングの方式を決める	インストール
+operate/aws-ecs/overview	ECS 構成の全体像	ECS
+operate/aws-ecs/install	ECS に構築する	ECS
+operate/aws-ecs/options	任意の機能を有効にする（プレビュー・KMS・MCP・WAF）	ECS
+operate/aws-ecs/alarms	データベースに届かないときのアラームを設定する	ECS
+operate/aws-ecs/workspace-size	ワークスペースの大きさを決める	ECS
+operate/aws-ecs/schedules	決まった時刻の起動を有効にする	ECS
+operate/aws-ecs/egress-ip	外向きの IP アドレスを固定する	ECS
+operate/aws-ecs/egress-gateway	外向きの通信をゲートウェイで制御する	ECS
+operate/aws-ecs/tts	日本語の読み上げを足す	ECS
+operate/aws-ecs/engines	推論エンジンを足す	ECS
+operate/aws-ecs/slot-pool	EC2 スロットプールを使う	ECS
+operate/aws-ecs/slot-maintenance	スロットを入れ替える・止める	ECS
+operate/aws-ecs/upgrade	アップグレードする	ECS
+operate/aws-ecs/backup	EFS をバックアップ・復元する	ECS
+operate/aws-ecs/cost	費用を抑える	ECS
+operate/aws-ecs/lifecycle	スクリプトで構築・一時停止・撤去する	ECS
+operate/aws-ecs/teardown	撤去する	ECS
+operate/aws-ecs/iam	デプロイに必要な IAM 権限	ECS
+operate/aws-ecs/template-size	テンプレートの大きさの上限に気をつける	ECS
+operate/aws-ecs/troubleshooting	ECS で困ったとき	ECS
+operate/aws-ecs/prove-out	動作確認の手順（開発者向け）	ECS
+operate/kubernetes/overview	Kubernetes 構成の全体像	Kubernetes
+operate/kubernetes/gke	GKE に構築する	Kubernetes
+operate/kubernetes/other-clusters	ほかのクラスターに構築する	Kubernetes
+operate/kubernetes/upgrade	CP をアップグレードする	Kubernetes
+operate/kubernetes/backup	バックアップ・復元する	Kubernetes
+operate/kubernetes/alerts	アラートを設定する	Kubernetes
+operate/kubernetes/nodes	ノードを入れ替える・止まったノードに対処する	Kubernetes
+operate/kubernetes/pause	一時停止する・費用を見る	Kubernetes
+operate/kubernetes/teardown	撤去する	Kubernetes
+operate/kubernetes/live-harness	実環境での試験（開発者向け）	Kubernetes
+operate/compose/install	Docker Compose で構築する	Docker Compose
+operate/compose/macos	macOS（Apple Silicon）で動かす	Docker Compose
+operate/compose/workspace-listener	ワークスペースから CP に届かないとき	Docker Compose
+operate/native/install	ネイティブパッケージを入れる	ネイティブパッケージ
+operate/native/update	ネイティブパッケージを更新する	ネイティブパッケージ
+operate/native/service	サービスとして動かす（systemd）	ネイティブパッケージ
+operate/native/uninstall	リセット・アンインストールする	ネイティブパッケージ
+operate/wsl	WSL で個人用に動かす	そのほかの構成
+operate/aws-ec2-single	EC2 1 台に構築する	そのほかの構成
 operate/run/backup-restore	バックアップして復元する	日々の運用
 operate/run/upgrade	アップグレードする	日々の運用
 operate/run/air-gapped	閉じたネットワークに入れる	日々の運用
@@ -145,7 +185,6 @@ operate/run/opencode-server	opencode の共有サーバーを運用する	日々
 operate/run/public-internet	インターネットに公開する	日々の運用
 operate/run/deployment-label	複数のデプロイを見分ける	日々の運用
 operate/run/idle-stop	アイドル停止と強制停止を使う	日々の運用
-operate/ecs-ec2-slots	ecs-ec2 のスロットを入れ替える・止める	日々の運用
 operate/secure/threat-model	脅威モデルと残るリスク	セキュリティ
 operate/secure/egress	外向きの通信を制御する	セキュリティ
 operate/secure/mcp	MCP と外部接続のサインインを運用する	セキュリティ

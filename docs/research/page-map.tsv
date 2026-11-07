@@ -240,7 +240,7 @@ operate/07-engines.md	Read aloud (the speech engine and the shared dictionary)	o
 operate/08-image-engine.md		operate/engines/comfyui
 operate/09-borrowed-engine.md		operate/engines/borrow
 operate/10-llm-lan.md		operate/engines/llama-cpp
-operate/11-slot-pool.md		operate/ecs-ec2-slots
+operate/11-slot-pool.md		operate/aws-ecs/slot-maintenance
 operate/12-keys.md		operate/keys/kms
 operate/12-keys.md	A key of its own for each home	operate/keys/home-keys
 operate/12-keys.md	Rotating the bridge tokens	operate/keys/bridge-tokens
@@ -254,3 +254,71 @@ ref/limits.md		ref/limits
 ref/repos.md		ref/repos
 ref/roles.md		ref/roles
 ref/settings.md		ref/settings
+deploy/aws/ecs/README.md		operate/aws-ecs/overview
+deploy/aws/ecs/README.md	Prerequisites (once per account)	operate/aws-ecs/install
+deploy/aws/ecs/README.md	30-ingress stand-up (milestone: CP boots + Google login)	operate/aws-ecs/install
+deploy/aws/ecs/README.md	Preview subdomains (optional, off by default)	operate/aws-ecs/options
+deploy/aws/ecs/README.md	Keys at rest on KMS (optional, off by default)	operate/aws-ecs/options
+deploy/aws/ecs/README.md	Remote MCP and MCP OAuth (optional, off by default)	operate/aws-ecs/options
+deploy/aws/ecs/README.md	Timers, GitHub sign-in extras and LAN / borrowed engines (optional, empty by default)	operate/aws-ecs/options
+deploy/aws/ecs/README.md	WAF (optional, off by default)	operate/aws-ecs/options
+deploy/aws/ecs/README.md	Alarms — the Control Plane cannot reach its database (set this one)	operate/aws-ecs/alarms
+deploy/aws/ecs/README.md	Prove-out sequence	operate/aws-ecs/prove-out
+deploy/aws/ecs/README.md	E2E completion gate (frozen spec §20b.7.14)	operate/aws-ecs/prove-out
+deploy/aws/ecs/README.md	ECR push (before S3)	operate/aws-ecs/install
+deploy/aws/ecs/README.md	Upgrade (runbook)	operate/aws-ecs/upgrade
+deploy/aws/ecs/README.md	The 51,200-byte wall (why a deploy can stop working without anyone touching it)	operate/aws-ecs/template-size
+deploy/aws/ecs/README.md	Egress IP (the address a customer allow-lists)	operate/aws-ecs/egress-ip
+deploy/aws/ecs/README.md	Egress gateway (`EgressRoute=gateway`, ADR 0122)	operate/aws-ecs/egress-gateway
+deploy/aws/ecs/README.md	Minimal IAM (deploying principal)	operate/aws-ecs/iam
+deploy/aws/ecs/README.md	Workspace size (CPU / memory / working disk)	operate/aws-ecs/workspace-size
+deploy/aws/ecs/README.md	Scheduled execution (timed wakes)	operate/aws-ecs/schedules
+deploy/aws/ecs/README.md	Optional: Japanese speech (the VOICEVOX engine, `cfn/50-tts.yaml`)	operate/aws-ecs/tts
+deploy/aws/ecs/README.md	Optional: the fleet's own inference engines (`cfn/60-engines.yaml`)	operate/aws-ecs/engines
+deploy/aws/ecs/README.md	Optional: EC2 slot pool (`WsRuntime=ecs-ec2`)	operate/aws-ecs/slot-pool
+deploy/aws/ecs/README.md	Known behavior: a cold Start answers `starting`, not `running`	operate/aws-ecs/troubleshooting
+deploy/aws/ecs/README.md	Cost & ephemerality	operate/aws-ecs/cost
+deploy/aws/ecs/README.md	EFS backup and restore	operate/aws-ecs/backup
+deploy/aws/ecs/README.md	Lifecycle scripts (stand up / pause / tear down)	operate/aws-ecs/lifecycle
+deploy/aws/ecs/README.md	Teardown	operate/aws-ecs/teardown
+deploy/kubernetes/README.md		operate/kubernetes/overview
+deploy/kubernetes/README.md	GKE	operate/kubernetes/gke
+deploy/kubernetes/README.md	Other clusters	operate/kubernetes/other-clusters
+deploy/kubernetes/README.md	What has to survive	operate/kubernetes/backup
+deploy/kubernetes/README.md	A disk from a snapshot, as a volume	operate/kubernetes/backup
+deploy/kubernetes/README.md	Backups, point-in-time recovery and the restore rehearsal	operate/kubernetes/backup
+deploy/kubernetes/README.md	Upgrading the CP	operate/kubernetes/upgrade
+deploy/kubernetes/README.md	Alerts	operate/kubernetes/alerts
+deploy/kubernetes/README.md	Upgrading nodes (planned)	operate/kubernetes/nodes
+deploy/kubernetes/README.md	Unplanned drain	operate/kubernetes/nodes
+deploy/kubernetes/README.md	A node that stopped answering	operate/kubernetes/nodes
+deploy/kubernetes/README.md	Residue cleanup	operate/kubernetes/nodes
+deploy/kubernetes/README.md	Node disk	operate/kubernetes/nodes
+deploy/kubernetes/README.md	Pausing	operate/kubernetes/pause
+deploy/kubernetes/README.md	The bill	operate/kubernetes/pause
+deploy/kubernetes/README.md	The live harness	operate/kubernetes/live-harness
+deploy/kubernetes/README.md	Tearing down	operate/kubernetes/teardown
+deploy/compose/README.md		operate/compose/install
+deploy/compose/README.md	Backup & restore	operate/run/backup-restore
+deploy/compose/README.md	Upgrade	operate/run/upgrade
+deploy/compose/README.md	Air-gapped install	operate/run/air-gapped
+deploy/compose/README.md	DooD: the three constraints (read if "it starts but silently doesn't work")	operate/diagnose/checklist
+deploy/compose/README.md	macOS (Apple Silicon)	operate/compose/macos
+deploy/compose/README.md	Workspace listener (optional): when workspaces cannot reach `PUBLIC_BASE_URL`	operate/compose/workspace-listener
+deploy/compose/README.md	Troubleshooting	operate/diagnose/checklist
+deploy/compose/README.md	Security notes	operate/secure/controls
+deploy/compose/README.md	Disclaimer — autonomous agent execution	operate/overview
+deploy/native/README.md		operate/native/install
+deploy/native/README.md	Updating	operate/native/update
+deploy/native/README.md	Automatic updates	operate/native/update
+deploy/native/README.md	Air-gap / manual file transfer	operate/native/update
+deploy/native/README.md	Text-to-speech (TTS / Zundamon) — optional	operate/engines/read-aloud
+deploy/native/README.md	Image generation on a ComfyUI on your network — optional	operate/engines/comfyui
+deploy/native/README.md	Borrowing another deployment's engines — optional	operate/engines/borrow
+deploy/native/README.md	systemd user unit (run as a service; systemd is on by default in WSL2)	operate/native/service
+deploy/native/README.md	Reset	operate/native/uninstall
+deploy/native/README.md	Uninstall	operate/native/uninstall
+deploy/native/README.md	Disclaimer — autonomous agent execution	operate/overview
+deploy/local/README-wsl.md		operate/wsl
+deploy/aws/ec2-single/README.md		operate/aws-ec2-single
+deploy/aws/ecs/README.md	Moving retained slots onto new user data	operate/aws-ecs/slot-maintenance

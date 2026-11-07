@@ -3,7 +3,7 @@
 k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のページに割り当て、ユーザーと合意する」段階の成果物です。
 ページの型と書き方は ADR 0131 §3–§5 に従います。ページの書き直しはこの表に従います。表を変えるときは `page-map.tsv` を直して `--write` で作り直します。
 
-- 元にしたのは agent-fleet の `main`（`afc94df70`、2026-11-07）の英語版 `guide/`（55 ファイル、見出し 616 個）です。
+- 元にしたのは agent-fleet の `main`（`afc94df70`、2026-11-07）の英語版 `guide/`（55 ファイル、見出し 616 個）と、出荷される runbook 6 本（見出し 132 個）です。
   書き直すのは `main` の `guide/` なので、タグではなく `main` に合わせています（`v0.41.0` には `operate/04-secure` と
   `operate/12-keys` の節が 1 つずつまだありません）。日本語版は同じ構成なので同じ表に従います。
 - 割り当ての規則は [`page-map.tsv`](page-map.tsv)、タイトルとサイドバーのグループは [`page-titles.tsv`](page-titles.tsv) にあります。
@@ -27,7 +27,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 
 ## 決まったこと（2026-11-07、ユーザーと合意）
 
-1. **ページ数は 190 ページのまま進めます。** ADR の見積もり（約 110 ページ）より多くなりますが、「1 ページに 1 機能」を優先します。
+1. **ページ数は（runbook を足す前の時点で）190 ページのまま進めます。** ADR の見積もり（約 110 ページ）より多くなりますが、「1 ページに 1 機能」を優先します。
    元の分量が 200 語に満たないページ（Codex・GitHub Copilot・Cursor を接続する、など 12 ページ）もまとめません。
    「画面の見かた」は元が 51 語しかないので書き足します。
 2. **大きすぎるページは分けます。** `operate/07-engines` の推論エンジンの節は、動かす（`operate/engines/gpu`）・
@@ -35,6 +35,21 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
    `ref/agents`（6,574 語）はリファレンスなので 1 ページのままにします。
 3. **「ターミナルを使わずに使う」（今の `member/lite`）は中身を各ページに散らします。** 番号付きの節はそれぞれのタスクページへ移し、
    `user/start/without-terminal` は「まず読むページ」を案内する入口と「人あての質問に代わりに答えない」という約束だけを残します。
+
+## runbook の分けかた（2026-11-07、ユーザーの依頼で追加）
+
+`deploy/` の runbook 6 本も、ガイドと同じく作業ごとのページに分けます（`stage-docs.sh` が `operate/runbooks/` にコピーして出荷しているので、
+ガイドの一部として読まれます）。
+
+- **ECS**（28,773 語）は約 21 ページ、**Kubernetes**（11,122 語）は 10 ページに分けます。
+- **Docker Compose** のバックアップ・アップグレード・閉じたネットワークへの導入は、`operate/run/` の同じ作業のページにまとめます。
+  **ネイティブパッケージ**の読み上げ・ComfyUI・ほかのデプロイのエンジンを借りる節は、`operate/engines/` のページにまとめます。
+- **WSL** と **EC2 1 台**は 1 ページのままにします。
+- ガイドの `operate/11-slot-pool` は ECS の運用なので、ECS のグループの「スロットを入れ替える・止める」に移します。
+- **ECS の「EC2 スロットプールを使う」**（約 5,000 語）は見出しがなく、表では 1 ページです。書き直すときに、使い始める／マシンの種類を選ぶ（Graviton を含む）／
+  ホームの置き場所・休止・予備のコピー／困ったとき、の 4 ページに分けます。
+- **開発者向けの節**（ECS の「動作確認の手順」、Kubernetes の「実環境での試験」）は、公開するかどうかをまだ決めていません。表では「（開発者向け）」を付けたページにしています。
+- `deploy/` 側のファイルの分けかた（`README.md` を目次にして、同じディレクトリーにページを並べる）と `stage-docs.sh` の直しは、分割するときにまとめて行います。
 
 ## 新しいページ構成
 
@@ -306,7 +321,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 
 | ページ | タイトル | 元の節 | 語数 |
 |---|---|---|--:|
-| `operate/overview` | セルフホストの全体像 | `operate/README` | 1135 |
+| `operate/overview` | セルフホストの全体像 | `operate/README`<br>`deploy/compose/README › Disclaimer — autonomous agent execution`<br>`deploy/native/README › Disclaimer — autonomous agent execution` | 1477 |
 | `operate/choose` | デプロイ先を選ぶ | `operate/01-choose` | 1378 |
 
 **インストール**
@@ -316,19 +331,83 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `operate/install` | インストールする | `operate/02-install` | 1603 |
 | `operate/install-decisions` | テナントとプロビジョニングの方式を決める | `operate/02-install › 4. Decision points` | 1613 |
 
+**ECS**
+
+| ページ | タイトル | 元の節 | 語数 |
+|---|---|---|--:|
+| `operate/aws-ecs/overview` | ECS 構成の全体像 | `deploy/aws/ecs/README` | 962 |
+| `operate/aws-ecs/install` | ECS に構築する | `deploy/aws/ecs/README › Prerequisites (once per account)`<br>`deploy/aws/ecs/README › 30-ingress stand-up (milestone: CP boots + Google login)`<br>`deploy/aws/ecs/README › ECR push (before S3)` | 1641 |
+| `operate/aws-ecs/options` | 任意の機能を有効にする（プレビュー・KMS・MCP・WAF） | `deploy/aws/ecs/README › Preview subdomains (optional, off by default)`<br>`deploy/aws/ecs/README › Keys at rest on KMS (optional, off by default)`<br>`deploy/aws/ecs/README › Remote MCP and MCP OAuth (optional, off by default)`<br>`deploy/aws/ecs/README › Timers, GitHub sign-in extras and LAN / borrowed engines (optional, empty by default)`<br>`deploy/aws/ecs/README › WAF (optional, off by default)` | 1272 |
+| `operate/aws-ecs/alarms` | データベースに届かないときのアラームを設定する | `deploy/aws/ecs/README › Alarms — the Control Plane cannot reach its database (set this one)` | 241 |
+| `operate/aws-ecs/workspace-size` | ワークスペースの大きさを決める | `deploy/aws/ecs/README › Workspace size (CPU / memory / working disk)` | 454 |
+| `operate/aws-ecs/schedules` | 決まった時刻の起動を有効にする | `deploy/aws/ecs/README › Scheduled execution (timed wakes)` | 310 |
+| `operate/aws-ecs/egress-ip` | 外向きの IP アドレスを固定する | `deploy/aws/ecs/README › Egress IP (the address a customer allow-lists)` | 652 |
+| `operate/aws-ecs/egress-gateway` | 外向きの通信をゲートウェイで制御する | `deploy/aws/ecs/README › Egress gateway (`EgressRoute=gateway`, ADR 0122)` | 2754 |
+| `operate/aws-ecs/tts` | 日本語の読み上げを足す | `deploy/aws/ecs/README › Optional: Japanese speech (the VOICEVOX engine, `cfn/50-tts.yaml`)` | 1235 |
+| `operate/aws-ecs/engines` | 推論エンジンを足す | `deploy/aws/ecs/README › Optional: the fleet's own inference engines (`cfn/60-engines.yaml`)` | 3321 |
+| `operate/aws-ecs/slot-pool` | EC2 スロットプールを使う | `deploy/aws/ecs/README › Optional: EC2 slot pool (`WsRuntime=ecs-ec2`)` | 4975 |
+| `operate/aws-ecs/slot-maintenance` | スロットを入れ替える・止める | `operate/11-slot-pool`<br>`deploy/aws/ecs/README › Moving retained slots onto new user data` | 2421 |
+| `operate/aws-ecs/upgrade` | アップグレードする | `deploy/aws/ecs/README › Upgrade (runbook)` | 2668 |
+| `operate/aws-ecs/backup` | EFS をバックアップ・復元する | `deploy/aws/ecs/README › EFS backup and restore` | 1025 |
+| `operate/aws-ecs/cost` | 費用を抑える | `deploy/aws/ecs/README › Cost & ephemerality` | 1522 |
+| `operate/aws-ecs/lifecycle` | スクリプトで構築・一時停止・撤去する | `deploy/aws/ecs/README › Lifecycle scripts (stand up / pause / tear down)` | 1251 |
+| `operate/aws-ecs/teardown` | 撤去する | `deploy/aws/ecs/README › Teardown` | 1063 |
+| `operate/aws-ecs/iam` | デプロイに必要な IAM 権限 | `deploy/aws/ecs/README › Minimal IAM (deploying principal)` | 455 |
+| `operate/aws-ecs/template-size` | テンプレートの大きさの上限に気をつける | `deploy/aws/ecs/README › The 51,200-byte wall (why a deploy can stop working without anyone touching it)` | 929 |
+| `operate/aws-ecs/troubleshooting` | ECS で困ったとき | `deploy/aws/ecs/README › Known behavior: a cold Start answers `starting`, not `running`` | 598 |
+| `operate/aws-ecs/prove-out` | 動作確認の手順（開発者向け） | `deploy/aws/ecs/README › Prove-out sequence`<br>`deploy/aws/ecs/README › E2E completion gate (frozen spec §20b.7.14)` | 236 |
+
+**Kubernetes**
+
+| ページ | タイトル | 元の節 | 語数 |
+|---|---|---|--:|
+| `operate/kubernetes/overview` | Kubernetes 構成の全体像 | `deploy/kubernetes/README` | 1741 |
+| `operate/kubernetes/gke` | GKE に構築する | `deploy/kubernetes/README › GKE` | 2745 |
+| `operate/kubernetes/other-clusters` | ほかのクラスターに構築する | `deploy/kubernetes/README › Other clusters` | 185 |
+| `operate/kubernetes/upgrade` | CP をアップグレードする | `deploy/kubernetes/README › Upgrading the CP` | 1293 |
+| `operate/kubernetes/backup` | バックアップ・復元する | `deploy/kubernetes/README › What has to survive`<br>`deploy/kubernetes/README › A disk from a snapshot, as a volume`<br>`deploy/kubernetes/README › Backups, point-in-time recovery and the restore rehearsal` | 1357 |
+| `operate/kubernetes/alerts` | アラートを設定する | `deploy/kubernetes/README › Alerts` | 179 |
+| `operate/kubernetes/nodes` | ノードを入れ替える・止まったノードに対処する | `deploy/kubernetes/README › Upgrading nodes (planned)`<br>`deploy/kubernetes/README › Unplanned drain`<br>`deploy/kubernetes/README › A node that stopped answering`<br>`deploy/kubernetes/README › Residue cleanup`<br>`deploy/kubernetes/README › Node disk` | 1057 |
+| `operate/kubernetes/pause` | 一時停止する・費用を見る | `deploy/kubernetes/README › Pausing`<br>`deploy/kubernetes/README › The bill` | 491 |
+| `operate/kubernetes/teardown` | 撤去する | `deploy/kubernetes/README › Tearing down` | 695 |
+| `operate/kubernetes/live-harness` | 実環境での試験（開発者向け） | `deploy/kubernetes/README › The live harness` | 1259 |
+
+**Docker Compose**
+
+| ページ | タイトル | 元の節 | 語数 |
+|---|---|---|--:|
+| `operate/compose/install` | Docker Compose で構築する | `deploy/compose/README` | 1919 |
+| `operate/compose/macos` | macOS（Apple Silicon）で動かす | `deploy/compose/README › macOS (Apple Silicon)` | 486 |
+| `operate/compose/workspace-listener` | ワークスペースから CP に届かないとき | `deploy/compose/README › Workspace listener (optional): when workspaces cannot reach `PUBLIC_BASE_URL`` | 555 |
+
+**ネイティブパッケージ**
+
+| ページ | タイトル | 元の節 | 語数 |
+|---|---|---|--:|
+| `operate/native/install` | ネイティブパッケージを入れる | `deploy/native/README` | 1114 |
+| `operate/native/update` | ネイティブパッケージを更新する | `deploy/native/README › Updating`<br>`deploy/native/README › Air-gap / manual file transfer`<br>`deploy/native/README › Automatic updates` | 439 |
+| `operate/native/service` | サービスとして動かす（systemd） | `deploy/native/README › systemd user unit (run as a service; systemd is on by default in WSL2)` | 193 |
+| `operate/native/uninstall` | リセット・アンインストールする | `deploy/native/README › Reset`<br>`deploy/native/README › Uninstall` | 159 |
+
+**そのほかの構成**
+
+| ページ | タイトル | 元の節 | 語数 |
+|---|---|---|--:|
+| `operate/wsl` | WSL で個人用に動かす | `deploy/local/README-wsl` | 1334 |
+| `operate/aws-ec2-single` | EC2 1 台に構築する | `deploy/aws/ec2-single/README` | 919 |
+
 **日々の運用**
 
 | ページ | タイトル | 元の節 | 語数 |
 |---|---|---|--:|
-| `operate/run/backup-restore` | バックアップして復元する | `operate/03-run` | 655 |
-| `operate/run/upgrade` | アップグレードする | `operate/03-run › Upgrade` | 533 |
-| `operate/run/air-gapped` | 閉じたネットワークに入れる | `operate/03-run › Installing into an air-gapped network` | 416 |
+| `operate/run/backup-restore` | バックアップして復元する | `operate/03-run`<br>`deploy/compose/README › Backup & restore` | 946 |
+| `operate/run/upgrade` | アップグレードする | `operate/03-run › Upgrade`<br>`deploy/compose/README › Upgrade` | 699 |
+| `operate/run/air-gapped` | 閉じたネットワークに入れる | `operate/03-run › Installing into an air-gapped network`<br>`deploy/compose/README › Air-gapped install` | 609 |
 | `operate/run/fleet-policy` | 全エージェントに指示を配る | `operate/03-run › Distributing fleet policy (instructions to every agent)` | 349 |
 | `operate/run/opencode-server` | opencode の共有サーバーを運用する | `operate/03-run › opencode 2: Terminal sessions and the shared server` | 297 |
 | `operate/run/public-internet` | インターネットに公開する | `operate/03-run › Once it is on the public internet` | 239 |
 | `operate/run/deployment-label` | 複数のデプロイを見分ける | `operate/03-run › Telling two deployments apart (colour and label)` | 434 |
 | `operate/run/idle-stop` | アイドル停止と強制停止を使う | `operate/03-run › Idle stop and force-stop`<br>`operate/03-run › Pausing an idle deployment` | 1957 |
-| `operate/ecs-ec2-slots` | ecs-ec2 のスロットを入れ替える・止める | `operate/11-slot-pool` | 1506 |
 
 **セキュリティ**
 
@@ -338,7 +417,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `operate/secure/egress` | 外向きの通信を制御する | `operate/04-secure › Operating egress control` | 1180 |
 | `operate/secure/mcp` | MCP と外部接続のサインインを運用する | `operate/04-secure › MCP servers and external connections` | 2107 |
 | `operate/secure/dev-signin` | 開発用サインインを使う | `operate/04-secure › `AUTH=dev` is not a default`<br>`operate/04-secure › Development sign-in (dev OIDC IdP — super_admin only)` | 299 |
-| `operate/secure/controls` | そのほかの運用上の制御 | `operate/04-secure` | 1260 |
+| `operate/secure/controls` | そのほかの運用上の制御 | `operate/04-secure`<br>`deploy/compose/README › Security notes` | 1375 |
 | `operate/secure/offboarding` | アクセスを取り消す・super_admin を引き継ぐ | `operate/04-secure › Offboarding: how access is actually revoked`<br>`operate/04-secure › Handing over `super_admin`` | 874 |
 
 **鍵**
@@ -367,16 +446,16 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `operate/engines/gpu` | 自前の GPU で推論エンジンを動かす | `operate/07-engines` | 1537 |
 | `operate/engines/models` | 推論エンジンにモデルを取り込む | `operate/07-engines › Taking models in, and what that has to do with tenants` | 1904 |
 | `operate/engines/status` | 推論エンジンの状態と履歴を見る | `operate/07-engines › Reading the current state`<br>`operate/07-engines › History (14 days)` | 496 |
-| `operate/engines/read-aloud` | 読み上げエンジンを動かす | `operate/07-engines › Read aloud (the speech engine and the shared dictionary)` | 242 |
-| `operate/engines/comfyui` | 自前の ComfyUI で画像を生成する | `operate/08-image-engine` | 3107 |
-| `operate/engines/borrow` | 別のデプロイのエンジンを借りる | `operate/09-borrowed-engine` | 2795 |
+| `operate/engines/read-aloud` | 読み上げエンジンを動かす | `operate/07-engines › Read aloud (the speech engine and the shared dictionary)`<br>`deploy/native/README › Text-to-speech (TTS / Zundamon) — optional` | 564 |
+| `operate/engines/comfyui` | 自前の ComfyUI で画像を生成する | `operate/08-image-engine`<br>`deploy/native/README › Image generation on a ComfyUI on your network — optional` | 3797 |
+| `operate/engines/borrow` | 別のデプロイのエンジンを借りる | `operate/09-borrowed-engine`<br>`deploy/native/README › Borrowing another deployment's engines — optional` | 3517 |
 | `operate/engines/llama-cpp` | LAN の llama.cpp でチャットする | `operate/10-llm-lan` | 1604 |
 
 **困ったとき**
 
 | ページ | タイトル | 元の節 | 語数 |
 |---|---|---|--:|
-| `operate/diagnose/checklist` | 症状から原因を探す | `operate/06-diagnose` | 2053 |
+| `operate/diagnose/checklist` | 症状から原因を探す | `operate/06-diagnose`<br>`deploy/compose/README › DooD: the three constraints (read if "it starts but silently doesn't work")`<br>`deploy/compose/README › Troubleshooting` | 2523 |
 | `operate/diagnose/cannot-login` | ログインできない | `operate/05-signin › 9. When it still does not work`<br>`operate/06-diagnose › Cannot log in` | 722 |
 
 ### リファレンス（ref/）
@@ -970,10 +1049,10 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `operate/10-llm-lan.md` | 　What it looks like when it is down | 55 | `operate/engines/llama-cpp` |
 | `operate/10-llm-lan.md` | 　What the panel will and will not show you | 92 | `operate/engines/llama-cpp` |
 | `operate/10-llm-lan.md` | 　A member's own connection | 317 | `operate/engines/llama-cpp` |
-| `operate/11-slot-pool.md` | 11. The ecs-ec2 slot pool | 42 | `operate/ecs-ec2-slots` |
-| `operate/11-slot-pool.md` | 　ecs-ec2: replacing outdated slots (new AMI or launch template change) | 582 | `operate/ecs-ec2-slots` |
-| `operate/11-slot-pool.md` | 　ecs-ec2: memory protection for the management plane | 188 | `operate/ecs-ec2-slots` |
-| `operate/11-slot-pool.md` | 　ecs-ec2: stopping a wedged slot | 694 | `operate/ecs-ec2-slots` |
+| `operate/11-slot-pool.md` | 11. The ecs-ec2 slot pool | 42 | `operate/aws-ecs/slot-maintenance` |
+| `operate/11-slot-pool.md` | 　ecs-ec2: replacing outdated slots (new AMI or launch template change) | 582 | `operate/aws-ecs/slot-maintenance` |
+| `operate/11-slot-pool.md` | 　ecs-ec2: memory protection for the management plane | 188 | `operate/aws-ecs/slot-maintenance` |
+| `operate/11-slot-pool.md` | 　ecs-ec2: stopping a wedged slot | 694 | `operate/aws-ecs/slot-maintenance` |
 | `operate/12-keys.md` | 12. Keys at rest: AWS KMS and a key for each home | 76 | `operate/keys/kms` |
 | `operate/12-keys.md` | 　Keys at rest on AWS KMS | 481 | `operate/keys/kms` |
 | `operate/12-keys.md` | 　Re-sealing values stored before the switch | 670 | `operate/keys/kms` |
@@ -1039,4 +1118,136 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `ref/settings.md` | 　Admin modal | 262 | `ref/settings` |
 | `ref/settings.md` | 　Deployment variables | 587 | `ref/settings` |
 | `ref/settings.md` | 　　On AWS ECS | 194 | `ref/settings` |
+| `deploy/aws/ecs/README.md` | Deploy on ECS with CloudFormation | 65 | `operate/aws-ecs/overview` |
+| `deploy/aws/ecs/README.md` | 　What CloudFormation builds vs what the Control Plane builds | 105 | `operate/aws-ecs/overview` |
+| `deploy/aws/ecs/README.md` | 　Stack decomposition (`cfn/`) | 699 | `operate/aws-ecs/overview` |
+| `deploy/aws/ecs/README.md` | 　　Prerequisites (once per account) | 938 | `operate/aws-ecs/install` |
+| `deploy/aws/ecs/README.md` | 　　30-ingress stand-up (milestone: CP boots + Google login) | 483 | `operate/aws-ecs/install` |
+| `deploy/aws/ecs/README.md` | 　　Preview subdomains (optional, off by default) | 390 | `operate/aws-ecs/options` |
+| `deploy/aws/ecs/README.md` | 　　Keys at rest on KMS (optional, off by default) | 347 | `operate/aws-ecs/options` |
+| `deploy/aws/ecs/README.md` | 　　Remote MCP and MCP OAuth (optional, off by default) | 141 | `operate/aws-ecs/options` |
+| `deploy/aws/ecs/README.md` | 　　Timers, GitHub sign-in extras and LAN / borrowed engines (optional, empty by default) | 127 | `operate/aws-ecs/options` |
+| `deploy/aws/ecs/README.md` | 　　Alarms — the Control Plane cannot reach its database (set this one) | 241 | `operate/aws-ecs/alarms` |
+| `deploy/aws/ecs/README.md` | 　　WAF (optional, off by default) | 267 | `operate/aws-ecs/options` |
+| `deploy/aws/ecs/README.md` | 　Prove-out sequence | 166 | `operate/aws-ecs/prove-out` |
+| `deploy/aws/ecs/README.md` | 　E2E completion gate (frozen spec §20b.7.14) | 70 | `operate/aws-ecs/prove-out` |
+| `deploy/aws/ecs/README.md` | 　ECR push (before S3) | 220 | `operate/aws-ecs/install` |
+| `deploy/aws/ecs/README.md` | 　Upgrade (runbook) | 744 | `operate/aws-ecs/upgrade` |
+| `deploy/aws/ecs/README.md` | 　　Upgrading: slot AMIs follow Amazon's SSM parameters (#3318) | 136 | `operate/aws-ecs/upgrade` |
+| `deploy/aws/ecs/README.md` | 　　Upgrading from v0.34.x | 488 | `operate/aws-ecs/upgrade` |
+| `deploy/aws/ecs/README.md` | 　　One command: `update.sh` | 747 | `operate/aws-ecs/upgrade` |
+| `deploy/aws/ecs/README.md` | 　　A development deployment: `dev-deploy.sh` | 346 | `operate/aws-ecs/upgrade` |
+| `deploy/aws/ecs/README.md` | 　　What the users see | 207 | `operate/aws-ecs/upgrade` |
+| `deploy/aws/ecs/README.md` | 　The 51,200-byte wall (why a deploy can stop working without anyone touching it) | 350 | `operate/aws-ecs/template-size` |
+| `deploy/aws/ecs/README.md` | 　　Back inside the wall (2026-09-04) | 230 | `operate/aws-ecs/template-size` |
+| `deploy/aws/ecs/README.md` | 　　Round trip, measured (2026-09-02) | 349 | `operate/aws-ecs/template-size` |
+| `deploy/aws/ecs/README.md` | 　Egress IP (the address a customer allow-lists) | 652 | `operate/aws-ecs/egress-ip` |
+| `deploy/aws/ecs/README.md` | 　Egress gateway (`EgressRoute=gateway`, ADR 0122) | 2754 | `operate/aws-ecs/egress-gateway` |
+| `deploy/aws/ecs/README.md` | 　Minimal IAM (deploying principal) | 455 | `operate/aws-ecs/iam` |
+| `deploy/aws/ecs/README.md` | 　Workspace size (CPU / memory / working disk) | 454 | `operate/aws-ecs/workspace-size` |
+| `deploy/aws/ecs/README.md` | 　Scheduled execution (timed wakes) | 310 | `operate/aws-ecs/schedules` |
+| `deploy/aws/ecs/README.md` | 　Optional: Japanese speech (the VOICEVOX engine, `cfn/50-tts.yaml`) | 1235 | `operate/aws-ecs/tts` |
+| `deploy/aws/ecs/README.md` | 　Optional: the fleet's own inference engines (`cfn/60-engines.yaml`) | 282 | `operate/aws-ecs/engines` |
+| `deploy/aws/ecs/README.md` | 　　Before you start | 384 | `operate/aws-ecs/engines` |
+| `deploy/aws/ecs/README.md` | 　　Turning it on | 527 | `operate/aws-ecs/engines` |
+| `deploy/aws/ecs/README.md` | 　　Getting a model into the catalogue | 828 | `operate/aws-ecs/engines` |
+| `deploy/aws/ecs/README.md` | 　　What a member sees | 320 | `operate/aws-ecs/engines` |
+| `deploy/aws/ecs/README.md` | 　　Things worth knowing | 675 | `operate/aws-ecs/engines` |
+| `deploy/aws/ecs/README.md` | 　　Holding the first request (why there is no retry) | 305 | `operate/aws-ecs/engines` |
+| `deploy/aws/ecs/README.md` | 　Optional: EC2 slot pool (`WsRuntime=ecs-ec2`) | 4975 | `operate/aws-ecs/slot-pool` |
+| `deploy/aws/ecs/README.md` | 　　Moving retained slots onto new user data | 915 | `operate/aws-ecs/slot-maintenance` |
+| `deploy/aws/ecs/README.md` | 　Known behavior: a cold Start answers `starting`, not `running` | 598 | `operate/aws-ecs/troubleshooting` |
+| `deploy/aws/ecs/README.md` | 　Cost & ephemerality | 1522 | `operate/aws-ecs/cost` |
+| `deploy/aws/ecs/README.md` | 　EFS backup and restore | 1025 | `operate/aws-ecs/backup` |
+| `deploy/aws/ecs/README.md` | 　Lifecycle scripts (stand up / pause / tear down) | 1251 | `operate/aws-ecs/lifecycle` |
+| `deploy/aws/ecs/README.md` | 　Teardown | 1063 | `operate/aws-ecs/teardown` |
+| `deploy/aws/ecs/README.md` | 　Notes | 93 | `operate/aws-ecs/overview` |
+| `deploy/kubernetes/README.md` | Deploy on Kubernetes (the `kubernetes` runtime profile) | 464 | `operate/kubernetes/overview` |
+| `deploy/kubernetes/README.md` | 　Preconditions | 1080 | `operate/kubernetes/overview` |
+| `deploy/kubernetes/README.md` | 　GKE | 53 | `operate/kubernetes/gke` |
+| `deploy/kubernetes/README.md` | 　　1. The project, once | 177 | `operate/kubernetes/gke` |
+| `deploy/kubernetes/README.md` | 　　2. Terraform | 266 | `operate/kubernetes/gke` |
+| `deploy/kubernetes/README.md` | 　　3. Point kubectl at this cluster | 80 | `operate/kubernetes/gke` |
+| `deploy/kubernetes/README.md` | 　　4. The database, once | 788 | `operate/kubernetes/gke` |
+| `deploy/kubernetes/README.md` | 　　5. The overlay | 247 | `operate/kubernetes/gke` |
+| `deploy/kubernetes/README.md` | 　　6. Secrets | 168 | `operate/kubernetes/gke` |
+| `deploy/kubernetes/README.md` | 　　7. The load balancer | 388 | `operate/kubernetes/gke` |
+| `deploy/kubernetes/README.md` | 　　8. Check it | 578 | `operate/kubernetes/gke` |
+| `deploy/kubernetes/README.md` | 　Other clusters | 185 | `operate/kubernetes/other-clusters` |
+| `deploy/kubernetes/README.md` | 　Rules for the manifests | 178 | `operate/kubernetes/overview` |
+| `deploy/kubernetes/README.md` | 　Operating it (decision 13) | 19 | `operate/kubernetes/overview` |
+| `deploy/kubernetes/README.md` | 　　What has to survive | 173 | `operate/kubernetes/backup` |
+| `deploy/kubernetes/README.md` | 　　A disk from a snapshot, as a volume | 218 | `operate/kubernetes/backup` |
+| `deploy/kubernetes/README.md` | 　　Backups, point-in-time recovery and the restore rehearsal | 966 | `operate/kubernetes/backup` |
+| `deploy/kubernetes/README.md` | 　　Upgrading the CP | 1293 | `operate/kubernetes/upgrade` |
+| `deploy/kubernetes/README.md` | 　　Alerts | 179 | `operate/kubernetes/alerts` |
+| `deploy/kubernetes/README.md` | 　　Upgrading nodes (planned) | 238 | `operate/kubernetes/nodes` |
+| `deploy/kubernetes/README.md` | 　　Unplanned drain | 60 | `operate/kubernetes/nodes` |
+| `deploy/kubernetes/README.md` | 　　A node that stopped answering | 488 | `operate/kubernetes/nodes` |
+| `deploy/kubernetes/README.md` | 　　Residue cleanup | 198 | `operate/kubernetes/nodes` |
+| `deploy/kubernetes/README.md` | 　　Node disk | 73 | `operate/kubernetes/nodes` |
+| `deploy/kubernetes/README.md` | 　　Pausing | 371 | `operate/kubernetes/pause` |
+| `deploy/kubernetes/README.md` | 　　The bill | 120 | `operate/kubernetes/pause` |
+| `deploy/kubernetes/README.md` | 　The live harness | 1259 | `operate/kubernetes/live-harness` |
+| `deploy/kubernetes/README.md` | 　Tearing down | 695 | `operate/kubernetes/teardown` |
+| `deploy/compose/README.md` | Deploy on premises with Docker Compose | 257 | `operate/compose/install` |
+| `deploy/compose/README.md` | 　Prerequisites | 244 | `operate/compose/install` |
+| `deploy/compose/README.md` | 　Quick start | 294 | `operate/compose/install` |
+| `deploy/compose/README.md` | 　　Login IdP setup | 652 | `operate/compose/install` |
+| `deploy/compose/README.md` | 　　Git provider OAuth (GitHub / Bitbucket) — optional | 115 | `operate/compose/install` |
+| `deploy/compose/README.md` | 　First administrator, tenants, members | 357 | `operate/compose/install` |
+| `deploy/compose/README.md` | 　Backup & restore | 291 | `operate/run/backup-restore` |
+| `deploy/compose/README.md` | 　Upgrade | 166 | `operate/run/upgrade` |
+| `deploy/compose/README.md` | 　Air-gapped install | 193 | `operate/run/air-gapped` |
+| `deploy/compose/README.md` | 　DooD: the three constraints (read if "it starts but silently doesn't work") | 149 | `operate/diagnose/checklist` |
+| `deploy/compose/README.md` | 　macOS (Apple Silicon) | 486 | `operate/compose/macos` |
+| `deploy/compose/README.md` | 　Workspace listener (optional): when workspaces cannot reach `PUBLIC_BASE_URL` | 555 | `operate/compose/workspace-listener` |
+| `deploy/compose/README.md` | 　Troubleshooting | 321 | `operate/diagnose/checklist` |
+| `deploy/compose/README.md` | 　Security notes | 115 | `operate/secure/controls` |
+| `deploy/compose/README.md` | 　Disclaimer — autonomous agent execution | 174 | `operate/overview` |
+| `deploy/native/README.md` | Install the native package (no Docker, single user) | 143 | `operate/native/install` |
+| `deploy/native/README.md` | 　Quick start | 215 | `operate/native/install` |
+| `deploy/native/README.md` | 　Host requirements | 307 | `operate/native/install` |
+| `deploy/native/README.md` | 　Data locations | 65 | `operate/native/install` |
+| `deploy/native/README.md` | 　Updating | 71 | `operate/native/update` |
+| `deploy/native/README.md` | 　Air-gap / manual file transfer | 84 | `operate/native/update` |
+| `deploy/native/README.md` | 　Git provider OAuth (GitHub / Bitbucket) — optional | 252 | `operate/native/install` |
+| `deploy/native/README.md` | 　Text-to-speech (TTS / Zundamon) — optional | 82 | `operate/engines/read-aloud` |
+| `deploy/native/README.md` | 　　A. Run VOICEVOX on the Windows side (WSL2) | 106 | `operate/engines/read-aloud` |
+| `deploy/native/README.md` | 　　B. Run the engine directly inside WSL/Linux | 32 | `operate/engines/read-aloud` |
+| `deploy/native/README.md` | 　　Changing the URL / port | 102 | `operate/engines/read-aloud` |
+| `deploy/native/README.md` | 　Image generation on a ComfyUI on your network — optional | 76 | `operate/engines/comfyui` |
+| `deploy/native/README.md` | 　　Opening ComfyUI to the network | 65 | `operate/engines/comfyui` |
+| `deploy/native/README.md` | 　　Pointing the CP at it | 200 | `operate/engines/comfyui` |
+| `deploy/native/README.md` | 　　More than one engine row | 129 | `operate/engines/comfyui` |
+| `deploy/native/README.md` | 　　Registering the models by hand | 130 | `operate/engines/comfyui` |
+| `deploy/native/README.md` | 　　While it is down | 90 | `operate/engines/comfyui` |
+| `deploy/native/README.md` | 　Borrowing another deployment's engines — optional | 69 | `operate/engines/borrow` |
+| `deploy/native/README.md` | 　　Pointing the CP at the far fleet | 154 | `operate/engines/borrow` |
+| `deploy/native/README.md` | 　　The token | 201 | `operate/engines/borrow` |
+| `deploy/native/README.md` | 　　What you can and cannot do from here | 144 | `operate/engines/borrow` |
+| `deploy/native/README.md` | 　　The first request is a cold start over there | 154 | `operate/engines/borrow` |
+| `deploy/native/README.md` | 　systemd user unit (run as a service; systemd is on by default in WSL2) | 193 | `operate/native/service` |
+| `deploy/native/README.md` | 　Automatic updates | 284 | `operate/native/update` |
+| `deploy/native/README.md` | 　Limitations (differences from the Docker setup) | 132 | `operate/native/install` |
+| `deploy/native/README.md` | 　Reset | 27 | `operate/native/uninstall` |
+| `deploy/native/README.md` | 　Uninstall | 132 | `operate/native/uninstall` |
+| `deploy/native/README.md` | 　Disclaimer — autonomous agent execution | 168 | `operate/overview` |
+| `deploy/local/README-wsl.md` | Personal use on WSL (no auth, single user, instant start) | 152 | `operate/wsl` |
+| `deploy/local/README-wsl.md` | 　0. The big picture (what is "left out") | 112 | `operate/wsl` |
+| `deploy/local/README-wsl.md` | 　1. Prerequisites (install inside the WSL2 distro) | 176 | `operate/wsl` |
+| `deploy/local/README-wsl.md` | 　2. Start | 127 | `operate/wsl` |
+| `deploy/local/README-wsl.md` | 　　GitHub integration (device flow) | 184 | `operate/wsl` |
+| `deploy/local/README-wsl.md` | 　3. Open in a browser | 34 | `operate/wsl` |
+| `deploy/local/README-wsl.md` | 　4. rtk and JDKs | 163 | `operate/wsl` |
+| `deploy/local/README-wsl.md` | 　5. Stop, clean up, rebuild | 109 | `operate/wsl` |
+| `deploy/local/README-wsl.md` | 　6. If you cannot install Docker (experimental: native runtime) | 94 | `operate/wsl` |
+| `deploy/local/README-wsl.md` | 　7. Troubleshooting | 183 | `operate/wsl` |
+| `deploy/aws/ec2-single/README.md` | Deploy on a single EC2 VM with CloudFormation | 83 | `operate/aws-ec2-single` |
+| `deploy/aws/ec2-single/README.md` | 　1. Provision | 178 | `operate/aws-ec2-single` |
+| `deploy/aws/ec2-single/README.md` | 　2. Ship the release bundle to the VM | 40 | `operate/aws-ec2-single` |
+| `deploy/aws/ec2-single/README.md` | 　3. Bring it up on the VM | 169 | `operate/aws-ec2-single` |
+| `deploy/aws/ec2-single/README.md` | 　4. Tear down (removes EVERYTHING in the stack) | 152 | `operate/aws-ec2-single` |
+| `deploy/aws/ec2-single/README.md` | 　Instance metadata (IMDS) | 241 | `operate/aws-ec2-single` |
+| `deploy/aws/ec2-single/README.md` | 　Notes | 56 | `operate/aws-ec2-single` |
 <!-- /generated:sections -->
