@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs';
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import starlightLinksValidator from 'starlight-links-validator';
@@ -9,34 +10,34 @@ const group = (en, ja, dir, collapsed = false) => ({
 });
 const t = (en, ja) => ({ en, ja });
 
-// The pilot pages (docs/pilot/) are drafts; scripts/build.sh leaves them out when DOCS_PILOT=0, which the
-// production deploy does. Every sidebar entry that points into them has to go with them, or the top bar links
-// to pages that were never built (the link validator does not check the sidebar config).
-const pilot = process.env.DOCS_PILOT !== '0';
+// The sidebar is built from the directories this build actually has. Pages reach src/content/docs/ from two places:
+// the agent-fleet release (guide/, which gains task pages under user/ as the rewrite lands) and the pilot drafts
+// (docs/pilot/, left out when DOCS_PILOT=0). A group for a directory that is not there, or a page that is in no
+// group, fails the build or leaves a dead link in the top bar (the link validator does not check this config).
+const CONTENT = new URL('./src/content/docs/', import.meta.url);
+// Either language counts: the task pages are written in Japanese first.
+const has = (dir) => existsSync(new URL(dir, CONTENT)) || existsSync(new URL(`ja/${dir}`, CONTENT));
+const groups = (...defs) => defs.filter(([, , dir]) => has(dir)).map((d) => group(...d));
 
-const userTopic = pilot
-  ? {
-      // The pilot pages are Japanese only, so the topic lands on a page that exists in both languages.
-      id: 'user', label: t('User guide', 'ユーザーガイド'), icon: 'open-book', link: '/member/',
-      items: [
-        group('Getting started', 'はじめに', 'user/start'),
-        group('Integrations', '連携', 'user/integrations'),
-        group('Security', 'セキュリティ', 'user/security'),
-        group('All chapters (current layout)', '全章（現行の構成）', 'member', true),
-      ],
-    }
-  : {
-      id: 'user', label: t('User guide', 'ユーザーガイド'), icon: 'open-book', link: '/member/',
-      items: [{ autogenerate: { directory: 'member' } }],
-    };
+const userTopic = {
+  // The task pages are written in Japanese first, so the topic lands on a page that exists in both languages.
+  id: 'user', label: t('User guide', 'ユーザーガイド'), icon: 'open-book', link: '/member/',
+  items: [
+    ...groups(
+      ['Getting started', 'はじめに', 'user/start'],
+      ['Integrations', '連携', 'user/integrations'],
+      ['Security', 'セキュリティ', 'user/security'],
+    ),
+    group('All chapters (current layout)', '全章（現行の構成）', 'member', has('user')),
+  ],
+};
 
-const referenceItems = pilot
-  ? [
-      group('Commands', 'コマンド', 'ref/cli'),
-      group('MCP tools', 'MCP ツール', 'ref/mcp'),
-      group('Everything else (current layout)', 'その他（現行の構成）', 'ref', true),
-    ]
-  : [{ autogenerate: { directory: 'ref' } }];
+const referenceItems = [
+  ...groups(['Commands', 'コマンド', 'ref/cli'], ['MCP tools', 'MCP ツール', 'ref/mcp']),
+  ...(has('ref/cli') || has('ref/mcp')
+    ? [group('Everything else (current layout)', 'その他（現行の構成）', 'ref', true)]
+    : [{ autogenerate: { directory: 'ref' } }]),
+];
 
 // One topic per reader, like the shelves of guide/; each topic has its own sidebar.
 const topics = [
