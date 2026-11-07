@@ -1,7 +1,7 @@
-# guide/ から新しいページ構成への対応表（案）
+# guide/ から新しいページ構成への対応表
 
 k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のページに割り当て、ユーザーと合意する」段階の成果物です。
-ページの型と書き方は ADR 0131 §3–§5 に従います。**この表が合意されるまで、ページの書き直しは始めません。**
+ページの型と書き方は ADR 0131 §3–§5 に従います。ページの書き直しはこの表に従います。表を変えるときは `page-map.tsv` を直して `--write` で作り直します。
 
 - 元にしたのは agent-fleet の `main`（`afc94df70`、2026-11-07）の英語版 `guide/`（55 ファイル、見出し 616 個）です。
   書き直すのは `main` の `guide/` なので、タグではなく `main` に合わせています（`v0.41.0` には `operate/04-secure` と
@@ -25,17 +25,16 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 6. **設計の理由は公開しません**（ADR 0131 §4）。理由だけの節（「Claude Code 自身の仕組みとの違い」など）も表では
    どこかのページに割り当てていますが、書き直すときに落とします。
 
-## 決めてほしいこと
+## 決まったこと（2026-11-07、ユーザーと合意）
 
-1. **ページ数**：188 ページになり、ADR の見積もり（約 110 ページ）より多くなりました。元の分量が 200 語に満たないページが
-   12 あります（Codex・GitHub Copilot・Cursor を接続する、スキルを呼び出す、変更を見る、ファイルを渡す、読み上げ、など）。
-   ただし「画面の見かた」は元が 51 語しかなく、新しく書き足すつもりです。
-   「1 ページに 1 機能」を優先してこのまま進めるか、小さいものをまとめるか（例：Codex・Copilot・Cursor・Kiro を
-   「そのほかのエージェントを接続する」の 1 ページに）を決めてください。
-2. **大きすぎるページ**：`operate/engines/gpu`（3,937 語）と `ref/agents`（6,574 語）は、書き直しの段階でさらに分けるつもりです。
-   リファレンスは長くてもよい、という扱いでよければ `ref/agents` はそのままにします。
-3. **「ターミナルを使わずに使う」**（今の `member/lite`）を 1 ページとして残すか、内容を各ページに散らして
-   入口のページだけにするか。
+1. **ページ数は 190 ページのまま進めます。** ADR の見積もり（約 110 ページ）より多くなりますが、「1 ページに 1 機能」を優先します。
+   元の分量が 200 語に満たないページ（Codex・GitHub Copilot・Cursor を接続する、など 12 ページ）もまとめません。
+   「画面の見かた」は元が 51 語しかないので書き足します。
+2. **大きすぎるページは分けます。** `operate/07-engines` の推論エンジンの節は、動かす（`operate/engines/gpu`）・
+   モデルを取り込む（`operate/engines/models`）・状態と履歴を見る（`operate/engines/status`）の 3 ページにしました。
+   `ref/agents`（6,574 語）はリファレンスなので 1 ページのままにします。
+3. **「ターミナルを使わずに使う」（今の `member/lite`）は中身を各ページに散らします。** 番号付きの節はそれぞれのタスクページへ移し、
+   `user/start/without-terminal` は「まず読むページ」を案内する入口と「人あての質問に代わりに答えない」という約束だけを残します。
 
 ## 新しいページ構成
 
@@ -49,15 +48,15 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 
 | ページ | タイトル | 元の節 | 語数 |
 |---|---|---|--:|
-| `user/start/overview` | Agent Fleet でできること | `README`<br>`member/README` | 616 |
-| `user/start/quickstart` | 最初のセッションを始める | `member/01-first-day` | 834 |
+| `user/start/overview` | Agent Fleet でできること | `README`<br>`member/README`<br>`member/lite › 1. What you can do with Agent Fleet` | 800 |
+| `user/start/quickstart` | 最初のセッションを始める | `member/01-first-day`<br>`member/lite › 3. One-time setup` | 1133 |
 | `user/start/concepts` | 用語と全体像 | （新規） |  |
-| `user/start/console-tour` | 画面の見かた | `member/02-console-basics` | 51 |
+| `user/start/console-tour` | 画面の見かた | `member/02-console-basics`<br>`member/lite › 2. Logging in and reading the screen` | 258 |
 | `user/start/shortcuts` | キーボードとコマンドパレットで操作する | `member/02-console-basics › Shortcuts`<br>`member/02-console-basics › Command palette`<br>`member/20-settings › Keyboard` | 1555 |
 | `user/start/panes` | 画面を分けて並べる | `member/02-console-basics › Arranging multiple views (panes)` | 433 |
 | `user/start/phone` | スマートフォンで使う | `member/02-console-basics › Using it on a phone` | 365 |
 | `user/start/end-of-day` | 一日の終わりにワークスペースを止める | `member/01-first-day › At the end of the day — is it OK to stop the workspace?` | 402 |
-| `user/start/without-terminal` | ターミナルを使わずに使う | `member/lite` | 2089 |
+| `user/start/without-terminal` | ターミナルを使わない人のための入口 | `member/lite` | 226 |
 
 **セッション**
 
@@ -66,7 +65,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `user/sessions/start` | セッションを始める | `member/03-starting-sessions` | 1062 |
 | `user/sessions/worktrees` | ワークツリーで並行して作業する | `member/03-starting-sessions › Worktrees and new branches — the key to parallel work`<br>`member/03-starting-sessions › Working folder — starting inside a subfolder` | 452 |
 | `user/sessions/from-issues` | Issue やチケットから始める | `member/03-starting-sessions › Starting from the issue tracker` | 1856 |
-| `user/sessions/status` | セッションの状態を読む | `member/03-starting-sessions › Reading state — badges and notifications` | 443 |
+| `user/sessions/status` | セッションの状態を読む | `member/03-starting-sessions › Reading state — badges and notifications`<br>`member/lite › 7. Watching development progress` | 654 |
 | `user/sessions/reply` | セッションに返事をする | `member/04-conversation` | 1193 |
 | `user/sessions/queue` | 送る内容を待たせる・ターンを止める | `member/04-conversation › Stopping a turn when something is queued`<br>`member/04-conversation › Holding follow-ups before sending (send queue)` | 1021 |
 | `user/sessions/plans` | プランにコメントする・レビューさせる | `member/04-conversation › Writing comments on a plan`<br>`member/04-conversation › Having another session review the plan` | 797 |
@@ -113,7 +112,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | ページ | タイトル | 元の節 | 語数 |
 |---|---|---|--:|
 | `user/files/browse` | ファイルを見る・ダウンロードする | `member/07-files` | 913 |
-| `user/files/view` | ドキュメントや図を表示する | `member/07-files › File viewer` | 1159 |
+| `user/files/view` | ドキュメントや図を表示する | `member/07-files › File viewer`<br>`member/lite › 5. Reading documents and slides` | 1365 |
 | `user/files/edit` | ファイルを編集する | `member/07-files › Editing a file` | 299 |
 | `user/files/send` | ファイルをセッションに渡す | `member/07-files › Send a file to a session / chat` | 136 |
 | `user/files/terminal` | ターミナルを使う | `member/08-terminal` | 671 |
@@ -140,9 +139,9 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 
 | ページ | タイトル | 元の節 | 語数 |
 |---|---|---|--:|
-| `user/chat/assistant` | アシスタントに質問する | `member/09-agents › Default model for the assistant chat`<br>`member/10-chat-memo`<br>`member/20-settings › Assistant` | 1453 |
+| `user/chat/assistant` | アシスタントに質問する | `member/09-agents › Default model for the assistant chat`<br>`member/10-chat-memo`<br>`member/20-settings › Assistant`<br>`member/lite › 4. Using chat (questions, translation, text cleanup)` | 1796 |
 | `user/chat/purpose-assistants` | 翻訳や専用のアシスタントを使う | `member/10-chat-memo › Purpose-built assistants and translation`<br>`member/20-settings › AI assistance` | 1025 |
-| `user/chat/memos` | メモをためて渡す | `member/10-chat-memo › Memo queue` | 416 |
+| `user/chat/memos` | メモをためて渡す | `member/10-chat-memo › Memo queue`<br>`member/lite › 6. The memo queue (collect ideas and hand them over)` | 714 |
 
 **チームで使う**
 
@@ -150,7 +149,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 |---|---|---|--:|
 | `user/team/hand-over` | セッションをメンバーに渡す | `member/12-collaboration` | 682 |
 | `user/team/inbox` | チームメイトに頼む（受信箱） | `member/12-collaboration › Asking a teammate: the inbox` | 770 |
-| `user/team/share` | 会話を共有する | `member/12-collaboration › Sharing a conversation (shared sessions)` | 507 |
+| `user/team/share` | 会話を共有する | `member/12-collaboration › Sharing a conversation (shared sessions)`<br>`member/lite › Reading work that was shared with you` | 622 |
 | `user/team/usage-limits` | 使用量の上限の状況を見せ合う | `member/12-collaboration › Showing teammates where you stand on usage limits`<br>`member/20-settings › Limit board` | 433 |
 
 **画像**
@@ -365,7 +364,9 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 
 | ページ | タイトル | 元の節 | 語数 |
 |---|---|---|--:|
-| `operate/engines/gpu` | 自前の GPU で推論エンジンを動かす | `operate/07-engines` | 3937 |
+| `operate/engines/gpu` | 自前の GPU で推論エンジンを動かす | `operate/07-engines` | 1537 |
+| `operate/engines/models` | 推論エンジンにモデルを取り込む | `operate/07-engines › Taking models in, and what that has to do with tenants` | 1904 |
+| `operate/engines/status` | 推論エンジンの状態と履歴を見る | `operate/07-engines › Reading the current state`<br>`operate/07-engines › History (14 days)` | 496 |
 | `operate/engines/read-aloud` | 読み上げエンジンを動かす | `operate/07-engines › Read aloud (the speech engine and the shared dictionary)` | 242 |
 | `operate/engines/comfyui` | 自前の ComfyUI で画像を生成する | `operate/08-image-engine` | 3107 |
 | `operate/engines/borrow` | 別のデプロイのエンジンを借りる | `operate/09-borrowed-engine` | 2795 |
@@ -825,16 +826,16 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `member/badges-and-menus.md` | 　　Cards in the sessions overview | 28 | `ref/console-ui` |
 | `member/badges-and-menus.md` | 　When a menu doesn't appear | 92 | `user/troubleshooting/terminal-phone` |
 | `member/lite.md` | Simple guide (for people who don't use the terminal) | 150 | `user/start/without-terminal` |
-| `member/lite.md` | 　1. What you can do with Agent Fleet | 184 | `user/start/without-terminal` |
-| `member/lite.md` | 　2. Logging in and reading the screen | 207 | `user/start/without-terminal` |
-| `member/lite.md` | 　3. One-time setup | 299 | `user/start/without-terminal` |
-| `member/lite.md` | 　4. Using chat (questions, translation, text cleanup) | 210 | `user/start/without-terminal` |
-| `member/lite.md` | 　　How is chat different from a session? | 133 | `user/start/without-terminal` |
-| `member/lite.md` | 　5. Reading documents and slides | 206 | `user/start/without-terminal` |
-| `member/lite.md` | 　6. The memo queue (collect ideas and hand them over) | 202 | `user/start/without-terminal` |
-| `member/lite.md` | 　　"Who receives my memos?" | 96 | `user/start/without-terminal` |
-| `member/lite.md` | 　7. Watching development progress | 211 | `user/start/without-terminal` |
-| `member/lite.md` | 　　Reading work that was shared with you | 115 | `user/start/without-terminal` |
+| `member/lite.md` | 　1. What you can do with Agent Fleet | 184 | `user/start/overview` |
+| `member/lite.md` | 　2. Logging in and reading the screen | 207 | `user/start/console-tour` |
+| `member/lite.md` | 　3. One-time setup | 299 | `user/start/quickstart` |
+| `member/lite.md` | 　4. Using chat (questions, translation, text cleanup) | 210 | `user/chat/assistant` |
+| `member/lite.md` | 　　How is chat different from a session? | 133 | `user/chat/assistant` |
+| `member/lite.md` | 　5. Reading documents and slides | 206 | `user/files/view` |
+| `member/lite.md` | 　6. The memo queue (collect ideas and hand them over) | 202 | `user/chat/memos` |
+| `member/lite.md` | 　　"Who receives my memos?" | 96 | `user/chat/memos` |
+| `member/lite.md` | 　7. Watching development progress | 211 | `user/sessions/status` |
+| `member/lite.md` | 　　Reading work that was shared with you | 115 | `user/team/share` |
 | `member/lite.md` | 　　An important ground rule | 76 | `user/start/without-terminal` |
 | `member/lite.md` | 　8. When you're stuck + FAQ | 0 | `user/troubleshooting/faq` |
 | `member/lite.md` | 　　First moves when something goes wrong | 80 | `user/troubleshooting/faq` |
@@ -934,9 +935,9 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `operate/07-engines.md` | 　Inference engines (self-hosted GPUs — super_admin only) | 446 | `operate/engines/gpu` |
 | `operate/07-engines.md` | 　　The GPU instance class | 583 | `operate/engines/gpu` |
 | `operate/07-engines.md` | 　　The warning about whether a model fits | 121 | `operate/engines/gpu` |
-| `operate/07-engines.md` | 　　Taking models in, and what that has to do with tenants | 1904 | `operate/engines/gpu` |
-| `operate/07-engines.md` | 　　Reading the current state | 276 | `operate/engines/gpu` |
-| `operate/07-engines.md` | 　　History (14 days) | 220 | `operate/engines/gpu` |
+| `operate/07-engines.md` | 　　Taking models in, and what that has to do with tenants | 1904 | `operate/engines/models` |
+| `operate/07-engines.md` | 　　Reading the current state | 276 | `operate/engines/status` |
+| `operate/07-engines.md` | 　　History (14 days) | 220 | `operate/engines/status` |
 | `operate/07-engines.md` | 　Read aloud (the speech engine and the shared dictionary) | 242 | `operate/engines/read-aloud` |
 | `operate/07-engines.md` | 　What a picture keeps out | 303 | `operate/engines/gpu` |
 | `operate/08-image-engine.md` | 08. Image generation on your own ComfyUI | 317 | `operate/engines/comfyui` |

@@ -7,7 +7,7 @@ user/start/shortcuts	キーボードとコマンドパレットで操作する	�
 user/start/panes	画面を分けて並べる	はじめに
 user/start/phone	スマートフォンで使う	はじめに
 user/start/end-of-day	一日の終わりにワークスペースを止める	はじめに
-user/start/without-terminal	ターミナルを使わずに使う	はじめに
+user/start/without-terminal	ターミナルを使わない人のための入口	はじめに
 user/sessions/start	セッションを始める	セッション
 user/sessions/worktrees	ワークツリーで並行して作業する	セッション
 user/sessions/from-issues	Issue やチケットから始める	セッション
@@ -162,6 +162,8 @@ operate/signin/github	GitHub でサインインする	サインイン
 operate/signin/oidc	そのほかの OIDC でサインインする	サインイン
 operate/signin/tenant-idp	テナント独自のサインインを承認する	サインイン
 operate/engines/gpu	自前の GPU で推論エンジンを動かす	推論エンジン
+operate/engines/models	推論エンジンにモデルを取り込む	推論エンジン
+operate/engines/status	推論エンジンの状態と履歴を見る	推論エンジン
 operate/engines/read-aloud	読み上げエンジンを動かす	推論エンジン
 operate/engines/comfyui	自前の ComfyUI で画像を生成する	推論エンジン
 operate/engines/borrow	別のデプロイのエンジンを借りる	推論エンジン

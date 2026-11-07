@@ -3,6 +3,15 @@ README.md		user/start/overview
 member/README.md		user/start/overview
 member/lite.md		user/start/without-terminal
 member/lite.md	8. When you're stuck + FAQ	user/troubleshooting/faq
+member/lite.md	1. What you can do with Agent Fleet	user/start/overview
+member/lite.md	2. Logging in and reading the screen	user/start/console-tour
+member/lite.md	3. One-time setup	user/start/quickstart
+member/lite.md	4. Using chat (questions, translation, text cleanup)	user/chat/assistant
+member/lite.md	5. Reading documents and slides	user/files/view
+member/lite.md	6. The memo queue (collect ideas and hand them over)	user/chat/memos
+member/lite.md	7. Watching development progress	user/sessions/status
+member/lite.md	Reading work that was shared with you	user/team/share
+member/lite.md	An important ground rule	user/start/without-terminal
 member/01-first-day.md		user/start/quickstart
 member/01-first-day.md	At the end of the day — is it OK to stop the workspace?	user/start/end-of-day
 member/02-console-basics.md		user/start/console-tour
@@ -224,6 +233,9 @@ operate/05-signin.md	9. When it still does not work	operate/diagnose/cannot-logi
 operate/06-diagnose.md		operate/diagnose/checklist
 operate/06-diagnose.md	Cannot log in	operate/diagnose/cannot-login
 operate/07-engines.md		operate/engines/gpu
+operate/07-engines.md	Taking models in, and what that has to do with tenants	operate/engines/models
+operate/07-engines.md	Reading the current state	operate/engines/status
+operate/07-engines.md	History (14 days)	operate/engines/status
 operate/07-engines.md	Read aloud (the speech engine and the shared dictionary)	operate/engines/read-aloud
 operate/08-image-engine.md		operate/engines/comfyui
 operate/09-borrowed-engine.md		operate/engines/borrow

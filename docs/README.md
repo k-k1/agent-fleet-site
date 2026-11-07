@@ -31,7 +31,7 @@ npx astro preview --host 127.0.0.1 --port 4410   # http://127.0.0.1:4410/docs/
 | `scripts/to_starlight.py` | Staged guide → Starlight content: titles, language routes, links, alerts → asides, 2x screenshot widths |
 | `scripts/mcp_page.py` | Renders the MCP tool tables from `research/mcp-inventory.md`. Interim: the plan is to generate from the golden `list.json` files |
 | `pilot/` | Rewritten pages in the new structure, in Japanese only so far. It mirrors `guide/`: `user/…`, `ref/cli/…`, `ref/mcp/…` |
-| `research/page-map.ja.md` | Proposed map from every section of the current `guide/` to a page of the new structure (#3463), awaiting the user's agreement. Rules in `research/page-map.tsv` and `research/page-titles.tsv`; `scripts/page_map.py <checkout> [--write]` checks that every heading is mapped and regenerates the tables |
+| `research/page-map.ja.md` | Map from every section of the current `guide/` to a page of the new structure (#3463), agreed with the user on 2026-11-07. Rules in `research/page-map.tsv` and `research/page-titles.tsv`; `scripts/page_map.py <checkout> [--write]` checks that every heading is mapped and regenerates the tables |
 | `research/mcp-inventory.md` | The 81 MCP tools: their routes, gates and sources, collected from the code |
 
 Screenshots come from the main repository's `console/scripts/shots/capture.mjs` (scenes marked `guide: true`).
