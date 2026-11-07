@@ -242,7 +242,9 @@ def check_online(external: dict[str, set[str]]) -> None:
 
 def main() -> int:
     online = "--online" in sys.argv[1:]
-    files = sorted(SITE.rglob("*.html"))
+    # site/docs/ is the Starlight build of the user guide (docs/). Its links and anchors are checked when it is built
+    # (starlight-links-validator), and it follows Starlight's markup, not this site's hreflang and asset rules.
+    files = sorted(f for f in SITE.rglob("*.html") if not f.is_relative_to(SITE / "docs"))
     pages = {}
     for f in files:
         p = Page()
