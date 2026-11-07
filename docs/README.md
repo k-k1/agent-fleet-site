@@ -38,15 +38,20 @@ Screenshots come from the main repository's `console/scripts/shots/capture.mjs` 
 
 ## Deploy
 
-Cloudflare Pages runs `scripts/pages-build.sh` (in the repository root) on every push: it clones agent-fleet at the
-tag in `scripts/docs-ref.txt`, runs `scripts/build.sh`, checks the output for dead `/docs/` links
-(`scripts/check_dist.py`), and writes `site/` plus the guide to `out/`.
+Cloudflare Pages runs `scripts/pages-build.sh` (in the repository root) on every push.
 
-- **Production (`main`)** publishes the release's guide alone (`DOCS_PILOT=0`). The pilot pages are drafts.
-- **Every other branch** is a preview and includes the pilot pages, so a pull request's preview URL shows them.
-- **A new release's guide goes live** by changing `scripts/docs-ref.txt` in a pull request.
+- **Production (`main`) does not publish `/docs/` yet.** The guide is being rewritten into task pages, and the old
+  layout is never published (ADR 0132, addendum). Until `scripts/docs-published` exists, `main` deploys `site/` alone.
+  Adding that file is the switch the user flips when the pages are ready.
+- **Once published**, `main` builds the agent-fleet release tag in `scripts/docs-ref.txt` (it refuses anything else)
+  and leaves out the pilot pages. A new release's guide goes live by changing that file.
+- **Every other branch is a preview** and always builds `/docs/`, with the pilot pages. To review pages that are not
+  released, push a branch here whose `scripts/docs-ref.txt` names an agent-fleet branch (`main`, or a pull request's
+  branch); its preview URL shows them.
+- Each build checks the output for dead `/docs/` links (`scripts/check_dist.py`).
 
-To reproduce a deploy locally: `CF_PAGES_BRANCH=main bash scripts/pages-build.sh` from the repository root.
+To reproduce a deploy locally, from the repository root: `CF_PAGES_BRANCH=main bash scripts/pages-build.sh`, or any
+other branch name for a preview.
 
 ## Pilot pages
 
