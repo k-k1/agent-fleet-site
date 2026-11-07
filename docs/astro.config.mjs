@@ -9,17 +9,38 @@ const group = (en, ja, dir, collapsed = false) => ({
 });
 const t = (en, ja) => ({ en, ja });
 
+// The pilot pages (docs/pilot/) are drafts; scripts/build.sh leaves them out when DOCS_PILOT=0, which the
+// production deploy does. Every sidebar entry that points into them has to go with them, or the top bar links
+// to pages that were never built (the link validator does not check the sidebar config).
+const pilot = process.env.DOCS_PILOT !== '0';
+
+const userTopic = pilot
+  ? {
+      // The pilot pages are Japanese only, so the topic lands on a page that exists in both languages.
+      id: 'user', label: t('User guide', 'ユーザーガイド'), icon: 'open-book', link: '/member/',
+      items: [
+        group('Getting started', 'はじめに', 'user/start'),
+        group('Integrations', '連携', 'user/integrations'),
+        group('Security', 'セキュリティ', 'user/security'),
+        group('All chapters (current layout)', '全章（現行の構成）', 'member', true),
+      ],
+    }
+  : {
+      id: 'user', label: t('User guide', 'ユーザーガイド'), icon: 'open-book', link: '/member/',
+      items: [{ autogenerate: { directory: 'member' } }],
+    };
+
+const referenceItems = pilot
+  ? [
+      group('Commands', 'コマンド', 'ref/cli'),
+      group('MCP tools', 'MCP ツール', 'ref/mcp'),
+      group('Everything else (current layout)', 'その他（現行の構成）', 'ref', true),
+    ]
+  : [{ autogenerate: { directory: 'ref' } }];
+
 // One topic per reader, like the shelves of guide/; each topic has its own sidebar.
 const topics = [
-  {
-    id: 'user', label: t('User guide', 'ユーザーガイド'), icon: 'open-book', link: '/user/start/overview/',
-    items: [
-      group('Getting started', 'はじめに', 'user/start'),
-      group('Integrations', '連携', 'user/integrations'),
-      group('Security', 'セキュリティ', 'user/security'),
-      group('All chapters (current layout)', '全章（現行の構成）', 'member', true),
-    ],
-  },
+  userTopic,
   {
     label: t('Team admin', 'チーム管理'), icon: 'setting', link: '/admin/',
     items: [{ autogenerate: { directory: 'admin' } }],
@@ -32,11 +53,7 @@ const topics = [
   },
   {
     label: t('Reference', 'リファレンス'), icon: 'information', link: '/ref/',
-    items: [
-      group('Commands', 'コマンド', 'ref/cli'),
-      { label: 'MCP tools', translations: { ja: 'MCP ツール' }, link: '/ref/mcp/' },
-      group('Everything else (current layout)', 'その他（現行の構成）', 'ref', true),
-    ],
+    items: referenceItems,
   },
   {
     label: t('Release notes', 'リリースノート'), icon: 'list-format', link: '/ref/releases/summary/',

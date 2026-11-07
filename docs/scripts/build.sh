@@ -17,8 +17,14 @@ mkdir -p "$WORK/src" && mv "$WORK/guide" "$WORK/deploy" "$WORK/scripts" "$WORK/s
 bash "$WORK/src/deploy/release/stage-docs.sh" "$WORK/staged" >/dev/null
 
 # Pilot pages: new paths are added, files that exist in the release are replaced.
-cp -r "$HERE/pilot/." "$WORK/staged/"
+# DOCS_PILOT=0 leaves them out: they are drafts the user has not signed off, so the production deploy
+# (scripts/pages-build.sh on main) publishes the release's guide alone.
+if [ "${DOCS_PILOT:-1}" = 1 ]; then
+  cp -r "$HERE/pilot/." "$WORK/staged/"
+fi
 
 python3 -I "$HERE/scripts/to_starlight.py" "$WORK/staged" "$HERE" "$TAG"
 cd "$HERE"
-NODE_OPTIONS="${NODE_OPTIONS:---max-old-space-size=2048}" npx astro build
+# Appended, not defaulted: Cloudflare Pages sets NODE_OPTIONS itself (--use-openssl-ca), which would
+# otherwise drop the heap limit.
+NODE_OPTIONS="${NODE_OPTIONS:-} --max-old-space-size=2048" npx astro build

@@ -98,8 +98,9 @@ forwarding and analytics are on Cloudflare's free plan. In this order:
    assigned. DNSSEC must be off at お名前.com before this (a DS record left behind breaks
    resolution); neither domain has one today. Wait for Cloudflare to report both zones Active.
 3. **Pages.** Workers & Pages → Create application → Pages → Connect to Git → this
-   repository. Production branch `main`, framework preset *None*, build command empty, build
-   output directory `site`. The *Create application* page opens on Workers; Pages is the small
+   repository. Production branch `main`, framework preset *None*, build command
+   `bash scripts/pages-build.sh`, build output directory `out`. The build copies `site/` and adds the user guide
+   under `/docs/`, built from the agent-fleet release in `scripts/docs-ref.txt` (`docs/README.md`). The *Create application* page opens on Workers; Pages is the small
    link at its foot. If connecting GitHub fails with "could not be installed" although
    <https://github.com/settings/installations> lists *Cloudflare Workers and Pages*, open that
    installation in the popup, change *Repository access* (only `agent-fleet-site`) and *Save*:

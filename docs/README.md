@@ -36,6 +36,18 @@ npx astro preview --host 127.0.0.1 --port 4410   # http://127.0.0.1:4410/docs/
 
 Screenshots come from the main repository's `console/scripts/shots/capture.mjs` (scenes marked `guide: true`).
 
+## Deploy
+
+Cloudflare Pages runs `scripts/pages-build.sh` (in the repository root) on every push: it clones agent-fleet at the
+tag in `scripts/docs-ref.txt`, runs `scripts/build.sh`, checks the output for dead `/docs/` links
+(`scripts/check_dist.py`), and writes `site/` plus the guide to `out/`.
+
+- **Production (`main`)** publishes the release's guide alone (`DOCS_PILOT=0`). The pilot pages are drafts.
+- **Every other branch** is a preview and includes the pilot pages, so a pull request's preview URL shows them.
+- **A new release's guide goes live** by changing `scripts/docs-ref.txt` in a pull request.
+
+To reproduce a deploy locally: `CF_PAGES_BRANCH=main bash scripts/pages-build.sh` from the repository root.
+
 ## Pilot pages
 
 | Page | State |
@@ -73,4 +85,3 @@ These are the corrections behind the rules in ADR 0131 §4–5. Check every new 
 - The Console's Markdown viewer does not render GitHub alerts (`> [!TIP]`); the converter turns them into asides.
 - Wide tables: first-column code is kept on one line (`src/styles/custom.css`). The MCP tables use three columns, because
   six were unreadable.
-- Deployment (Actions + wrangler, `_headers` CSP for `/docs/`) is not built yet.
