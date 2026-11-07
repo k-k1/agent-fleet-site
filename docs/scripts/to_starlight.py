@@ -224,6 +224,11 @@ def main():
             sb.append(f"  order: {int(n.group(1))}")
         elif stem.name == "README":
             sb.append("  order: 0")
+        if rel.parent.as_posix() == "user" and stem.name == "README":
+            # The task shelf's index: its pages are listed in the user topic's groups, so the index itself is
+            # hidden, and a hidden page names its topic (see the runbooks below).
+            sb.append("  hidden: true")
+            fm.append("topic: user")
         if rel.parent.as_posix() == "operate/runbooks":
             # Autogenerate would put these in a group named after the directory ("runbooks", with the index
             # page "Runbooks" right under it). astro.config.mjs lists them in a "Runbooks" group instead.
