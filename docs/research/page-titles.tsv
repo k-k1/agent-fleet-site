@@ -1,0 +1,189 @@
+# new page	Japanese title (what the reader wants to do)	group label for the sidebar
+user/start/overview	Agent Fleet でできること	はじめに
+user/start/quickstart	最初のセッションを始める	はじめに
+user/start/concepts	用語と全体像	はじめに
+user/start/console-tour	画面の見かた	はじめに
+user/start/shortcuts	キーボードとコマンドパレットで操作する	はじめに
+user/start/panes	画面を分けて並べる	はじめに
+user/start/phone	スマートフォンで使う	はじめに
+user/start/end-of-day	一日の終わりにワークスペースを止める	はじめに
+user/start/without-terminal	ターミナルを使わずに使う	はじめに
+user/sessions/start	セッションを始める	セッション
+user/sessions/worktrees	ワークツリーで並行して作業する	セッション
+user/sessions/from-issues	Issue やチケットから始める	セッション
+user/sessions/status	セッションの状態を読む	セッション
+user/sessions/reply	セッションに返事をする	セッション
+user/sessions/queue	送る内容を待たせる・ターンを止める	セッション
+user/sessions/plans	プランにコメントする・レビューさせる	セッション
+user/sessions/skills	スキルやコマンドを呼び出す	セッション
+user/sessions/branch-message	過去のメッセージから分岐する	セッション
+user/sessions/changes	セッションが変えた内容を見る	セッション
+user/sessions/export	会話を Markdown で保存する	セッション
+user/sessions/translate	回答を自分の言語で読む	セッション
+user/sessions/stop-resume	セッションを止める・再開する	セッション
+user/sessions/auto-stop	終わったら止める・起こしたままにする	セッション
+user/sessions/cleanup	終わったセッションを片付ける	セッション
+user/sessions/budget	使いすぎたセッションを止める（支出の上限）	セッション
+user/sessions/handoff	別のセッションやエージェントに引き継ぐ	セッション
+user/fleet/overview	動いているセッションを一覧する	たくさんのセッション
+user/fleet/graph	セッションのつながりを時系列で見る	たくさんのセッション
+user/fleet/working-sets	ワーキングセットで絞り込む	たくさんのセッション
+user/fleet/child-sessions	セッションから子セッションを起動する	たくさんのセッション
+user/fleet/messages	セッション同士でやりとりさせる	たくさんのセッション
+user/fleet/pr-feedback	PR のレビューをセッションに伝える	たくさんのセッション
+user/fleet/fleet-visibility	セッションに全体を見せる	たくさんのセッション
+user/fleet/operator	Fleet Operator に任せる	たくさんのセッション
+user/fleet/operator-patterns	Fleet Operator の使いかたの例	たくさんのセッション
+user/fleet/schedules	決まった時刻に実行する	たくさんのセッション
+user/code/connect-git	Git のサービスを接続する	コード
+user/code/clone	リポジトリをクローンする	コード
+user/code/internal-git	内蔵の Git を使う	コード
+user/code/launch-from-repo	リポジトリからセッションを起動する	コード
+user/code/git-flow	Git Flow を初期化する	コード
+user/code/commit	コミットグラフでコミットする	コード
+user/code/svn	Subversion のリポジトリを使う	コード
+user/files/browse	ファイルを見る・ダウンロードする	ファイルとターミナル
+user/files/view	ドキュメントや図を表示する	ファイルとターミナル
+user/files/edit	ファイルを編集する	ファイルとターミナル
+user/files/send	ファイルをセッションに渡す	ファイルとターミナル
+user/files/terminal	ターミナルを使う	ファイルとターミナル
+user/agents/choose	エージェントを選ぶ	エージェント
+user/agents/claude	Claude を接続する	エージェント
+user/agents/codex	Codex を接続する	エージェント
+user/agents/opencode	OpenCode を接続する	エージェント
+user/agents/copilot	GitHub Copilot を接続する	エージェント
+user/agents/cursor	Cursor を接続する	エージェント
+user/agents/kiro	Kiro を接続する	エージェント
+user/agents/agy	Antigravity を接続する	エージェント
+user/agents/muse	Muse Code を接続する	エージェント
+user/agents/lcpp	lcpp を使う	エージェント
+user/agents/usage	料金と使用量を確かめる	エージェント
+user/agents/instructions	作業のしかたを一度だけ書いておく	エージェント
+user/agents/bring-claude-setup	手元の Claude Code の設定を持ち込む	エージェント
+user/chat/assistant	アシスタントに質問する	チャットとメモ
+user/chat/purpose-assistants	翻訳や専用のアシスタントを使う	チャットとメモ
+user/chat/memos	メモをためて渡す	チャットとメモ
+user/team/hand-over	セッションをメンバーに渡す	チームで使う
+user/team/inbox	チームメイトに頼む（受信箱）	チームで使う
+user/team/share	会話を共有する	チームで使う
+user/team/usage-limits	使用量の上限の状況を見せ合う	チームで使う
+user/images/gallery	画像ギャラリーを使う	画像
+user/images/generate	画像を生成する	画像
+user/images/studio	スタジオで画像を仕上げる	画像
+user/images/from-session	セッションに画像を作らせる	画像
+user/preview/browser-pane	起動した Web アプリを見る	プレビューとブラウザ
+user/preview/subdomains	プレビュー用のサブドメインを使う	プレビューとブラウザ
+user/preview/dev-signin	プレビューで Google ログインを試す	プレビューとブラウザ
+user/preview/agent-browser	エージェントが開いたブラウザを操作する	プレビューとブラウザ
+user/integrations/gh-bkt	GitHub・Bitbucket の CLI を使う	連携
+user/integrations/issue-tracker	課題管理サービスを接続する	連携
+user/integrations/jira	Jira を使う	連携
+user/integrations/confluence	Confluence を使う	連携
+user/integrations/chat-bridge	Discord・Slack とつなぐ	連携
+user/integrations/ops-monitoring	監視ツールとつなぐ	連携
+user/integrations/aws-sso	AWS SSO を使う	連携
+user/integrations/aws-ssm	社内の別のホストにログインする（SSM）	連携
+user/integrations/gcloud	Google Cloud を使う	連携
+user/integrations/mcp-servers	セッションに MCP サーバーを追加する	連携
+user/workspace/recreate	ワークスペースを作り直す	ワークスペース
+user/workspace/machine	マシンの大きさを変える	ワークスペース
+user/workspace/toolchains	ツールチェーンを選ぶ	ワークスペース
+user/workspace/databases	データベースを使うテストを動かす	ワークスペース
+user/workspace/aws-emulator	AWS のコードを手元のエミュレーターで試す	ワークスペース
+user/workspace/export-import	ワークスペースを書き出す・取り込む	ワークスペース
+user/workspace/cost	稼働時間とクラウド費用を見る	ワークスペース
+user/memory/overview	エージェントの記憶を見る・直す	記憶
+user/memory/changes	記憶の変更を確かめる	記憶
+user/memory/import-export	記憶を取り込む・書き出す	記憶
+user/memory/settings	記憶のしかたを設定する	記憶
+user/memory/snapshots	スナップショットで記憶を戻す	記憶
+user/memory/external	外部のエージェントから記憶を使う	記憶
+user/outside/external-claude	外部の Claude からワークスペースを動かす	外部から使う
+user/outside/oauth-client	リモートの MCP クライアントをサインインでつなぐ	外部から使う
+user/outside/move-work-in	手元の Claude Code の作業をワークスペースに移す	外部から使う
+user/settings/display	表示とアカウントを変える	設定
+user/settings/notifications	通知を受け取る	設定
+user/settings/read-aloud	読み上げを使う	設定
+user/security/credentials	資格情報の扱い	セキュリティ
+user/troubleshooting/workspace	ワークスペースが起動しない・止まった	困ったとき
+user/troubleshooting/sessions	セッションが再開できない・見当たらない	困ったとき
+user/troubleshooting/agents	エージェントにログインできない・モデルが出ない	困ったとき
+user/troubleshooting/git	クローンや認証に失敗する	困ったとき
+user/troubleshooting/preview	プレビューやブラウザが表示されない	困ったとき
+user/troubleshooting/integrations	MCP・クラウド・Jira が動かない	困ったとき
+user/troubleshooting/terminal-phone	ターミナルやスマートフォンで操作できない	困ったとき
+user/troubleshooting/faq	よくある質問	困ったとき
+user/troubleshooting/report	不具合を報告する・要望を出す	困ったとき
+admin/overview	チーム管理者の仕事	はじめに
+admin/members/roster	メンバーの状況を見る	メンバー
+admin/members/add	メンバーを追加する	メンバー
+admin/members/remove	メンバーを外す	メンバー
+admin/members/git-token	メンバーの Git トークンを入れ替える	メンバー
+admin/resources/overview	リソースの使われかたを見る	リソース
+admin/resources/session-limits	セッション数の上限を決める	リソース
+admin/resources/engines	推論エンジンを使える人とモデルを決める	リソース
+admin/resources/workspace-size	ワークスペースの大きさを決める	リソース
+admin/resources/idle-stop	放置されたワークスペースを止める	リソース
+admin/audit	監査ログを見る	監査と使用量
+admin/usage	稼働時間とクラウド費用を見る	監査と使用量
+admin/mcp-distribute	MCP サーバーを全員に配る	外部との接続
+admin/memory-outside	外部からの記憶の利用を許可する	外部との接続
+admin/access/signin-methods	サインインの方法を決める	サインイン
+admin/access/networks	サインインできるネットワークを絞る	サインイン
+admin/access/oauth-apps	連携に使う OAuth アプリを選ぶ	サインイン
+admin/defaults/branch-rules	ブランチ名の規則を決める	チームの既定値
+admin/defaults/members	メンバーの既定値を決める	チームの既定値
+operate/overview	セルフホストの全体像	はじめに
+operate/choose	デプロイ先を選ぶ	はじめに
+operate/install	インストールする	インストール
+operate/install-decisions	テナントとプロビジョニングの方式を決める	インストール
+operate/run/backup-restore	バックアップして復元する	日々の運用
+operate/run/upgrade	アップグレードする	日々の運用
+operate/run/air-gapped	閉じたネットワークに入れる	日々の運用
+operate/run/fleet-policy	全エージェントに指示を配る	日々の運用
+operate/run/opencode-server	opencode の共有サーバーを運用する	日々の運用
+operate/run/public-internet	インターネットに公開する	日々の運用
+operate/run/deployment-label	複数のデプロイを見分ける	日々の運用
+operate/run/idle-stop	アイドル停止と強制停止を使う	日々の運用
+operate/ecs-ec2-slots	ecs-ec2 のスロットを入れ替える・止める	日々の運用
+operate/secure/threat-model	脅威モデルと残るリスク	セキュリティ
+operate/secure/egress	外向きの通信を制御する	セキュリティ
+operate/secure/mcp	MCP と外部接続のサインインを運用する	セキュリティ
+operate/secure/dev-signin	開発用サインインを使う	セキュリティ
+operate/secure/controls	そのほかの運用上の制御	セキュリティ
+operate/secure/offboarding	アクセスを取り消す・super_admin を引き継ぐ	セキュリティ
+operate/keys/kms	保存時の鍵を AWS KMS にする	鍵
+operate/keys/home-keys	ホームごとに鍵を分ける	鍵
+operate/keys/bridge-tokens	ブリッジトークンを入れ替える	鍵
+operate/signin/overview	サインインの方法を設定する	サインイン
+operate/signin/google	Google でサインインする	サインイン
+operate/signin/entra	Microsoft Entra ID でサインインする	サインイン
+operate/signin/github	GitHub でサインインする	サインイン
+operate/signin/oidc	そのほかの OIDC でサインインする	サインイン
+operate/signin/tenant-idp	テナント独自のサインインを承認する	サインイン
+operate/engines/gpu	自前の GPU で推論エンジンを動かす	推論エンジン
+operate/engines/read-aloud	読み上げエンジンを動かす	推論エンジン
+operate/engines/comfyui	自前の ComfyUI で画像を生成する	推論エンジン
+operate/engines/borrow	別のデプロイのエンジンを借りる	推論エンジン
+operate/engines/llama-cpp	LAN の llama.cpp でチャットする	推論エンジン
+operate/diagnose/checklist	症状から原因を探す	困ったとき
+operate/diagnose/cannot-login	ログインできない	困ったとき
+ref/overview	リファレンスの読みかた	リファレンス
+ref/features	機能の一覧	リファレンス
+ref/agents	エージェントごとの対応状況	リファレンス
+ref/repos	リポジトリのサービスごとの対応状況	リファレンス
+ref/deploy-targets	デプロイ先ごとの違い	リファレンス
+ref/roles	ロールとできること	リファレンス
+ref/limits	上限と既定値	リファレンス
+ref/settings	設定の場所	リファレンス
+ref/console-ui	アイコン・バッジ・メニュー	リファレンス
+ref/browser-pane	ブラウザペインの仕様	リファレンス
+ref/glossary	用語集	リファレンス
+ref/cli/README	コマンドの一覧	コマンド
+ref/cli/af-aws-exec	af-aws-exec	コマンド
+ref/cli/af-gcloud-exec	af-gcloud-exec	コマンド
+ref/cli/af-db	af-db	コマンド
+ref/cli/af-memory	af-memory	コマンド
+ref/cli/af-scratch	af-scratch	コマンド
+ref/cli/af-arch-repair	af-arch-repair	コマンド
+ref/mcp/README	af の MCP ツール	MCP ツール
