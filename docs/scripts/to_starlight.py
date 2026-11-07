@@ -224,6 +224,12 @@ def main():
             sb.append(f"  order: {int(n.group(1))}")
         elif stem.name == "README":
             sb.append("  order: 0")
+        if rel.parent.as_posix() == "operate/runbooks":
+            # Autogenerate would put these in a group named after the directory ("runbooks", with the index
+            # page "Runbooks" right under it). astro.config.mjs lists them in a "Runbooks" group instead.
+            sb.append("  hidden: true")
+            # A page hidden from the sidebar is in no topic's list, so the topic is named.
+            fm.append("topic: operate")
         if sb:
             fm.append("sidebar:\n" + "\n".join(sb))
         fm.append(f"editUrl: {yaml_str(f'{REPO}/edit/main/{repo_path(rel)}')}")

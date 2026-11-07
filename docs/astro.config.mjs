@@ -46,9 +46,17 @@ const topics = [
     items: [{ autogenerate: { directory: 'admin' } }],
   },
   {
-    label: t('Self-hosting', 'セルフホスト'), icon: 'rocket', link: '/operate/',
+    id: 'operate', label: t('Self-hosting', 'セルフホスト'), icon: 'rocket', link: '/operate/',
     items: [
       { label: 'Guide', translations: { ja: 'ガイド' }, items: [{ autogenerate: { directory: 'operate' } }] },
+      // The runbooks are hidden from autogenerate (scripts/to_starlight.py) and listed here, so the group gets a
+      // real label. The list is deploy/release/stage-docs.sh's RUNBOOKS; a slug that is not built fails the build,
+      // but a runbook added there is not listed until it is added here too.
+      {
+        label: 'Runbooks', translations: { ja: 'Runbook' },
+        items: ['compose', 'native', 'wsl', 'aws-ec2-single', 'aws-ecs', 'kubernetes']
+          .map((name) => ({ slug: `operate/runbooks/${name}` })),
+      },
     ],
   },
   {
