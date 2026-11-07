@@ -2,8 +2,7 @@
 
 The user guide of [Agent Fleet](https://github.com/k-k1/agent-fleet), built with Astro Starlight and served under
 `https://agent-fleet.org/docs/`. **Status: pilot.** Nothing here is deployed yet. The direction is recorded in ADR 0131
-in the main repository (`docs/decisions/0131-public-docs-site.md`, on its `docs/public-docs-site-pilot` branch until
-merged), and the work is tracked in k-k1/agent-fleet#3463. Read the ADR first: it holds the decisions, the page model and the screenshot rules. This file covers how to
+in the main repository (`docs/decisions/0131-public-docs-site.md`, on `main` since PR #3526), and the work is tracked in k-k1/agent-fleet#3463. Read the ADR first: it holds the decisions, the page model and the screenshot rules. This file covers how to
 build the site and the review feedback so far.
 
 ## Build and preview
