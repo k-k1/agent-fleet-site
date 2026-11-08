@@ -98,7 +98,7 @@ member/14-preview-browser.md		user/preview/browser-pane
 member/14-preview-browser.md	Preview subdomains (only where they are issued)	user/preview/subdomains
 member/14-preview-browser.md	Signing in with Google on a preview URL (development OIDC IdP)	user/preview/dev-signin
 member/14-preview-browser.md	Operating a browser the agent opened	user/preview/agent-browser
-member/15-external-services.md		user/integrations/gh-bkt
+member/15-external-services.md		user/integrations/github-cli
 member/15-external-services.md	Use `jira` in a session	user/integrations/jira
 member/15-external-services.md	Use `confluence` in a session	user/integrations/confluence
 member/15-external-services.md	CLIs that are already signed in	ref/cli/README

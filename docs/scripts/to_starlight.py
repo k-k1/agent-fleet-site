@@ -95,6 +95,9 @@ def yaml_str(s: str) -> str:
     return json.dumps(s, ensure_ascii=False)  # JSON strings are valid YAML scalars
 
 
+PAGE_ORDER: dict = {}
+
+
 def main():
     staged, site, ref = Path(sys.argv[1]), Path(sys.argv[2]), sys.argv[3]
     out = site / "src/content/docs"
@@ -107,6 +110,11 @@ def main():
         shutil.copy2(a, pub / "assets" / a.name)
 
     unresolved = []
+    global PAGE_ORDER
+    titles = site / "research/page-titles.tsv"
+    if titles.exists():
+        rows = [l.split("\t")[0] for l in titles.read_text(encoding="utf-8").splitlines() if l and not l.startswith("#")]
+        PAGE_ORDER = {page: n + 1 for n, page in enumerate(rows)}
     global REVERSE
     REVERSE = {repo_path(p.relative_to(staged)): p.relative_to(staged) for p in staged.rglob("*.md")}
     for src in sorted(staged.rglob("*.md")):
@@ -220,6 +228,10 @@ def main():
             sb.append("  order: -999999999")
         if meta.get("order"):
             sb.append(f"  order: {int(meta['order'])}")
+        elif stem.as_posix() in PAGE_ORDER:
+            # A task page takes its place in research/page-titles.tsv, which lists each group's pages in reading
+            # order (related pages together); autogenerate would sort them by file name.
+            sb.append(f"  order: {PAGE_ORDER[stem.as_posix()]}")
         elif n:
             sb.append(f"  order: {int(n.group(1))}")
         elif stem.name == "README":
