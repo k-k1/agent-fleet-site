@@ -23,10 +23,26 @@ const userTopic = {
   // The task pages are written in Japanese first, so the topic lands on a page that exists in both languages.
   id: 'user', label: t('User guide', 'ユーザーガイド'), icon: 'open-book', link: '/member/',
   items: [
+    // Every group of the page map (research/page-titles.tsv), in its order. A directory that is not there yet is
+    // skipped, so a lane that adds the first page of a group needs no change here.
     ...groups(
       ['Getting started', 'はじめに', 'user/start'],
+      ['Sessions', 'セッション', 'user/sessions'],
+      ['Many sessions', 'たくさんのセッション', 'user/fleet'],
+      ['Agents', 'エージェント', 'user/agents'],
+      ['Code', 'コード', 'user/code'],
+      ['Files and terminal', 'ファイルとターミナル', 'user/files'],
+      ['Preview and browser', 'プレビューとブラウザ', 'user/preview'],
+      ['Chat and memos', 'チャットとメモ', 'user/chat'],
+      ['Working as a team', 'チームで使う', 'user/team'],
       ['Integrations', '連携', 'user/integrations'],
+      ['Workspace', 'ワークスペース', 'user/workspace'],
+      ['Images', '画像', 'user/images'],
+      ['Memory', '記憶', 'user/memory'],
+      ['Settings', '設定', 'user/settings'],
+      ['Using it from outside', '外部から使う', 'user/outside'],
       ['Security', 'セキュリティ', 'user/security'],
+      ['Troubleshooting', '困ったとき', 'user/troubleshooting'],
     ),
     group('All chapters (current layout)', '全章（現行の構成）', 'member', has('user')),
   ],
