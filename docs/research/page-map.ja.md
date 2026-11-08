@@ -64,7 +64,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 
 | ページ | タイトル | 元の節 | 語数 |
 |---|---|---|--:|
-| `user/start/overview` | Agent Fleet でできること | `README`<br>`member/README`<br>`member/lite › 1. What you can do with Agent Fleet` | 800 |
+| `user/start/overview` | Agent Fleet でできること | `README`<br>`member/README`<br>`member/lite › 1. What you can do with Agent Fleet`<br>`user/README` | 880 |
 | `user/start/quickstart` | 最初のセッションを始める | `member/01-first-day`<br>`member/lite › 3. One-time setup` | 1133 |
 | `user/start/concepts` | 用語と全体像 | （新規） |  |
 | `user/start/console-tour` | 画面の見かた | `member/02-console-basics`<br>`member/lite › 2. Logging in and reading the screen` | 258 |
@@ -117,7 +117,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 |---|---|---|--:|
 | `user/code/connect-git` | Git のサービスを接続する | `member/06-code › Connect a git provider`<br>`member/06-code › Push and authentication`<br>`member/20-settings › Git hosting` | 415 |
 | `user/code/clone` | リポジトリをクローンする | `member/06-code` | 495 |
-| `user/code/internal-git` | 内蔵の Git を使う | `member/06-code › The built-in git provider (internal Git)`<br>`member/20-settings › Internal repos` | 201 |
+| `user/code/internal-git` | 内蔵の Git を使う | `member/06-code › The built-in git provider (internal Git)`<br>`member/20-settings › Internal repos` | 290 |
 | `user/code/launch-from-repo` | リポジトリからセッションを起動する | `member/06-code › Launch a session from a repository row` | 1042 |
 | `user/code/git-flow` | Git Flow を初期化する | `member/06-code › Initialize Git Flow` | 353 |
 | `user/code/commit` | コミットグラフでコミットする | `member/06-code › Commit in the commit graph view` | 312 |
@@ -156,7 +156,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | ページ | タイトル | 元の節 | 語数 |
 |---|---|---|--:|
 | `user/chat/assistant` | アシスタントに質問する | `member/09-agents › Default model for the assistant chat`<br>`member/10-chat-memo`<br>`member/20-settings › Assistant`<br>`member/lite › 4. Using chat (questions, translation, text cleanup)` | 1796 |
-| `user/chat/purpose-assistants` | 翻訳や専用のアシスタントを使う | `member/10-chat-memo › Purpose-built assistants and translation`<br>`member/20-settings › AI assistance` | 1025 |
+| `user/chat/purpose-assistants` | 翻訳や専用のアシスタントを使う | `member/10-chat-memo › Purpose-built assistants and translation`<br>`member/20-settings › AI assistance` | 961 |
 | `user/chat/memos` | メモをためて渡す | `member/10-chat-memo › Memo queue`<br>`member/lite › 6. The memo queue (collect ideas and hand them over)` | 714 |
 
 **チームで使う**
@@ -165,7 +165,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 |---|---|---|--:|
 | `user/team/hand-over` | セッションをメンバーに渡す | `member/12-collaboration` | 682 |
 | `user/team/inbox` | チームメイトに頼む（受信箱） | `member/12-collaboration › Asking a teammate: the inbox` | 770 |
-| `user/team/share` | 会話を共有する | `member/12-collaboration › Sharing a conversation (shared sessions)`<br>`member/lite › Reading work that was shared with you` | 622 |
+| `user/team/share` | 会話を共有する | `member/12-collaboration › Sharing a conversation (shared sessions)`<br>`member/lite › Reading work that was shared with you` | 654 |
 | `user/team/usage-limits` | 使用量の上限の状況を見せ合う | `member/12-collaboration › Showing teammates where you stand on usage limits`<br>`member/20-settings › Limit board` | 433 |
 
 **画像**
@@ -190,14 +190,14 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 
 | ページ | タイトル | 元の節 | 語数 |
 |---|---|---|--:|
-| `user/integrations/gh-bkt` | GitHub・Bitbucket の CLI を使う | `member/15-external-services` | 317 |
+| `user/integrations/gh-bkt` | GitHub・Bitbucket の CLI を使う | `member/15-external-services` | 449 |
 | `user/integrations/issue-tracker` | 課題管理サービスを接続する | `member/20-settings › Issue tracker` | 414 |
 | `user/integrations/jira` | Jira を使う | `member/15-external-services › Use `jira` in a session` | 1308 |
 | `user/integrations/confluence` | Confluence を使う | `member/15-external-services › Use `confluence` in a session` | 557 |
-| `user/integrations/chat-bridge` | Discord・Slack とつなぐ | `member/15-external-services › Connecting Discord / Slack (chat bridge)`<br>`member/20-settings › Chat` | 386 |
+| `user/integrations/chat-bridge` | Discord・Slack とつなぐ | `member/15-external-services › Connecting Discord / Slack (chat bridge)`<br>`member/20-settings › Chat` | 455 |
 | `user/integrations/ops-monitoring` | 監視ツールとつなぐ | `member/15-external-services › PagerDuty / Grafana / CloudWatch / AWS connect from the "Ops & monitoring" tab (recommended)`<br>`member/20-settings › Ops & monitoring` | 860 |
-| `user/integrations/aws-sso` | AWS SSO を使う | `member/16-cloud-accounts`<br>`member/20-settings › AWS profiles/SSM` | 2512 |
-| `user/integrations/aws-ssm` | 社内の別のホストにログインする（SSM） | `member/16-cloud-accounts › Logging in to another in-house host (SSM)` | 1231 |
+| `user/integrations/aws-sso` | AWS SSO を使う | `member/16-cloud-accounts`<br>`member/20-settings › AWS profiles/SSM`<br>`user/integrations/aws-sso` | 1588 |
+| `user/integrations/aws-ssm` | SSM で EC2 にログインする | `user/integrations/aws-ssm` | 945 |
 | `user/integrations/gcloud` | Google Cloud を使う | `member/16-cloud-accounts › Running commands in Google Cloud as you (af-gcloud-exec)`<br>`member/20-settings › Google Cloud` | 2634 |
 | `user/integrations/mcp-servers` | セッションに MCP サーバーを追加する | `member/20-settings › MCP servers (used by sessions)` | 1336 |
 
@@ -217,12 +217,12 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 
 | ページ | タイトル | 元の節 | 語数 |
 |---|---|---|--:|
-| `user/memory/overview` | エージェントの記憶を見る・直す | `member/18-agent-memory` | 1471 |
-| `user/memory/changes` | 記憶の変更を確かめる | `member/18-agent-memory › Changes` | 465 |
+| `user/memory/overview` | エージェントの記憶を見る・直す | `member/18-agent-memory` | 1698 |
+| `user/memory/changes` | 記憶の変更を確かめる | `member/18-agent-memory › Changes` | 189 |
 | `user/memory/import-export` | 記憶を取り込む・書き出す | `member/18-agent-memory › Import & export` | 1720 |
-| `user/memory/settings` | 記憶のしかたを設定する | `member/18-agent-memory › Settings`<br>`member/20-settings › Agent memory` | 1231 |
+| `user/memory/settings` | 記憶のしかたを設定する | `member/18-agent-memory › Settings`<br>`member/20-settings › Agent memory` | 1018 |
 | `user/memory/snapshots` | スナップショットで記憶を戻す | `member/18-agent-memory › Memory snapshots`<br>`member/20-settings › Memory snapshots` | 500 |
-| `user/memory/external` | 外部のエージェントから記憶を使う | `member/18-agent-memory › Using Agent Fleet memory from an external agent`<br>`member/19-outside-access › A memory-only connector (for claude.ai)`<br>`member/19-outside-access › Using Agent Fleet memory from an external agent` | 1552 |
+| `user/memory/external` | 外部のエージェントから記憶を使う | `member/18-agent-memory › Using Agent Fleet memory from an external agent`<br>`member/19-outside-access › A memory-only connector (for claude.ai)`<br>`member/19-outside-access › Using Agent Fleet memory from an external agent` | 1558 |
 
 **外部から使う**
 
@@ -274,7 +274,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 |---|---|---|--:|
 | `admin/members/roster` | メンバーの状況を見る | `admin/01-members` | 1321 |
 | `admin/members/add` | メンバーを追加する | `admin/01-members › Adding a member`<br>`admin/01-members › Auto-join and invite-only` | 484 |
-| `admin/members/remove` | メンバーを外す | `admin/01-members › Removing a member` | 519 |
+| `admin/members/remove` | メンバーを外す | `admin/01-members › Removing a member` | 570 |
 | `admin/members/git-token` | メンバーの Git トークンを入れ替える | `admin/01-members › Rotating a member's git token` | 183 |
 
 **リソース**
@@ -299,7 +299,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | ページ | タイトル | 元の節 | 語数 |
 |---|---|---|--:|
 | `admin/mcp-distribute` | MCP サーバーを全員に配る | `admin/04-mcp-outside` | 1116 |
-| `admin/memory-outside` | 外部からの記憶の利用を許可する | `admin/04-mcp-outside › Memory from outside Agent Fleet` | 285 |
+| `admin/memory-outside` | 外部からの記憶の利用を許可する | `admin/04-mcp-outside › Memory from outside Agent Fleet` | 286 |
 
 **サインイン**
 
@@ -307,7 +307,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 |---|---|---|--:|
 | `admin/access/signin-methods` | サインインの方法を決める | `admin/05-access` | 331 |
 | `admin/access/networks` | サインインできるネットワークを絞る | `admin/05-access › Allowed networks` | 229 |
-| `admin/access/oauth-apps` | 連携に使う OAuth アプリを選ぶ | `admin/05-access › Integration OAuth apps` | 1194 |
+| `admin/access/oauth-apps` | 連携に使う OAuth アプリを選ぶ | `admin/05-access › Integration OAuth apps` | 1313 |
 
 **チームの既定値**
 
@@ -329,7 +329,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 
 | ページ | タイトル | 元の節 | 語数 |
 |---|---|---|--:|
-| `operate/install` | インストールする | `operate/02-install` | 1603 |
+| `operate/install` | インストールする | `operate/02-install` | 1678 |
 | `operate/install-decisions` | テナントとプロビジョニングの方式を決める | `operate/02-install › 4. Decision points` | 1613 |
 
 **ECS**
@@ -343,7 +343,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `operate/aws-ecs/workspace-size` | ワークスペースの大きさを決める | `deploy/aws/ecs/README › Workspace size (CPU / memory / working disk)` | 454 |
 | `operate/aws-ecs/schedules` | 決まった時刻の起動を有効にする | `deploy/aws/ecs/README › Scheduled execution (timed wakes)` | 310 |
 | `operate/aws-ecs/egress-ip` | 外向きの IP アドレスを固定する | `deploy/aws/ecs/README › Egress IP (the address a customer allow-lists)` | 652 |
-| `operate/aws-ecs/egress-gateway` | 外向きの通信をゲートウェイで制御する | `deploy/aws/ecs/README › Egress gateway (`EgressRoute=gateway`, ADR 0122)` | 2754 |
+| `operate/aws-ecs/egress-gateway` | 外向きの通信をゲートウェイで制御する | `deploy/aws/ecs/README › Egress gateway (`EgressRoute=gateway`, ADR 0122)` | 3196 |
 | `operate/aws-ecs/tts` | 日本語の読み上げを足す | `deploy/aws/ecs/README › Optional: Japanese speech (the VOICEVOX engine, `cfn/50-tts.yaml`)` | 1235 |
 | `operate/aws-ecs/engines` | 推論エンジンを足す | `deploy/aws/ecs/README › Optional: the fleet's own inference engines (`cfn/60-engines.yaml`)` | 3321 |
 | `operate/aws-ecs/slot-pool` | EC2 スロットプールを使う | `deploy/aws/ecs/README › Optional: EC2 slot pool (`WsRuntime=ecs-ec2`)` | 4975 |
@@ -406,18 +406,18 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `operate/run/opencode-server` | opencode の共有サーバーを運用する | `operate/03-run › opencode 2: Terminal sessions and the shared server` | 297 |
 | `operate/run/public-internet` | インターネットに公開する | `operate/03-run › Once it is on the public internet` | 239 |
 | `operate/run/deployment-label` | 複数のデプロイを見分ける | `operate/03-run › Telling two deployments apart (colour and label)` | 434 |
-| `operate/run/idle-stop` | アイドル停止と強制停止を使う | `operate/03-run › Idle stop and force-stop`<br>`operate/03-run › Pausing an idle deployment` | 1957 |
+| `operate/run/idle-stop` | アイドル停止と強制停止を使う | `operate/03-run › Idle stop and force-stop`<br>`operate/03-run › Pausing an idle deployment` | 2039 |
 
 **セキュリティ**
 
 | ページ | タイトル | 元の節 | 語数 |
 |---|---|---|--:|
 | `operate/secure/threat-model` | 脅威モデルと残るリスク | `operate/04-secure › Threat model (summary)`<br>`operate/04-secure › Residual risks: what to do about them`<br>`operate/04-secure › Reporting vulnerabilities` | 662 |
-| `operate/secure/egress` | 外向きの通信を制御する | `operate/04-secure › Operating egress control` | 1180 |
-| `operate/secure/mcp` | MCP と外部接続のサインインを運用する | `operate/04-secure › MCP servers and external connections` | 2107 |
+| `operate/secure/egress` | 外向きの通信を制御する | `operate/04-secure › Operating egress control` | 1254 |
+| `operate/secure/mcp` | MCP と外部接続のサインインを運用する | `operate/04-secure › MCP servers and external connections` | 2378 |
 | `operate/secure/dev-signin` | 開発用サインインを使う | `operate/04-secure › `AUTH=dev` is not a default`<br>`operate/04-secure › Development sign-in (dev OIDC IdP — super_admin only)` | 299 |
-| `operate/secure/controls` | そのほかの運用上の制御 | `operate/04-secure`<br>`deploy/compose/README › Security notes` | 1375 |
-| `operate/secure/offboarding` | アクセスを取り消す・super_admin を引き継ぐ | `operate/04-secure › Offboarding: how access is actually revoked`<br>`operate/04-secure › Handing over `super_admin`` | 874 |
+| `operate/secure/controls` | そのほかの運用上の制御 | `operate/04-secure`<br>`deploy/compose/README › Security notes` | 2064 |
+| `operate/secure/offboarding` | アクセスを取り消す・super_admin を引き継ぐ | `operate/04-secure › Offboarding: how access is actually revoked`<br>`operate/04-secure › Handing over `super_admin`` | 1007 |
 
 **鍵**
 
@@ -433,7 +433,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 |---|---|---|--:|
 | `operate/signin/overview` | サインインの方法を設定する | `operate/05-signin` | 1312 |
 | `operate/signin/google` | Google でサインインする | `operate/05-signin › 3. Google` | 316 |
-| `operate/signin/entra` | Microsoft Entra ID でサインインする | `operate/05-signin › 4. Microsoft Entra ID` | 821 |
+| `operate/signin/entra` | Microsoft Entra ID でサインインする | `operate/05-signin › 4. Microsoft Entra ID` | 862 |
 | `operate/signin/github` | GitHub でサインインする | `operate/05-signin › 5. GitHub` | 702 |
 | `operate/signin/oidc` | そのほかの OIDC でサインインする | `operate/05-signin › 6. Okta, Keycloak, Auth0, Cognito, GitLab, and other OIDC IdPs` | 274 |
 | `operate/signin/tenant-idp` | テナント独自のサインインを承認する | `operate/05-signin › 7. A sign-in method a tenant defines itself` | 1157 |
@@ -454,7 +454,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 
 | ページ | タイトル | 元の節 | 語数 |
 |---|---|---|--:|
-| `operate/diagnose/checklist` | 症状から原因を探す | `operate/06-diagnose`<br>`deploy/compose/README › DooD: the three constraints (read if "it starts but silently doesn't work")`<br>`deploy/compose/README › Troubleshooting` | 2523 |
+| `operate/diagnose/checklist` | 症状から原因を探す | `operate/06-diagnose`<br>`deploy/compose/README › DooD: the three constraints (read if "it starts but silently doesn't work")`<br>`deploy/compose/README › Troubleshooting` | 2747 |
 | `operate/diagnose/cannot-login` | ログインできない | `operate/05-signin › 9. When it still does not work`<br>`operate/06-diagnose › Cannot log in` | 722 |
 
 ### リファレンス（ref/）
@@ -463,24 +463,27 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 
 | ページ | タイトル | 元の節 | 語数 |
 |---|---|---|--:|
-| `ref/overview` | リファレンスの読みかた | `ref/README` | 219 |
-| `ref/features` | 機能の一覧 | `ref/features` | 3160 |
-| `ref/agents` | エージェントごとの対応状況 | `ref/agents` | 6574 |
+| `ref/overview` | リファレンスの読みかた | `ref/README` | 297 |
+| `ref/features` | 機能の一覧 | `ref/features` | 3144 |
+| `ref/agents` | エージェントごとの対応状況 | `ref/agents` | 6961 |
 | `ref/repos` | リポジトリのサービスごとの対応状況 | `ref/repos` | 812 |
 | `ref/deploy-targets` | デプロイ先ごとの違い | `ref/deploy-targets` | 2209 |
 | `ref/roles` | ロールとできること | `admin/01-members › What the roles mean`<br>`ref/roles` | 980 |
-| `ref/limits` | 上限と既定値 | `ref/limits` | 1795 |
-| `ref/settings` | 設定の場所 | `member/20-settings`<br>`ref/settings` | 3094 |
-| `ref/console-ui` | アイコン・バッジ・メニュー | `member/badges-and-menus` | 3318 |
+| `ref/limits` | 上限と既定値 | `ref/limits` | 1764 |
+| `ref/settings` | 設定の場所 | `member/20-settings`<br>`ref/settings` | 3086 |
+| `ref/console-ui` | アイコン・バッジ・メニュー | `member/badges-and-menus` | 3288 |
 | `ref/browser-pane` | ブラウザペインの仕様 | `ref/browser-pane` | 992 |
+| `ref/aws-profiles` | AWS プロファイルの仕様 | `ref/aws-profiles` | 2940 |
+| `ref/aws-ssm` | SSM の仕様 | `ref/aws-ssm` | 1121 |
+| `ref/bedrock-route` | Amazon Bedrock のルート | `ref/bedrock-route` | 1240 |
 | `ref/glossary` | 用語集 | `ref/glossary` | 1828 |
 
 **コマンド**
 
 | ページ | タイトル | 元の節 | 語数 |
 |---|---|---|--:|
-| `ref/cli/README` | コマンドの一覧 | `member/15-external-services › CLIs that are already signed in` | 197 |
-| `ref/cli/af-aws-exec` | af-aws-exec | `member/16-cloud-accounts › Using the profiles from the terminal, SDKs and build tools` | 3632 |
+| `ref/cli/README` | コマンドの一覧 | `member/15-external-services › CLIs that are already signed in`<br>`ref/cli/README` | 260 |
+| `ref/cli/af-aws-exec` | af-aws-exec | `ref/cli/af-aws-exec` | 3954 |
 | `ref/cli/af-gcloud-exec` | af-gcloud-exec | `member/16-cloud-accounts › Running a command as a profile` | 917 |
 | `ref/cli/af-db` | af-db | （新規） |  |
 | `ref/cli/af-memory` | af-memory | （新規） |  |
@@ -512,7 +515,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `admin/01-members.md` | 　Adding a member | 200 | `admin/members/add` |
 | `admin/01-members.md` | 　　How email addresses relate to internal identifiers | 89 | `admin/members/add` |
 | `admin/01-members.md` | 　Auto-join and invite-only | 195 | `admin/members/add` |
-| `admin/01-members.md` | 　Removing a member | 519 | `admin/members/remove` |
+| `admin/01-members.md` | 　Removing a member | 570 | `admin/members/remove` |
 | `admin/01-members.md` | 　Rotating a member's git token | 183 | `admin/members/git-token` |
 | `admin/01-members.md` | 　What the roles mean | 206 | `ref/roles` |
 | `admin/02-limits.md` | 02. Resource limits, idle auto-stop, and the sessions overview | 43 | `admin/resources/overview` |
@@ -546,14 +549,14 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `admin/04-mcp-outside.md` | 　　Practical notes | 80 | `admin/mcp-distribute` |
 | `admin/04-mcp-outside.md` | 　MCP OAuth | 188 | `admin/mcp-distribute` |
 | `admin/04-mcp-outside.md` | 　Memory from outside Agent Fleet | 85 | `admin/memory-outside` |
-| `admin/04-mcp-outside.md` | 　　The switch | 200 | `admin/memory-outside` |
+| `admin/04-mcp-outside.md` | 　　The switch | 201 | `admin/memory-outside` |
 | `admin/04-mcp-outside.md` | 　Outbound traffic is not yours to control | 77 | `admin/mcp-distribute` |
 | `admin/04-mcp-outside.md` | 　A template for asking upstream | 58 | `admin/mcp-distribute` |
 | `admin/05-access.md` | 05. Who may sign in, and from where | 94 | `admin/access/signin-methods` |
 | `admin/05-access.md` | 　Allowed networks | 229 | `admin/access/networks` |
 | `admin/05-access.md` | 　Integration OAuth apps | 38 | `admin/access/oauth-apps` |
 | `admin/05-access.md` | 　　GitHub: choose which app | 345 | `admin/access/oauth-apps` |
-| `admin/05-access.md` | 　　Bitbucket and Jira | 811 | `admin/access/oauth-apps` |
+| `admin/05-access.md` | 　　Bitbucket and Jira | 930 | `admin/access/oauth-apps` |
 | `admin/05-access.md` | 　Sign-in methods, and login rules | 237 | `admin/access/signin-methods` |
 | `admin/06-team-defaults.md` | 06. Team defaults | 35 | `admin/defaults/branch-rules` |
 | `admin/06-team-defaults.md` | 　Branch naming rules | 158 | `admin/defaults/branch-rules` |
@@ -633,7 +636,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `member/06-code.md` | 　Clone a repository | 115 | `user/code/clone` |
 | `member/06-code.md` | 　Starting with nothing to import from (a new folder) | 179 | `user/code/clone` |
 | `member/06-code.md` | 　　Submodules and Git LFS | 198 | `user/code/clone` |
-| `member/06-code.md` | 　The built-in git provider (internal Git) | 159 | `user/code/internal-git` |
+| `member/06-code.md` | 　The built-in git provider (internal Git) | 248 | `user/code/internal-git` |
 | `member/06-code.md` | 　Launch a session from a repository row | 483 | `user/code/launch-from-repo` |
 | `member/06-code.md` | 　　First-prompt templates | 263 | `user/code/launch-from-repo` |
 | `member/06-code.md` | 　　What you can do with right-click | 296 | `user/code/launch-from-repo` |
@@ -715,7 +718,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `member/12-collaboration.md` | 　Handing a session to another member | 571 | `user/team/hand-over` |
 | `member/12-collaboration.md` | 　Asking a teammate: the inbox | 770 | `user/team/inbox` |
 | `member/12-collaboration.md` | 　Showing teammates where you stand on usage limits | 379 | `user/team/usage-limits` |
-| `member/12-collaboration.md` | 　Sharing a conversation (shared sessions) | 507 | `user/team/share` |
+| `member/12-collaboration.md` | 　Sharing a conversation (shared sessions) | 539 | `user/team/share` |
 | `member/13-images.md` | 13. Images — gallery, generation, studio | 29 | `user/images/gallery` |
 | `member/13-images.md` | 　Image gallery | 1114 | `user/images/gallery` |
 | `member/13-images.md` | 　Image generation | 1451 | `user/images/generate` |
@@ -732,23 +735,15 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `member/14-preview-browser.md` | 　　Using it from an app on your own machine | 296 | `user/preview/dev-signin` |
 | `member/14-preview-browser.md` | 　Operating a browser the agent opened | 291 | `user/preview/agent-browser` |
 | `member/15-external-services.md` | 15. External services and signed-in CLIs — gh / bkt / jira / confluence, Discord / Slack, ops tooling | 51 | `user/integrations/gh-bkt` |
-| `member/15-external-services.md` | 　Use `gh` and `bkt` in a session | 266 | `user/integrations/gh-bkt` |
+| `member/15-external-services.md` | 　Use `gh` and `bkt` in a session | 398 | `user/integrations/gh-bkt` |
 | `member/15-external-services.md` | 　Use `jira` in a session | 1308 | `user/integrations/jira` |
 | `member/15-external-services.md` | 　Use `confluence` in a session | 557 | `user/integrations/confluence` |
 | `member/15-external-services.md` | 　CLIs that are already signed in | 197 | `ref/cli/README` |
-| `member/15-external-services.md` | 　Connecting Discord / Slack (chat bridge) | 365 | `user/integrations/chat-bridge` |
+| `member/15-external-services.md` | 　Connecting Discord / Slack (chat bridge) | 434 | `user/integrations/chat-bridge` |
 | `member/15-external-services.md` | 　PagerDuty / Grafana / CloudWatch / AWS connect from the "Ops & monitoring" tab (recommended) | 503 | `user/integrations/ops-monitoring` |
 | `member/15-external-services.md` | 　　Amazon Managed Grafana: issuing the token | 74 | `user/integrations/ops-monitoring` |
 | `member/15-external-services.md` | 　　Other tools (Zabbix and the like) | 235 | `user/integrations/ops-monitoring` |
-| `member/16-cloud-accounts.md` | 16. Cloud accounts — AWS profiles, SSM hosts and Google Cloud | 3 | `user/integrations/aws-sso` |
-| `member/16-cloud-accounts.md` | 　Logging in to another in-house host (SSM) | 820 | `user/integrations/aws-ssm` |
-| `member/16-cloud-accounts.md` | 　　Importing profiles from ~/.aws/config | 594 | `user/integrations/aws-sso` |
-| `member/16-cloud-accounts.md` | 　　Importing SSM hosts from ~/.ssh/config | 411 | `user/integrations/aws-ssm` |
-| `member/16-cloud-accounts.md` | 　　Exporting profiles as ~/.aws/config | 287 | `user/integrations/aws-sso` |
-| `member/16-cloud-accounts.md` | 　　Shared sign-ins: one login for several profiles | 835 | `user/integrations/aws-sso` |
-| `member/16-cloud-accounts.md` | 　　Profile type: assume a role from another profile | 442 | `user/integrations/aws-sso` |
-| `member/16-cloud-accounts.md` | 　　Using the profiles from the terminal, SDKs and build tools | 3632 | `ref/cli/af-aws-exec` |
-| `member/16-cloud-accounts.md` | 　　The AWS badge in the WS bar | 271 | `user/integrations/aws-sso` |
+| `member/16-cloud-accounts.md` | 16. Cloud accounts — AWS profiles, SSM hosts and Google Cloud | 37 | `user/integrations/aws-sso` |
 | `member/16-cloud-accounts.md` | 　Running commands in Google Cloud as you (af-gcloud-exec) | 374 | `user/integrations/gcloud` |
 | `member/16-cloud-accounts.md` | 　　Importing profiles from gcloud configurations | 266 | `user/integrations/gcloud` |
 | `member/16-cloud-accounts.md` | 　　Running a command as a profile | 917 | `ref/cli/af-gcloud-exec` |
@@ -764,23 +759,24 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `member/17-workspace-environment.md` | 　　Console Databases tab | 399 | `user/workspace/databases` |
 | `member/17-workspace-environment.md` | 　Trying AWS code against a local emulator (MiniStack) | 576 | `user/workspace/aws-emulator` |
 | `member/18-agent-memory.md` | 18. Agent memory — what agents remember, and how you keep it | 40 | `user/memory/overview` |
-| `member/18-agent-memory.md` | 　Agent memory | 203 | `user/memory/overview` |
+| `member/18-agent-memory.md` | 　Agent memory | 205 | `user/memory/overview` |
 | `member/18-agent-memory.md` | 　　Memories | 1228 | `user/memory/overview` |
-| `member/18-agent-memory.md` | 　　Changes | 465 | `user/memory/changes` |
+| `member/18-agent-memory.md` | 　　Changes | 189 | `user/memory/changes` |
 | `member/18-agent-memory.md` | 　　Import & export | 1720 | `user/memory/import-export` |
-| `member/18-agent-memory.md` | 　　Settings | 1202 | `user/memory/settings` |
+| `member/18-agent-memory.md` | 　　Lint report | 225 | `user/memory/overview` |
+| `member/18-agent-memory.md` | 　　Settings | 989 | `user/memory/settings` |
 | `member/18-agent-memory.md` | 　Memory snapshots | 84 | `user/memory/snapshots` |
 | `member/18-agent-memory.md` | 　　History | 153 | `user/memory/snapshots` |
 | `member/18-agent-memory.md` | 　　Targets | 95 | `user/memory/snapshots` |
 | `member/18-agent-memory.md` | 　　Export & import (Memory snapshots) | 147 | `user/memory/snapshots` |
-| `member/18-agent-memory.md` | 　Using Agent Fleet memory from an external agent | 743 | `user/memory/external` |
+| `member/18-agent-memory.md` | 　Using Agent Fleet memory from an external agent | 748 | `user/memory/external` |
 | `member/18-agent-memory.md` | 　　Bringing your own Claude Code's memory into Agent Fleet | 575 | `user/memory/external` |
 | `member/19-outside-access.md` | 19. Using your workspace from outside — MCP and OAuth | 51 | `user/outside/external-claude` |
 | `member/19-outside-access.md` | 　Using your workspace from an external agent (MCP) | 66 | `user/outside/external-claude` |
 | `member/19-outside-access.md` | 　　Driving your workspace from an external Claude (MCP) | 538 | `user/outside/external-claude` |
 | `member/19-outside-access.md` | 　　Connecting a remote MCP client by signing in (OAuth) | 683 | `user/outside/oauth-client` |
 | `member/19-outside-access.md` | 　　Moving work from your own Claude Code into the workspace | 775 | `user/outside/move-work-in` |
-| `member/19-outside-access.md` | 　　A memory-only connector (for claude.ai) | 207 | `user/memory/external` |
+| `member/19-outside-access.md` | 　　A memory-only connector (for claude.ai) | 208 | `user/memory/external` |
 | `member/19-outside-access.md` | 　　Do not connect this deployment's /mcp to a session | 324 | `user/outside/external-claude` |
 | `member/19-outside-access.md` | 　　Using Agent Fleet memory from an external agent | 27 | `user/memory/external` |
 | `member/20-settings.md` | 20. Settings — every tab of the ⚙ settings dialog | 20 | `ref/settings` |
@@ -794,7 +790,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `member/20-settings.md` | 　　Notifications | 583 | `user/settings/notifications` |
 | `member/20-settings.md` | 　　Limit board | 54 | `user/team/usage-limits` |
 | `member/20-settings.md` | 　　Assistant | 340 | `user/chat/assistant` |
-| `member/20-settings.md` | 　　AI assistance | 617 | `user/chat/purpose-assistants` |
+| `member/20-settings.md` | 　　AI assistance | 553 | `user/chat/purpose-assistants` |
 | `member/20-settings.md` | 　　Agent instructions | 66 | `user/agents/instructions` |
 | `member/20-settings.md` | 　　Skills | 109 | `user/agents/bring-claude-setup` |
 | `member/20-settings.md` | 　　Agent memory | 29 | `user/memory/settings` |
@@ -806,7 +802,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `member/20-settings.md` | 　　Issue tracker | 414 | `user/integrations/issue-tracker` |
 | `member/20-settings.md` | 　　Chat | 21 | `user/integrations/chat-bridge` |
 | `member/20-settings.md` | 　　MCP servers (used by sessions) | 1336 | `user/integrations/mcp-servers` |
-| `member/20-settings.md` | 　　AWS profiles/SSM | 80 | `user/integrations/aws-sso` |
+| `member/20-settings.md` | 　　AWS profiles/SSM | 90 | `user/integrations/aws-sso` |
 | `member/20-settings.md` | 　　Google Cloud | 107 | `user/integrations/gcloud` |
 | `member/20-settings.md` | 　Outside access | 0 | `ref/settings` |
 | `member/20-settings.md` | 　　MCP tokens & apps | 89 | `user/outside/external-claude` |
@@ -890,9 +886,9 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `member/badges-and-menus.md` | 　Session display | 974 | `ref/console-ui` |
 | `member/badges-and-menus.md` | 　Repository status display | 283 | `ref/console-ui` |
 | `member/badges-and-menus.md` | 　The engine pills in the top bar | 420 | `ref/console-ui` |
-| `member/badges-and-menus.md` | 　Other badges | 524 | `ref/console-ui` |
+| `member/badges-and-menus.md` | 　Other badges | 526 | `ref/console-ui` |
 | `member/badges-and-menus.md` | 　Right-click menus | 0 | `ref/console-ui` |
-| `member/badges-and-menus.md` | 　　Sessions | 338 | `ref/console-ui` |
+| `member/badges-and-menus.md` | 　　Sessions | 306 | `ref/console-ui` |
 | `member/badges-and-menus.md` | 　　Repositories / worktrees | 148 | `ref/console-ui` |
 | `member/badges-and-menus.md` | 　　Files / folders | 151 | `ref/console-ui` |
 | `member/badges-and-menus.md` | 　　File and folder links in replies and documents | 115 | `ref/console-ui` |
@@ -929,7 +925,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `operate/02-install.md` | 02. Initial Setup | 69 | `operate/install` |
 | `operate/02-install.md` | 　0. Check the prerequisites | 97 | `operate/install` |
 | `operate/02-install.md` | 　1. Prepare the configuration file | 93 | `operate/install` |
-| `operate/02-install.md` | 　2. Generate the secrets — put `AF_MASTER_KEY` in a vault at this point | 159 | `operate/install` |
+| `operate/02-install.md` | 　2. Generate the secrets — put `AF_MASTER_KEY` in a vault at this point | 234 | `operate/install` |
 | `operate/02-install.md` | 　3. Configure the login IdP | 564 | `operate/install` |
 | `operate/02-install.md` | 　4. Decision points | 10 | `operate/install-decisions` |
 | `operate/02-install.md` | 　　When to use `tls internal` | 94 | `operate/install-decisions` |
@@ -955,24 +951,27 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `operate/03-run.md` | 　Idle stop and force-stop | 0 | `operate/run/idle-stop` |
 | `operate/03-run.md` | 　　A start that never finishes | 197 | `operate/run/idle-stop` |
 | `operate/03-run.md` | 　　Silent Agent detection | 600 | `operate/run/idle-stop` |
-| `operate/03-run.md` | 　　Automatic idle stop (scale-to-zero) | 250 | `operate/run/idle-stop` |
+| `operate/03-run.md` | 　　Automatic idle stop (scale-to-zero) | 332 | `operate/run/idle-stop` |
 | `operate/03-run.md` | 　　What keeps a Workspace awake | 318 | `operate/run/idle-stop` |
 | `operate/03-run.md` | 　　Force-stop (brute force) | 66 | `operate/run/idle-stop` |
 | `operate/03-run.md` | 　Pausing an idle deployment | 526 | `operate/run/idle-stop` |
 | `operate/04-secure.md` | 04. Security Operations | 62 | `operate/secure/controls` |
 | `operate/04-secure.md` | 　Threat model (summary) | 286 | `operate/secure/threat-model` |
 | `operate/04-secure.md` | 　Residual risks: what to do about them | 339 | `operate/secure/threat-model` |
-| `operate/04-secure.md` | 　Operating egress control | 1180 | `operate/secure/egress` |
-| `operate/04-secure.md` | 　MCP servers and external connections | 275 | `operate/secure/mcp` |
-| `operate/04-secure.md` | 　　Sign-in for remote MCP clients (OAuth) | 813 | `operate/secure/mcp` |
-| `operate/04-secure.md` | 　　Trusted client hosts (deployment-wide — super_admin only) | 392 | `operate/secure/mcp` |
+| `operate/04-secure.md` | 　The deployment keys: requirements and what changing them costs | 268 | `operate/secure/controls` |
+| `operate/04-secure.md` | 　　Switching to per-purpose cookie keys | 180 | `operate/secure/controls` |
+| `operate/04-secure.md` | 　　Values stored before the key was set | 206 | `operate/secure/controls` |
+| `operate/04-secure.md` | 　Operating egress control | 1254 | `operate/secure/egress` |
+| `operate/04-secure.md` | 　MCP servers and external connections | 311 | `operate/secure/mcp` |
+| `operate/04-secure.md` | 　　Sign-in for remote MCP clients (OAuth) | 820 | `operate/secure/mcp` |
+| `operate/04-secure.md` | 　　Trusted client hosts (deployment-wide — super_admin only) | 620 | `operate/secure/mcp` |
 | `operate/04-secure.md` | 　　Sign-in for OAuth-protected MCP servers members register | 349 | `operate/secure/mcp` |
 | `operate/04-secure.md` | 　　Reading what a client sent to `/mcp` | 278 | `operate/secure/mcp` |
 | `operate/04-secure.md` | 　Handing over the in-workspace browser | 79 | `operate/secure/controls` |
 | `operate/04-secure.md` | 　`AUTH=dev` is not a default | 86 | `operate/secure/dev-signin` |
 | `operate/04-secure.md` | 　Development sign-in (dev OIDC IdP — super_admin only) | 213 | `operate/secure/dev-signin` |
-| `operate/04-secure.md` | 　Other operational controls | 1119 | `operate/secure/controls` |
-| `operate/04-secure.md` | 　Offboarding: how access is actually revoked | 539 | `operate/secure/offboarding` |
+| `operate/04-secure.md` | 　Other operational controls | 1154 | `operate/secure/controls` |
+| `operate/04-secure.md` | 　Offboarding: how access is actually revoked | 672 | `operate/secure/offboarding` |
 | `operate/04-secure.md` | 　　The emergency stop: rotating `AF_COOKIE_SECRET` | 136 | `operate/secure/offboarding` |
 | `operate/04-secure.md` | 　Handing over `super_admin` | 199 | `operate/secure/offboarding` |
 | `operate/04-secure.md` | 　Reporting vulnerabilities | 37 | `operate/secure/threat-model` |
@@ -986,7 +985,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `operate/05-signin.md` | 　　3.3 Common failures | 129 | `operate/signin/google` |
 | `operate/05-signin.md` | 　4. Microsoft Entra ID | 0 | `operate/signin/entra` |
 | `operate/05-signin.md` | 　　4.1 What to create in the Entra admin center | 205 | `operate/signin/entra` |
-| `operate/05-signin.md` | 　　4.2 The values, and where they go | 333 | `operate/signin/entra` |
+| `operate/05-signin.md` | 　　4.2 The values, and where they go | 374 | `operate/signin/entra` |
 | `operate/05-signin.md` | 　　4.3 One directory behind two app registrations | 113 | `operate/signin/entra` |
 | `operate/05-signin.md` | 　　4.4 Common failures | 170 | `operate/signin/entra` |
 | `operate/05-signin.md` | 　5. GitHub | 36 | `operate/signin/github` |
@@ -1003,9 +1002,10 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `operate/05-signin.md` | 　9. When it still does not work | 96 | `operate/diagnose/cannot-login` |
 | `operate/06-diagnose.md` | 06. Troubleshooting and FAQ | 62 | `operate/diagnose/checklist` |
 | `operate/06-diagnose.md` | 　The first 3 places to look | 128 | `operate/diagnose/checklist` |
-| `operate/06-diagnose.md` | 　Symptom-based checklist | 881 | `operate/diagnose/checklist` |
+| `operate/06-diagnose.md` | 　Symptom-based checklist | 985 | `operate/diagnose/checklist` |
 | `operate/06-diagnose.md` | 　Diagnosing the 3 DooD constraints ("starts but silently doesn't work") | 240 | `operate/diagnose/checklist` |
 | `operate/06-diagnose.md` | 　Cannot log in | 626 | `operate/diagnose/cannot-login` |
+| `operate/06-diagnose.md` | 　Checking for addresses attached to the wrong person | 120 | `operate/diagnose/checklist` |
 | `operate/06-diagnose.md` | 　TLS is not issued | 61 | `operate/diagnose/checklist` |
 | `operate/06-diagnose.md` | 　Triage flow for user inquiries | 212 | `operate/diagnose/checklist` |
 | `operate/06-diagnose.md` | 　FAQ (edge cases and common questions) | 469 | `operate/diagnose/checklist` |
@@ -1066,7 +1066,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `operate/README.md` | 　For those considering adoption | 312 | `operate/overview` |
 | `operate/README.md` | 　The minimal model you must hold in your head | 197 | `operate/overview` |
 | `operate/README.md` | 　Responsibility checklist | 163 | `operate/overview` |
-| `ref/README.md` | Reference — what Agent Fleet can do | 156 | `ref/overview` |
+| `ref/README.md` | Reference — what Agent Fleet can do | 234 | `ref/overview` |
 | `ref/README.md` | 　How to read these tables | 63 | `ref/overview` |
 | `ref/agents.md` | Agents — what each kind can do | 1270 | `ref/agents` |
 | `ref/agents.md` | 　How to sign in | 371 | `ref/agents` |
@@ -1074,11 +1074,33 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `ref/agents.md` | 　Stopping a turn, and messages sent while one runs | 689 | `ref/agents` |
 | `ref/agents.md` | 　Moving a session to another agent | 220 | `ref/agents` |
 | `ref/agents.md` | 　Each agent's own memory | 124 | `ref/agents` |
-| `ref/agents.md` | 　claude: the "API key" route | 954 | `ref/agents` |
+| `ref/agents.md` | 　claude: the "API key" route | 1007 | `ref/agents` |
+| `ref/agents.md` | 　opencode: the Amazon Bedrock route | 334 | `ref/agents` |
 | `ref/agents.md` | 　Choosing one | 169 | `ref/agents` |
 | `ref/agents.md` | 　lcpp: what hardware measurement found | 321 | `ref/agents` |
 | `ref/agents.md` | 　muse: what Agent Fleet does not see | 362 | `ref/agents` |
 | `ref/agents.md` | 　Not in this table | 1728 | `ref/agents` |
+| `ref/aws-profiles.md` | AWS profiles reference | 25 | `ref/aws-profiles` |
+| `ref/aws-profiles.md` | 　Login and states | 490 | `ref/aws-profiles` |
+| `ref/aws-profiles.md` | 　Import rules | 593 | `ref/aws-profiles` |
+| `ref/aws-profiles.md` | 　Export rules | 286 | `ref/aws-profiles` |
+| `ref/aws-profiles.md` | 　Shared sign-ins | 835 | `ref/aws-profiles` |
+| `ref/aws-profiles.md` | 　Assume role | 442 | `ref/aws-profiles` |
+| `ref/aws-profiles.md` | 　AWS badge | 269 | `ref/aws-profiles` |
+| `ref/aws-ssm.md` | SSM reference | 21 | `ref/aws-ssm` |
+| `ref/aws-ssm.md` | 　Hosts | 214 | `ref/aws-ssm` |
+| `ref/aws-ssm.md` | 　Region | 77 | `ref/aws-ssm` |
+| `ref/aws-ssm.md` | 　Connecting | 162 | `ref/aws-ssm` |
+| `ref/aws-ssm.md` | 　Search AWS | 184 | `ref/aws-ssm` |
+| `ref/aws-ssm.md` | 　ssh config import | 127 | `ref/aws-ssm` |
+| `ref/aws-ssm.md` | 　　The form it reads | 119 | `ref/aws-ssm` |
+| `ref/aws-ssm.md` | 　　Overlapping blocks | 107 | `ref/aws-ssm` |
+| `ref/aws-ssm.md` | 　　Profile and alias | 110 | `ref/aws-ssm` |
+| `ref/bedrock-route.md` | Amazon Bedrock route | 39 | `ref/bedrock-route` |
+| `ref/bedrock-route.md` | 　The mark and the gateway | 449 | `ref/bedrock-route` |
+| `ref/bedrock-route.md` | 　Before the first Bedrock call | 100 | `ref/bedrock-route` |
+| `ref/bedrock-route.md` | 　Region and model | 250 | `ref/bedrock-route` |
+| `ref/bedrock-route.md` | 　When a call is refused | 402 | `ref/bedrock-route` |
 | `ref/browser-pane.md` | Browser pane — the usage contract | 30 | `ref/browser-pane` |
 | `ref/browser-pane.md` | 　The two routes | 194 | `ref/browser-pane` |
 | `ref/browser-pane.md` | 　Which route, by example | 52 | `ref/browser-pane` |
@@ -1087,6 +1109,28 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `ref/browser-pane.md` | 　Scope and known limits | 147 | `ref/browser-pane` |
 | `ref/browser-pane.md` | 　Where there is no browser pane | 258 | `ref/browser-pane` |
 | `ref/browser-pane.md` | 　For agents working inside a Workspace | 103 | `ref/browser-pane` |
+| `ref/cli/README.md` | Commands | 63 | `ref/cli/README` |
+| `ref/cli/af-aws-exec.md` | af-aws-exec | 27 | `ref/cli/af-aws-exec` |
+| `ref/cli/af-aws-exec.md` | 　Synopsis | 46 | `ref/cli/af-aws-exec` |
+| `ref/cli/af-aws-exec.md` | 　Options | 162 | `ref/cli/af-aws-exec` |
+| `ref/cli/af-aws-exec.md` | 　Exit status | 117 | `ref/cli/af-aws-exec` |
+| `ref/cli/af-aws-exec.md` | 　Output | 58 | `ref/cli/af-aws-exec` |
+| `ref/cli/af-aws-exec.md` | 　Reading `--list` | 173 | `ref/cli/af-aws-exec` |
+| `ref/cli/af-aws-exec.md` | 　Profile names and ~/.aws/config | 327 | `ref/cli/af-aws-exec` |
+| `ref/cli/af-aws-exec.md` | 　Logging in from a terminal | 80 | `ref/cli/af-aws-exec` |
+| `ref/cli/af-aws-exec.md` | 　Why a command needs a profile | 285 | `ref/cli/af-aws-exec` |
+| `ref/cli/af-aws-exec.md` | 　Example: a build tool with an S3 upload plugin | 136 | `ref/cli/af-aws-exec` |
+| `ref/cli/af-aws-exec.md` | 　Every run shows in the session's conversation | 232 | `ref/cli/af-aws-exec` |
+| `ref/cli/af-aws-exec.md` | 　Confirm before use | 254 | `ref/cli/af-aws-exec` |
+| `ref/cli/af-aws-exec.md` | 　Model route | 22 | `ref/cli/af-aws-exec` |
+| `ref/cli/af-aws-exec.md` | 　A read-only lookup with `aws --profile` | 560 | `ref/cli/af-aws-exec` |
+| `ref/cli/af-aws-exec.md` | 　What the command receives | 119 | `ref/cli/af-aws-exec` |
+| `ref/cli/af-aws-exec.md` | 　Settings profiles it accepts | 218 | `ref/cli/af-aws-exec` |
+| `ref/cli/af-aws-exec.md` | 　Profiles you defined yourself | 394 | `ref/cli/af-aws-exec` |
+| `ref/cli/af-aws-exec.md` | 　When the login is missing | 415 | `ref/cli/af-aws-exec` |
+| `ref/cli/af-aws-exec.md` | 　The config the command gets | 225 | `ref/cli/af-aws-exec` |
+| `ref/cli/af-aws-exec.md` | 　Region | 53 | `ref/cli/af-aws-exec` |
+| `ref/cli/af-aws-exec.md` | 　`--account` | 51 | `ref/cli/af-aws-exec` |
 | `ref/deploy-targets.md` | Deployment targets — what exists where | 580 | `ref/deploy-targets` |
 | `ref/deploy-targets.md` | 　Capability differences | 1481 | `ref/deploy-targets` |
 | `ref/deploy-targets.md` | 　Where the procedure lives | 98 | `ref/deploy-targets` |
@@ -1095,13 +1139,13 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `ref/features.md` | 　Working with a session | 649 | `ref/features` |
 | `ref/features.md` | 　Working with code | 640 | `ref/features` |
 | `ref/features.md` | 　Organising the work | 438 | `ref/features` |
-| `ref/features.md` | 　Personal settings | 428 | `ref/features` |
+| `ref/features.md` | 　Personal settings | 412 | `ref/features` |
 | `ref/features.md` | 　Tenant administration | 389 | `ref/features` |
 | `ref/features.md` | 　Operating a deployment | 564 | `ref/features` |
 | `ref/glossary.md` | Glossary | 1828 | `ref/glossary` |
 | `ref/limits.md` | Limits and defaults | 47 | `ref/limits` |
-| `ref/limits.md` | 　Fixed in the product | 744 | `ref/limits` |
-| `ref/limits.md` | 　Set by the deployment | 498 | `ref/limits` |
+| `ref/limits.md` | 　Fixed in the product | 711 | `ref/limits` |
+| `ref/limits.md` | 　Set by the deployment | 500 | `ref/limits` |
 | `ref/limits.md` | 　Set per tenant | 146 | `ref/limits` |
 | `ref/limits.md` | 　The limit board: what it collects and how it reads | 360 | `ref/limits` |
 | `ref/repos.md` | Repository providers — what each supports | 689 | `ref/repos` |
@@ -1112,11 +1156,47 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `ref/roles.md` | 　Where a tenant administrator has to ask | 75 | `ref/roles` |
 | `ref/roles.md` | 　Which documentation each role receives | 58 | `ref/roles` |
 | `ref/settings.md` | Settings — where things are configured | 130 | `ref/settings` |
-| `ref/settings.md` | 　Personal settings | 573 | `ref/settings` |
+| `ref/settings.md` | 　Personal settings | 555 | `ref/settings` |
 | `ref/settings.md` | 　Tenant settings | 407 | `ref/settings` |
 | `ref/settings.md` | 　Admin modal | 262 | `ref/settings` |
-| `ref/settings.md` | 　Deployment variables | 587 | `ref/settings` |
+| `ref/settings.md` | 　Deployment variables | 597 | `ref/settings` |
 | `ref/settings.md` | 　　On AWS ECS | 194 | `ref/settings` |
+| `user/README.md` | Find what you want to do | 36 | `user/start/overview` |
+| `user/README.md` | 　Integrations | 44 | `user/start/overview` |
+| `user/integrations/aws-ssm.md` | Log in to EC2 with SSM | 31 | `user/integrations/aws-ssm` |
+| `user/integrations/aws-ssm.md` | 　How it works | 83 | `user/integrations/aws-ssm` |
+| `user/integrations/aws-ssm.md` | 　Before you start | 52 | `user/integrations/aws-ssm` |
+| `user/integrations/aws-ssm.md` | 　Register a host | 159 | `user/integrations/aws-ssm` |
+| `user/integrations/aws-ssm.md` | 　　Find a host on AWS and register it | 97 | `user/integrations/aws-ssm` |
+| `user/integrations/aws-ssm.md` | 　　Import from your own ~/.ssh/config | 104 | `user/integrations/aws-ssm` |
+| `user/integrations/aws-ssm.md` | 　Connect | 178 | `user/integrations/aws-ssm` |
+| `user/integrations/aws-ssm.md` | 　Edit and delete | 101 | `user/integrations/aws-ssm` |
+| `user/integrations/aws-ssm.md` | 　When it goes wrong | 0 | `user/integrations/aws-ssm` |
+| `user/integrations/aws-ssm.md` | 　　Start has no SSM entry | 12 | `user/integrations/aws-ssm` |
+| `user/integrations/aws-ssm.md` | 　　"Search AWS" fails with a permission error | 23 | `user/integrations/aws-ssm` |
+| `user/integrations/aws-ssm.md` | 　　"Search AWS" fails with another error | 18 | `user/integrations/aws-ssm` |
+| `user/integrations/aws-ssm.md` | 　　You want to log in again | 42 | `user/integrations/aws-ssm` |
+| `user/integrations/aws-ssm.md` | 　　A host's row says "Deleted profile" | 15 | `user/integrations/aws-ssm` |
+| `user/integrations/aws-ssm.md` | 　Related | 30 | `user/integrations/aws-ssm` |
+| `user/integrations/aws-sso.md` | Use AWS SSO | 23 | `user/integrations/aws-sso` |
+| `user/integrations/aws-sso.md` | 　How it works | 91 | `user/integrations/aws-sso` |
+| `user/integrations/aws-sso.md` | 　Register a profile | 151 | `user/integrations/aws-sso` |
+| `user/integrations/aws-sso.md` | 　　Import from your own ~/.aws/config | 106 | `user/integrations/aws-sso` |
+| `user/integrations/aws-sso.md` | 　Use a role in another account | 162 | `user/integrations/aws-sso` |
+| `user/integrations/aws-sso.md` | 　Log in | 190 | `user/integrations/aws-sso` |
+| `user/integrations/aws-sso.md` | 　　When the login expires | 71 | `user/integrations/aws-sso` |
+| `user/integrations/aws-sso.md` | 　　Log out | 63 | `user/integrations/aws-sso` |
+| `user/integrations/aws-sso.md` | 　Use several profiles with one login | 167 | `user/integrations/aws-sso` |
+| `user/integrations/aws-sso.md` | 　Ask an agent | 138 | `user/integrations/aws-sso` |
+| `user/integrations/aws-sso.md` | 　Use it yourself | 42 | `user/integrations/aws-sso` |
+| `user/integrations/aws-sso.md` | 　Use the same profiles on your own computer | 49 | `user/integrations/aws-sso` |
+| `user/integrations/aws-sso.md` | 　Use it more safely | 92 | `user/integrations/aws-sso` |
+| `user/integrations/aws-sso.md` | 　When it goes wrong | 0 | `user/integrations/aws-sso` |
+| `user/integrations/aws-sso.md` | 　　"Unable to locate credentials" | 27 | `user/integrations/aws-sso` |
+| `user/integrations/aws-sso.md` | 　　"The config profile (…) could not be found" | 30 | `user/integrations/aws-sso` |
+| `user/integrations/aws-sso.md` | 　　The Log in button cannot be pressed | 13 | `user/integrations/aws-sso` |
+| `user/integrations/aws-sso.md` | 　　A change in Settings does not take effect | 26 | `user/integrations/aws-sso` |
+| `user/integrations/aws-sso.md` | 　Related | 20 | `user/integrations/aws-sso` |
 | `deploy/aws/ecs/README.md` | Deploy on ECS with CloudFormation | 65 | `operate/aws-ecs/overview` |
 | `deploy/aws/ecs/README.md` | 　What CloudFormation builds vs what the Control Plane builds | 105 | `operate/aws-ecs/overview` |
 | `deploy/aws/ecs/README.md` | 　Stack decomposition (`cfn/`) | 699 | `operate/aws-ecs/overview` |
@@ -1141,7 +1221,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `deploy/aws/ecs/README.md` | 　　Back inside the wall (2026-09-04) | 230 | `operate/aws-ecs/template-size` |
 | `deploy/aws/ecs/README.md` | 　　Round trip, measured (2026-09-02) | 349 | `operate/aws-ecs/template-size` |
 | `deploy/aws/ecs/README.md` | 　Egress IP (the address a customer allow-lists) | 652 | `operate/aws-ecs/egress-ip` |
-| `deploy/aws/ecs/README.md` | 　Egress gateway (`EgressRoute=gateway`, ADR 0122) | 2754 | `operate/aws-ecs/egress-gateway` |
+| `deploy/aws/ecs/README.md` | 　Egress gateway (`EgressRoute=gateway`, ADR 0122) | 3196 | `operate/aws-ecs/egress-gateway` |
 | `deploy/aws/ecs/README.md` | 　Minimal IAM (deploying principal) | 455 | `operate/aws-ecs/iam` |
 | `deploy/aws/ecs/README.md` | 　Workspace size (CPU / memory / working disk) | 454 | `operate/aws-ecs/workspace-size` |
 | `deploy/aws/ecs/README.md` | 　Scheduled execution (timed wakes) | 310 | `operate/aws-ecs/schedules` |
