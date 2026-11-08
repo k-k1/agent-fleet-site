@@ -105,13 +105,6 @@ member/15-external-services.md	CLIs that are already signed in	ref/cli/README
 member/15-external-services.md	Connecting Discord / Slack (chat bridge)	user/integrations/chat-bridge
 member/15-external-services.md	PagerDuty / Grafana / CloudWatch / AWS connect from the "Ops & monitoring" tab (recommended)	user/integrations/ops-monitoring
 member/16-cloud-accounts.md		user/integrations/aws-sso
-member/16-cloud-accounts.md	Logging in to another in-house host (SSM)	user/integrations/aws-ssm
-member/16-cloud-accounts.md	Importing profiles from ~/.aws/config	user/integrations/aws-sso
-member/16-cloud-accounts.md	Exporting profiles as ~/.aws/config	user/integrations/aws-sso
-member/16-cloud-accounts.md	Shared sign-ins: one login for several profiles	user/integrations/aws-sso
-member/16-cloud-accounts.md	Profile type: assume a role from another profile	user/integrations/aws-sso
-member/16-cloud-accounts.md	Using the profiles from the terminal, SDKs and build tools	ref/cli/af-aws-exec
-member/16-cloud-accounts.md	The AWS badge in the WS bar	user/integrations/aws-sso
 member/16-cloud-accounts.md	Running commands in Google Cloud as you (af-gcloud-exec)	user/integrations/gcloud
 member/16-cloud-accounts.md	Running a command as a profile	ref/cli/af-gcloud-exec
 member/17-workspace-environment.md		user/workspace/recreate
@@ -246,6 +239,9 @@ operate/12-keys.md	A key of its own for each home	operate/keys/home-keys
 operate/12-keys.md	Rotating the bridge tokens	operate/keys/bridge-tokens
 ref/README.md		ref/overview
 ref/agents.md		ref/agents
+ref/aws-profiles.md		ref/aws-profiles
+ref/aws-ssm.md		ref/aws-ssm
+ref/bedrock-route.md		ref/bedrock-route
 ref/browser-pane.md		ref/browser-pane
 ref/deploy-targets.md		ref/deploy-targets
 ref/features.md		ref/features
@@ -254,6 +250,11 @@ ref/limits.md		ref/limits
 ref/repos.md		ref/repos
 ref/roles.md		ref/roles
 ref/settings.md		ref/settings
+ref/cli/README.md		ref/cli/README
+ref/cli/af-aws-exec.md		ref/cli/af-aws-exec
+user/README.md		user/start/overview
+user/integrations/aws-sso.md		user/integrations/aws-sso
+user/integrations/aws-ssm.md		user/integrations/aws-ssm
 deploy/aws/ecs/README.md		operate/aws-ecs/overview
 deploy/aws/ecs/README.md	Prerequisites (once per account)	operate/aws-ecs/install
 deploy/aws/ecs/README.md	30-ingress stand-up (milestone: CP boots + Google login)	operate/aws-ecs/install

@@ -82,7 +82,7 @@ user/integrations/confluence	Confluence を使う	連携
 user/integrations/chat-bridge	Discord・Slack とつなぐ	連携
 user/integrations/ops-monitoring	監視ツールとつなぐ	連携
 user/integrations/aws-sso	AWS SSO を使う	連携
-user/integrations/aws-ssm	社内の別のホストにログインする（SSM）	連携
+user/integrations/aws-ssm	SSM で EC2 にログインする	連携
 user/integrations/gcloud	Google Cloud を使う	連携
 user/integrations/mcp-servers	セッションに MCP サーバーを追加する	連携
 user/workspace/recreate	ワークスペースを作り直す	ワークスペース
@@ -217,6 +217,9 @@ ref/limits	上限と既定値	リファレンス
 ref/settings	設定の場所	リファレンス
 ref/console-ui	アイコン・バッジ・メニュー	リファレンス
 ref/browser-pane	ブラウザペインの仕様	リファレンス
+ref/aws-profiles	AWS プロファイルの仕様	リファレンス
+ref/aws-ssm	SSM の仕様	リファレンス
+ref/bedrock-route	Amazon Bedrock のルート	リファレンス
 ref/glossary	用語集	リファレンス
 ref/cli/README	コマンドの一覧	コマンド
 ref/cli/af-aws-exec	af-aws-exec	コマンド
