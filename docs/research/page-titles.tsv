@@ -1,4 +1,4 @@
-# new page	Japanese title (what the reader wants to do)	group label for the sidebar
+# new page	Japanese title (what the reader wants to do)	group label for the sidebar	sub-heading in the group, 日本語|English (optional)
 user/start/overview	Agent Fleet でできること	はじめに
 user/start/quickstart	最初のセッションを始める	はじめに
 user/start/concepts	用語と全体像	はじめに
@@ -75,16 +75,17 @@ user/preview/browser-pane	起動した Web アプリを見る	プレビューと
 user/preview/subdomains	プレビュー用のサブドメインを使う	プレビューとブラウザ
 user/preview/dev-signin	プレビューで Google ログインを試す	プレビューとブラウザ
 user/preview/agent-browser	エージェントが開いたブラウザを操作する	プレビューとブラウザ
-user/integrations/gh-bkt	GitHub・Bitbucket の CLI を使う	連携
-user/integrations/issue-tracker	課題管理サービスを接続する	連携
-user/integrations/jira	Jira を使う	連携
-user/integrations/confluence	Confluence を使う	連携
-user/integrations/chat-bridge	Discord・Slack とつなぐ	連携
-user/integrations/ops-monitoring	監視ツールとつなぐ	連携
-user/integrations/aws-sso	AWS SSO を使う	連携
-user/integrations/aws-ssm	SSM で EC2 にログインする	連携
-user/integrations/gcloud	Google Cloud を使う	連携
-user/integrations/mcp-servers	セッションに MCP サーバーを追加する	連携
+user/integrations/aws-sso	AWS SSO を使う	連携	クラウド|Cloud
+user/integrations/aws-ssm	SSM で EC2 にログインする	連携	クラウド|Cloud
+user/integrations/gcloud	Google Cloud を使う	連携	クラウド|Cloud
+user/integrations/github-cli	GitHub の CLI を使う	連携	Git のサービス|Git services
+user/integrations/bitbucket-cli	Bitbucket の CLI を使う	連携	Git のサービス|Git services
+user/integrations/issue-tracker	課題管理サービスを接続する	連携	課題管理|Issue tracking
+user/integrations/jira	Jira を使う	連携	課題管理|Issue tracking
+user/integrations/confluence	Confluence を使う	連携	課題管理|Issue tracking
+user/integrations/chat-bridge	Discord・Slack とつなぐ	連携	チャットと監視|Chat and monitoring
+user/integrations/ops-monitoring	監視ツールとつなぐ	連携	チャットと監視|Chat and monitoring
+user/integrations/mcp-servers	セッションに MCP サーバーを追加する	連携	MCP|MCP
 user/workspace/recreate	ワークスペースを作り直す	ワークスペース
 user/workspace/machine	マシンの大きさを変える	ワークスペース
 user/workspace/toolchains	ツールチェーンを選ぶ	ワークスペース
