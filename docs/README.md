@@ -22,6 +22,30 @@ npx astro preview --host 127.0.0.1 --port 4410   # http://127.0.0.1:4410/docs/
 3. Converts the result with `scripts/to_starlight.py`.
 4. Builds the site. The link validator fails the build on a broken link or anchor.
 
+## Search quality
+
+Search is Pagefind, built into `dist/pagefind/` by Starlight. It segments Japanese, so a compound such as 「共有サインイン」
+matches 「共有」 and 「サインイン」 separately, and the weights in `pagefind.ranking` (`astro.config.mjs`) decide whether a
+long chapter or the short task page comes first. To compare a change, run a fixed list of queries against a build:
+
+```bash
+node scripts/search_quality.mjs                      # dist/, with the ranking the build embedded
+node scripts/search_quality.mjs --ranking '{"pageLength":0.1,"termFrequency":0.1,"termSaturation":2,"termSimilarity":9}'   # Starlight's old defaults
+node scripts/search_quality.mjs --compact            # ranks only, one line (for a before/after table)
+```
+
+- `research/search-queries.tsv` is the list: query, language, the page that must come back, and the top N it has to be
+  in. It runs Pagefind's own browser library on `dist/pagefind` (no server, no network) with the language set as
+  `<html lang>` would set it. Exit 1 when a page is outside its top N, or absent from the build, so the check cannot
+  pass without finding its page.
+- It needs a build that contains the pages the list names. `docs/scripts/build.sh ~/repos/agent-fleet main` has them;
+  the release tag in `scripts/docs-ref.txt` may not (`user/integrations/aws-sso` is not in v0.41.0), and then the check
+  fails on purpose. `scripts/pages-build.sh` runs it only when `scripts/docs-ref.txt` is not a release tag (a preview that follows an agent-fleet branch); main and tag-pinned builds skip it.
+- `--ranking` overrides the weights without a rebuild, so a tuning is tried in seconds; then put the winner in
+  `astro.config.mjs` and rebuild to confirm the bundle carries it.
+- When adding a query, state which page should win and why; keep English queries in the list, because a tuning that
+  fixes Japanese must not move English. Ranks are on the page level (the first result for that page).
+
 ## Layout
 
 | Path | What |
@@ -32,6 +56,7 @@ npx astro preview --host 127.0.0.1 --port 4410   # http://127.0.0.1:4410/docs/
 | `scripts/mcp_page.py` | Renders the MCP tool tables from `research/mcp-inventory.md`. Interim: the plan is to generate from the golden `list.json` files |
 | `pilot/` | Rewritten pages in the new structure, in Japanese only so far. It mirrors `guide/`: `user/…`, `ref/cli/…`, `ref/mcp/…` |
 | `research/page-map.ja.md` | Map from every section of the current `guide/` and the shipped runbooks to a page of the new structure (#3463), agreed with the user on 2026-11-07. Rules in `research/page-map.tsv` and `research/page-titles.tsv`; `scripts/page_map.py <checkout> [--write]` checks that every heading is mapped and regenerates the tables |
+| `research/search-queries.tsv`, `scripts/search_quality.mjs` | The search-quality check (above) |
 | `research/mcp-inventory.md` | The 81 MCP tools: their routes, gates and sources, collected from the code |
 
 Screenshots come from the main repository's `console/scripts/shots/capture.mjs` (scenes marked `guide: true`).
