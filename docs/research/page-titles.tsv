@@ -25,16 +25,16 @@ user/sessions/auto-stop	終わったら止める・起こしたままにする	�
 user/sessions/cleanup	終わったセッションを片付ける	セッション	止める・片付ける|Stopping and tidying
 user/sessions/budget	使いすぎたセッションを予算で止める	セッション	止める・片付ける|Stopping and tidying
 user/sessions/handoff	別のセッションやエージェントに引き継ぐ	セッション	止める・片付ける|Stopping and tidying
-user/fleet/overview	動いているセッションを一覧する	たくさんのセッション
-user/fleet/graph	セッションのつながりを時系列で見る	たくさんのセッション
-user/fleet/working-sets	ワーキングセットで絞り込む	たくさんのセッション
-user/fleet/child-sessions	セッションから子セッションを起動する	たくさんのセッション
-user/fleet/messages	セッション同士でやりとりさせる	たくさんのセッション
-user/fleet/pr-feedback	PR のレビューをセッションに伝える	たくさんのセッション
-user/fleet/fleet-visibility	セッションに全体を見せる	たくさんのセッション
-user/fleet/operator	Fleet Operator に任せる	たくさんのセッション
-user/fleet/operator-patterns	Fleet Operator の使いかたの例	たくさんのセッション
-user/fleet/schedules	決まった時刻に実行する	たくさんのセッション
+user/fleet/overview	動いているセッションを一覧する	たくさんのセッション	見渡す|See the fleet
+user/fleet/graph	セッションのつながりを時系列で見る	たくさんのセッション	見渡す|See the fleet
+user/fleet/working-sets	ワーキングセットで絞り込む	たくさんのセッション	見渡す|See the fleet
+user/fleet/child-sessions	セッションから子セッションを起動する	たくさんのセッション	セッション同士|Between sessions
+user/fleet/messages	セッション同士でやりとりさせる	たくさんのセッション	セッション同士|Between sessions
+user/fleet/pr-feedback	PR のレビューをセッションに伝える	たくさんのセッション	セッション同士|Between sessions
+user/fleet/fleet-visibility	セッションに全体を見せる	たくさんのセッション	セッション同士|Between sessions
+user/fleet/operator	Fleet Operator に任せる	たくさんのセッション	任せる|Hand it off
+user/fleet/operator-patterns	Fleet Operator の使いかたの例	たくさんのセッション	任せる|Hand it off
+user/fleet/schedules	決まった時刻に実行する	たくさんのセッション	任せる|Hand it off
 user/code/connect-git	Git のサービスを接続する	コード
 user/code/clone	リポジトリをクローンする	コード
 user/code/internal-git	内蔵の Git を使う	コード
