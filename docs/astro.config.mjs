@@ -112,6 +112,12 @@ export default defineConfig({
       },
       social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/k-k1/agent-fleet' }],
       lastUpdated: false,
+      // Search ranking, measured with scripts/search_quality.mjs (README.md, "Search quality"). Starlight's own
+      // defaults (pageLength 0.1, termFrequency 0.1, termSaturation 2, termSimilarity 9) put long chapters that
+      // use the two halves of a segmented Japanese term ahead of the short task page about it. These are Pagefind's
+      // defaults, except termSaturation: they weigh page length and term frequency again, and an exact word no
+      // longer outbids a closer one.
+      pagefind: { ranking: { pageLength: 0.75, termFrequency: 1, termSaturation: 2, termSimilarity: 1 } },
       plugins: [
         starlightSidebarTopics(topics),
         starlightLinksValidator({ errorOnRelativeLinks: false }),
