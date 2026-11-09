@@ -7,7 +7,7 @@
 AWS SSO	ja	ja/user/integrations/aws-sso/	3
 AWS プロファイル	ja	ja/ref/aws-profiles/	3
 af-aws-exec	ja	ja/ref/cli/af-aws-exec/	3
-共有ログイン	ja	ja/user/integrations/aws-sso/	5
+共有ログイン	ja	ja/user/integrations/aws-sso/	3
 shared sign-in	en	user/integrations/aws-sso/	5
 several profiles one login	en	user/integrations/aws-sso/	3
 AWS SSO	en	user/integrations/aws-sso/	3
@@ -16,6 +16,8 @@ af-aws-exec	en	ref/cli/af-aws-exec/	3
 login expires	en	user/integrations/aws-sso/	3
 deploy on ECS	en	operate/runbooks/aws-ecs/	3
 browser pane	en	ref/browser-pane/	3
+browser	en	ref/browser-pane/	5
+deploy	en	operate/runbooks/aws-ecs/	5
 # 共有サインイン / shared sign-in allow 5: the word is only in the body of the aws-sso page, while the chapters
 # operate/05-signin and user/team/share and the reference ref/aws-profiles (heading 「共有サインイン」) match it
 # more directly. Tightening these to 3 needs a heading in the guide (see the PR for #3574).

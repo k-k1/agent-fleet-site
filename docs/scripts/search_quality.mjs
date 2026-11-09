@@ -23,6 +23,10 @@ const dist = path.resolve(argv[0] ?? path.join(HERE, '../dist'));
 
 // The weights the site ships: Starlight writes them into the search bundle.
 function embeddedRanking() {
+  if (!existsSync(path.join(dist, '_astro'))) {
+    console.error(`search_quality: ${dist} is not a built docs site (no _astro/)`);
+    process.exit(1);
+  }
   for (const f of readdirSync(path.join(dist, '_astro'))) {
     if (!/^Search.*\.js$/.test(f)) continue;
     const m = readFileSync(path.join(dist, '_astro', f), 'utf8').match(/ranking:(\{[^}]*\})/);

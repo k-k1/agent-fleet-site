@@ -38,6 +38,8 @@ git clone --quiet --depth 1 --branch "$TAG" "$REPO_URL" "$SRC/agent-fleet"
 (cd "$ROOT/docs" && npm ci --no-audit --no-fund)
 bash "$ROOT/docs/scripts/build.sh" "$SRC/agent-fleet" "$TAG"
 python3 -I "$ROOT/docs/scripts/check_dist.py" "$ROOT/docs/dist"
+# Search quality needs pages that a release may not have yet, so only builds that follow an agent-fleet branch run it.
+case "$TAG" in v[0-9]*) ;; *) node "$ROOT/docs/scripts/search_quality.mjs" "$ROOT/docs/dist" ;; esac
 
 cp -r "$ROOT/site" "$OUT"
 cp -r "$ROOT/docs/dist" "$OUT/docs"

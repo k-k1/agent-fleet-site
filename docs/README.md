@@ -30,7 +30,7 @@ long chapter or the short task page comes first. To compare a change, run a fixe
 
 ```bash
 node scripts/search_quality.mjs                      # dist/, with the ranking the build embedded
-node scripts/search_quality.mjs --ranking '{"pageLength":0.75,"termFrequency":1,"termSaturation":2,"termSimilarity":1}'
+node scripts/search_quality.mjs --ranking '{"pageLength":0.1,"termFrequency":0.1,"termSaturation":2,"termSimilarity":9}'   # Starlight's old defaults
 node scripts/search_quality.mjs --compact            # ranks only, one line (for a before/after table)
 ```
 
@@ -40,7 +40,7 @@ node scripts/search_quality.mjs --compact            # ranks only, one line (for
   pass without finding its page.
 - It needs a build that contains the pages the list names. `docs/scripts/build.sh ~/repos/agent-fleet main` has them;
   the release tag in `scripts/docs-ref.txt` may not (`user/integrations/aws-sso` is not in v0.41.0), and then the check
-  fails on purpose. It is not part of the deploy build.
+  fails on purpose. `scripts/pages-build.sh` runs it only when `scripts/docs-ref.txt` is not a release tag (a preview that follows an agent-fleet branch); main and tag-pinned builds skip it.
 - `--ranking` overrides the weights without a rebuild, so a tuning is tried in seconds; then put the winner in
   `astro.config.mjs` and rebuild to confirm the bundle carries it.
 - When adding a query, state which page should win and why; keep English queries in the list, because a tuning that
