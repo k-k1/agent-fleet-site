@@ -3,7 +3,7 @@
 #
 #   Pages settings: build command `bash scripts/pages-build.sh`, build output directory `out`.
 #
-# Production (CF_PAGES_BRANCH=main) publishes /docs/ only once scripts/docs-published exists: the
+# Production (CF_PAGES_BRANCH=main) publishes /docs/ only while scripts/docs-published exists: the
 # guide is being rewritten into task pages and the old layout is never published (ADR 0132, addendum).
 # Until then main deploys site/ alone. When it does publish, it builds a release tag and leaves out the
 # draft pages of docs/pilot/.
