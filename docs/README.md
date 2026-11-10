@@ -65,9 +65,8 @@ Screenshots come from the main repository's `console/scripts/shots/capture.mjs` 
 
 Cloudflare Pages runs `scripts/pages-build.sh` (in the repository root) on every push.
 
-- **Production (`main`) does not publish `/docs/` yet.** The guide is being rewritten into task pages, and the old
-  layout is never published (ADR 0132, addendum). Until `scripts/docs-published` exists, `main` deploys `site/` alone.
-  Adding that file is the switch the user flips when the pages are ready.
+- **Production (`main`) publishes `/docs/` while `scripts/docs-published` exists.** Remove that file and `main`
+  deploys `site/` alone again (ADR 0132, addendum).
 - **Once published**, `main` builds the agent-fleet release tag in `scripts/docs-ref.txt` (it refuses anything else)
   and leaves out the pilot pages. A new release's guide goes live by changing that file.
 - **Every other branch is a preview** and always builds `/docs/`, with the pilot pages. To review pages that are not
