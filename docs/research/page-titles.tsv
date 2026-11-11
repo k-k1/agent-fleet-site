@@ -93,12 +93,14 @@ user/workspace/databases	データベースを使うテストを動かす	ワー
 user/workspace/aws-emulator	AWS のコードを手元のエミュレーターで試す	ワークスペース
 user/workspace/export-import	ワークスペースを書き出す・取り込む	ワークスペース
 user/workspace/cost	稼働時間とクラウド費用を見る	ワークスペース
-user/memory/overview	エージェントの記憶を見る・直す	記憶
-user/memory/changes	記憶の変更を確かめる	記憶
-user/memory/import-export	記憶を取り込む・書き出す	記憶
-user/memory/settings	記憶のしかたを設定する	記憶
-user/memory/snapshots	スナップショットで記憶を戻す	記憶
-user/memory/external	外部のエージェントから記憶を使う	記憶
+user/memory/overview	エージェントのメモリを見る・直す	メモリ	見る・整える|Read and tidy
+user/memory/changes	メモリの変更を確かめる	メモリ	見る・整える|Read and tidy
+user/memory/settings	メモリの使いかたを設定する	メモリ	見る・整える|Read and tidy
+user/memory/lint	古くなったメモリを見つける	メモリ	見る・整える|Read and tidy
+user/memory/tidy-up	メモリの自動整理を使う	メモリ	見る・整える|Read and tidy
+user/memory/import-export	メモリを取り込む・書き出す	メモリ	持ち込む・持ち出す|Move in and out
+user/memory/snapshots	スナップショットでメモリを戻す	メモリ	持ち込む・持ち出す|Move in and out
+user/memory/external	外部のエージェントからメモリを使う	メモリ	持ち込む・持ち出す|Move in and out
 user/outside/external-claude	外部の Claude からワークスペースを動かす	外部から使う
 user/outside/oauth-client	リモートの MCP クライアントをサインインでつなぐ	外部から使う
 user/outside/move-work-in	手元の Claude Code の作業をワークスペースに移す	外部から使う
