@@ -190,6 +190,7 @@ operate/run/public-internet	インターネットに公開する	日々の運用
 operate/run/deployment-label	複数のデプロイを見分ける	日々の運用
 operate/run/idle-stop	アイドル停止と強制停止を使う	日々の運用
 operate/secure/threat-model	脅威モデルと残るリスク	セキュリティ
+operate/secure/deployment-keys	配備の鍵を扱う	セキュリティ
 operate/secure/egress	外向きの通信を制御する	セキュリティ
 operate/secure/mcp	MCP と外部接続のサインインを運用する	セキュリティ
 operate/secure/dev-signin	開発用サインインを使う	セキュリティ
