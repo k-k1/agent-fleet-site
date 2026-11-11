@@ -46,7 +46,7 @@ const userTopic = {
       ['Integrations', '連携', 'user/integrations'],
       ['Workspace', 'ワークスペース', 'user/workspace'],
       ['Images', '画像', 'user/images'],
-      ['Memory', '記憶', 'user/memory'],
+      ['Memory', 'メモリ', 'user/memory'],
       ['Settings', '設定', 'user/settings'],
       ['Using it from outside', '外部から使う', 'user/outside'],
       ['Security', 'セキュリティ', 'user/security'],
