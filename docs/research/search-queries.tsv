@@ -8,7 +8,7 @@ AWS SSO	ja	ja/user/integrations/aws-sso/	3
 AWS プロファイル	ja	ja/ref/aws-profiles/	3
 af-aws-exec	ja	ja/ref/cli/af-aws-exec/	3
 共有ログイン	ja	ja/user/integrations/aws-sso/	3
-shared sign-in	en	user/integrations/aws-sso/	5
+shared sign-in	en	user/integrations/aws-sso/	8
 several profiles one login	en	user/integrations/aws-sso/	3
 AWS SSO	en	user/integrations/aws-sso/	3
 aws profiles	en	ref/aws-profiles/	3
@@ -17,7 +17,10 @@ login expires	en	user/integrations/aws-sso/	3
 deploy on ECS	en	operate/runbooks/aws-ecs/	3
 browser pane	en	ref/browser-pane/	3
 browser	en	ref/browser-pane/	5
-deploy	en	operate/runbooks/aws-ecs/	5
+deploy	en	operate/runbooks/aws-ecs/	8
 # 共有サインイン / shared sign-in allow 5: the word is only in the body of the aws-sso page, while the chapters
 # operate/05-signin and user/team/share and the reference ref/aws-profiles (heading 「共有サインイン」) match it
 # more directly. Tightening these to 3 needs a heading in the guide (see the PR for #3574).
+# shared sign-in and deploy allow 8: the operate task pages (secure/dev-signin, signin/*, choose,
+# run/deployment-label) now carry "sign-in" and "deploy" in their titles and rank above the expected page
+# for the bare word; the specific queries above ("deploy on ECS", "共有ログイン") still hold at 3.
