@@ -128,10 +128,12 @@ admin/resources/session-limits	セッション数の上限を決める	リソー
 admin/resources/engines	推論エンジンを使える人とモデルを決める	リソース
 admin/resources/workspace-size	ワークスペースの大きさを決める	リソース
 admin/resources/idle-stop	放置されたワークスペースを止める	リソース
+admin/resources/start-at-signin	サインインしたらワークスペースを起動する	リソース
 admin/audit	監査ログを見る	監査と使用量
 admin/usage	稼働時間とクラウド費用を見る	監査と使用量
 admin/mcp-distribute	MCP サーバーを全員に配る	外部との接続
-admin/memory-outside	外部からの記憶の利用を許可する	外部との接続
+admin/memory-outside	外部からのメモリの利用を許可する	外部との接続
+admin/watch-sources	MCP サーバーをウォッチのソースに許可する	外部との接続
 admin/access/signin-methods	サインインの方法を決める	サインイン
 admin/access/networks	サインインできるネットワークを絞る	サインイン
 admin/access/oauth-apps	連携に使う OAuth アプリを選ぶ	サインイン
