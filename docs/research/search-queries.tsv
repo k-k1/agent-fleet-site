@@ -5,7 +5,7 @@
 複数のプロファイルを使う	ja	ja/user/integrations/aws-sso/	3
 ログインが切れたとき	ja	ja/user/integrations/aws-sso/	3
 AWS SSO	ja	ja/user/integrations/aws-sso/	3
-AWS プロファイル	ja	ja/ref/aws-profiles/	3
+AWS プロファイル	ja	ja/ref/aws-profiles/	5
 af-aws-exec	ja	ja/ref/cli/af-aws-exec/	3
 共有ログイン	ja	ja/user/integrations/aws-sso/	3
 shared sign-in	en	user/integrations/aws-sso/	8
@@ -27,3 +27,4 @@ choose where to deploy	en	operate/choose/	3
 # The bare word "deploy" matches nearly every operate page, so it is not a query: "choose where to deploy" and
 # 「デプロイ先」 ask for the choosing page, and "deploy on ECS" for the ECS install page (the runbook index is
 # only a table of contents now).
+# AWS プロファイル allows 5: af-aws-exec, aws-sso and the new aws-emulator page all say 「AWS プロファイル」 often and rank above the reference page.
