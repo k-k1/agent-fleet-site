@@ -82,7 +82,7 @@ node scripts/search_quality.mjs --compact            # ranks only, one line (for
 |---|---|
 | `astro.config.mjs` | Starlight, the topics (user guide / team admin / self-hosting / reference / release notes), the link validator |
 | `src/console-slug.mjs` | Heading ids by the Console's rule (`guide/`) or github-slugger (runbooks). See ADR 0131 §2 |
-| `scripts/to_starlight.py` | Staged guide → Starlight content: titles, language routes, links, alerts → asides, image sizes (2x screenshots at half their width and height) |
+| `scripts/to_starlight.py` | Staged guide → Starlight content: titles, language routes, links, alerts → asides, image sizes (WebP screenshots are 2x: half their width and height; a size it cannot read fails the build) |
 | `scripts/redirect_stubs.py` | Redirect stubs for the old URLs (above), written into `dist/` after the build |
 | `pilot/` | Draft pages laid over the release's guide in previews (mirrors `guide/`). Absent while there are no drafts; production never uses it (`DOCS_PILOT=0`) |
 | `research/page-map.ja.md` | Map from every section of the current `guide/` and the shipped runbooks to a page of the new structure (#3463), agreed with the user on 2026-11-07. Rules in `research/page-map.tsv` and `research/page-titles.tsv`; `scripts/page_map.py <checkout> [--write]` checks that every heading is mapped and regenerates the tables |
@@ -102,7 +102,7 @@ Cloudflare Pages runs `scripts/pages-build.sh` (in the repository root) on every
 - **Every other branch is a preview** and always builds `/docs/`, with the pilot pages. To review pages that are not
   released, push a branch here whose `scripts/docs-ref.txt` names an agent-fleet branch (`main`, or a pull request's
   branch); its preview URL shows them.
-- Each build checks the output for dead `/docs/` links, redirects that point nowhere, and images without a height
+- Each build checks the output for dead `/docs/` links, redirects that point nowhere, and content images without a height
   (`scripts/check_dist.py`): an image whose box is not reserved moves the page when it loads, away from an #anchor.
 
 To reproduce a deploy locally, from the repository root: `CF_PAGES_BRANCH=main bash scripts/pages-build.sh`, or any
