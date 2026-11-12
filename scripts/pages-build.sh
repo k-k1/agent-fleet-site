@@ -33,7 +33,9 @@ fi
 
 SRC="$(mktemp -d)"
 trap 'rm -rf "$SRC"' EXIT
-git clone --quiet --depth 1 --branch "$TAG" "$REPO_URL" "$SRC/agent-fleet"
+# Blobless rather than shallow: the redirect stubs read the headings of deleted pages from earlier releases
+# (docs/scripts/redirect_stubs.py), and history without old file contents is about 20 MB.
+git clone --quiet --filter=blob:none --branch "$TAG" "$REPO_URL" "$SRC/agent-fleet"
 
 (cd "$ROOT/docs" && npm ci --no-audit --no-fund)
 bash "$ROOT/docs/scripts/build.sh" "$SRC/agent-fleet" "$TAG"

@@ -7,7 +7,7 @@
 # The input is stage-docs.sh's output, the same closed tree the Console's user guide ships.
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-REPO="${1:?usage: build.sh <agent-fleet checkout> <tag>}"
+REPO="$(cd "${1:?usage: build.sh <agent-fleet checkout> <tag>}" && pwd)"
 TAG="${2:?usage: build.sh <agent-fleet checkout> <tag>}"
 
 WORK="$(mktemp -d)"
@@ -28,3 +28,7 @@ cd "$HERE"
 # Appended, not defaulted: Cloudflare Pages sets NODE_OPTIONS itself (--use-openssl-ca), which would
 # otherwise drop the heap limit.
 NODE_OPTIONS="${NODE_OPTIONS:-} --max-old-space-size=2048" npx astro build
+
+# Old URLs of pages that moved (guide/_redirects.tsv) get redirect stubs. After the build, so that Pagefind and the
+# sitemap never see them.
+python3 -I "$HERE/scripts/redirect_stubs.py" "$REPO" "$TAG" "$HERE/dist"
