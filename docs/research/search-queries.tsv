@@ -3,7 +3,7 @@
 # task page (guide/user/integrations/aws-sso, on agent-fleet main since #3566; not in v0.41.0).
 共有サインイン	ja	ja/user/integrations/aws-sso/	5
 複数のプロファイルを使う	ja	ja/user/integrations/aws-sso/	3
-ログインが切れたとき	ja	ja/user/integrations/aws-sso/	3
+ログインが切れたとき	ja	ja/user/integrations/aws-sso/	5
 AWS SSO	ja	ja/user/integrations/aws-sso/	3
 AWS プロファイル	ja	ja/ref/aws-profiles/	5
 af-aws-exec	ja	ja/ref/cli/af-aws-exec/	3
@@ -28,3 +28,4 @@ choose where to deploy	en	operate/choose/	3
 # 「デプロイ先」 ask for the choosing page, and "deploy on ECS" for the ECS install page (the runbook index is
 # only a table of contents now).
 # AWS プロファイル allows 5: af-aws-exec, aws-sso and the new aws-emulator page all say 「AWS プロファイル」 often and rank above the reference page.
+# ログインが切れたとき allows 5: the agents' troubleshooting page and the Codex / Claude pages answer "the login expired" for agent sign-in, and rank above the AWS SSO page once the old chapters are gone.
