@@ -3,6 +3,10 @@
 
     scripts/check.py            # offline: local links, images, hreflang, security.txt
     scripts/check.py --online   # also fetch every external link and GitHub heading anchor
+    scripts/check.py --docs-dist docs/dist   # also check /docs/ links against a built docs site
+
+/docs/ is the user guide, built separately (docs/scripts/build.sh). Without --docs-dist its links are
+only counted; with it, each one must name a built page (not a redirect stub) and its #anchor an id there.
 
 Exits 1 when anything is wrong. Standard library only, so CI needs no install step.
 """
@@ -102,6 +106,45 @@ def resolve_local(url: str) -> pathlib.Path | None:
     return target if target.is_file() else None
 
 
+DOCS = "/docs/"
+
+
+def is_docs(url: str) -> bool:
+    if url.startswith(ORIGIN):
+        url = url[len(ORIGIN):]
+    return url == DOCS[:-1] or url.startswith(DOCS)
+
+
+def check_docs_link(rel: str, url: str, dist: pathlib.Path) -> None:
+    """A /docs/ link must land on a built page of the guide, and on an element with its #anchor."""
+    if url.startswith(ORIGIN):
+        url = url[len(ORIGIN):]
+    parts = urllib.parse.urlsplit(url)
+    path = urllib.parse.unquote(parts.path)[len(DOCS):]
+    target = dist / path
+    if not path.endswith(".html"):
+        if not (path == "" or path.endswith("/")):
+            err(rel, f"{url}: guide URLs end in a slash")
+            return
+        target = target / "index.html"
+    if not target.is_file():
+        err(rel, f"{url} is not a page of the built guide ({dist})")
+        return
+    if target not in DOCS_PAGES:
+        DOCS_PAGES[target] = Page()
+        DOCS_PAGES[target].feed(target.read_text(encoding="utf-8"))
+    doc = DOCS_PAGES[target]
+    if "redirect-map" in doc.ids:
+        err(rel, f"{url} is a redirect stub (an old URL); link to where it leads")
+        return
+    frag = urllib.parse.unquote(parts.fragment)
+    if frag and frag not in doc.ids:
+        err(rel, f"{url}: no id {frag!r} on the guide page")
+
+
+DOCS_PAGES: dict[pathlib.Path, Page] = {}
+
+
 def is_local(url: str) -> bool:
     return url.startswith("/") or url.startswith(ORIGIN)
 
@@ -120,7 +163,8 @@ def check_stamp(rel: str, url: str, target: pathlib.Path) -> None:
         err(rel, f"{url} is stamped {got or 'nothing'}, the file is {want}; run scripts/stamp-assets.py")
 
 
-def check_page(path: pathlib.Path, pages: dict[pathlib.Path, Page], external: dict[str, set[str]]) -> None:
+def check_page(path: pathlib.Path, pages: dict[pathlib.Path, Page], external: dict[str, set[str]],
+               docs: list[str], dist: pathlib.Path | None) -> None:
     rel = path.relative_to(SITE).as_posix()
     p = pages[path]
     if not p.lang:
@@ -138,6 +182,11 @@ def check_page(path: pathlib.Path, pages: dict[pathlib.Path, Page], external: di
         if url.startswith("http://"):
             err(rel, f"plain-http link {url}")
             continue
+        if is_docs(url):
+            docs.append(url)
+            if dist is not None:
+                check_docs_link(rel, url, dist)
+            continue
         if is_local(url):
             target = resolve_local(url)
             if target is None:
@@ -148,6 +197,8 @@ def check_page(path: pathlib.Path, pages: dict[pathlib.Path, Page], external: di
                 err(rel, f"{url}: no id {frag!r} on the target page")
             check_stamp(rel, url, target)
             continue
+        if url.startswith(MAIN_BLOB) and "/guide/" in url:
+            err(rel, f"{url} points at the guide on GitHub; link to its page under /docs/ instead")
         if url.startswith(MAIN_BLOB) and not url.startswith(f"{MAIN_BLOB}{RELEASE}/"):
             err(rel, f"{url} is not pinned to {RELEASE} (scripts/shots-ref.txt)")
         external.setdefault(url, set()).add(rel)
@@ -241,7 +292,18 @@ def check_online(external: dict[str, set[str]]) -> None:
 
 
 def main() -> int:
-    online = "--online" in sys.argv[1:]
+    args = sys.argv[1:]
+    online = "--online" in args
+    dist = None
+    if "--docs-dist" in args:
+        i = args.index("--docs-dist")
+        if i + 1 >= len(args):
+            print("--docs-dist needs the built guide's directory (docs/dist)")
+            return 2
+        dist = pathlib.Path(args[i + 1]).resolve()
+        if not (dist / "index.html").is_file():
+            print(f"--docs-dist {dist}: no built guide there (run docs/scripts/build.sh)")
+            return 2
     # site/docs/ is the Starlight build of the user guide (docs/). Its links and anchors are checked when it is built
     # (starlight-links-validator), and it follows Starlight's markup, not this site's hreflang and asset rules.
     files = sorted(f for f in SITE.rglob("*.html") if not f.is_relative_to(SITE / "docs"))
@@ -251,8 +313,9 @@ def main() -> int:
         p.feed(f.read_text(encoding="utf-8"))
         pages[f] = p
     external: dict[str, set[str]] = {}
+    docs: list[str] = []
     for f in files:
-        check_page(f, pages, external)
+        check_page(f, pages, external, docs, dist)
     check_security_txt()
     check_sitemap(pages)
     if online:
@@ -260,6 +323,8 @@ def main() -> int:
     n_links = sum(len(p.links) for p in pages.values())
     n_imgs = sum(len(p.imgs) for p in pages.values())
     print(f"checked {len(files)} pages, {n_links} links, {n_imgs} images; {len(errors)} errors")
+    print(f"/docs/ links: {len(docs)}, " + (f"checked against {dist}" if dist else
+                                             "not checked (pass --docs-dist with a built guide)"))
     for e in errors:
         print("  " + e)
     return 1 if errors else 0
