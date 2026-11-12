@@ -15,7 +15,7 @@ audience: "Agent Fleet の MCP ツールを調べたい人"
 |---|---|---|
 | セッション | セッションの中のエージェント | 自動でつながります（MCP サーバー名は `af`） |
 | アシスタント | Console のアシスタント | 自動でつながります。「読み取り」は常に、「書き込み」は書き込みを許可した会話だけで使えます |
-| 外部 MCP | Agent Fleet の外にあるクライアント（claude.ai、ChatGPT、別の PC の Claude Code など） | Control Plane の `/mcp` に、アクセストークンか OAuth でつなぎます。[ワークスペースを外から使う](../../member/19-outside-access.ja.md) を参照 |
+| 外部 MCP | Agent Fleet の外にあるクライアント（claude.ai、ChatGPT、別の PC の Claude Code など） | Control Plane の `/mcp` に、アクセストークンか OAuth でつなぎます。[ワークスペースを外から使う](../../user/outside/external-claude.ja.md) を参照 |
 
 「使える場所」のセッションに「」付きのスイッチ名があるツールは、**⚙設定 →「エージェント」** のそのスイッチをオンにしたときだけ使えます。
 「エージェントメモリ」は **⚙設定 →「エージェントメモリ」** にあります。

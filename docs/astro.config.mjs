@@ -29,7 +29,7 @@ const groups = (...defs) => defs.filter(([, , dir]) => has(dir)).map((d) => grou
 
 const userTopic = {
   // The task pages are written in Japanese first, so the topic lands on a page that exists in both languages.
-  id: 'user', label: t('User guide', 'ユーザーガイド'), icon: 'open-book', link: '/member/',
+  id: 'user', label: t('User guide', 'ユーザーガイド'), icon: 'open-book', link: '/user/',
   items: [
     // Every group of the page map (research/page-titles.tsv), in its order. A directory that is not there yet is
     // skipped, so a lane that adds the first page of a group needs no change here.
@@ -52,7 +52,8 @@ const userTopic = {
       ['Security', 'セキュリティ', 'user/security'],
       ['Troubleshooting', '困ったとき', 'user/troubleshooting'],
     ),
-    group('All chapters (current layout)', '全章（現行の構成）', 'member', has('user')),
+    // The old shelf, only while the pinned release still ships it.
+    ...(has('member') ? [group('All chapters (current layout)', '全章（現行の構成）', 'member', true)] : []),
   ],
 };
 
