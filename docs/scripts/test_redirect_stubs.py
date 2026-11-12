@@ -128,6 +128,36 @@ class Boilerplate(unittest.TestCase):
         self.assertFalse(R.paired(en, ja, 1))
 
 
+class LinkDestinations(unittest.TestCase):
+    """Swapped sections that share boilerplate and differ only in where their links point."""
+    BLOCK = "```bash\ncommon --help\n```\n"
+
+    def test_markdown_swapped_links(self):
+        en = R.md_headings("# P\n## Alpha\n" + self.BLOCK + "[Guide](alpha.md)\n## Beta\n" + self.BLOCK
+                           + "[Guide](beta.md) [More](more.md)\n")
+        ja = R.md_headings("# P\n## ベータ\n" + self.BLOCK + "[説明](beta.ja.md)\n## アルファ\n" + self.BLOCK
+                           + "[説明](alpha.ja.md) [詳細](more.ja.md)\n")
+        self.assertFalse(R.paired(en, ja, 0))
+        self.assertFalse(R.paired(en, ja, 1))
+        same = R.md_headings("# P\n## アルファ\n" + self.BLOCK + "[説明](alpha.ja.md#概要)\n## ベータ\n" + self.BLOCK
+                             + "[説明](beta.ja.md) [詳細](more.ja.md)\n")
+        self.assertTrue(R.paired(en, same, 0))
+        self.assertTrue(R.paired(en, same, 1))
+
+    def test_html_swapped_links(self):
+        pre = "<pre><code>common --help</code></pre>"
+        en = R.html_headings(html([(2, "alpha", pre + '<a href="/docs/alpha/">Guide</a>'),
+                                   (2, "beta", pre + '<a href="/docs/beta/">Guide</a> <a href="/docs/more/">More</a>')]))
+        ja = R.html_headings(html([(2, "ベータ", pre + '<a href="/docs/ja/beta/">説明</a>'),
+                                   (2, "アルファ", pre + '<a href="/docs/ja/alpha/">説明</a> <a href="/docs/ja/more/">詳細</a>')]))
+        self.assertFalse(R.paired(en, ja, 0))
+        self.assertFalse(R.paired(en, ja, 1))
+        same = R.html_headings(html([(2, "アルファ", pre + '<a href="/docs/ja/alpha/#x">説明</a>'),
+                                     (2, "ベータ", pre + '<a href="/docs/ja/beta/">説明</a> <a href="/docs/ja/more/">詳細</a>')]))
+        self.assertTrue(R.paired(en, same, 0))
+        self.assertTrue(R.paired(en, same, 1))
+
+
 class Urls(unittest.TestCase):
     def test_url_form(self):
         self.assertEqual(R.url("en", "member/README.md"), "/docs/member/")

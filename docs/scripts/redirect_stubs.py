@@ -41,7 +41,7 @@ HEADING_ID = re.compile(r'<h([1-6])\b[^>]*\sid="([^"]+)"')
 MD_HEADING = re.compile(r"^(#{1,6})\s+(.*?)\s*#*\s*$")
 # What a section and its translation share: ASCII words (names, commands, code) and numbers.
 TOKEN = re.compile(r"[A-Za-z][A-Za-z0-9_.+/-]*[A-Za-z0-9]|\d+")
-SHAPE = ("fence", "row", "item", "image", "link", "quote")
+SHAPE = ("fence", "row", "item", "quote")
 
 STUB_JS = ("(()=>{const m=JSON.parse(document.getElementById('redirect-map').textContent);"
            "let h='';try{h=decodeURIComponent(location.hash.slice(1))}catch(e){}"
@@ -104,10 +104,19 @@ def heading_text(md: str) -> str:
     return html.unescape(t.replace("`", ""))
 
 
-def evidence(tokens: set, shape: dict) -> frozenset:
-    """A section's language-neutral content: its ASCII words and numbers, and how many code blocks, table rows, list
-    items, images, links and quotes it has."""
-    return frozenset(tokens | {f"#{k}:{v}" for k, v in shape.items() if v})
+def evidence(tokens: set, shape: dict, links) -> frozenset:
+    """A section's language-neutral content: its ASCII words and numbers, how many code blocks, table rows, list items
+    and quotes it has, and where its links and images point (`link`)."""
+    return frozenset(tokens | {f"#{k}:{v}" for k, v in shape.items() if v} | {"@" + link(u) for u in links})
+
+
+def link(u: str) -> str:
+    """A link or image destination with the language taken out: `x.ja.md` and `/docs/ja/x/` are `x.md` and `/docs/x/`,
+    a screenshot `x-ja-light.webp` is `x-en-light.webp`, and the #fragment (a heading id) is dropped."""
+    u = html.unescape(u).split("#", 1)[0]
+    u = re.sub(r"\.ja\.md$", ".md", u)
+    u = re.sub(r"^/docs/ja/", "/docs/", u)
+    return u.replace("-ja-", "-en-")
 
 
 def nest(heads):
@@ -145,8 +154,8 @@ def md_headings(text: str):
                 k = used.get(i, 0)
                 used[i] = k + 1
                 ids.append(f"{i}-{k}" if k else i)
-            tokens, shape = set(), dict.fromkeys(SHAPE, 0)
-            out.append((len(m.group(1)), tuple(ids), tokens, shape))
+            tokens, shape, links = set(), dict.fromkeys(SHAPE, 0), []
+            out.append((len(m.group(1)), tuple(ids), tokens, shape, links))
         elif m:
             title = True
             continue
@@ -159,11 +168,10 @@ def md_headings(text: str):
                 shape["item"] += 1
             elif st.startswith(">"):
                 shape["quote"] += 1
-            shape["image"] += line.count("![")
-            shape["link"] += len(re.findall(r"(?<!!)\[[^\]]*\]\(", line))
+            links += re.findall(r"\]\(([^)\s]+)", line)
         line = re.sub(r"!?\[([^\]]*)\]\([^)]*\)", r"\1", line)  # link targets differ by language
         tokens |= {t.lower() for t in TOKEN.findall(line)}
-    return nest([(lv, ids, evidence(t, sh)) for lv, ids, t, sh in out])
+    return nest([(lv, ids, evidence(t, sh, ln)) for lv, ids, t, sh, ln in out])
 
 
 def html_headings(doc: str):
@@ -179,11 +187,16 @@ def html_headings(doc: str):
     for n in range(1, len(parts) - 2, 3):
         chunk = parts[n + 2]
         shape = {"fence": chunk.count("<pre"), "row": len(re.findall(r"<tr\b", chunk)),
-                 "item": len(re.findall(r"<li\b", chunk)), "image": len(re.findall(r"<img\b", chunk)),
-                 "link": len(re.findall(r"<a\b", chunk)), "quote": len(re.findall(r"<aside\b|<blockquote\b", chunk))}
+                 "item": len(re.findall(r"<li\b", chunk)), "quote": len(re.findall(r"<aside\b|<blockquote\b", chunk))}
+        links = re.findall(r'<(?:a\b[^>]*\shref|img\b[^>]*\ssrc)="([^"]+)"', chunk)
         text = html.unescape(re.sub(r"<[^>]+>", " ", chunk))
-        out.append((int(parts[n]), parts[n + 1], evidence({t.lower() for t in TOKEN.findall(text)}, shape)))
+        out.append((int(parts[n]), parts[n + 1], evidence({t.lower() for t in TOKEN.findall(text)}, shape, links)))
     return nest(out)
+
+
+# The least shared weight that tells a section apart from its siblings: one token that at most one other section
+# of the level also has (a token weighs 1 / the number of same-level sections that have it).
+DISTINCT = 0.5
 
 
 def paired(en, ja, n) -> bool:
@@ -193,7 +206,8 @@ def paired(en, ja, n) -> bool:
     it would swapped with any other section of the same level: a pair of same-level sections in a different order
     fits better swapped, and a tie (sections with the same content) is not trusted. Content counts only where the
     other language could have it (English words that appear nowhere on the Japanese page are prose), and the more
-    same-level sections share a token, the less it weighs: boilerplate tells sections apart no better than nothing."""
+    same-level sections share a token, the less it weighs: boilerplate tells sections apart no better than nothing.
+    The two sections must also share at least DISTINCT of weight that not every section of the level has."""
     if not en or [h[0] for h in en] != [h[0] for h in ja]:
         return False
     same = [m for m in range(len(en)) if en[m][0] == en[n][0]]
@@ -207,7 +221,10 @@ def paired(en, ja, n) -> bool:
         return sum(1 / spread[t] for t in a & b) / union if union else 0.0
 
     here = sim(e[n], j[n])
-    return here > 0 and all(here + sim(e[m], j[m]) > sim(e[n], j[m]) + sim(e[m], j[n]) for m in same if m != n)
+    distinct = sum(1 / spread[t] for t in e[n] & j[n] if spread[t] < len(same))
+    if here == 0 or (len(same) > 1 and distinct < DISTINCT):
+        return False
+    return all(here + sim(e[m], j[m]) > sim(e[n], j[m]) + sim(e[m], j[n]) for m in same if m != n)
 
 
 # --- the old pages, from the checkout's history ---------------------------------------------------------------------
