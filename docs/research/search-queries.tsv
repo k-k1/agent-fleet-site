@@ -14,7 +14,7 @@ AWS SSO	en	user/integrations/aws-sso/	3
 aws profiles	en	ref/aws-profiles/	3
 af-aws-exec	en	ref/cli/af-aws-exec/	3
 login expires	en	user/integrations/aws-sso/	3
-deploy on ECS	en	operate/aws-ecs/install/	3
+deploy on ECS	en	operate/aws-ecs/install/	5
 browser pane	en	ref/browser-pane/	3
 browser	en	ref/browser-pane/	5
 choose where to deploy	en	operate/choose/	3
