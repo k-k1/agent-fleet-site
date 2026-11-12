@@ -52,21 +52,61 @@ def repo_path(rel: Path) -> str:
     return "guide/" + rel.as_posix()
 
 
-def webp_width(path: Path):
-    """Canvas width of a WebP (VP8X / VP8 / VP8L), or None."""
-    if path.suffix != ".webp":
-        return None
+def image_size(path: Path):
+    """Intrinsic (width, height) of a WebP, PNG or SVG, read from its header; None when it cannot be told."""
+    suffix = path.suffix.lower()
+    if suffix == ".svg":
+        return svg_size(path)
     b = path.read_bytes()[:40]
-    if b[:4] != b"RIFF" or b[8:12] != b"WEBP":
+    if suffix == ".png":
+        if b[:8] != b"\x89PNG\r\n\x1a\n" or b[12:16] != b"IHDR":
+            return None
+        return int.from_bytes(b[16:20], "big"), int.from_bytes(b[20:24], "big")
+    if suffix != ".webp" or b[:4] != b"RIFF" or b[8:12] != b"WEBP":
         return None
     kind = b[12:16]
     if kind == b"VP8X":
-        return 1 + int.from_bytes(b[24:27], "little")
+        return 1 + int.from_bytes(b[24:27], "little"), 1 + int.from_bytes(b[27:30], "little")
     if kind == b"VP8 ":
-        return int.from_bytes(b[26:28], "little") & 0x3FFF
+        return int.from_bytes(b[26:28], "little") & 0x3FFF, int.from_bytes(b[28:30], "little") & 0x3FFF
     if kind == b"VP8L":
-        return 1 + (int.from_bytes(b[21:25], "little") & 0x3FFF)
+        v = int.from_bytes(b[21:25], "little")
+        return 1 + (v & 0x3FFF), 1 + ((v >> 14) & 0x3FFF)
     return None
+
+
+def svg_size(path: Path):
+    """width/height of the root <svg> in px (or unitless), else its viewBox; None when neither is usable."""
+    m = re.search(r"<svg\b[^>]*>", path.read_text(encoding="utf-8", errors="replace"))
+    if not m:
+        return None
+    tag = m.group(0)
+
+    def attr(name):
+        a = re.search(rf'\s{name}\s*=\s*["\']([^"\']*)["\']', tag)
+        return a.group(1).strip() if a else None
+
+    def px(v):
+        n = re.fullmatch(r"([0-9.]+)(px)?", v or "")
+        return float(n.group(1)) if n else None
+
+    w, h = px(attr("width")), px(attr("height"))
+    box = (attr("viewBox") or "").replace(",", " ").split()
+    if len(box) == 4:
+        try:
+            bw, bh = float(box[2]), float(box[3])
+        except ValueError:
+            bw = bh = 0
+        if bw > 0 and bh > 0:
+            if w and not h:
+                h = w * bh / bw
+            elif h and not w:
+                w = h * bw / bh
+            elif not w and not h:
+                w, h = bw, bh
+    if not w or not h:
+        return None
+    return round(w), round(h)
 
 
 def split_lang(rel: Path):
@@ -194,11 +234,18 @@ def main():
                 tl, ts = split_lang(tgt)
                 return f"{label}({url_of(tl, ts)}{frag}{ttl})"
             if tgt.parts and tgt.parts[0] == "assets" and (staged / tgt).is_file():
-                w = webp_width(staged / tgt)
-                if label.startswith("!") and w:
-                    # Screenshots are taken at 2x: show them at their CSS size, never stretched.
+                size = image_size(staged / tgt) if label.startswith("!") else None
+                if size:
+                    w, h = size
+                    if tgt.suffix.lower() != ".svg":
+                        # Screenshots are taken at 2x: show them at their CSS size, never stretched.
+                        w, h = max(1, round(w / 2)), max(1, round(h / 2))
+                    # width and height both: the browser reserves the box (CSS keeps height: auto, max-width: 100%,
+                    # so it still scales) and a lazy image that loads later does not push the page down under an
+                    # #anchor.
                     alt = label[2:-1].replace('"', "&quot;")
-                    return f'<img src="{BASE}/{tgt.as_posix()}" alt="{alt}" width="{w // 2}" loading="lazy" />'
+                    return (f'<img src="{BASE}/{tgt.as_posix()}" alt="{alt}" width="{w}" height="{h}"'
+                            ' loading="lazy" />')
                 return f"{label}({BASE}/{tgt.as_posix()}{ttl})"
             # Outside the staged tree: point at the repository at the same ref.
             origin = Path(repo_path(rel)).parent / path
