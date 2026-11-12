@@ -30,6 +30,7 @@ import re
 import subprocess
 import sys
 import unicodedata
+from collections import Counter
 from pathlib import Path
 
 BASE = "/docs"
@@ -188,24 +189,25 @@ def html_headings(doc: str):
 def paired(en, ja, n) -> bool:
     """Whether heading n of `en` and heading n of `ja` are the same section.
 
-    The two versions must have the same heading levels, section n must share some content with its counterpart,
-    and swapping it with any other section of the same level must not fit better: a pair of same-level sections in
-    a different order fits better swapped. Content counts only where the other language could have it (English
-    words that appear nowhere on the Japanese page are prose)."""
+    The two versions must have the same heading levels, and section n must fit its counterpart strictly better than
+    it would swapped with any other section of the same level: a pair of same-level sections in a different order
+    fits better swapped, and a tie (sections with the same content) is not trusted. Content counts only where the
+    other language could have it (English words that appear nowhere on the Japanese page are prose), and the more
+    same-level sections share a token, the less it weighs: boilerplate tells sections apart no better than nothing."""
     if not en or [h[0] for h in en] != [h[0] for h in ja]:
         return False
+    same = [m for m in range(len(en)) if en[m][0] == en[n][0]]
     shared = frozenset().union(*(h[2] for h in ja))
-    e = [h[2] & shared for h in en]
-    j = [h[2] for h in ja]
+    e = {m: en[m][2] & shared for m in same}
+    j = {m: ja[m][2] for m in same}
+    spread = Counter(t for m in same for t in e[m] | j[m])
 
     def sim(a, b):
-        return len(a & b) / len(a | b) if a | b else 0.0
+        union = sum(1 / spread[t] for t in a | b)
+        return sum(1 / spread[t] for t in a & b) / union if union else 0.0
 
     here = sim(e[n], j[n])
-    if here == 0:
-        return False
-    return all(sim(e[n], j[m]) + sim(e[m], j[n]) <= here + sim(e[m], j[m])
-               for m in range(len(en)) if m != n and en[m][0] == en[n][0])
+    return here > 0 and all(here + sim(e[m], j[m]) > sim(e[n], j[m]) + sim(e[m], j[n]) for m in same if m != n)
 
 
 # --- the old pages, from the checkout's history ---------------------------------------------------------------------

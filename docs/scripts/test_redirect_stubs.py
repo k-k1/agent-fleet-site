@@ -103,6 +103,31 @@ class Pairing(unittest.TestCase):
         self.assertNotIn("15", en[0][2])  # the anchor icon's SVG is not content
 
 
+class Boilerplate(unittest.TestCase):
+    """Two same-level sections whose only shared content is identical: nothing tells them apart."""
+    BLOCK = "```bash\ncommon --help\n```\n"
+
+    def test_markdown_identical_sections_swapped(self):
+        en = R.md_headings(f"# P\n\n## First\n\n{self.BLOCK}\n## Second\n\n{self.BLOCK}")
+        ja = R.md_headings(f"# P\n\n## 二つめ\n\n{self.BLOCK}\n## 一つめ\n\n{self.BLOCK}")
+        self.assertFalse(R.paired(en, ja, 0))
+        self.assertFalse(R.paired(en, ja, 1))
+
+    def test_markdown_boilerplate_does_not_outweigh_the_rest(self):
+        en = R.md_headings(f"# P\n\n## First\n\n{self.BLOCK}Use `af-one`.\n\n## Second\n\n{self.BLOCK}Use `af-two`.\n")
+        ja = R.md_headings(f"# P\n\n## 一つめ\n\n{self.BLOCK}`af-one` を使う。\n\n## 二つめ\n\n{self.BLOCK}`af-two` を使う。\n")
+        swapped = R.md_headings(f"# P\n\n## 二つめ\n\n{self.BLOCK}`af-two` を使う。\n\n## 一つめ\n\n{self.BLOCK}`af-one` を使う。\n")
+        self.assertTrue(R.paired(en, ja, 0))
+        self.assertFalse(R.paired(en, swapped, 0))
+
+    def test_html_identical_sections_swapped(self):
+        body = "<pre><code>common --help</code></pre>"
+        en = R.html_headings(html([(2, "first", body), (2, "second", body)]))
+        ja = R.html_headings(html([(2, "二つめ", body), (2, "一つめ", body)]))
+        self.assertFalse(R.paired(en, ja, 0))
+        self.assertFalse(R.paired(en, ja, 1))
+
+
 class Urls(unittest.TestCase):
     def test_url_form(self):
         self.assertEqual(R.url("en", "member/README.md"), "/docs/member/")
