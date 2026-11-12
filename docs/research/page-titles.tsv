@@ -145,7 +145,7 @@ operate/install	インストールする	インストール
 operate/install-decisions	テナントとプロビジョニングの方式を決める	インストール
 operate/aws-ecs/overview	ECS 構成の全体像	ECS
 operate/aws-ecs/install	ECS に構築する	ECS
-operate/aws-ecs/options	任意の機能を有効にする（プレビュー・KMS・MCP・WAF）	ECS
+operate/aws-ecs/options	パラメータで任意の機能をオンにする	ECS
 operate/aws-ecs/alarms	データベースに届かないときのアラームを設定する	ECS
 operate/aws-ecs/workspace-size	ワークスペースの大きさを決める	ECS
 operate/aws-ecs/schedules	決まった時刻の起動を有効にする	ECS
