@@ -50,7 +50,8 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
   ホームの置き場所・休止・予備のコピー／困ったとき、の 4 ページに分けます。
 - **開発者向けの節は公開しません**（ユーザーと合意）。ECS の「Prove-out sequence」「E2E completion gate」と Kubernetes の「The live harness」は、
   表では行き先を `internal` にしています。分割するときに agent-fleet の `docs/` 側（開発者向けの文書）へ移します。
-- `deploy/` 側のファイルの分けかた（`README.md` を目次にして、同じディレクトリーにページを並べる）と `stage-docs.sh` の直しは、分割するときにまとめて行います。
+- 分けたページは、ほかのガイドと同じく `guide/operate/<形態>/` に日本語と英語で置きます（2026-11-12、ユーザーの判断で `deploy/` 側に並べる案から変更）。
+  `deploy/<形態>/README.md` はガイドのページへの目次になり、`stage-docs.sh` が目次の写しのリンクも配布先で解決します。
 
 ## 新しいページ構成
 
