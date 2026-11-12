@@ -11,6 +11,7 @@ import json
 import re
 import shutil
 import sys
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 BASE = "/docs"
@@ -82,34 +83,46 @@ def _positive(path: Path, what: str, w, h):
     return w, h
 
 
+PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
+# Minimum payload of each WebP first chunk that carries the canvas size.
+WEBP_MIN_CHUNK = {b"VP8X": 10, b"VP8 ": 10, b"VP8L": 5}
+
+
 def png_size(path: Path):
-    b = path.read_bytes()[:24]
-    if len(b) < 24 or b[:8] != b"\x89PNG\r\n\x1a\n" or b[8:12] != (13).to_bytes(4, "big") or b[12:16] != b"IHDR":
-        raise ImageSizeError(f"{path}: not a PNG with an IHDR chunk (truncated or malformed header)")
+    """IHDR's size. The first 33 bytes must be whole: the signature, IHDR's length (13) and type, its 13 bytes, its CRC."""
+    b = path.read_bytes()[:33]
+    if len(b) < 33 or b[:8] != PNG_SIGNATURE or b[8:12] != (13).to_bytes(4, "big") or b[12:16] != b"IHDR":
+        raise ImageSizeError(f"{path}: not a PNG with a complete IHDR chunk (truncated or malformed header)")
     return _positive(path, "IHDR", int.from_bytes(b[16:20], "big"), int.from_bytes(b[20:24], "big"))
 
 
 def webp_size(path: Path):
-    b = path.read_bytes()[:30]
-    if len(b) < 16 or b[:4] != b"RIFF" or b[8:12] != b"WEBP":
+    """The canvas size from the first chunk, after checking the RIFF size and that chunk's declared length."""
+    data = path.read_bytes()
+    b = data[:30]
+    if len(b) < 20 or b[:4] != b"RIFF" or b[8:12] != b"WEBP":
         raise ImageSizeError(f"{path}: not a RIFF WEBP file (truncated or malformed header)")
-    kind = b[12:16]
+    riff_size = int.from_bytes(b[4:8], "little")
+    if riff_size + 8 > len(data):
+        raise ImageSizeError(f"{path}: RIFF size {riff_size} runs past the end of the file ({len(data)} bytes)")
+    kind, length = b[12:16], int.from_bytes(b[16:20], "little")
+    if kind not in WEBP_MIN_CHUNK:
+        raise ImageSizeError(f"{path}: unknown WebP chunk {kind!r}")
+    if length < WEBP_MIN_CHUNK[kind] or 20 + length > riff_size + 8:
+        raise ImageSizeError(f"{path}: {kind.decode().strip()} chunk length {length} is below its minimum "
+                             f"({WEBP_MIN_CHUNK[kind]}) or runs past the RIFF size {riff_size}")
     if kind == b"VP8X":
-        if len(b) < 30:
-            raise ImageSizeError(f"{path}: VP8X header truncated")
         return 1 + int.from_bytes(b[24:27], "little"), 1 + int.from_bytes(b[27:30], "little")
     if kind == b"VP8 ":
         # Frame tag (3 bytes), start code 9d 01 2a, then 14-bit width and height.
-        if len(b) < 30 or b[23:26] != b"\x9d\x01\x2a":
-            raise ImageSizeError(f"{path}: VP8 frame header truncated or without its start code")
+        if b[23:26] != b"\x9d\x01\x2a":
+            raise ImageSizeError(f"{path}: VP8 frame header without its start code")
         w, h = int.from_bytes(b[26:28], "little") & 0x3FFF, int.from_bytes(b[28:30], "little") & 0x3FFF
         return _positive(path, "the VP8 frame header", w, h)
-    if kind == b"VP8L":
-        if len(b) < 25 or b[20] != 0x2F:
-            raise ImageSizeError(f"{path}: VP8L header truncated or without its signature byte")
-        v = int.from_bytes(b[21:25], "little")
-        return 1 + (v & 0x3FFF), 1 + ((v >> 14) & 0x3FFF)
-    raise ImageSizeError(f"{path}: unknown WebP chunk {kind!r}")
+    if b[20] != 0x2F:
+        raise ImageSizeError(f"{path}: VP8L header without its signature byte")
+    v = int.from_bytes(b[21:25], "little")
+    return 1 + (v & 0x3FFF), 1 + ((v >> 14) & 0x3FFF)
 
 
 def svg_size(path: Path):
@@ -119,14 +132,22 @@ def svg_size(path: Path):
     viewBox (its aspect ratio when the other dimension is known, its size when neither is). Relative units (em, ex,
     ...) cannot be resolved at build time and raise ImageSizeError, as does an SVG with nothing to size it by.
     """
-    m = re.search(r"<svg\b[^>]*>", path.read_text(encoding="utf-8", errors="replace"))
-    if not m:
-        raise ImageSizeError(f"{path}: no <svg> element")
-    tag = m.group(0)
+    text = path.read_text(encoding="utf-8", errors="replace")
+    # No entity declarations and no internal DTD subset (the defusedxml rules); expat never fetches an external DTD,
+    # so a plain <!DOCTYPE svg PUBLIC ...> line is allowed.
+    if re.search(r"<!ENTITY", text) or re.search(r"<!DOCTYPE[^>\[]*\[", text):
+        raise ImageSizeError(f"{path}: SVG declares entities or an internal DTD subset; refusing to parse it")
+    try:
+        # The real root element: comments, CDATA, the prolog and processing instructions are not elements.
+        root = ET.fromstring(path.read_bytes())
+    except ET.ParseError as e:
+        raise ImageSizeError(f"{path}: not well-formed XML ({e})") from None
+    if root.tag.rpartition("}")[2] != "svg":
+        raise ImageSizeError(f"{path}: the root element is <{root.tag}>, not <svg>")
 
     def attr(name):
-        a = re.search(rf'\s{name}\s*=\s*(?:"([^"]*)"|\'([^\']*)\')', tag)
-        return (a.group(1) if a.group(1) is not None else a.group(2)).strip() if a else None
+        v = root.get(name)
+        return v.strip() if v is not None else None
 
     def length(name):
         """px for an absolute length, None for a missing or percentage one."""

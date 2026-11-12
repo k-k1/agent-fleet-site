@@ -17,6 +17,7 @@ arrives, and a page opened at #anchor drifts away from the heading. scripts/to_s
 image file. The site's own chrome (the logo) is left out: its size can come from CSS.
 """
 import json
+import math
 import pathlib
 import re
 import sys
@@ -27,23 +28,43 @@ from urllib.parse import unquote
 VOID = {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'source', 'track', 'wbr'}
 
 
+NUM = r'(?:[0-9]+\.?[0-9]*|\.[0-9]+)(?:[eE][+-]?[0-9]+)?'
+RATIO = re.compile(rf'({NUM})\s*(?:/\s*({NUM}))?')
+
+
 def _number(v):
     try:
-        return float(v) > 0
+        f = float(v)
     except (TypeError, ValueError):
         return False
+    return math.isfinite(f) and f > 0
+
+
+def _ratio(value):
+    """True for an aspect-ratio value that fixes the box: a positive number or n / m, optionally with 'auto'."""
+    v = re.sub(r'\s*!important\s*$', '', value.strip(), flags=re.I)
+    parts = v.split()
+    if 'auto' in (p.lower() for p in parts):
+        # "auto 16 / 9" or "16 / 9 auto": the ratio holds until the image loads. Plain "auto" does not.
+        v = ' '.join(p for p in parts if p.lower() != 'auto')
+    m = RATIO.fullmatch(v)
+    return bool(m) and _number(m.group(1)) and (m.group(2) is None or _number(m.group(2)))
 
 
 def has_box(attrs):
-    """An <img> whose box is known before it loads: width and height, or an aspect-ratio declared in its style."""
+    """An <img> whose box is known before it loads: width and height, or a valid aspect-ratio in its style.
+
+    Only the last aspect-ratio declaration counts, as in CSS: "aspect-ratio: 2; aspect-ratio: auto" is not sized.
+    """
     a = dict(attrs)
     if _number(a.get('width')) and _number(a.get('height')):
         return True
+    last = None
     for decl in (a.get('style') or '').split(';'):
         prop, _, value = decl.partition(':')
-        if prop.strip().lower() == 'aspect-ratio' and value.strip() and value.strip().lower() != 'auto':
-            return True
-    return False
+        if prop.strip().lower() == 'aspect-ratio':
+            last = value
+    return last is not None and _ratio(last)
 
 
 class ContentImages(HTMLParser):
