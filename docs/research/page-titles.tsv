@@ -177,7 +177,7 @@ operate/compose/macos	macOS（Apple Silicon）で動かす	Docker Compose
 operate/compose/workspace-listener	ワークスペースから CP に届かないとき	Docker Compose
 operate/native/install	ネイティブパッケージを入れる	ネイティブパッケージ
 operate/native/update	ネイティブパッケージを更新する	ネイティブパッケージ
-operate/native/service	サービスとして動かす（systemd）	ネイティブパッケージ
+operate/native/service	systemd でサービスとして動かす	ネイティブパッケージ
 operate/native/uninstall	リセット・アンインストールする	ネイティブパッケージ
 operate/wsl	WSL で個人用に動かす	そのほかの構成
 operate/aws-ec2-single	EC2 1 台に構築する	そのほかの構成
