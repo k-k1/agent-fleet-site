@@ -21,6 +21,32 @@ npx astro preview --host 127.0.0.1 --port 4410   # http://127.0.0.1:4410/docs/
 2. Lays `pilot/` over it.
 3. Converts the result with `scripts/to_starlight.py`.
 4. Builds the site. The link validator fails the build on a broken link or anchor.
+5. Writes redirect stubs for the old URLs of pages that moved, with `scripts/redirect_stubs.py` (below).
+
+## Old URLs
+
+agent-fleet's `guide/_redirects.tsv` lists the pages and sections that moved (`old<TAB>new`, English paths; a left side
+with `#anchor` is a section that moved out of a page). Cloudflare Pages serves static files only, so after
+`astro build` `scripts/redirect_stubs.py` turns the map into pages:
+
+- **An old page that is not built** gets a stub at its URL, in both languages (`dist/member/lite/index.html`,
+  `dist/ja/member/lite/index.html`). Its script reads `location.hash` and goes to that section's row with
+  `location.replace`; a hash with no row goes to the page-level target, which a meta refresh also uses without
+  JavaScript. The stub has `noindex`, a canonical link and a plain link. Written after the build, it is in neither
+  Pagefind nor the sitemap.
+- **The page-level target** is the page's own row. A page that has only section rows goes where its first section
+  went: the first of its rows in the heading order of the last release that had the page.
+- **An old page that is still built** but lost sections gets a small map in its `<head>`: when the hash names no
+  element on the page and the map has it, the reader goes to the section's new place.
+- **Japanese.** The map's anchors are English heading slugs. The old page's English and Japanese headings are paired
+  by position, from the newest release (in the checkout's history) whose two versions have the same heading levels;
+  so is a target's anchor, from the built pages. What cannot be paired goes to the Japanese page's top. A row's
+  anchor is matched in both the Console's and GitHub's slug form (`a → b` is `a-b` or `a--b`).
+- `scripts/check_dist.py` fails the build when a redirect's target page is not built, its anchor is not an id on that
+  page, or a stub sits where the sitemap lists a page. It reports the stubs apart from the pages.
+
+The history is why `scripts/pages-build.sh` clones agent-fleet blobless instead of shallow: a shallow clone has no
+earlier release, and its Japanese stubs would map no section.
 
 ## Search quality
 
@@ -53,6 +79,7 @@ node scripts/search_quality.mjs --compact            # ranks only, one line (for
 | `astro.config.mjs` | Starlight, the topics (user guide / team admin / self-hosting / reference / release notes), the link validator |
 | `src/console-slug.mjs` | Heading ids by the Console's rule (`guide/`) or github-slugger (runbooks). See ADR 0131 §2 |
 | `scripts/to_starlight.py` | Staged guide → Starlight content: titles, language routes, links, alerts → asides, 2x screenshot widths |
+| `scripts/redirect_stubs.py` | Redirect stubs for the old URLs (above), written into `dist/` after the build |
 | `scripts/mcp_page.py` | Renders the MCP tool tables from `research/mcp-inventory.md`. Interim: the plan is to generate from the golden `list.json` files |
 | `pilot/` | Rewritten pages in the new structure, in Japanese only so far. It mirrors `guide/`: `user/…`, `ref/cli/…`, `ref/mcp/…` |
 | `research/page-map.ja.md` | Map from every section of the current `guide/` and the shipped runbooks to a page of the new structure (#3463), agreed with the user on 2026-11-07. Rules in `research/page-map.tsv` and `research/page-titles.tsv`; `scripts/page_map.py <checkout> [--write]` checks that every heading is mapped and regenerates the tables |
@@ -72,7 +99,7 @@ Cloudflare Pages runs `scripts/pages-build.sh` (in the repository root) on every
 - **Every other branch is a preview** and always builds `/docs/`, with the pilot pages. To review pages that are not
   released, push a branch here whose `scripts/docs-ref.txt` names an agent-fleet branch (`main`, or a pull request's
   branch); its preview URL shows them.
-- Each build checks the output for dead `/docs/` links (`scripts/check_dist.py`).
+- Each build checks the output for dead `/docs/` links and redirects that point nowhere (`scripts/check_dist.py`).
 
 To reproduce a deploy locally, from the repository root: `CF_PAGES_BRANCH=main bash scripts/pages-build.sh`, or any
 other branch name for a preview.
