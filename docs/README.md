@@ -18,7 +18,7 @@ npx astro preview --host 127.0.0.1 --port 4410   # http://127.0.0.1:4410/docs/
 
 1. Takes `guide/`, `deploy/` and `scripts/` from the tag and runs the main repository's
    `deploy/release/stage-docs.sh`, the same closed tree the Console ships.
-2. Lays `pilot/` over it.
+2. Lays `pilot/` over it, when that directory exists (it is empty now: every pilot page is in the guide).
 3. Converts the result with `scripts/to_starlight.py`.
 4. Builds the site. The link validator fails the build on a broken link or anchor.
 5. Writes redirect stubs for the old URLs of pages that moved, with `scripts/redirect_stubs.py` (below).
@@ -84,8 +84,7 @@ node scripts/search_quality.mjs --compact            # ranks only, one line (for
 | `src/console-slug.mjs` | Heading ids by the Console's rule (`guide/`) or github-slugger (runbooks). See ADR 0131 §2 |
 | `scripts/to_starlight.py` | Staged guide → Starlight content: titles, language routes, links, alerts → asides, 2x screenshot widths |
 | `scripts/redirect_stubs.py` | Redirect stubs for the old URLs (above), written into `dist/` after the build |
-| `scripts/mcp_page.py` | Renders the MCP tool tables from `research/mcp-inventory.md`. Interim: the plan is to generate from the golden `list.json` files |
-| `pilot/` | Rewritten pages in the new structure, in Japanese only so far. It mirrors `guide/`: `user/…`, `ref/cli/…`, `ref/mcp/…` |
+| `pilot/` | Draft pages laid over the release's guide in previews (mirrors `guide/`). Absent while there are no drafts; production never uses it (`DOCS_PILOT=0`) |
 | `research/page-map.ja.md` | Map from every section of the current `guide/` and the shipped runbooks to a page of the new structure (#3463), agreed with the user on 2026-11-07. Rules in `research/page-map.tsv` and `research/page-titles.tsv`; `scripts/page_map.py <checkout> [--write]` checks that every heading is mapped and regenerates the tables |
 | `research/search-queries.tsv`, `scripts/search_quality.mjs` | The search-quality check (above) |
 | `research/mcp-inventory.md` | The 81 MCP tools: their routes, gates and sources, collected from the code |
