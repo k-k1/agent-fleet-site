@@ -16,11 +16,13 @@ the sitemap.
 - An old page that is still built, but lost sections, gets a small map instead: when the hash names no element on
   the page and the map has it, the reader goes to the section's new place.
 
-Japanese: the anchors in the file are English heading slugs, and a Japanese page has Japanese ones. The old page's
-English and Japanese headings are paired by position, from the newest release (merged into <ref>) whose two
-versions have the same heading levels and contain the anchor; the target's anchor is paired the same way from the
-built pages. An anchor that cannot be paired falls back to the Japanese page-level target (or to the top of the
-target page). scripts/check_dist.py checks every target that is written here.
+Japanese: the anchors in the file are English heading slugs, and a Japanese page has Japanese ones. A heading is
+paired with the one at the same position in the other language, from the newest release (merged into <ref>) whose
+two versions of the old page have the same heading levels and contain the anchor, and for the target from the
+built pages. Position alone is not trusted: the pair is kept only when the two sections' bodies agree (see
+`paired`), so two same-level sections in a different order are not mistaken for each other. An anchor that cannot
+be paired falls back to the Japanese page-level target (or to the top of the target page). scripts/check_dist.py
+checks every target that is written here.
 """
 import html
 import json
@@ -36,6 +38,9 @@ STUB_MARK = 'id="redirect-map"'
 SECTION_MARK = 'id="section-redirects"'
 HEADING_ID = re.compile(r'<h([1-6])\b[^>]*\sid="([^"]+)"')
 MD_HEADING = re.compile(r"^(#{1,6})\s+(.*?)\s*#*\s*$")
+# What a section and its translation share: ASCII words (names, commands, code) and numbers.
+TOKEN = re.compile(r"[A-Za-z][A-Za-z0-9_.+/-]*[A-Za-z0-9]|\d+")
+SHAPE = ("fence", "row", "item", "image", "link", "quote")
 
 STUB_JS = ("(()=>{const m=JSON.parse(document.getElementById('redirect-map').textContent);"
            "let h='';try{h=decodeURIComponent(location.hash.slice(1))}catch(e){}"
@@ -98,43 +103,109 @@ def heading_text(md: str) -> str:
     return html.unescape(t.replace("`", ""))
 
 
+def evidence(tokens: set, shape: dict) -> frozenset:
+    """A section's language-neutral content: its ASCII words and numbers, and how many code blocks, table rows, list
+    items, images, links and quotes it has."""
+    return frozenset(tokens | {f"#{k}:{v}" for k, v in shape.items() if v})
+
+
+def nest(heads):
+    """A section's evidence includes its sub-sections: a heading followed directly by sub-headings has no body."""
+    out = []
+    for n, (lv, i, ev) in enumerate(heads):
+        k = n + 1
+        while k < len(heads) and heads[k][0] > lv:
+            ev |= heads[k][2]
+            k += 1
+        out.append((lv, i, ev))
+    return out
+
+
 def md_headings(text: str):
-    """[(level, (Console id, GitHub id))] of a guide page; the first H1 is the page title and has no id.
+    """[(level, (Console id, GitHub id), evidence)] of a guide page; the first H1 is the page title and has no id.
 
     The site and the Console give a guide heading the Console's id, but a row may have been written with GitHub's
     (`a → b` is `a-b` in one and `a--b` in the other), so both are kept and either one matches.
     """
     out, seen, fence, title = [], ({}, {}), False, False
+    tokens, shape = None, None
     for line in text.split("\n"):
-        if line.lstrip().startswith("```"):
+        st = line.lstrip()
+        if st.startswith("```"):
             fence = not fence
+            if fence and shape is not None:
+                shape["fence"] += 1
             continue
         m = None if fence else MD_HEADING.match(line)
-        if not m:
-            continue
-        level = len(m.group(1))
-        if level == 1 and not title:
+        if m and not (len(m.group(1)) == 1 and not title):
+            ids = []
+            for rule, used in zip((console_slug, github_slug), seen):
+                i = rule(heading_text(m.group(2)))
+                k = used.get(i, 0)
+                used[i] = k + 1
+                ids.append(f"{i}-{k}" if k else i)
+            tokens, shape = set(), dict.fromkeys(SHAPE, 0)
+            out.append((len(m.group(1)), tuple(ids), tokens, shape))
+        elif m:
             title = True
             continue
-        ids = []
-        for rule, used in zip((console_slug, github_slug), seen):
-            i = rule(heading_text(m.group(2)))
-            k = used.get(i, 0)
-            used[i] = k + 1
-            ids.append(f"{i}-{k}" if k else i)
-        out.append((level, tuple(ids)))
-    return out
+        if tokens is None:
+            continue
+        if not fence:
+            if st.startswith("|"):
+                shape["row"] += 1
+            elif re.match(r"([-*+]|\d+\.)\s", st):
+                shape["item"] += 1
+            elif st.startswith(">"):
+                shape["quote"] += 1
+            shape["image"] += line.count("![")
+            shape["link"] += len(re.findall(r"(?<!!)\[[^\]]*\]\(", line))
+        line = re.sub(r"!?\[([^\]]*)\]\([^)]*\)", r"\1", line)  # link targets differ by language
+        tokens |= {t.lower() for t in TOKEN.findall(line)}
+    return nest([(lv, ids, evidence(t, sh)) for lv, ids, t, sh in out])
 
 
 def html_headings(doc: str):
-    return [(int(lv), i) for lv, i in HEADING_ID.findall(doc) if i != "_top" and not i.startswith("starlight__")]
+    """[(level, id, evidence)] of the headings in a built page's content."""
+    start = doc.find('class="sl-markdown-content"')
+    if start < 0:
+        return []
+    end = doc.find("<footer", start)
+    body = doc[start:end if end > 0 else len(doc)]
+    body = re.sub(r'<a class="sl-anchor-link".*?</a>|<svg.*?</svg>', "", body, flags=re.S)
+    parts = re.split(r'<h([2-6])\b[^>]*\sid="([^"]+)"[^>]*>', body)
+    out = []
+    for n in range(1, len(parts) - 2, 3):
+        chunk = parts[n + 2]
+        shape = {"fence": chunk.count("<pre"), "row": len(re.findall(r"<tr\b", chunk)),
+                 "item": len(re.findall(r"<li\b", chunk)), "image": len(re.findall(r"<img\b", chunk)),
+                 "link": len(re.findall(r"<a\b", chunk)), "quote": len(re.findall(r"<aside\b|<blockquote\b", chunk))}
+        text = html.unescape(re.sub(r"<[^>]+>", " ", chunk))
+        out.append((int(parts[n]), parts[n + 1], evidence({t.lower() for t in TOKEN.findall(text)}, shape)))
+    return nest(out)
 
 
-def pair(en, ja):
-    """{en id: ja id} when both versions have the same heading levels, else {}."""
-    if not en or [lv for lv, _ in en] != [lv for lv, _ in ja]:
-        return {}
-    return {e: j for (_, e), (_, j) in zip(en, ja)}
+def paired(en, ja, n) -> bool:
+    """Whether heading n of `en` and heading n of `ja` are the same section.
+
+    The two versions must have the same heading levels, section n must share some content with its counterpart,
+    and swapping it with any other section of the same level must not fit better: a pair of same-level sections in
+    a different order fits better swapped. Content counts only where the other language could have it (English
+    words that appear nowhere on the Japanese page are prose)."""
+    if not en or [h[0] for h in en] != [h[0] for h in ja]:
+        return False
+    shared = frozenset().union(*(h[2] for h in ja))
+    e = [h[2] & shared for h in en]
+    j = [h[2] for h in ja]
+
+    def sim(a, b):
+        return len(a & b) / len(a | b) if a | b else 0.0
+
+    here = sim(e[n], j[n])
+    if here == 0:
+        return False
+    return all(sim(e[n], j[m]) + sim(e[m], j[n]) <= here + sim(e[m], j[m])
+               for m in range(len(en)) if m != n and en[m][0] == en[n][0])
 
 
 # --- the old pages, from the checkout's history ---------------------------------------------------------------------
@@ -234,14 +305,14 @@ def main():
 
     def old_ids(page, anchor):
         """The ids the old page's section had: ({English ids}, {Japanese ids}). The Japanese ones come from the
-        newest release whose two versions have the same heading levels, paired by position."""
+        newest release where the two versions' sections pair (`paired`)."""
         en_ids = {anchor}
         for _, en, ja in olds.get(page, []):
-            n = next((n for n, (_, ids) in enumerate(en) if anchor in ids), None)
+            n = next((n for n, h in enumerate(en) if anchor in h[1]), None)
             if n is None:
                 continue
             en_ids |= set(en[n][1])
-            if [lv for lv, _ in en] == [lv for lv, _ in ja]:
+            if paired(en, ja, n):
                 return en_ids, set(ja[n][1])
         return en_ids, set()
 
@@ -256,7 +327,9 @@ def main():
         en, ja = doc("en", page), doc("ja", page)
         if f'id="{anchor}"' in ja:
             return url("ja", page, anchor)
-        j = pair(html_headings(en or ""), html_headings(ja)).get(anchor)
+        he, hj = html_headings(en or ""), html_headings(ja)
+        n = next((n for n, h in enumerate(he) if h[1] == anchor), None)
+        j = hj[n][1] if n is not None and paired(he, hj, n) else None
         if j is None:
             dropped.add(f"{page}#{anchor}")
         return url("ja", page, j or "")
@@ -271,7 +344,7 @@ def main():
             first = prow[0]
         else:
             heads = next((en for _, en, _ in olds.get(page, []) if en), [])
-            order = {i: n for n, (_, h) in enumerate(heads) for i in h}
+            order = {i: n for n, h in enumerate(heads) for i in h[1]}
             first = min(arows, key=lambda r: (order.get(r[1], len(heads)), arows.index(r)))
         for lang in ("en", "ja"):
             built = doc(lang, page)

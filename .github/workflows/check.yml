@@ -19,6 +19,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Local links, images, hreflang, security.txt
         run: python3 scripts/check.py
+      - name: Docs build scripts (redirect stubs)
+        run: python3 -m unittest discover -s docs/scripts -p 'test_*.py'
       - name: External links and GitHub heading anchors
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         run: python3 scripts/check.py --online

@@ -40,7 +40,11 @@ with `#anchor` is a section that moved out of a page). Cloudflare Pages serves s
   element on the page and the map has it, the reader goes to the section's new place.
 - **Japanese.** The map's anchors are English heading slugs. The old page's English and Japanese headings are paired
   by position, from the newest release (in the checkout's history) whose two versions have the same heading levels;
-  so is a target's anchor, from the built pages. What cannot be paired goes to the Japanese page's top. A row's
+  so is a target's anchor, from the built pages. Position alone is not trusted: a pair is kept only when the two
+  sections share language-neutral content (ASCII words, numbers, code blocks, table rows, list items, links) and
+  fit each other better than they would swapped with any other section of the same level, so headings in a
+  different order are not mixed up. What cannot be paired goes to the Japanese page-level target, or to the top of
+  the target page. `python3 -m unittest discover -s docs/scripts -p 'test_*.py'` tests this (CI runs it). A row's
   anchor is matched in both the Console's and GitHub's slug form (`a → b` is `a-b` or `a--b`).
 - `scripts/check_dist.py` fails the build when a redirect's target page is not built, its anchor is not an id on that
   page, or a stub sits where the sitemap lists a page. It reports the stubs apart from the pages.
