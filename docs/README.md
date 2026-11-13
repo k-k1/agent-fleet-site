@@ -52,6 +52,23 @@ with `#anchor` is a section that moved out of a page). Cloudflare Pages serves s
 The history is why `scripts/pages-build.sh` clones agent-fleet blobless instead of shallow: a shallow clone has no
 earlier release, and its Japanese stubs would map no section.
 
+## Text for agents
+
+Every page is also published as Markdown next to its HTML, `/docs/<path>/index.md` (`/docs/ja/<path>/index.md`), and
+`/docs/llms.txt` lists every page with its title, its audience and that URL, a section per topic in English and then
+in Japanese. `scripts/to_starlight.py` writes both into `agent-text/` from the staged guide, and `build.sh` copies them
+into `dist/` after the build. The Markdown is the guide's own: GitHub alerts and code blocks as written, every link an
+absolute URL (a page link points at that page's `index.md`). A page the guide has only in English is built at its
+Japanese URL too (Starlight's fallback), so its Markdown is copied there and llms.txt marks it 「（英語のみ）」.
+
+The home pages and the self-hosting pages (`operate/`, runbooks included, the shelves in `AGENT_BOX_SHELVES` of
+`src/components/ForAgents.astro`) show a "For agents" box with a prompt to copy (`Read
+https://agent-fleet.org/docs/<path>/index.md`; the home pages point at llms.txt): under "On this page" in the right
+column (`src/components/TableOfContents.astro`), and at the end of the page where there is no right column, on narrow
+screens, on pages without headings and on the home pages (`src/components/Footer.astro`). Other pages have no box but
+still have their `index.md` and their line in llms.txt. `scripts/check_dist.py` fails when a built page has no `index.md` or llms.txt
+does not list it.
+
 ## Search quality
 
 Search is Pagefind, built into `dist/pagefind/` by Starlight. It segments Japanese, so a compound such as 「共有サインイン」
@@ -86,9 +103,10 @@ node scripts/search_quality.mjs --compact            # ranks only, one line (for
 
 | Path | What |
 |---|---|
-| `astro.config.mjs` | Starlight, the topics (user guide / team admin / self-hosting / reference / release notes), the link validator |
+| `astro.config.mjs` | Starlight, the topics (using Agent Fleet / team admin / self-hosting / reference / release notes), the link validator |
 | `src/console-slug.mjs` | Heading ids by the Console's rule (`guide/`) or github-slugger (runbooks). See ADR 0131 §2 |
-| `scripts/to_starlight.py` | Staged guide → Starlight content: titles, language routes, links, alerts → asides, image sizes (WebP screenshots are 2x: half their width and height; a size it cannot read fails the build) |
+| `scripts/to_starlight.py` | Staged guide → Starlight content: the root landing (from `guide/README*.md`, with the native one-liner taken from the native install page; a changed shape fails the build), titles, language routes, links, alerts → asides, image sizes (WebP screenshots are 2x: half their width and height; a size it cannot read fails the build) |
+| `src/components/` | Starlight overrides: `Header.astro` (the product site's links, a site title that leads to the product top, a phone menu on the splash page) and `MobileMenuFooter.astro` (the same links in the mobile menu) |
 | `scripts/redirect_stubs.py` | Redirect stubs for the old URLs (above), written into `dist/` after the build |
 | `pilot/` | Draft pages laid over the release's guide in previews (mirrors `guide/`). Absent while there are no drafts; production never uses it (`DOCS_PILOT=0`) |
 | `research/page-map.ja.md` | Map from every section of the current `guide/` and the shipped runbooks to a page of the new structure (#3463), agreed with the user on 2026-11-07. Rules in `research/page-map.tsv` and `research/page-titles.tsv`; `scripts/page_map.py <checkout> [--write]` checks that every heading is mapped and regenerates the tables |

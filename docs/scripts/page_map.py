@@ -135,7 +135,7 @@ def main():
 
 INTERNAL = 'internal'
 
-SHELVES = {'user': 'ユーザーガイド（user/）', 'admin': 'チーム管理（admin/）',
+SHELVES = {'user': '使いかた（user/）', 'admin': 'チーム管理（admin/）',
            'operate': 'セルフホスト（operate/）', 'ref': 'リファレンス（ref/）'}
 
 

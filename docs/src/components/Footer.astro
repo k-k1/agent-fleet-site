@@ -1,0 +1,29 @@
+---
+// Starlight's footer, with the "For agents" box above it where the right column does not show it: on narrow screens
+// (Starlight hides the right column below 72rem), on pages without a table of contents, and on the splash home pages
+// (under their cards). ForAgents.astro decides which pages show the box at all.
+import Default from '@astrojs/starlight/components/Footer.astro';
+import ForAgents from './ForAgents.astro';
+
+const { toc } = Astro.locals.starlightRoute;
+---
+
+<ForAgents class:list={['af-for-agents-end', 'print:hidden', { 'lg:sl-hidden': toc }]} />
+<Default />
+
+<style>
+  .af-for-agents-end {
+    margin-top: 3rem;
+    padding: 1rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+    background-color: var(--sl-color-gray-7, var(--sl-color-gray-6));
+  }
+  .af-for-agents-end :global(h2) {
+    color: var(--sl-color-white);
+    font-size: var(--sl-text-h5);
+    font-weight: 600;
+    line-height: var(--sl-line-height-headings);
+    margin-bottom: 0.5rem;
+  }
+</style>

@@ -18,3 +18,13 @@
     --sl-text-h4: 1.0625rem; /* 17px */
   }
 }
+
+/* The landing page (scripts/to_starlight.py) has a hero without an image: Starlight still keeps its 7fr/4fr grid,
+   which squeezed 「Agent Fleet 利用ガイド」 into 「…ガイ / ド」. The text takes the whole width, and a title wraps
+   only between words. */
+@media (min-width: 50rem) {
+  [data-has-hero] .hero:not(:has(> img, > .hero-html)) { grid-template-columns: 100%; }
+}
+[data-has-hero] .hero h1 { word-break: keep-all; overflow-wrap: anywhere; }
+/* The tagline spans the same column as the title rather than Starlight's 50ch. */
+[data-has-hero] .hero .tagline { max-width: none; }
