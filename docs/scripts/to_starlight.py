@@ -64,9 +64,34 @@ LANDING_SHELVES = {"user": "user", "member": "user", "admin": "admin", "operate"
 LANDING_LINK = re.compile(r"\[((?:[^\]\\]|\\.)*)\]\((/docs/[^)\s]*)\)")
 
 
+WIDE = r"[^\x00-\x7f]"
+
+
 def _plain(md: str) -> str:
-    """Markdown inline text without its links and emphasis."""
-    return re.sub(r"\*\*|`", "", LANDING_LINK.sub(lambda m: m.group(1), md)).strip()
+    """Markdown inline text without its links and emphasis.
+
+    A space that only set a link apart from Japanese text next to it goes with the link: 「[更新履歴](…) は」 becomes
+    「更新履歴は」, while 「Console でエージェント」 (no link) keeps its space.
+    """
+    open_, close = "\x02", "\x03"  # where each link's text starts and ends
+    t = re.sub(r"\*\*|`", "", LANDING_LINK.sub(lambda m: open_ + m.group(1) + close, md))
+    t = re.sub(f"(?<={WIDE}) {open_}(?={WIDE})", open_, t)
+    t = re.sub(f"(?<={WIDE}){close} (?={WIDE})", close, t)
+    return t.replace(open_, "").replace(close, "").strip()
+
+
+# A shelf paragraph opens with its own name as the subject: 「**[リファレンス](…)** は」, "**The [Reference](…)** is".
+SUBJECT = {"ja": re.compile(r"\A\*\*[^*]*\]\([^)]*\)[^*]*\*\* ?は"),
+           "en": re.compile(r"\A\*\*[^*]*\]\([^)]*\)[^*]*\*\* [a-z]+ ")}
+
+
+def _predicate(md: str, lang: str):
+    """The paragraph without its opening subject, so a card does not repeat its own title; None if it has none."""
+    m = SUBJECT[lang].match(md)
+    if not m:
+        return None
+    rest = md[m.end():].lstrip()
+    return rest[:1].upper() + rest[1:]
 
 
 def _sentences(text: str, lang: str):
@@ -84,6 +109,11 @@ def landing(lang: str, title: str, body: str, labels: dict) -> str:
     does not recognise, rather than dropping it: a lead paragraph that links the first-time page, a three-column
     table with one row per reader and a link to their shelf, then one paragraph each for the reference, the release
     history, the no-terminal entry, and the closing note on the Console.
+
+    Nothing is dropped silently. The sentence pointing at the first-time page and the no-terminal sentence become
+    the hero's buttons (each must be one sentence with one link), the table's shelf link becomes a card titled with
+    the topic label, a shelf paragraph loses only its subject (its own name, which is the card's title), and every
+    other sentence is a card's description or text below the cards. Anything that does not fit fails the build.
     """
     sep = " " if lang == "en" else ""
     blocks = [b.strip("\n") for b in re.split(r"\n\s*\n", body.strip()) if b.strip()]
@@ -109,14 +139,18 @@ def landing(lang: str, title: str, body: str, labels: dict) -> str:
     first = one_link(lead, "lead paragraph")[0]
     if not url_lang(first[1]).startswith("user/start/"):
         fail(f"the lead paragraph's link {first[1]} is not a first-time page under user/start/")
+    if len(LANDING_LINK.findall(lead)) != 1:
+        fail("the lead paragraph has more than one link; only the first-time page can become its button")
     rows = [[c.strip() for c in r.strip().strip("|").split("|")] for r in table.splitlines()]
     if len(rows) < 3 or any(len(r) != 3 for r in rows) or not all(re.fullmatch(r":?-+:?", c) for c in rows[1]):
         fail("the readers' table is not a header, a separator and rows of three columns")
     cards = []
     for reader, read, answers in rows[2:]:
         links = LANDING_LINK.findall(read)
-        if len(links) != 1:
-            fail(f"the table row for {reader!r} does not link one shelf")
+        if len(links) != 1 or LANDING_LINK.sub("", read).strip():
+            fail(f"the table row for {reader!r} does not link one shelf and nothing else")
+        if LANDING_LINK.search(reader) or LANDING_LINK.search(answers):
+            fail(f"the table row for {reader!r} has a link outside its shelf column; a card cannot carry it")
         shelf = url_lang(links[0][1]).split("/", 1)[0]
         if shelf not in LANDING_SHELVES:
             fail(f"the table row for {reader!r} links {links[0][1]}, which is not a known shelf")
@@ -137,6 +171,9 @@ def landing(lang: str, title: str, body: str, labels: dict) -> str:
         elif targets and targets[0].startswith("ref/releases/") and releases is None:
             releases = b
         elif targets and targets[0].startswith("user/start/") and no_term is None:
+            # The whole paragraph becomes a button: one sentence, one link, nothing else to lose.
+            if len(links) != 1 or len(_sentences(sep.join(l.strip() for l in b.splitlines()), lang)) != 1:
+                fail(f"the no-terminal paragraph is not one sentence with one link: {b.splitlines()[0]!r}")
             no_term = links[0]
         elif not links and not notes:
             notes.append(b)
@@ -151,12 +188,26 @@ def landing(lang: str, title: str, body: str, labels: dict) -> str:
     own, other = [], []
     for x in _sentences(ref_text, lang):
         (other if [u for _, u in LANDING_LINK.findall(x) if url_lang(u) != "ref/"] else own).append(x)
-    if not own:
-        fail("the reference paragraph has no sentence describing it")
+    ref_desc = _predicate(sep.join(own), lang) if own else None
+    if not ref_desc:
+        fail("the reference paragraph does not open with its own name as the subject")
     ref_url = LANDING_LINK.findall(ref)[0][1]
-    cards.append(("ref", ref_url, _plain(sep.join(own))))
+    cards.append(("ref", ref_url, _plain(ref_desc)))
     rel_text = sep.join(l.strip() for l in releases.splitlines())
+    rel_desc = _predicate(rel_text, lang)
+    if not rel_desc:
+        fail("the release-history paragraph does not open with its own name as the subject")
+    if len(LANDING_LINK.findall(releases)) != 1:
+        fail("the release-history paragraph has more than one link; its card can carry only its own")
     rel_url = LANDING_LINK.findall(releases)[0][1]
+
+    # The tagline leaves out the sentence that points at the first-time page: the primary button says it.
+    lead_sents = _sentences(sep.join(l.strip() for l in lead.splitlines()), lang)
+    lead_rest = [x for x in lead_sents if first[1] not in x]
+    if len(lead_sents) - len(lead_rest) != 1:
+        fail("the pointer to the first-time page is not one sentence of the lead paragraph")
+    if not lead_rest:
+        fail("the lead paragraph has nothing besides the pointer to the first-time page")
 
     tail = [sep.join(other).strip()] if other else []
     tail += [sep.join(l.strip() for l in n.splitlines()) for n in notes]
@@ -171,7 +222,7 @@ def landing(lang: str, title: str, body: str, labels: dict) -> str:
         f"title: {yaml_str(title)}",
         "template: splash",
         "hero:",
-        f"  tagline: {yaml_str(html.escape(_plain(sep.join(l.strip() for l in lead.splitlines()))))}",
+        f"  tagline: {yaml_str(html.escape(_plain(sep.join(lead_rest))))}",
         "  actions:",
         f"    - text: {yaml_str(_plain(first[0]))}",
         f"      link: {yaml_str(first[1])}",
@@ -188,7 +239,7 @@ def landing(lang: str, title: str, body: str, labels: dict) -> str:
         *[card(*c) for c in cards],
         "</CardGrid>",
         "",
-        card("releases", rel_url, _plain(_sentences(rel_text, lang)[0])).strip(),
+        card("releases", rel_url, _plain(rel_desc)).strip(),
         "",
         *[t + "\n" for t in tail],
     ]

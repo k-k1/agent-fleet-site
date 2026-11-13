@@ -119,6 +119,8 @@ export default defineConfig({
     starlight({
       title: 'Agent Fleet',
       customCss: ['./src/styles/custom.css'],
+      // Adds the language and theme selects on phones to pages without a sidebar (the splash landing page).
+      components: { Header: './src/components/Header.astro' },
       logo: { src: './src/assets/icon.png' },
       favicon: '/favicon.png',
       defaultLocale: 'root',
