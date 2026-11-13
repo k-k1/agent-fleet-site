@@ -3,6 +3,9 @@
 // published as Markdown next to its HTML (/docs/<path>/index.md, scripts/to_starlight.py); the home pages point at
 // /docs/llms.txt, the list of every page. Shown by TableOfContents.astro (the right column) and Footer.astro (the end
 // of the page, where there is no right column).
+//
+// Only the home pages and the pages of the shelves in AGENT_BOX_SHELVES (operate/: the self-hosting topic, runbooks
+// included) show it. Every page still has its index.md and is in llms.txt; this decides only where the box is shown.
 import { Code } from '@astrojs/starlight/components';
 import BreakAfterSlash from './BreakAfterSlash.astro';
 
@@ -17,10 +20,15 @@ const site = Astro.site?.origin ?? 'https://agent-fleet.org';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const path = Astro.url.pathname;
 const home = path === `${base}/` || path === `${base}/ja/`;
+// The first directory of the page's path, without the language: /docs/ja/operate/runbooks/wsl/ -> operate.
+const AGENT_BOX_SHELVES = ['operate'];
+const shelf = path.slice(base.length + 1).replace(/^ja\//, '').split('/')[0];
+const hasAgentBox = home || AGENT_BOX_SHELVES.includes(shelf);
 const url = home ? `${site}${base}/llms.txt` : `${site}${path.endsWith('/') ? path : path + '/'}index.md`;
 const prompt = ja ? `${url} を読んで` : `Read ${url}`;
 ---
 
+{hasAgentBox && (
 <section class:list={['af-for-agents', className]}>
   <h2>{ja ? 'エージェント向け' : 'For agents'}</h2>
   <p>
@@ -36,6 +44,7 @@ const prompt = ja ? `${url} を読んで` : `Read ${url}`;
   </p>
   <BreakAfterSlash><Code code={prompt} lang="text" meta="wrap" /></BreakAfterSlash>
 </section>
+)}
 
 <style>
   .af-for-agents p {

@@ -1,15 +1,14 @@
 ---
 // Starlight's footer, with the "For agents" box above it where the right column does not show it: on narrow screens
 // (Starlight hides the right column below 72rem), on pages without a table of contents, and on the splash home pages
-// (under their cards). The 404 page has no Markdown to read and gets no box.
+// (under their cards). ForAgents.astro decides which pages show the box at all.
 import Default from '@astrojs/starlight/components/Footer.astro';
 import ForAgents from './ForAgents.astro';
 
-const { id, toc } = Astro.locals.starlightRoute;
-const notFound = id === '404' || id.endsWith('/404');
+const { toc } = Astro.locals.starlightRoute;
 ---
 
-{!notFound && <ForAgents class:list={['af-for-agents-end', 'print:hidden', { 'lg:sl-hidden': toc }]} />}
+<ForAgents class:list={['af-for-agents-end', 'print:hidden', { 'lg:sl-hidden': toc }]} />
 <Default />
 
 <style>

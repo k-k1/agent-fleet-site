@@ -61,10 +61,12 @@ into `dist/` after the build. The Markdown is the guide's own: GitHub alerts and
 absolute URL (a page link points at that page's `index.md`). A page the guide has only in English is built at its
 Japanese URL too (Starlight's fallback), so its Markdown is copied there and llms.txt marks it 「（英語のみ）」.
 
-Every page shows a "For agents" box with a prompt to copy (`Read https://agent-fleet.org/docs/<path>/index.md`; the
-home pages point at llms.txt): under "On this page" in the right column (`src/components/TableOfContents.astro`), and
-at the end of the page where there is no right column, on narrow screens, on pages without headings and on the home
-pages (`src/components/Footer.astro`). `scripts/check_dist.py` fails when a built page has no `index.md` or llms.txt
+The home pages and the self-hosting pages (`operate/`, runbooks included, the shelves in `AGENT_BOX_SHELVES` of
+`src/components/ForAgents.astro`) show a "For agents" box with a prompt to copy (`Read
+https://agent-fleet.org/docs/<path>/index.md`; the home pages point at llms.txt): under "On this page" in the right
+column (`src/components/TableOfContents.astro`), and at the end of the page where there is no right column, on narrow
+screens, on pages without headings and on the home pages (`src/components/Footer.astro`). Other pages have no box but
+still have their `index.md` and their line in llms.txt. `scripts/check_dist.py` fails when a built page has no `index.md` or llms.txt
 does not list it.
 
 ## Search quality
