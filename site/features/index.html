@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Features — Agent Fleet</title>
-  <meta name="description" content="What Agent Fleet does, in detail: sessions that start sessions, incident response with assistants, the issue tracker, the file viewer, git, MCP, governance and usage — each with a link to the user guide.">
+  <meta name="description" content="What Agent Fleet does, in detail: sessions that start sessions, watches, incident response with assistants, the issue tracker, the file viewer, git, MCP, governance and usage — each with a link to the user guide.">
   <link rel="canonical" href="https://agent-fleet.org/features/">
   <link rel="alternate" hreflang="en" href="https://agent-fleet.org/features/">
   <link rel="alternate" hreflang="ja" href="https://agent-fleet.org/ja/features/">
@@ -114,7 +114,7 @@
         <p class="note">CI and conflict marks sit on the list rows for GitHub pull requests; for Bitbucket they are in the details. A row that changed since you last looked gets a dot and a bold title.</p>
         <p class="more"><a href="/docs/user/sessions/from-issues/">The issue tracker in the guide →</a></p>
       </div>
-      <figure class="shot"><a href="/assets/img/workitems-en.webp" data-lightbox><img src="/assets/img/workitems-en.webp" width="3200" height="2000" loading="lazy" decoding="async" alt="The issue tracker with CI and conflict marks on pull-request rows, and a pull request&#x27;s details: branches, merge conflicts, reviews, one of eight CI checks failing, and a Start review button"></a></figure>
+      <figure class="shot"><a href="/assets/img/workitems-en.webp" data-lightbox><img src="/assets/img/workitems-en.webp" width="3200" height="2000" loading="lazy" decoding="async" alt="The issue tracker with CI and conflict marks on pull-request rows, and a mergeable pull request&#x27;s details: branches, no conflicts, an approving review, seven CI checks passed, and the Start review and Merge buttons"></a></figure>
     </div>
 
     <div class="case flip" id="plan">
@@ -155,10 +155,10 @@
           <li>A Claude Code session saves how to run the checkout tests. The next morning a Codex session reads it before it starts.</li>
           <li>Every memory shows who wrote it and from which session. Pin, edit or forget it, or revert a change, from the Console.</li>
         </ol>
-        <p class="note">Suggestions from finished sessions are a separate switch, also off by default. Your own Claude Code or Claude Desktop can use the memory through <code>/mcp</code>, and claude.ai through the memory-only <code>/mcp/memory</code>.</p>
+        <p class="note">Memory tidy-up, where a model suggests fixes to memories, is a separate switch, also off by default. Your own Claude Code or Claude Desktop can use the memory through <code>/mcp</code>, and claude.ai through the memory-only <code>/mcp/memory</code>.</p>
         <p class="more"><a href="/docs/user/memory/overview/">Agent memory, in the guide →</a></p>
       </div>
-      <figure class="shot"><a href="/assets/img/memory-en.webp" data-lightbox><img src="/assets/img/memory-en.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="Settings, Agent memory: memories written by Claude Code, Codex, Copilot and OpenCode sessions and by the member, one pinned memory opened"></a></figure>
+      <figure class="shot"><a href="/assets/img/memory-en.webp" data-lightbox><img src="/assets/img/memory-en.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="Settings, Agent memory: memories written by Claude Code, Codex and Copilot sessions and by the member, one pinned memory opened"></a></figure>
     </div>
 
     <div class="case phone" id="phone">
@@ -170,7 +170,7 @@
           <li>Open it and answer the question on its card, as you would at a desk.</li>
           <li>It carries on where it stopped, and the list shows it done.</li>
         </ol>
-        <p class="note">Or answer in the session's Slack or Discord thread, once the chat bridge is connected and “Reply to steer” is on (it is off by default).</p>
+        <p class="note">Or answer in the session's Slack or Discord thread, once the chat bridge is connected and “Reply to steer (two-way)” is on (it is off by default).</p>
         <p class="more"><a href="/docs/user/start/phone/">Using it on a phone, in the guide →</a></p>
       </div>
       <figure class="shot"><a href="/assets/img/demo-phone-en.webp" data-lightbox><img src="/assets/img/demo-phone-en.webp" width="780" height="1840" loading="lazy" decoding="async" alt="Recording on a phone: the sessions overview shows a session asking a question; it is answered on the card and the session finishes"></a></figure>
@@ -241,9 +241,14 @@
           <p class="guide"><a href="/docs/user/fleet/operator/">In the guide →</a></p>
         </li>
         <li>
-          <h4>Session reports and Autopilot</h4>
-          <p>A session the operator instructed reports back when it goes idle, stops at a question or a plan, or exits abnormally. The operator replies on its own, up to <b class="num">10</b> times in a row without you by default (<b class="num">50</b> at most). Autopilot, off by default, also answers routine questions and takes plans through review to approval.</p>
+          <h4>Session reports and Auto-pilot</h4>
+          <p>A session the operator instructed reports back when it goes idle, stops at a question or a plan, or exits abnormally. The operator replies on its own, up to <b class="num">10</b> times in a row without you by default (<b class="num">50</b> at most). “Auto-pilot”, off by default, also answers questions with the session's recommendation and takes plans through review to approval.</p>
           <p class="guide"><a href="/docs/user/fleet/operator/#receive-reports">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Watches</h4>
+          <p>A session can watch a PR's CI, reviews and merge, a GitHub Actions or Bitbucket Pipelines run, a GitHub release or tag, another session going idle, or a timer, and is told when it changes. Its live watches are listed above the message box. With “Tell sessions about their PR's feedback” on (off by default), CI failures and requested changes reach the PR's session, starting it if it is stopped.</p>
+          <p class="guide"><a href="/docs/user/fleet/pr-feedback/#a-session-watches-a-pull-request-itself">In the guide →</a></p>
         </li>
         <li>
           <h4>Handoff</h4>
@@ -277,9 +282,9 @@
           <p class="guide"><a href="/docs/user/memory/changes/">In the guide →</a></p>
         </li>
         <li>
-          <h4>Memories suggested from finished sessions <span class="flag flag-off">Off by default</span></h4>
-          <p>A finished conversation is reviewed and memories are proposed; nothing is saved until you approve it. Only Claude Code runs the review today, with at most <b class="num">250</b> helper calls per workspace a day. Running it automatically is a second switch, also off.</p>
-          <p class="guide"><a href="/docs/user/memory/settings/">In the guide →</a></p>
+          <h4>Memory tidy-up <span class="flag flag-off">Off by default</span></h4>
+          <p>From agents' reports that a memory is stale or wrong, and from lint findings, a model drafts small fixes while the workspace is idle. Nothing in memory changes until you approve.</p>
+          <p class="guide"><a href="/docs/user/memory/tidy-up/">In the guide →</a></p>
         </li>
         <li>
           <h4>Bring in what agents already know</h4>
@@ -293,7 +298,7 @@
         </li>
         <li>
           <h4>Memory snapshots</h4>
-          <p>What Claude Code and Codex remember on their own is snapshotted a few minutes after an agent stops. You can roll it back, and undo the rollback.</p>
+          <p>What Claude Code, Codex and Muse Code remember on their own is snapshotted a few minutes after an agent stops. You can roll it back, and undo the rollback.</p>
           <p class="guide"><a href="/docs/user/memory/snapshots/">In the guide →</a></p>
         </li>
       </ul>
@@ -434,7 +439,7 @@
         </li>
         <li>
           <h4>Scheduled runs</h4>
-          <p>Tell the Fleet Operator “every night at 2:00, …”. The schedule wakes a stopped workspace to run it.</p>
+          <p>Tell the Fleet Operator “every night at 2:00, …”. The schedule wakes a stopped workspace to run it, and can run only when a saved work item query has something new.</p>
           <p class="guide"><a href="/docs/user/fleet/schedules/">In the guide →</a></p>
         </li>
       </ul>
@@ -522,7 +527,7 @@
         </li>
         <li>
           <h4>CLIs already signed in</h4>
-          <p><code>gh</code>, <code>jira</code> and <code>bkt</code> in every session sign in through your connections, so agents work with GitHub, Jira and Bitbucket without a token in the shell. The <code>jira</code> wrapper retries reads on a flaky network and can edit and delete comments.</p>
+          <p><code>gh</code>, <code>jira</code> and <code>bkt</code> in every session sign in through your connections, so agents work with GitHub, Jira and Bitbucket without a token in the shell. The <code>jira</code> wrapper retries reads on a flaky network, edits and deletes comments, and handles attachments. With Jira connected, <code>confluence</code> works through the same connection.</p>
           <p class="guide"><a href="/docs/ref/cli/#clis-that-are-already-signed-in">In the guide →</a></p>
         </li>
         <li>
@@ -532,7 +537,7 @@
         </li>
         <li>
           <h4>Toolchains</h4>
-          <p>The exact JDK and Node.js patch in use, an update to the newest patch with no restart, and Uninstall for the versions you no longer need.</p>
+          <p>The exact JDK (Temurin and Corretto) and Node.js patch in use, an update to the newest patch with no restart, and Uninstall for the versions you no longer need.</p>
           <p class="guide"><a href="/docs/user/workspace/toolchains/">In the guide →</a></p>
         </li>
       </ul>
@@ -584,7 +589,7 @@
         </li>
         <li>
           <h4>Slack and Discord <span class="flag flag-off">Off by default</span></h4>
-          <p>Each session gets its own thread. With “Reply to steer” on, you answer there with buttons.</p>
+          <p>Each session gets its own thread. With “Reply to steer (two-way)” on, you answer there with buttons, and <code>!start &lt;first instruction&gt;</code> starts a new session with it.</p>
           <p class="guide"><a href="/docs/user/integrations/chat-bridge/">In the guide →</a></p>
         </li>
         <li>
@@ -683,7 +688,7 @@
         </li>
         <li>
           <h4>A GPU only when it is needed <span class="flag flag-aws">AWS only</span></h4>
-          <p>On the <code>ecs-ec2</code> edition, a GPU instance starts when a job asks for it and stops once it idles. The first image job waits about <b class="num">3</b> minutes, and a chat engine about <b class="num">9</b>.</p>
+          <p>On <code>ecs-ec2</code>, a GPU instance starts when a job asks for it and stops once it idles. The first image job waits about <b class="num">3</b> minutes, and a chat engine about <b class="num">9</b>.</p>
           <p class="guide"><a href="/docs/operate/engines/gpu/">In the guide →</a></p>
         </li>
         <li>
@@ -760,6 +765,11 @@
           <p class="guide"><a href="/docs/user/agents/bring-claude-setup/#check-your-skills">In the guide →</a></p>
         </li>
         <li>
+          <h4>Member defaults</h4>
+          <p>A tenant administrator names the team's agent and sets the model, execution method, permission prompts and budget the launch dialog opens with, and the team repositories listed first. A member's own choices win.</p>
+          <p class="guide"><a href="/docs/admin/defaults/members/">In the guide →</a></p>
+        </li>
+        <li>
           <h4>Models you don't use</h4>
           <p>Hide the models your plan bills extra for: they leave the pickers, and launches naming them are refused.</p>
           <p class="guide"><a href="/docs/user/troubleshooting/agents/#the-model-you-want-is-not-offered-or-launching-with-it-is-refused">In the guide →</a></p>
@@ -803,7 +813,7 @@
           <h3>Usage and cost</h3>
           <p>Know what the fleet uses before the bill, or the limit, tells you.</p>
         </div>
-        <figure class="shot"><a href="/assets/img/usage-en.webp" data-lightbox><img src="/assets/img/usage-en.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="Usage tab: a stacked per-feature token chart over 30 days, KPI tiles, and breakdowns by feature, agent and model"></a></figure>
+        <figure class="shot"><a href="/assets/img/usage-en.webp" data-lightbox><img src="/assets/img/usage-en.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="Settings, Agent usage: a stacked per-feature token chart over 30 days, KPI tiles, and breakdowns by feature, agent and model"></a></figure>
       </div>
       <ul class="cards">
         <li>
@@ -849,9 +859,9 @@
 <section class="section closing" aria-labelledby="closing-h">
   <div class="wrap">
     <h2 id="closing-h">Try it on your own machine</h2>
-    <p class="lead">The native edition needs Linux on x86_64 or arm64, or WSL2, and no Docker.</p>
+    <p class="lead">The native edition needs Linux on x86_64 or arm64, WSL2, or a Linux VM on an Apple Silicon Mac, and no Docker.</p>
     <div class="actions">
-      <a class="btn btn-primary" href="https://github.com/k-k1/agent-fleet-dist#getting-started--which-edition">Get started</a>
+      <a class="btn btn-primary" href="/docs/operate/overview/">Get started</a>
       <a class="btn btn-ghost" href="/docs/">Read the guide</a>
     </div>
   </div>
@@ -867,8 +877,8 @@
         <a href="https://github.com/k-k1/agent-fleet">Source</a>
         <a href="https://github.com/k-k1/agent-fleet-dist/releases">Releases</a>
         <a href="/docs/">Documentation</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/v0.38.0/SECURITY.md">Security policy</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/v0.38.0/LICENSE">License (Apache-2.0)</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/v0.45.0/SECURITY.md">Security policy</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/v0.45.0/LICENSE">License (Apache-2.0)</a>
         <a href="/ja/features/" hreflang="ja" lang="ja">日本語</a>
       </nav>
     </div>

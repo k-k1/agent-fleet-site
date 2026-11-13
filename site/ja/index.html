@@ -56,7 +56,7 @@
     <h1><span class="nb">エージェントは</span><span class="nb">置き換えない。</span><span class="nb accent">運用する。</span></h1>
     <p class="lead">Agent Fleet は、新しいエージェントフレームワークではありません。チームがいま使っているコーディングエージェントの CLI を、そのまま自社のサーバーで動かし、その周りを引き受けます。引き受けるのは、隔離されたワークスペース、本物の git worktree、そしてすべてのセッションの起動・追跡・操縦・費用の集計を 1 か所で行う Console です。</p>
     <div class="actions">
-      <a class="btn btn-primary" href="https://github.com/k-k1/agent-fleet-dist/blob/main/README.ja.md#はじめに--どの版を選ぶ">はじめる</a>
+      <a class="btn btn-primary" href="/docs/ja/operate/overview/">はじめる</a>
       <a class="btn btn-ghost" href="https://github.com/k-k1/agent-fleet">ソースを見る</a>
     </div>
     <div class="agents">
@@ -80,17 +80,17 @@
       <div class="pillar">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17l6-5-6-5"/><path d="M12 19h8"/></svg></div>
         <h3>いまのエージェントを、そのまま</h3>
-        <p>Claude Code は Claude Code のまま、Codex は Codex のまま。どの CLI も自分のログイン・モデル・振る舞いのまま動くので、チームは使い慣れた道具を手放さずに済みます。9 種類を並べて使えます。</p>
+        <p>Claude Code は Claude Code のまま、Codex は Codex のまま。どの CLI も自分のログイン・モデル・振る舞いのまま動くので、チームは使い慣れたエージェントを手放さずに済みます。9 種類を並べて使えます。</p>
       </div>
       <div class="pillar">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></div>
         <h3>あなたを待たずに進む</h3>
-        <p>セッションはサーバーの上で、それぞれ自分の git worktree で動きます。ノートを閉じても、質問や許可確認はブラウザ、スマートフォン、セッションごとの Slack や Discord のスレッドに届きます。</p>
+        <p>セッションはサーバーの上で、それぞれ自分の git worktree で動きます。ノートを閉じても、質問や許可確認はブラウザ、スマートフォン、セッションごとの Slack や Discord のスレッドに届きます。PR の CI やレビュー、ほかのセッションの終わりを待つときも、セッションはウォッチを置いて、知らせが来たら作業に戻ります。</p>
       </div>
       <div class="pillar">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         <h3>社内で完結する</h3>
-        <p>1 社 1 配備で、自分たちのインフラの上で動くので、資格情報もソースも会話も外に出ません。コードは公開しているので、暗号化と隔離の実装を自分で確かめられます。</p>
+        <p>1 社 1 配備で、自分たちのインフラの上で動くので、認証情報もソースも会話も外に出ません。コードは公開しているので、暗号化と隔離の実装を自分で確かめられます。</p>
       </div>
     </div>
   </div>
@@ -105,9 +105,9 @@
     <div class="shift">
       <p class="shift-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>日中</p>
       <ol class="day">
-        <li><time>09:00</time><strong>2 つの Issue を任せる</strong><p>Claude Code と Codex に 1 つずつ任せます。どちらも自分の git worktree で作業します。</p></li>
-        <li><time>09:10</time><strong>ノートを閉じる</strong><p>出かけても、どちらもサーバーの上で作業を続けます。</p></li>
+        <li><time>09:00</time><strong>2 つの Issue を任せる</strong><p>Claude Code と Codex に 1 つずつ任せます。どちらもサーバーの上の自分の git worktree で作業するので、ノートを閉じても止まりません。</p></li>
         <li><time>11:40</time><strong>スマートフォンから答える</strong><p>片方が許可を求めます。依頼はそのセッションの Slack スレッドに届き、そこで答えられます。</p></li>
+        <li><time>14:20</time><strong>CI が落ちても自分で直す</strong><p>Codex のセッションは開いた PR をウォッチしています。CI が落ちたと知らされると、直して push し直します。</p></li>
         <li><time>16:30</time><strong>机に戻って確かめる</strong><p>セッション一覧で、どれが終わり、どれがあなたを待っているかが分かります。各 worktree の変更はワンクリックで開けます。</p></li>
       </ol>
     </div>
@@ -115,7 +115,7 @@
       <p class="shift-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>夜間</p>
       <ol class="day">
         <li><time>18:00</time><strong>夜の仕事を頼んでおく</strong><p>アシスタントに「毎晩 2 時に依存ライブラリを更新して、テストを回して」と普段の言葉で頼むだけです。</p></li>
-        <li><time>02:00</time><strong>寝ている間に動く</strong><p>スケジュールが止まっているワークスペースを起こし、セッションを立ち上げてプロンプトを走らせます。</p></li>
+        <li><time>02:00</time><strong>寝ている間に動く</strong><p>スケジュールが止まっているワークスペースを起動し、セッションを立ち上げてプロンプトを送ります。</p></li>
         <li><time>03:40</time><strong>上限で止まっても終わらない</strong><p>Claude Code のターンが使用量の上限で切れても、上限がリセットされると自分で再開します。</p></li>
         <li><time><small>翌</small> 08:30</time><strong>朝には結果が待っている</strong><p>実行ごとの結果はスケジュールの履歴に残り、動いたセッションもワンクリックで開けます。</p></li>
       </ol>
@@ -146,6 +146,7 @@
         <p>どのセッションも会話がそのままミラーされます。質問・プラン・許可確認はカードで届き、その場で答えられます。</p>
         <ul>
           <li>セッションごとの Discord / Slack スレッドから、ボタンで答えることもできます。</li>
+          <li>そのスレッドに <code>!start &lt;最初の指示&gt;</code> と書けば、同じエージェントと作業コピーで新しいセッションを起動し、その指示を渡せます。</li>
           <li>Console はスマートフォンのブラウザでも使えます。</li>
         </ul>
       </div>
@@ -154,8 +155,8 @@
 
     <div class="feature">
       <div class="feature-text">
-        <h3>セッションがセッションを起こす</h3>
-        <p>レビューを別の種類のエージェントに渡し、終わったら報告を 1 本受け取れます。利用上限が尽きたら、仕事ごと別の種類へ移すこともできます。フリート俯瞰図に、誰が誰を起こし、何をやり取りし、いつ動いていたかが描かれます。</p>
+        <h3>セッションがセッションを起動する</h3>
+        <p>レビューを別の種類のエージェントに渡し、終わったら報告を 1 本受け取れます。親は子をウォッチしておけば、子の手が止まったときに知らせを受けます。利用枠を使い切ったら、仕事ごと別の種類へ移すこともできます。フリート俯瞰図に、誰が誰を起動し、何をやり取りし、いつ動いていたかが描かれます。</p>
       </div>
       <figure class="shot"><a href="/assets/img/fleetgraph-ja.webp" data-lightbox><img src="/assets/img/fleetgraph-ja.webp" width="3200" height="1240" loading="lazy" decoding="async" alt="フリート俯瞰図。1 セッション 1 レーンを時間軸に描き、子は親の下、セッション間のやり取りは矢印、各レーンに状態チップ"></a></figure>
     </div>
@@ -169,7 +170,7 @@
           <li>自分の Claude Code・Claude Desktop・claude.ai からも使えます。</li>
         </ul>
       </div>
-      <figure class="shot"><a href="/assets/img/memory-ja.webp" data-lightbox><img src="/assets/img/memory-ja.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="設定のエージェントメモリ。4 種類のエージェントのセッションとメンバーが書いたメモリの一覧と、範囲・書き手・使用回数つきで開いた 1 件"></a></figure>
+      <figure class="shot"><a href="/assets/img/memory-ja.webp" data-lightbox><img src="/assets/img/memory-ja.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="設定のエージェントメモリ。いくつもの種類のエージェントのセッションとメンバーが書いたメモリの一覧と、範囲・種類・作成者・使用回数つきで開いたピン留めの 1 件"></a></figure>
     </div>
 
     <div class="feature">
@@ -177,36 +178,36 @@
         <h3>費用を 1 つの物差しで</h3>
         <p>トークンの使用量を、機能別・エージェント別・モデル別に、24 時間・7 日・30 日の範囲で見られます。トークンを報告しない呼び出しは「未計測」として数え、無料には見せません。</p>
       </div>
-      <figure class="shot"><a href="/assets/img/usage-ja.webp" data-lightbox><img src="/assets/img/usage-ja.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="使用量タブ。30 日ぶんの機能別トークン積み上げグラフ、KPI、機能／エージェント／モデル別の内訳"></a></figure>
+      <figure class="shot"><a href="/assets/img/usage-ja.webp" data-lightbox><img src="/assets/img/usage-ja.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="設定のエージェント使用量。7 日ぶんの機能別トークンの積み上げグラフ、KPI、機能／エージェント／モデル別の内訳"></a></figure>
     </div>
 
     <div class="minor">
       <div>
         <h3>人がいなくても進む</h3>
-        <p>スケジュール実行は止まっているワークスペースを起こしてプロンプトを走らせます。Claude Code、Muse Code、マネージドの Codex は、使用量の上限で切れたターンを上限のリセット後に再開します。ほかのセッションは利用枠の残っているエージェントへ移せるので、朝まで止まったままにはなりません。</p>
+        <p>スケジュール実行は止まっているワークスペースを起動してプロンプトを送ります。保存した課題クエリに新しい結果があるときだけ動かすこともできます。Claude Code、Muse Code、マネージドの Codex は、使用量の上限で切れたターンを上限のリセット後に再開します。ほかのセッションは利用枠の残っているエージェントへ移せるので、朝まで止まったままにはなりません。</p>
       </div>
       <div>
         <h3>どのエージェントにもルールを</h3>
-        <p>フリート全体のポリシーとメンバーごとの指示を、各エージェントにその CLI の流儀で届けます。Cursor だけはどちらも受け取りません。Claude Code と Codex が自分で溜める記憶はスナップショットを取り、巻き戻せます。</p>
+        <p>フリート全体のポリシーとメンバーごとの指示を、各エージェントにその CLI の流儀で届けます。Cursor だけはどちらも受け取りません。テナント管理者は、起動ダイアログに最初から入るモデルや実行方式などをメンバー向けに決めておけます。Claude Code、Codex、Muse Code が自分で溜める記憶はスナップショットを取り、巻き戻せます。</p>
       </div>
     </div>
 
     <div class="gallery">
       <figure>
-        <div class="shot"><a href="/assets/img/launch-ja.webp" data-lightbox><img src="/assets/img/launch-ja.webp" width="2800" height="1800" loading="lazy" decoding="async" alt="起動ダイアログ。エージェント・モデル・推論の深さ・開始モード・新しい worktree で動かすかを選ぶ"></a></div>
-        <figcaption><strong>起動ダイアログ</strong>：エージェント、モデル、推論の深さ、開始モード、新しい git worktree で動かすか作業コピーのままかを選んで起動します。</figcaption>
+        <div class="shot"><a href="/assets/img/launch-ja.webp" data-lightbox><img src="/assets/img/launch-ja.webp" width="2800" height="1800" loading="lazy" decoding="async" alt="「作業を始める」ダイアログ。エージェント、モデル、最初のプロンプトを選ぶ。その下に、新しい worktree で main から新規ブランチを切る「場所」と、「詳細」の行"></a></div>
+        <figcaption><strong>作業を始める</strong>：エージェント、モデル、最初のプロンプトを選んで起動します。新しい git worktree で動かすか作業コピーのままかは「場所」で、推論の強さや開始モードは「詳細」で変えられます。</figcaption>
       </figure>
       <figure>
-        <div class="shot"><a href="/assets/img/split-ja.webp" data-lightbox><img src="/assets/img/split-ja.webp" width="3200" height="1960" loading="lazy" decoding="async" alt="3 つのペイン。会話ミラー、shell セッションに繋がった端末、作業ツリーの変更とコミット欄"></a></div>
-        <figcaption><strong>ペインの分割</strong>：ミラー・端末・作業ツリーの変更を横に並べられます。どのペインも別のタブへ切り出せます。</figcaption>
+        <div class="shot"><a href="/assets/img/split-ja.webp" data-lightbox><img src="/assets/img/split-ja.webp" width="3200" height="1960" loading="lazy" decoding="async" alt="3 つのペイン。会話ミラー、shell セッションに繋がったターミナル、作業ツリーの変更とコミット欄"></a></div>
+        <figcaption><strong>ペインの分割</strong>：ミラー・ターミナル・作業ツリーの変更を横に並べられます。どのペインも別のタブへ切り出せます。</figcaption>
       </figure>
       <figure>
         <div class="shot"><a href="/assets/img/scm-ja.webp" data-lightbox><img src="/assets/img/scm-ja.webp" width="3800" height="1800" loading="lazy" decoding="async" alt="分割ペイン。左にブランチのレーンつきコミットグラフ、右に選んだコミットの差分"></a></div>
         <figcaption><strong>Console の中の git</strong>：作業コピーと worktree ごとに、コミットグラフと選んだコミットの差分を表示し、ステージとコミットまで行えます。</figcaption>
       </figure>
       <figure>
-        <div class="shot"><a href="/assets/img/terminal-ja.webp" data-lightbox><img src="/assets/img/terminal-ja.webp" width="2560" height="1520" loading="lazy" decoding="async" alt="shell セッションに繋がった端末ペインで、ビルドと git status を走らせている"></a></div>
-        <figcaption><strong>端末</strong>：素の shell や、ターミナル（CLI）で起動したエージェントは、生の端末として開けます。</figcaption>
+        <div class="shot"><a href="/assets/img/terminal-ja.webp" data-lightbox><img src="/assets/img/terminal-ja.webp" width="2560" height="1520" loading="lazy" decoding="async" alt="shell セッションに繋がったターミナルペインで、ビルドと git status、テストを流したところ"></a></div>
+        <figcaption><strong>ターミナル</strong>：素の shell や、ターミナル（CLI）で起動したエージェントは、そのままのターミナルとして開けます。</figcaption>
       </figure>
     </div>
     <p class="more-all"><a href="/ja/features/#catalogue">すべての機能 →</a></p>
@@ -217,15 +218,15 @@
   <div class="wrap">
     <div class="section-head">
       <p class="kicker">CLI の更新への備え</p>
-      <h2 id="upstream-h">CLI が更新されても、検証済みの版で動き続ける</h2>
-      <p>エージェントの CLI は数日おきに新しい版が出ます。9 種類に対応していても、その対応が続かなければ意味がありません。</p>
+      <h2 id="upstream-h">CLI が更新されても、検証済みのバージョンで動き続ける</h2>
+      <p>エージェントの CLI は数日おきに新しいバージョンが出ます。9 種類に対応していても、その対応が続かなければ意味がありません。</p>
     </div>
     <ol class="steps">
-      <li><h3>版を固定する</h3><p>どの CLI も、検証済みの版に固定しています。自動更新はオプトインです。</p></li>
-      <li><h3>新しい版は実物で試す</h3><p>新しい版が出ると毎日の監視が気づき、その CLI を実際に動かすテストを走らせます。対話画面（TUI）も含めて、Agent Fleet が頼っている振る舞いが変わっていないかを確かめます。</p></li>
-      <li><h3>未検証の版と取り違えない</h3><p>「新しい版が出た」ことと「その版がテストを通った」ことは別々に記録します。まだ通っていない版を、通った版と取り違えることはありません。</p></li>
+      <li><h3>バージョンを固定する</h3><p>どの CLI も、検証済みのバージョンに固定しています。自動更新はオプトインです。</p></li>
+      <li><h3>新しいバージョンは実物で試す</h3><p>新しいバージョンが出ると毎日の監視が気づき、その CLI を実際に動かすテストを走らせます。対話画面（TUI）も含めて、Agent Fleet が頼っている振る舞いが変わっていないかを確かめます。</p></li>
+      <li><h3>未検証のバージョンと取り違えない</h3><p>「新しいバージョンが出た」ことと「そのバージョンがテストを通った」ことは別々に記録します。まだ通っていないバージョンを、通ったバージョンと取り違えることはありません。</p></li>
     </ol>
-    <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/v0.38.0/docs/build/10-development.ja.md#上流-cli-の破壊検知版ドリフト監視--contract-テスト">版の固定とテストの仕組み →</a></p>
+    <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/v0.45.0/docs/build/10-development.ja.md#上流-cli-の破壊検知版ドリフト監視--contract-テスト">バージョンの固定とテストの仕組み →</a></p>
   </div>
 </section>
 
@@ -240,11 +241,11 @@
       <li><h3>自分たちのインフラ</h3><p>Docker Compose で動かす Linux 1 台でも、AWS でも、Google Cloud の GKE（プレビュー）でも、1 人で使うなら Apple Silicon の Mac でも、中身は同じです。</p></li>
       <li><h3>隔離されたワークスペース</h3><p>メンバーごとに持続するコンテナを用意し、cgroup で CPU とメモリを制限して、ネットワークも利用者ごとに隔離します。Docker を使わない native 版では bubblewrap のサンドボックスです。</p></li>
       <li><h3>自社の IdP でサインイン</h3><p>Google、Microsoft Entra ID、Okta などの OIDC のプロバイダーや、GitHub の組織でサインインできます。テナントがあり、メンバー、テナント管理者、配備管理者のロールがあります。</p></li>
-      <li><h3>契約はメンバーごと</h3><p>エージェントの CLI には、メンバーが自分のアカウントでサインインします。配備が AI プロバイダーの資格情報を同梱したり共有したりすることはありません。</p></li>
-      <li><h3>外向きの通信を記録</h3><p>AWS では、オプションの egress ゲートウェイ（プレビュー）を通すと、ワークスペースの Web 通信が 1 つのアドレスから出ていき、接続ごとにどのワークスペースのものかが記録され、許可リストで制限もできます。SSH の git など、それ以外の通信は通しません。<a href="/docs/ja/operate/choose/#aws-の外向きの経路を選ぶ">外向きの経路の選び方</a></p></li>
-      <li><h3>監査ログ</h3><p>何かを変える・消す操作は、誰がしたかと一緒にテナントの監査ログに残ります。端末の入出力は保存しません。</p></li>
-      <li><h3>秘密は暗号化して保存</h3><p>資格情報はエンベロープ暗号化で保存します。ワークスペースごとの鍵を、テナントの鍵で包みます。</p></li>
-      <li><h3>確かめられる、隠さない</h3><p>ソースは Apache-2.0 で公開しています。<a href="https://github.com/k-k1/agent-fleet/blob/v0.38.0/SECURITY.md">セキュリティポリシー</a>（英語）に、脅威モデルと、運用者が理解しておくべき残るリスクを書いています。</p></li>
+      <li><h3>契約はメンバーごと</h3><p>エージェントの CLI には、メンバーが自分のアカウントでサインインします。配備が AI プロバイダーの認証情報を同梱したり共有したりすることはありません。</p></li>
+      <li><h3>外向きの通信を記録</h3><p>AWS では、オプションの egress ゲートウェイ（プレビュー）を通すと、ワークスペースの通信が 1 つのアドレスから出ていき、接続ごとにどのワークスペースのものかが記録され、許可リストで制限もできます。制限するときは、SSH の git やデータベースなど Web 以外の通信も、管理者が宛先とポートを指定したものだけを通します。<a href="/docs/ja/operate/choose/#aws-の外向きの経路を選ぶ">外向きの経路の選び方</a></p></li>
+      <li><h3>監査ログ</h3><p>何かを変える・消す操作は、誰がしたかと一緒にテナントの監査ログに残ります。ターミナルの入出力は保存しません。</p></li>
+      <li><h3>シークレットは暗号化して保存</h3><p>認証情報はエンベロープ暗号化で保存します。ワークスペースごとのキーを、テナントのキーでラップします。</p></li>
+      <li><h3>確かめられる、隠さない</h3><p>ソースは Apache-2.0 で公開しています。運用者が理解しておくべき残るリスクは、利用ガイドの<a href="/docs/ja/operate/secure/threat-model/">脅威モデルと残るリスク</a>と、<a href="https://github.com/k-k1/agent-fleet/blob/v0.45.0/SECURITY.md">セキュリティポリシー</a>（英語）に書いています。</p></li>
     </ul>
   </div>
 </section>
@@ -285,7 +286,7 @@
       <div class="edition">
         <span class="tag muted">Google Cloud・プレビュー</span>
         <h3><code>kubernetes</code> · GKE</h3>
-        <p>GKE Standard のクラスターで動きますが、本番向けのサポートはまだです。home のバックアップ、ブラウザの機能、メンバーごとの費用はありません。</p>
+        <p>GKE Standard のクラスターで動きますが、本番向けのサポートはまだです。ホームのバックアップ、ブラウザの機能、メンバーごとの費用はありません。</p>
       </div>
     </div>
     <p class="more"><a href="/docs/ja/operate/choose/">配備先の選び方（費用つき）→</a></p>
@@ -294,7 +295,7 @@
       <div>
         <h3>手元のマシンで試す</h3>
         <p>native 版は x86_64 か arm64 の Linux、WSL2、または Apple Silicon の Mac 上の Linux VM で動き、Docker は要りません。Mac では、1 人で使う場合に限り、Docker Desktop・OrbStack・colima 上の compose 版も使えます。エージェントの CLI には、各メンバーが Console から自分のアカウントでサインインします。</p>
-        <p><a href="https://github.com/k-k1/agent-fleet-dist/blob/main/README.ja.md#native-版の導入docker-不要wsl2--単一ユーザー-linux">インストーラーの詳細</a> · <a href="https://github.com/k-k1/agent-fleet-dist/blob/main/README.ja.md#docker-compose-版の導入チームオンプレ">チーム向けに compose を立てる</a> · <a href="https://github.com/k-k1/agent-fleet/blob/v0.38.0/deploy/compose/README.md#macos-apple-silicon">Mac（Apple Silicon、英語）</a></p>
+        <p><a href="/docs/ja/operate/native/install/">native 版を入れる</a> · <a href="/docs/ja/operate/compose/install/">チーム向けに compose を構築する</a> · <a href="/docs/ja/operate/compose/macos/">Mac（Apple Silicon）で動かす</a></p>
       </div>
       <pre><code>curl -fsSL https://raw.githubusercontent.com/k-k1/agent-fleet-dist/main/install.sh | bash
 af start
@@ -308,7 +309,7 @@ af start
     <img src="/assets/brand/agent-fleet-banner.webp" width="1120" height="480" loading="lazy" decoding="async" alt="Agent Fleet のイラスト。Fleet Control と書かれた灯台のまわりで、コンテナの中のエージェントたちが働いている">
     <h2 id="closing-h">ノートを閉じても、エージェントは動き続けます。</h2>
     <div class="actions">
-      <a class="btn btn-primary" href="https://github.com/k-k1/agent-fleet-dist/blob/main/README.ja.md#はじめに--どの版を選ぶ">はじめる</a>
+      <a class="btn btn-primary" href="/docs/ja/operate/overview/">はじめる</a>
       <a class="btn btn-ghost" href="/docs/ja/">ガイドを読む</a>
     </div>
   </div>
@@ -324,8 +325,8 @@ af start
         <a href="https://github.com/k-k1/agent-fleet">ソース</a>
         <a href="https://github.com/k-k1/agent-fleet-dist/releases">リリース</a>
         <a href="/docs/ja/">ドキュメント</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/v0.38.0/SECURITY.md">セキュリティポリシー</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/v0.38.0/LICENSE">ライセンス（Apache-2.0）</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/v0.45.0/SECURITY.md">セキュリティポリシー</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/v0.45.0/LICENSE">ライセンス（Apache-2.0）</a>
         <a href="/" hreflang="en" lang="en">English</a>
       </nav>
     </div>
