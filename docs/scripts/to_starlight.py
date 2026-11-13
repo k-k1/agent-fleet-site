@@ -6,6 +6,10 @@
 The guide stays GitHub-shaped in the repository (x.md + x.ja.md, an H1 per page, a
 language-switch line, relative .md links); everything Starlight needs is derived here so
 the source never has to know a website exists.
+
+It also writes the text for agents into <site-dir>/agent-text/, which build.sh copies into dist/ after the build:
+each page's Markdown next to its HTML (/docs/<path>/index.md, links as absolute site URLs, GitHub alerts and code
+blocks as in the guide) and /docs/llms.txt, the list of every page with its .md URL (llms_txt below).
 """
 import html
 import json
@@ -16,6 +20,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 BASE = "/docs"
+SITE = "https://agent-fleet.org"
 REPO = "https://github.com/k-k1/agent-fleet"
 REVERSE = {}
 
@@ -425,6 +430,60 @@ def yaml_str(s: str) -> str:
 PAGE_ORDER: dict = {}
 
 
+def agent_url(url: str) -> str:
+    """/docs/ja/user/x/ -> https://agent-fleet.org/docs/ja/user/x/index.md, the page's Markdown for agents."""
+    return f"{SITE}{url}index.md"
+
+
+# The sections of llms.txt, in this order: the topics of the site (astro.config.mjs), by the page's directory.
+LLMS_TOPICS = ["user", "admin", "operate", "ref", "releases"]
+
+
+def topic_of(stem: Path) -> str:
+    parts = slug_of(stem).split("/")
+    if parts[:2] == ["ref", "releases"]:
+        return "releases"
+    return parts[0] if parts[0] in LLMS_TOPICS else "user"  # the home page and the old member/ shelf
+
+
+def _release_key(stem: str):
+    v = re.fullmatch(r"(\d+)\.(\d+)\.(\d+)", stem.rsplit("/", 1)[-1])
+    return tuple(-int(x) for x in v.groups()) if v else (1,)  # newest first, SUMMARY and others after
+
+
+def llms_txt(pages, labels) -> str:
+    """/docs/llms.txt (llmstxt.org): every page with its title, its audience and its index.md URL.
+
+    One file for both languages: a section per topic in English, then the same sections in Japanese. Within a topic
+    the home page comes first, then the pages in the reading order of research/page-titles.tsv, then the rest by path
+    (release notes newest first).
+    """
+    out = [
+        "# Agent Fleet",
+        "",
+        "> The user guide of Agent Fleet, which runs coding agents such as Claude Code and Codex from the Console in "
+        "your browser, each user in their own workspace. Agent Fleet の利用ガイド（日本語のページは後半の「(日本語)」の節）。",
+        "",
+        "Every page of https://agent-fleet.org/docs/ is published as Markdown next to its HTML: add `index.md` to the "
+        "page's URL. The links below point at those files; the links inside them are absolute URLs too. Each entry "
+        "says who the page is for. The pages exist in English and in Japanese (/docs/ja/); the Japanese sections "
+        "follow the English ones.",
+    ]
+    for lang in ("en", "ja"):
+        for topic in LLMS_TOPICS:
+            items = [p for p in pages if p["lang"] == lang and p["topic"] == topic]
+            if not items:
+                continue
+            items.sort(key=lambda p: (p["order"] >= 0, p["order"] or 10**9,
+                                      _release_key(p["stem"]) if topic == "releases" else (), p["url"]))
+            head = labels[topic][lang] + (" (日本語)" if lang == "ja" else "")
+            out += ["", f"## {head}", ""]
+            for p in items:
+                desc = f": {p['description']}" if p["description"] else ""
+                out.append(f"- [{p['title']}]({agent_url(p['url'])}){desc}")
+    return "\n".join(out) + "\n"
+
+
 def write_subgroups(rows, out: Path, site: Path):
     """Write src/sidebar-subgroups.json for the groups whose pages carry a sub-heading in page-titles.tsv.
 
@@ -451,7 +510,9 @@ def main():
     staged, site, ref = Path(sys.argv[1]), Path(sys.argv[2]), sys.argv[3]
     out = site / "src/content/docs"
     pub = site / "public"
-    for d in (out, pub / "assets"):
+    agent_out = site / "agent-text"
+    listing = []
+    for d in (out, pub / "assets", agent_out):
         if d.exists():
             shutil.rmtree(d)
         d.mkdir(parents=True)
@@ -499,7 +560,9 @@ def main():
         if title is None:  # release notes have no H1
             title = ("v" + stem.name) if stem.parent.name == "releases" else stem.name
 
-        def fix(mt):
+        def fix(mt, agent=False):
+            """One link, for the Starlight page; agent=True: for the Markdown agents read, where every link is an
+            absolute site URL (a page's index.md, an asset's file) and an image stays a Markdown image."""
             label, target, ttl = mt.groups()
             if re.match(r"^[a-z][a-z0-9+.-]*:", target) or target.startswith("#"):
                 return mt.group(0)
@@ -519,8 +582,10 @@ def main():
             tgt = Path(*parts) if parts else Path(".")
             if path.endswith(".md") and (staged / tgt).is_file():
                 tl, ts = split_lang(tgt)
-                return f"{label}({url_of(tl, ts)}{frag}{ttl})"
+                return f"{label}({agent_url(url_of(tl, ts)) if agent else url_of(tl, ts)}{frag}{ttl})"
             if tgt.parts and tgt.parts[0] == "assets" and (staged / tgt).is_file():
+                if agent:
+                    return f"{label}({SITE}{BASE}/{tgt.as_posix()}{ttl})"
                 size = image_size(staged / tgt) if label.startswith("!") else None
                 if size:
                     w, h = size
@@ -546,25 +611,38 @@ def main():
             back = REVERSE.get("/".join(norm))
             if back is not None:
                 tl, ts = split_lang(back)
-                return f"{label}({url_of(tl, ts)}{frag}{ttl})"
+                return f"{label}({agent_url(url_of(tl, ts)) if agent else url_of(tl, ts)}{frag}{ttl})"
             kind = "tree" if path.endswith("/") or "." not in Path(path).name else "blob"
-            unresolved.append(f"{rel}: {target}")
+            if not agent:
+                unresolved.append(f"{rel}: {target}")
             return f"{label}({REPO}/{kind}/{ref}/{'/'.join(norm)}{frag}{ttl})"
 
-        res, in_fence = [], False
-        for line in body:
-            if line.lstrip().startswith("```"):
-                in_fence = not in_fence
-            if in_fence:
-                res.append(line)
-                continue
-            # Leave inline code alone: `[text](src/app.ts)` is an example, not a link.
-            # (A link whose label is code, [`x`](y), starts outside the span and is kept.)
-            spans = [m2.span() for m2 in re.finditer(r"(`+).*?\1", line)]
-            res.append(LINK.sub(
-                lambda mt: mt.group(0) if any(a0 <= mt.start() < b0 for a0, b0 in spans) else fix(mt),
-                line))
-        body_text = ALERT.sub(alert_to_aside, "\n".join(res)).lstrip("\n")
+        def links(agent):
+            res, in_fence = [], False
+            for line in body:
+                if line.lstrip().startswith("```"):
+                    in_fence = not in_fence
+                if in_fence:
+                    res.append(line)
+                    continue
+                # Leave inline code alone: `[text](src/app.ts)` is an example, not a link.
+                # (A link whose label is code, [`x`](y), starts outside the span and is kept.)
+                spans = [m2.span() for m2 in re.finditer(r"(`+).*?\1", line)]
+                res.append(LINK.sub(
+                    lambda mt: mt.group(0) if any(a0 <= mt.start() < b0 for a0, b0 in spans) else fix(mt, agent),
+                    line))
+            return "\n".join(res)
+
+        body_text = ALERT.sub(alert_to_aside, links(False)).lstrip("\n")
+        # The agents' copy: the guide's own Markdown with absolute links, its H1 back on top; no front matter,
+        # language line or Starlight syntax (asides, <img>, MDX).
+        url = url_of(lang, stem)
+        dst_md = agent_out / url[len(BASE) + 1:] / "index.md"
+        dst_md.parent.mkdir(parents=True, exist_ok=True)
+        dst_md.write_text(f"# {title}\n\n" + links(True).strip("\n") + "\n", encoding="utf-8")
+        listing.append({"lang": lang, "url": url, "title": title, "description": meta.get("audience", ""),
+                        "topic": topic_of(stem), "order": PAGE_ORDER.get(stem.as_posix(), 0) if slug_of(stem) else -1,
+                        "stem": stem.as_posix()})
 
         if not slug_of(stem):
             # The two home pages are a splash landing (no sidebar, so in no topic), as MDX for its cards.
@@ -621,6 +699,18 @@ def main():
         dst.write_text("---\n" + "\n".join(fm) + "\n---\n\n" + body_text, encoding="utf-8")
 
     write_subgroups(rows, out, site)
+    # A page the guide has only in English is built at its Japanese URL too (Starlight's fallback, the English text
+    # under a notice): its Markdown goes there as well, and llms.txt lists it in the Japanese sections, marked.
+    have_ja = {p["url"] for p in listing if p["lang"] == "ja"}
+    for p in [p for p in listing if p["lang"] == "en"]:
+        ja_url = BASE + "/ja" + p["url"][len(BASE):]
+        if ja_url not in have_ja:
+            dst_md = agent_out / ja_url[len(BASE) + 1:] / "index.md"
+            dst_md.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(agent_out / p["url"][len(BASE) + 1:] / "index.md", dst_md)
+            listing.append({**p, "lang": "ja", "url": ja_url, "title": p["title"] + "（英語のみ）"})
+    labels = json.loads((site / "src/topic-labels.json").read_text(encoding="utf-8"))
+    (agent_out / "llms.txt").write_text(llms_txt(listing, labels), encoding="utf-8")
     print(f"converted; {len(unresolved)} links sent to GitHub:")
     for u in unresolved:
         print("  " + u)

@@ -1,0 +1,17 @@
+---
+// Starlight's "On this page" in the right column, with the "For agents" box under it. The right column exists only on
+// wide screens of pages with a table of contents; Footer.astro shows the box everywhere else.
+import Default from '@astrojs/starlight/components/TableOfContents.astro';
+import ForAgents from './ForAgents.astro';
+---
+
+<Default />
+<ForAgents class="af-for-agents-side" />
+
+<style>
+  .af-for-agents-side {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--sl-color-hairline);
+  }
+</style>

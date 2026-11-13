@@ -15,6 +15,10 @@ Every <img> in a page's content (.sl-markdown-content) must carry a width and a 
 style, so that the browser reserves its box before it loads: a lazy screenshot without one grows the page when it
 arrives, and a page opened at #anchor drifts away from the heading. scripts/to_starlight.py writes both from the
 image file. The site's own chrome (the logo) is left out: its size can come from CSS.
+
+Every page has the Markdown agents read next to it (<page>/index.md, written by scripts/to_starlight.py), and
+/docs/llms.txt lists each of them, and nothing that is not there: the "For agents" box of every page points at one
+or the other.
 """
 import json
 import math
@@ -152,15 +156,38 @@ def main():
         if unquote(stub.parent.relative_to(dist).as_posix() + '/') in listed:
             bad.append(f'{stub.relative_to(dist).as_posix()}: a redirect stub where the sitemap lists a page')
 
+    site = 'https://agent-fleet.org/docs/'
+    agent = []
+    llms = dist / 'llms.txt'
+    listed_md = set(re.findall(r'\]\(' + re.escape(site) + r'([^)\s]*)\)', llms.read_text(encoding='utf-8'))) \
+        if llms.is_file() else set()
+    if not llms.is_file():
+        agent.append('llms.txt is missing')
+    for page in pages:
+        if page.name != 'index.html':  # 404.html
+            continue
+        md = page.parent.relative_to(dist).as_posix()
+        md = ('' if md == '.' else md + '/') + 'index.md'
+        if not (dist / md).is_file():
+            agent.append(f'{page.relative_to(dist).as_posix()}: no {md} next to it')
+        if llms.is_file() and md not in listed_md:
+            agent.append(f'{page.relative_to(dist).as_posix()}: llms.txt does not list {site}{md}')
+    for md in sorted(listed_md):
+        if not (dist / unquote(md)).is_file():
+            agent.append(f'llms.txt lists {site}{md}, which is not built')
+
     for target, page in sorted(dead.items()):
         print(f'dead link {target} (first seen in {page})', file=sys.stderr)
     for b in bad:
         print(f'bad redirect: {b}', file=sys.stderr)
     for u in unsized:
         print(f'image without height or aspect-ratio: {u}', file=sys.stderr)
+    for a in agent:
+        print(f'agent text: {a}', file=sys.stderr)
     print(f'check_dist: {len(pages)} pages, {len(dead)} dead /docs/ links; '
-          f'{len(stubs)} redirect stubs and {sections} pages with section redirects, {len(bad)} bad redirects; {len(unsized)} images without a size')
-    return 1 if dead or bad or unsized else 0
+          f'{len(stubs)} redirect stubs and {sections} pages with section redirects, {len(bad)} bad redirects; {len(unsized)} images without a size; '
+          f'{len(listed_md)} pages in llms.txt, {len(agent)} agent-text problems')
+    return 1 if dead or bad or unsized or agent else 0
 
 
 if __name__ == '__main__':
