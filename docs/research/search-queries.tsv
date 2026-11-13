@@ -68,7 +68,7 @@ Jira	en	user/integrations/jira/	3
 # AWS プロファイル allows 5: af-aws-exec, aws-sso and the new aws-emulator page all say 「AWS プロファイル」 often and rank above the reference page.
 # ログインが切れたとき allows 5: the agents' troubleshooting page and the Codex / Claude pages answer "the login expired" for agent sign-in, and rank above the AWS SSO page once the old chapters are gone.
 # Added for #3574 (task pages, compound words, English counterparts). Each wants 3; ワークツリー, 作業ディスク and
-# エージェントメモリ are at 3 on purpose, not loosened: the worktrees page says 「ワークツリー」 only in its title (the
-# body says 作業コピー), the query splits into ワーク / ツリー and ワーク prefix-matches ワークスペース; 作業ディスク is also
+# エージェントメモリ are at 3 on purpose, not loosened: the worktrees page says 「ワークツリー」 only once, in its lead (the
+# title and body say worktree / 作業コピー), the query splits into ワーク / ツリー and ワーク prefix-matches ワークスペース; 作業ディスク is also
 # a heading of operate/aws-ecs/workspace-size; every memory page says エージェントメモリ. 作業グループ is the page
 # title now (page-titles.tsv still says ワーキングセット, which the guide no longer uses).

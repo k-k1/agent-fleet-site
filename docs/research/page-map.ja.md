@@ -80,11 +80,11 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | ページ | タイトル | 元の節 | 語数 |
 |---|---|---|--:|
 | `user/sessions/start` | セッションを始める | `member/03-starting-sessions` | 1062 |
-| `user/sessions/worktrees` | ワークツリーで並行して作業する | `member/03-starting-sessions › Worktrees and new branches — the key to parallel work`<br>`member/03-starting-sessions › Working folder — starting inside a subfolder` | 452 |
+| `user/sessions/worktrees` | worktree で並行して作業する | `member/03-starting-sessions › Worktrees and new branches — the key to parallel work`<br>`member/03-starting-sessions › Working folder — starting inside a subfolder` | 452 |
 | `user/sessions/from-issues` | Issue やチケットから始める | `member/03-starting-sessions › Starting from the issue tracker` | 1856 |
 | `user/sessions/status` | セッションの状態を読む | `member/03-starting-sessions › Reading state — badges and notifications`<br>`member/lite › 7. Watching development progress` | 654 |
 | `user/sessions/reply` | セッションに返事をする | `member/04-conversation` | 1193 |
-| `user/sessions/queue` | 送る内容を待たせる・ターンを止める | `member/04-conversation › Stopping a turn when something is queued`<br>`member/04-conversation › Holding follow-ups before sending (send queue)` | 1021 |
+| `user/sessions/queue` | 送る内容を保留する・ターンを止める | `member/04-conversation › Stopping a turn when something is queued`<br>`member/04-conversation › Holding follow-ups before sending (send queue)` | 1021 |
 | `user/sessions/plans` | プランにコメントする・レビューさせる | `member/04-conversation › Writing comments on a plan`<br>`member/04-conversation › Having another session review the plan` | 797 |
 | `user/sessions/skills` | スキルやコマンドを呼び出す | `member/04-conversation › Calling a skill or a command` | 168 |
 | `user/sessions/branch-message` | 過去のメッセージから分岐する | `member/04-conversation › Branch from a past message` | 261 |
@@ -92,7 +92,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `user/sessions/export` | 会話を Markdown で保存する | `member/04-conversation › Saving a conversation as Markdown` | 219 |
 | `user/sessions/translate` | 回答を自分の言語で読む | `member/04-conversation › Reading an answer in your own language (translation)` | 261 |
 | `user/sessions/stop-resume` | セッションを止める・再開する | `member/05-stopping-and-tidying` | 1378 |
-| `user/sessions/auto-stop` | 終わったら止める・起こしたままにする | `member/05-stopping-and-tidying › Keeping a session awake`<br>`member/05-stopping-and-tidying › Having a session stop when it is done` | 309 |
+| `user/sessions/auto-stop` | 終わったら止める・動かしたままにする | `member/05-stopping-and-tidying › Keeping a session awake`<br>`member/05-stopping-and-tidying › Having a session stop when it is done` | 309 |
 | `user/sessions/cleanup` | 終わったセッションを片付ける | `member/05-stopping-and-tidying › Tidying up in bulk (cleanup)`<br>`member/05-stopping-and-tidying › Clearing one finished job (deleting a working copy)`<br>`member/05-stopping-and-tidying › Locking something against deletion` | 1139 |
 | `user/sessions/budget` | 使いすぎたセッションを止める（支出の上限） | `member/05-stopping-and-tidying › A spend budget — pausing a session that spends too much` | 361 |
 | `user/sessions/handoff` | 別のセッションやエージェントに引き継ぐ | `member/05-stopping-and-tidying › Continuing elsewhere — handoff, branch, move` | 1230 |
@@ -285,7 +285,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `admin/resources/overview` | リソースの使われかたを見る | `admin/02-limits` | 822 |
 | `admin/resources/session-limits` | セッション数の上限を決める | `admin/02-limits › Two kinds of limits` | 520 |
 | `admin/resources/engines` | 推論エンジンを使える人とモデルを決める | `admin/02-limits › Who may use the inference engines (you can set this)`<br>`admin/02-limits › Taking engine models in (only if your tenant was granted it)` | 495 |
-| `admin/resources/workspace-size` | ワークスペースの大きさを決める | `admin/02-limits › Workspace size (memory, CPU, disk)`<br>`admin/02-limits › When someone says their home (`~`) is full`<br>`admin/02-limits › Machine (available on some deployments)` | 1142 |
+| `admin/resources/workspace-size` | ワークスペースのサイズを決める | `admin/02-limits › Workspace size (memory, CPU, disk)`<br>`admin/02-limits › When someone says their home (`~`) is full`<br>`admin/02-limits › Machine (available on some deployments)` | 1142 |
 | `admin/resources/idle-stop` | 放置されたワークスペースを止める | `admin/02-limits › Idle auto-stop`<br>`admin/02-limits › Force-stopping a workspace` | 646 |
 
 **監査と使用量**
@@ -341,7 +341,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `operate/aws-ecs/install` | ECS に構築する | `deploy/aws/ecs/README › Prerequisites (once per account)`<br>`deploy/aws/ecs/README › 30-ingress stand-up (milestone: CP boots + Google login)`<br>`deploy/aws/ecs/README › ECR push (before S3)` | 1641 |
 | `operate/aws-ecs/options` | 任意の機能を有効にする（プレビュー・KMS・MCP・WAF） | `deploy/aws/ecs/README › Preview subdomains (optional, off by default)`<br>`deploy/aws/ecs/README › Keys at rest on KMS (optional, off by default)`<br>`deploy/aws/ecs/README › Remote MCP and MCP OAuth (optional, off by default)`<br>`deploy/aws/ecs/README › Timers, GitHub sign-in extras and LAN / borrowed engines (optional, empty by default)`<br>`deploy/aws/ecs/README › WAF (optional, off by default)` | 1272 |
 | `operate/aws-ecs/alarms` | データベースに届かないときのアラームを設定する | `deploy/aws/ecs/README › Alarms — the Control Plane cannot reach its database (set this one)` | 241 |
-| `operate/aws-ecs/workspace-size` | ワークスペースの大きさを決める | `deploy/aws/ecs/README › Workspace size (CPU / memory / working disk)` | 454 |
+| `operate/aws-ecs/workspace-size` | ワークスペースのサイズを決める | `deploy/aws/ecs/README › Workspace size (CPU / memory / working disk)` | 454 |
 | `operate/aws-ecs/schedules` | 決まった時刻の起動を有効にする | `deploy/aws/ecs/README › Scheduled execution (timed wakes)` | 310 |
 | `operate/aws-ecs/egress-ip` | 外向きの IP アドレスを固定する | `deploy/aws/ecs/README › Egress IP (the address a customer allow-lists)` | 652 |
 | `operate/aws-ecs/egress-gateway` | 外向きの通信をゲートウェイで制御する | `deploy/aws/ecs/README › Egress gateway (`EgressRoute=gateway`, ADR 0122)` | 3196 |
@@ -355,7 +355,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `operate/aws-ecs/lifecycle` | スクリプトで構築・一時停止・撤去する | `deploy/aws/ecs/README › Lifecycle scripts (stand up / pause / tear down)` | 1251 |
 | `operate/aws-ecs/teardown` | 撤去する | `deploy/aws/ecs/README › Teardown` | 1063 |
 | `operate/aws-ecs/iam` | デプロイに必要な IAM 権限 | `deploy/aws/ecs/README › Minimal IAM (deploying principal)` | 455 |
-| `operate/aws-ecs/template-size` | テンプレートの大きさの上限に気をつける | `deploy/aws/ecs/README › The 51,200-byte wall (why a deploy can stop working without anyone touching it)` | 929 |
+| `operate/aws-ecs/template-size` | テンプレートのサイズの上限に気をつける | `deploy/aws/ecs/README › The 51,200-byte wall (why a deploy can stop working without anyone touching it)` | 929 |
 | `operate/aws-ecs/troubleshooting` | ECS で困ったとき | `deploy/aws/ecs/README › Known behavior: a cold Start answers `starting`, not `running`` | 598 |
 
 **Kubernetes**
@@ -406,7 +406,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `operate/run/fleet-policy` | 全エージェントに指示を配る | `operate/03-run › Distributing fleet policy (instructions to every agent)` | 349 |
 | `operate/run/opencode-server` | opencode の共有サーバーを運用する | `operate/03-run › opencode 2: Terminal sessions and the shared server` | 297 |
 | `operate/run/public-internet` | インターネットに公開する | `operate/03-run › Once it is on the public internet` | 239 |
-| `operate/run/deployment-label` | 複数のデプロイを見分ける | `operate/03-run › Telling two deployments apart (colour and label)` | 434 |
+| `operate/run/deployment-label` | 複数の配備を見分ける | `operate/03-run › Telling two deployments apart (colour and label)` | 434 |
 | `operate/run/idle-stop` | アイドル停止と強制停止を使う | `operate/03-run › Idle stop and force-stop`<br>`operate/03-run › Pausing an idle deployment` | 2039 |
 
 **セキュリティ**
@@ -424,8 +424,8 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 
 | ページ | タイトル | 元の節 | 語数 |
 |---|---|---|--:|
-| `operate/keys/kms` | 保存時の鍵を AWS KMS にする | `operate/12-keys` | 1227 |
-| `operate/keys/home-keys` | ホームごとに鍵を分ける | `operate/12-keys › A key of its own for each home` | 1629 |
+| `operate/keys/kms` | 保存時のキーを AWS KMS にする | `operate/12-keys` | 1227 |
+| `operate/keys/home-keys` | ホームディレクトリごとにキーを分ける | `operate/12-keys › A key of its own for each home` | 1629 |
 | `operate/keys/bridge-tokens` | ブリッジトークンを入れ替える | `operate/12-keys › Rotating the bridge tokens` | 265 |
 
 **サインイン**
@@ -448,7 +448,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | `operate/engines/status` | 推論エンジンの状態と履歴を見る | `operate/07-engines › Reading the current state`<br>`operate/07-engines › History (14 days)` | 496 |
 | `operate/engines/read-aloud` | 読み上げエンジンを動かす | `operate/07-engines › Read aloud (the speech engine and the shared dictionary)`<br>`deploy/native/README › Text-to-speech (TTS / Zundamon) — optional` | 564 |
 | `operate/engines/comfyui` | 自前の ComfyUI で画像を生成する | `operate/08-image-engine`<br>`deploy/native/README › Image generation on a ComfyUI on your network — optional` | 3797 |
-| `operate/engines/borrow` | 別のデプロイのエンジンを借りる | `operate/09-borrowed-engine`<br>`deploy/native/README › Borrowing another deployment's engines — optional` | 3517 |
+| `operate/engines/borrow` | 別の配備のエンジンを借りる | `operate/09-borrowed-engine`<br>`deploy/native/README › Borrowing another deployment's engines — optional` | 3517 |
 | `operate/engines/llama-cpp` | LAN の llama.cpp でチャットする | `operate/10-llm-lan` | 1604 |
 
 **困ったとき**
