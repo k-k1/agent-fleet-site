@@ -16,7 +16,8 @@ const groupItems = (dir) =>
 const group = (en, ja, dir, collapsed = false) => ({
   label: en, translations: { ja }, collapsed, items: groupItems(dir),
 });
-const t = (en, ja) => ({ en, ja });
+// The topic labels, shared with scripts/to_starlight.py, which titles the cards of the landing page with them.
+const LABELS = JSON.parse(readFileSync(new URL('./src/topic-labels.json', import.meta.url), 'utf8'));
 
 // The sidebar is built from the directories this build actually has. Pages reach src/content/docs/ from two places:
 // the agent-fleet release (guide/, which gains task pages under user/ as the rewrite lands) and the pilot drafts
@@ -29,7 +30,7 @@ const groups = (...defs) => defs.filter(([, , dir]) => has(dir)).map((d) => grou
 
 const userTopic = {
   // The task pages are written in Japanese first, so the topic lands on a page that exists in both languages.
-  id: 'user', label: t('User guide', 'ユーザーガイド'), icon: 'open-book', link: '/user/',
+  id: 'user', label: LABELS.user, icon: 'open-book', link: '/user/',
   items: [
     // Every group of the page map (research/page-titles.tsv), in its order. A directory that is not there yet is
     // skipped, so a lane that adds the first page of a group needs no change here.
@@ -82,11 +83,11 @@ const referenceItems = [
 const topics = [
   userTopic,
   {
-    label: t('Team admin', 'チーム管理'), icon: 'setting', link: '/admin/',
+    label: LABELS.admin, icon: 'setting', link: '/admin/',
     items: [{ autogenerate: { directory: 'admin' } }],
   },
   {
-    id: 'operate', label: t('Self-hosting', 'セルフホスト'), icon: 'rocket', link: '/operate/',
+    id: 'operate', label: LABELS.operate, icon: 'rocket', link: '/operate/',
     items: [
       { label: 'Guide', translations: { ja: 'ガイド' }, items: [{ autogenerate: { directory: 'operate' } }] },
       // The runbooks are hidden from autogenerate (scripts/to_starlight.py) and listed here, so the group gets a
@@ -100,11 +101,11 @@ const topics = [
     ],
   },
   {
-    label: t('Reference', 'リファレンス'), icon: 'information', link: '/ref/',
+    label: LABELS.ref, icon: 'information', link: '/ref/',
     items: referenceItems,
   },
   {
-    label: t('Release notes', 'リリースノート'), icon: 'list-format', link: '/ref/releases/summary/',
+    label: LABELS.releases, icon: 'list-format', link: '/ref/releases/summary/',
     items: [{ autogenerate: { directory: 'ref/releases' } }],
   },
 ];
@@ -118,6 +119,8 @@ export default defineConfig({
     starlight({
       title: 'Agent Fleet',
       customCss: ['./src/styles/custom.css'],
+      // Adds the language and theme selects on phones to pages without a sidebar (the splash landing page).
+      components: { Header: './src/components/Header.astro' },
       logo: { src: './src/assets/icon.png' },
       favicon: '/favicon.png',
       defaultLocale: 'root',

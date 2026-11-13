@@ -1,0 +1,7 @@
+{
+ "user": {"en": "Using Agent Fleet", "ja": "使いかた"},
+ "admin": {"en": "Team admin", "ja": "チーム管理"},
+ "operate": {"en": "Self-hosting", "ja": "セルフホスト"},
+ "ref": {"en": "Reference", "ja": "リファレンス"},
+ "releases": {"en": "Release notes", "ja": "リリースノート"}
+}
