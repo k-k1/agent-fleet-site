@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://agent-fleet.org/sitemap.xml
+Sitemap: https://agent-fleet.org/docs/sitemap-index.xml

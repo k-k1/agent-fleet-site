@@ -34,6 +34,11 @@ copy for you. The rules below are the whole safety net.
   other ref; a heading anchor is checked against what GitHub actually renders
   (`scripts/check.py --online`). Links into agent-fleet-dist stay on `main`, which is
   always the latest release.
+- **Link to the guide on the docs site, not on GitHub:** `/docs/<page>/#<anchor>` (Japanese:
+  `/docs/ja/<page>/#<Japanese anchor>`), with the id the built page actually has.
+  `scripts/check.py` fails on a guide link into GitHub, and
+  `scripts/check.py --docs-dist docs/dist` checks every `/docs/` link and anchor against a
+  built guide (`docs/scripts/build.sh`); the Pages build runs it after building the guide.
 - **After editing `site/assets/site.css` or `lightbox.js`, run `scripts/stamp-assets.py`.**
   `/assets/*` is cached for a day at Cloudflare's edge and in browsers, so the pages link
   them as `?v=<content hash>`; without a new stamp a deploy serves the new HTML with
@@ -65,6 +70,7 @@ they do.
 python3 -m http.server --directory site --bind 127.0.0.1 8000   # then open http://127.0.0.1:8000/
 scripts/check.py                 # local links, anchors, image sizes, hreflang, sitemap, security.txt
 scripts/check.py --online        # plus every external link and GitHub heading anchor
+scripts/check.py --docs-dist docs/dist   # plus every /docs/ link and anchor, against a built guide
 ```
 
 The local server does not apply `_headers`. CI runs the offline check on every push and pull

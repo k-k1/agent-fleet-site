@@ -20,6 +20,11 @@ REPO_URL="${AGENT_FLEET_REPO:-https://github.com/k-k1/agent-fleet.git}"
 rm -rf "$OUT"
 if [ "${CF_PAGES_BRANCH:-}" = main ]; then
   if [ ! -e "$ROOT/scripts/docs-published" ]; then
+    # The landing pages link into /docs/; publishing them without it would deploy dead links.
+    if grep -rlq 'href="/docs/' "$ROOT/site"; then
+      echo "ERROR: site/ links to /docs/, which main does not publish yet (scripts/docs-published is absent)" >&2
+      exit 1
+    fi
     cp -r "$ROOT/site" "$OUT"
     echo "==> out/: site/ only (/docs/ is not published yet: scripts/docs-published is absent)"
     exit 0
@@ -40,6 +45,8 @@ git clone --quiet --filter=blob:none --branch "$TAG" "$REPO_URL" "$SRC/agent-fle
 (cd "$ROOT/docs" && npm ci --no-audit --no-fund)
 bash "$ROOT/docs/scripts/build.sh" "$SRC/agent-fleet" "$TAG"
 python3 -I "$ROOT/docs/scripts/check_dist.py" "$ROOT/docs/dist"
+# The landing pages' links into the guide, anchors included.
+python3 -I "$ROOT/scripts/check.py" --docs-dist "$ROOT/docs/dist"
 # Search quality needs pages that a release may not have yet, so only builds that follow an agent-fleet branch run it.
 case "$TAG" in v[0-9]*) ;; *) node "$ROOT/docs/scripts/search_quality.mjs" "$ROOT/docs/dist" ;; esac
 
