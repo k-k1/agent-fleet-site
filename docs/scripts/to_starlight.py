@@ -7,6 +7,7 @@ The guide stays GitHub-shaped in the repository (x.md + x.ja.md, an H1 per page,
 language-switch line, relative .md links); everything Starlight needs is derived here so
 the source never has to know a website exists.
 """
+import html
 import json
 import re
 import shutil
@@ -51,6 +52,147 @@ def repo_path(rel: Path) -> str:
     if parts[:2] == ("ref", "releases"):
         return "deploy/release/notes/" + "/".join(parts[2:])
     return "guide/" + rel.as_posix()
+
+
+class LandingError(ValueError):
+    """The guide's README no longer has the shape the landing page is built from: the build stops and says where."""
+
+
+# The cards of the landing page, by the directory their link points into, in this order. Their titles are the topic
+# labels (src/topic-labels.json, which astro.config.mjs reads too); "member" is the old shelf of the "user" topic.
+LANDING_SHELVES = {"user": "user", "member": "user", "admin": "admin", "operate": "operate"}
+LANDING_LINK = re.compile(r"\[((?:[^\]\\]|\\.)*)\]\((/docs/[^)\s]*)\)")
+
+
+def _plain(md: str) -> str:
+    """Markdown inline text without its links and emphasis."""
+    return re.sub(r"\*\*|`", "", LANDING_LINK.sub(lambda m: m.group(1), md)).strip()
+
+
+def _sentences(text: str, lang: str):
+    return [x for x in re.split(r"(?<=。)" if lang == "ja" else r"(?<=\.)\s+", text) if x.strip()]
+
+
+def _attr(s: str) -> str:
+    return "{" + json.dumps(s, ensure_ascii=False) + "}"
+
+
+def landing(lang: str, title: str, body: str, labels: dict) -> str:
+    """The root page as a Starlight splash page, built from the guide's README (already link-converted).
+
+    The README stays plain Markdown for the containers and GitHub; this reads its parts and fails on anything it
+    does not recognise, rather than dropping it: a lead paragraph that links the first-time page, a three-column
+    table with one row per reader and a link to their shelf, then one paragraph each for the reference, the release
+    history, the no-terminal entry, and the closing note on the Console.
+    """
+    sep = " " if lang == "en" else ""
+    blocks = [b.strip("\n") for b in re.split(r"\n\s*\n", body.strip()) if b.strip()]
+
+    def fail(why):
+        raise LandingError(f"guide/README{'.ja' if lang == 'ja' else ''}.md: {why}; update landing() in "
+                           "scripts/to_starlight.py to the README's new shape")
+
+    def one_link(block, what):
+        links = LANDING_LINK.findall(block)
+        if not links:
+            fail(f"the {what} has no link into the guide")
+        return links
+
+    def url_lang(url):
+        return url[len(BASE) + 4:] if lang == "ja" and url.startswith(BASE + "/ja/") else url[len(BASE) + 1:]
+
+    if len(blocks) < 2:
+        fail("expected a lead paragraph and a table")
+    lead, table, rest = blocks[0], blocks[1], blocks[2:]
+    if lead.startswith("|") or not table.startswith("|"):
+        fail("expected the lead paragraph, then the readers' table")
+    first = one_link(lead, "lead paragraph")[0]
+    if not url_lang(first[1]).startswith("user/start/"):
+        fail(f"the lead paragraph's link {first[1]} is not a first-time page under user/start/")
+    rows = [[c.strip() for c in r.strip().strip("|").split("|")] for r in table.splitlines()]
+    if len(rows) < 3 or any(len(r) != 3 for r in rows) or not all(re.fullmatch(r":?-+:?", c) for c in rows[1]):
+        fail("the readers' table is not a header, a separator and rows of three columns")
+    cards = []
+    for reader, read, answers in rows[2:]:
+        links = LANDING_LINK.findall(read)
+        if len(links) != 1:
+            fail(f"the table row for {reader!r} does not link one shelf")
+        shelf = url_lang(links[0][1]).split("/", 1)[0]
+        if shelf not in LANDING_SHELVES:
+            fail(f"the table row for {reader!r} links {links[0][1]}, which is not a known shelf")
+        sep_r = "：" if lang == "ja" else ": "
+        cards.append((LANDING_SHELVES[shelf], links[0][1], f"{_plain(reader)}{sep_r}{_plain(answers)}"))
+    if [c[0] for c in cards] != ["user", "admin", "operate"]:
+        fail(f"the readers' table links {[c[0] for c in cards]}, not user, admin and operate in that order")
+
+    ref = releases = no_term = None
+    notes = []
+    for b in rest:
+        if b.startswith("|") or b.startswith("#") or b.startswith(":::") or b.startswith("<"):
+            fail(f"unexpected block after the table: {b.splitlines()[0]!r}")
+        links = LANDING_LINK.findall(b)
+        targets = [url_lang(u) for _, u in links]
+        if targets and targets[0] == "ref/" and ref is None:
+            ref = b
+        elif targets and targets[0].startswith("ref/releases/") and releases is None:
+            releases = b
+        elif targets and targets[0].startswith("user/start/") and no_term is None:
+            no_term = links[0]
+        elif not links and not notes:
+            notes.append(b)
+        else:
+            fail(f"unexpected paragraph after the table: {b.splitlines()[0]!r}")
+    if not (ref and releases and no_term and notes):
+        fail("expected one paragraph each for the reference, the release history, the no-terminal entry and the "
+             "Console")
+
+    # The reference's own sentences describe its card; one that links elsewhere (the glossary) stays as text.
+    ref_text = sep.join(l.strip() for l in ref.splitlines())
+    own, other = [], []
+    for x in _sentences(ref_text, lang):
+        (other if [u for _, u in LANDING_LINK.findall(x) if url_lang(u) != "ref/"] else own).append(x)
+    if not own:
+        fail("the reference paragraph has no sentence describing it")
+    ref_url = LANDING_LINK.findall(ref)[0][1]
+    cards.append(("ref", ref_url, _plain(sep.join(own))))
+    rel_text = sep.join(l.strip() for l in releases.splitlines())
+    rel_url = LANDING_LINK.findall(releases)[0][1]
+
+    tail = [sep.join(other).strip()] if other else []
+    tail += [sep.join(l.strip() for l in n.splitlines()) for n in notes]
+    for t in tail:
+        if re.search(r"[{}<>]", t):
+            fail(f"the text {t!r} has characters MDX would read as code")
+
+    def card(topic, href, desc):
+        return f"  <LinkCard title={_attr(labels[topic][lang])} href={_attr(href)} description={_attr(desc)} />"
+
+    fm = [
+        f"title: {yaml_str(title)}",
+        "template: splash",
+        "hero:",
+        f"  tagline: {yaml_str(html.escape(_plain(sep.join(l.strip() for l in lead.splitlines()))))}",
+        "  actions:",
+        f"    - text: {yaml_str(_plain(first[0]))}",
+        f"      link: {yaml_str(first[1])}",
+        "      icon: right-arrow",
+        f"    - text: {yaml_str(_plain(no_term[0]))}",
+        f"      link: {yaml_str(no_term[1])}",
+        "      icon: right-arrow",
+        "      variant: minimal",
+    ]
+    out = [
+        "import { CardGrid, LinkCard } from '@astrojs/starlight/components';",
+        "",
+        "<CardGrid>",
+        *[card(*c) for c in cards],
+        "</CardGrid>",
+        "",
+        card("releases", rel_url, _plain(_sentences(rel_text, lang)[0])).strip(),
+        "",
+        *[t + "\n" for t in tail],
+    ]
+    return "---\n" + "\n".join(fm) + "\n---\n\n" + "\n".join(out)
 
 
 class ImageSizeError(ValueError):
@@ -348,9 +490,15 @@ def main():
                 line))
         body_text = ALERT.sub(alert_to_aside, "\n".join(res)).lstrip("\n")
 
+        if not slug_of(stem):
+            # The two home pages are a splash landing (no sidebar, so in no topic), as MDX for its cards.
+            labels = json.loads((site / "src/topic-labels.json").read_text(encoding="utf-8"))
+            dst = out / ("ja/" if lang == "ja" else "") / "index.mdx"
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            dst.write_text(landing(lang, title, body_text, labels), encoding="utf-8")
+            continue
+
         fm = [f"title: {yaml_str(title)}"]
-        if not slug_of(stem):  # the home pages sit in the user-guide topic
-            fm.append("topic: user")
         if slug_of(stem):  # the two home pages take their id from index.md
             fm.append(f"slug: {yaml_str(('ja/' if lang == 'ja' else '') + slug_of(stem))}")
         if meta.get("audience"):
@@ -405,5 +553,5 @@ def main():
 if __name__ == "__main__":
     try:
         main()
-    except ImageSizeError as e:
+    except (ImageSizeError, LandingError) as e:
         sys.exit(f"to_starlight: {e}")

@@ -86,7 +86,7 @@ node scripts/search_quality.mjs --compact            # ranks only, one line (for
 
 | Path | What |
 |---|---|
-| `astro.config.mjs` | Starlight, the topics (user guide / team admin / self-hosting / reference / release notes), the link validator |
+| `astro.config.mjs` | Starlight, the topics (using Agent Fleet / team admin / self-hosting / reference / release notes), the link validator |
 | `src/console-slug.mjs` | Heading ids by the Console's rule (`guide/`) or github-slugger (runbooks). See ADR 0131 §2 |
 | `scripts/to_starlight.py` | Staged guide → Starlight content: titles, language routes, links, alerts → asides, image sizes (WebP screenshots are 2x: half their width and height; a size it cannot read fails the build) |
 | `scripts/redirect_stubs.py` | Redirect stubs for the old URLs (above), written into `dist/` after the build |
