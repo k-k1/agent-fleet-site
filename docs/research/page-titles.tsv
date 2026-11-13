@@ -27,13 +27,13 @@ user/sessions/budget	使いすぎたセッションを予算で止める	セッ�
 user/sessions/handoff	別のセッションやエージェントに引き継ぐ	セッション	止める・片付ける|Stopping and tidying
 user/fleet/overview	動いているセッションを一覧する	たくさんのセッション	見渡す|See the fleet
 user/fleet/graph	セッションのつながりを時系列で見る	たくさんのセッション	見渡す|See the fleet
-user/fleet/working-sets	ワーキングセットで絞り込む	たくさんのセッション	見渡す|See the fleet
+user/fleet/working-sets	作業グループで絞り込む	たくさんのセッション	見渡す|See the fleet
 user/fleet/child-sessions	セッションから子セッションを起動する	たくさんのセッション	セッション同士|Between sessions
 user/fleet/messages	セッション同士でやりとりさせる	たくさんのセッション	セッション同士|Between sessions
 user/fleet/pr-feedback	PR のレビューをセッションに伝える	たくさんのセッション	セッション同士|Between sessions
 user/fleet/fleet-visibility	セッションに全体を見せる	たくさんのセッション	セッション同士|Between sessions
-user/fleet/operator	Fleet Operator に任せる	たくさんのセッション	任せる|Hand it off
-user/fleet/operator-patterns	Fleet Operator の使いかたの例	たくさんのセッション	任せる|Hand it off
+user/fleet/operator	フリート・オペレーターに任せる	たくさんのセッション	任せる|Hand it off
+user/fleet/operator-patterns	フリート・オペレーターの使いかたの例	たくさんのセッション	任せる|Hand it off
 user/fleet/schedules	決まった時刻に実行する	たくさんのセッション	任せる|Hand it off
 user/code/connect-git	Git のサービスを接続する	コード
 user/code/clone	リポジトリをクローンする	コード
@@ -64,7 +64,7 @@ user/chat/assistant	アシスタントに質問する	チャットとメモ
 user/chat/purpose-assistants	翻訳や専用のアシスタントを使う	チャットとメモ
 user/chat/memos	メモをためて渡す	チャットとメモ
 user/team/hand-over	セッションをメンバーに渡す	チームで使う
-user/team/inbox	チームメイトに頼む（受信箱）	チームで使う
+user/team/inbox	受信箱でチームメイトに頼む	チームで使う
 user/team/share	会話を共有する	チームで使う
 user/team/usage-limits	使用量の上限の状況を見せ合う	チームで使う
 user/images/gallery	画像ギャラリーを使う	画像
@@ -87,11 +87,11 @@ user/integrations/chat-bridge	Discord・Slack とつなぐ	連携	チャット�
 user/integrations/ops-monitoring	監視ツールとつなぐ	連携	チャットと監視|Chat and monitoring
 user/integrations/mcp-servers	セッションに MCP サーバーを追加する	連携	MCP|MCP
 user/workspace/recreate	ワークスペースを作り直す	ワークスペース
-user/workspace/machine	マシンの大きさを変える	ワークスペース
+user/workspace/machine	マシンと使用状況を見る	ワークスペース
 user/workspace/toolchains	ツールチェーンを選ぶ	ワークスペース
 user/workspace/databases	データベースを使うテストを動かす	ワークスペース
 user/workspace/aws-emulator	AWS のコードを手元のエミュレーターで試す	ワークスペース
-user/workspace/export-import	ワークスペースを書き出す・取り込む	ワークスペース
+user/workspace/export-import	設定を書き出す・取り込む	ワークスペース
 user/workspace/cost	稼働時間とクラウド費用を見る	ワークスペース
 user/memory/which-memory	どのメモリを使うか決める	メモリ	見る・整える|Read and tidy
 user/memory/overview	エージェントのメモリを見る・直す	メモリ	見る・整える|Read and tidy
@@ -108,7 +108,7 @@ user/outside/move-work-in	手元の Claude Code の作業をワークスペー�
 user/settings/display	表示とアカウントを変える	設定
 user/settings/notifications	通知を受け取る	設定
 user/settings/read-aloud	読み上げを使う	設定
-user/security/credentials	資格情報の扱い	セキュリティ
+user/security/credentials	資格情報を安全に扱う	セキュリティ
 user/troubleshooting/workspace	ワークスペースが起動しない・止まった	困ったとき
 user/troubleshooting/sessions	セッションが再開できない・見当たらない	困ったとき
 user/troubleshooting/agents	エージェントにログインできない・モデルが出ない	困ったとき
@@ -217,25 +217,25 @@ operate/engines/borrow	別のデプロイのエンジンを借りる	推論エ�
 operate/engines/llama-cpp	LAN の llama.cpp でチャットする	推論エンジン
 operate/diagnose/checklist	症状から原因を探す	困ったとき
 operate/diagnose/cannot-login	ログインできない	困ったとき
-ref/overview	リファレンスの読みかた	リファレンス
-ref/features	機能の一覧	リファレンス
-ref/agents	エージェントごとの対応状況	リファレンス
-ref/repos	リポジトリのサービスごとの対応状況	リファレンス
-ref/deploy-targets	デプロイ先ごとの違い	リファレンス
-ref/roles	ロールとできること	リファレンス
+ref/overview	リファレンス — Agent Fleet にできること	リファレンス
+ref/features	機能カタログ	リファレンス
+ref/agents	エージェント — 種別ごとにできること	リファレンス
+ref/repos	リポジトリ種別 — 何に対応しているか	リファレンス
+ref/deploy-targets	配備形態 — どこに何が在るか	リファレンス
+ref/roles	ロール — 誰が何をできるか	リファレンス
 ref/limits	上限と既定値	リファレンス
-ref/settings	設定の場所	リファレンス
+ref/settings	設定 — どこで何を決めるか	リファレンス
 ref/console-ui	アイコン・バッジ・メニュー	リファレンス
-ref/browser-pane	ブラウザペインの仕様	リファレンス
+ref/browser-pane	ブラウザペイン — 利用契約	リファレンス
 ref/aws-profiles	AWS プロファイルの仕様	リファレンス
 ref/aws-ssm	SSM の仕様	リファレンス
 ref/bedrock-route	Amazon Bedrock のルート	リファレンス
-ref/glossary	用語集	リファレンス
-ref/cli/README	コマンドの一覧	コマンド
+ref/glossary	用語	リファレンス
+ref/cli/README	コマンド	コマンド
 ref/cli/af-aws-exec	af-aws-exec	コマンド
 ref/cli/af-gcloud-exec	af-gcloud-exec	コマンド
 ref/cli/af-db	af-db	コマンド
 ref/cli/af-memory	af-memory	コマンド
 ref/cli/af-scratch	af-scratch	コマンド
 ref/cli/af-arch-repair	af-arch-repair	コマンド
-ref/mcp/README	af の MCP ツール	MCP ツール
+ref/mcp/README	MCP ツール	MCP ツール
