@@ -11,6 +11,7 @@ import json
 import re
 import shutil
 import sys
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 BASE = "/docs"
@@ -52,21 +53,129 @@ def repo_path(rel: Path) -> str:
     return "guide/" + rel.as_posix()
 
 
-def webp_width(path: Path):
-    """Canvas width of a WebP (VP8X / VP8 / VP8L), or None."""
-    if path.suffix != ".webp":
-        return None
-    b = path.read_bytes()[:40]
-    if b[:4] != b"RIFF" or b[8:12] != b"WEBP":
-        return None
-    kind = b[12:16]
-    if kind == b"VP8X":
-        return 1 + int.from_bytes(b[24:27], "little")
-    if kind == b"VP8 ":
-        return int.from_bytes(b[26:28], "little") & 0x3FFF
-    if kind == b"VP8L":
-        return 1 + (int.from_bytes(b[21:25], "little") & 0x3FFF)
+class ImageSizeError(ValueError):
+    """An image whose size cannot be read: the build stops and names the file."""
+
+
+# CSS absolute units in px (CSS Values 4: 1in = 96px).
+SVG_UNITS = {"": 1.0, "px": 1.0, "in": 96.0, "cm": 96 / 2.54, "mm": 96 / 25.4, "pt": 96 / 72, "pc": 16.0}
+
+
+def image_size(path: Path):
+    """Intrinsic (width, height) in px of a WebP, PNG or SVG; None for any other kind of file.
+
+    A file of one of those kinds whose size cannot be read raises ImageSizeError: a truncated or malformed header
+    would otherwise come out as a 1x1 or 0x0 box.
+    """
+    suffix = path.suffix.lower()
+    if suffix == ".svg":
+        return svg_size(path)
+    if suffix == ".png":
+        return png_size(path)
+    if suffix == ".webp":
+        return webp_size(path)
     return None
+
+
+def _positive(path: Path, what: str, w, h):
+    if w <= 0 or h <= 0:
+        raise ImageSizeError(f"{path}: {what} gives a size of {w}x{h}")
+    return w, h
+
+
+PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
+# Minimum payload of each WebP first chunk that carries the canvas size.
+WEBP_MIN_CHUNK = {b"VP8X": 10, b"VP8 ": 10, b"VP8L": 5}
+
+
+def png_size(path: Path):
+    """IHDR's size. The first 33 bytes must be whole: the signature, IHDR's length (13) and type, its 13 bytes, its CRC."""
+    b = path.read_bytes()[:33]
+    if len(b) < 33 or b[:8] != PNG_SIGNATURE or b[8:12] != (13).to_bytes(4, "big") or b[12:16] != b"IHDR":
+        raise ImageSizeError(f"{path}: not a PNG with a complete IHDR chunk (truncated or malformed header)")
+    return _positive(path, "IHDR", int.from_bytes(b[16:20], "big"), int.from_bytes(b[20:24], "big"))
+
+
+def webp_size(path: Path):
+    """The canvas size from the first chunk, after checking the RIFF size and that chunk's declared length."""
+    data = path.read_bytes()
+    b = data[:30]
+    if len(b) < 20 or b[:4] != b"RIFF" or b[8:12] != b"WEBP":
+        raise ImageSizeError(f"{path}: not a RIFF WEBP file (truncated or malformed header)")
+    riff_size = int.from_bytes(b[4:8], "little")
+    if riff_size + 8 > len(data):
+        raise ImageSizeError(f"{path}: RIFF size {riff_size} runs past the end of the file ({len(data)} bytes)")
+    kind, length = b[12:16], int.from_bytes(b[16:20], "little")
+    if kind not in WEBP_MIN_CHUNK:
+        raise ImageSizeError(f"{path}: unknown WebP chunk {kind!r}")
+    if length < WEBP_MIN_CHUNK[kind] or 20 + length > riff_size + 8:
+        raise ImageSizeError(f"{path}: {kind.decode().strip()} chunk length {length} is below its minimum "
+                             f"({WEBP_MIN_CHUNK[kind]}) or runs past the RIFF size {riff_size}")
+    if kind == b"VP8X":
+        return 1 + int.from_bytes(b[24:27], "little"), 1 + int.from_bytes(b[27:30], "little")
+    if kind == b"VP8 ":
+        # Frame tag (3 bytes), start code 9d 01 2a, then 14-bit width and height.
+        if b[23:26] != b"\x9d\x01\x2a":
+            raise ImageSizeError(f"{path}: VP8 frame header without its start code")
+        w, h = int.from_bytes(b[26:28], "little") & 0x3FFF, int.from_bytes(b[28:30], "little") & 0x3FFF
+        return _positive(path, "the VP8 frame header", w, h)
+    if b[20] != 0x2F:
+        raise ImageSizeError(f"{path}: VP8L header without its signature byte")
+    v = int.from_bytes(b[21:25], "little")
+    return 1 + (v & 0x3FFF), 1 + ((v >> 14) & 0x3FFF)
+
+
+def svg_size(path: Path):
+    """Size of the root <svg> in px.
+
+    width and height in an absolute unit are converted to px. A missing or percentage dimension is derived from the
+    viewBox (its aspect ratio when the other dimension is known, its size when neither is). Relative units (em, ex,
+    ...) cannot be resolved at build time and raise ImageSizeError, as does an SVG with nothing to size it by.
+    """
+    text = path.read_text(encoding="utf-8", errors="replace")
+    # No entity declarations and no internal DTD subset (the defusedxml rules); expat never fetches an external DTD,
+    # so a plain <!DOCTYPE svg PUBLIC ...> line is allowed.
+    if re.search(r"<!ENTITY", text) or re.search(r"<!DOCTYPE[^>\[]*\[", text):
+        raise ImageSizeError(f"{path}: SVG declares entities or an internal DTD subset; refusing to parse it")
+    try:
+        # The real root element: comments, CDATA, the prolog and processing instructions are not elements.
+        root = ET.fromstring(path.read_bytes())
+    except ET.ParseError as e:
+        raise ImageSizeError(f"{path}: not well-formed XML ({e})") from None
+    if root.tag.rpartition("}")[2] != "svg":
+        raise ImageSizeError(f"{path}: the root element is <{root.tag}>, not <svg>")
+
+    def attr(name):
+        v = root.get(name)
+        return v.strip() if v is not None else None
+
+    def length(name):
+        """px for an absolute length, None for a missing or percentage one."""
+        v = attr(name)
+        if v is None or v == "" or v.endswith("%"):
+            return None
+        n = re.fullmatch(r"([0-9]*\.?[0-9]+(?:[eE][+-]?[0-9]+)?)\s*([a-zA-Z]*)", v)
+        if not n or n.group(2).lower() not in SVG_UNITS:
+            raise ImageSizeError(f"{path}: <svg {name}=\"{v}\"> is not a length that can be resolved at build time")
+        return float(n.group(1)) * SVG_UNITS[n.group(2).lower()]
+
+    w, h = length("width"), length("height")
+    if w is None or h is None:
+        box = (attr("viewBox") or "").replace(",", " ").split()
+        try:
+            bw, bh = (float(box[2]), float(box[3])) if len(box) == 4 else (0.0, 0.0)
+        except ValueError:
+            bw = bh = 0.0
+        if bw <= 0 or bh <= 0:
+            raise ImageSizeError(f"{path}: <svg> has no absolute width and height and no usable viewBox")
+        if w is None and h is None:
+            w, h = bw, bh
+        elif h is None:
+            h = w * bh / bw
+        else:
+            w = h * bw / bh
+    # A box smaller than a pixel still gets one, rather than collapsing to 0.
+    return _positive(path, "<svg>", max(1, round(w)), max(1, round(h)))
 
 
 def split_lang(rel: Path):
@@ -194,11 +303,19 @@ def main():
                 tl, ts = split_lang(tgt)
                 return f"{label}({url_of(tl, ts)}{frag}{ttl})"
             if tgt.parts and tgt.parts[0] == "assets" and (staged / tgt).is_file():
-                w = webp_width(staged / tgt)
-                if label.startswith("!") and w:
-                    # Screenshots are taken at 2x: show them at their CSS size, never stretched.
+                size = image_size(staged / tgt) if label.startswith("!") else None
+                if size:
+                    w, h = size
+                    if tgt.suffix.lower() == ".webp":
+                        # Screenshots (the WebPs) are taken at 2x: show them at their CSS size, never stretched.
+                        # Other images are shown at their own size, as they were before they carried one.
+                        w, h = max(1, w // 2), max(1, h // 2)
+                    # width and height both: the browser reserves the box (CSS keeps height: auto, max-width: 100%,
+                    # so it still scales) and a lazy image that loads later does not push the page down under an
+                    # #anchor.
                     alt = label[2:-1].replace('"', "&quot;")
-                    return f'<img src="{BASE}/{tgt.as_posix()}" alt="{alt}" width="{w // 2}" loading="lazy" />'
+                    return (f'<img src="{BASE}/{tgt.as_posix()}" alt="{alt}" width="{w}" height="{h}"'
+                            ' loading="lazy" />')
                 return f"{label}({BASE}/{tgt.as_posix()}{ttl})"
             # Outside the staged tree: point at the repository at the same ref.
             origin = Path(repo_path(rel)).parent / path
@@ -286,4 +403,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except ImageSizeError as e:
+        sys.exit(f"to_starlight: {e}")

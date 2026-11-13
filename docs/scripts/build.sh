@@ -19,7 +19,7 @@ bash "$WORK/src/deploy/release/stage-docs.sh" "$WORK/staged" >/dev/null
 # Pilot pages: new paths are added, files that exist in the release are replaced.
 # DOCS_PILOT=0 leaves them out: they are drafts the user has not signed off, so the production deploy
 # (scripts/pages-build.sh on main) publishes the release's guide alone.
-if [ "${DOCS_PILOT:-1}" = 1 ]; then
+if [ "${DOCS_PILOT:-1}" = 1 ] && [ -d "$HERE/pilot" ]; then
   cp -r "$HERE/pilot/." "$WORK/staged/"
 fi
 

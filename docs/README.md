@@ -18,7 +18,7 @@ npx astro preview --host 127.0.0.1 --port 4410   # http://127.0.0.1:4410/docs/
 
 1. Takes `guide/`, `deploy/` and `scripts/` from the tag and runs the main repository's
    `deploy/release/stage-docs.sh`, the same closed tree the Console ships.
-2. Lays `pilot/` over it.
+2. Lays `pilot/` over it, when that directory exists (it is empty now: every pilot page is in the guide).
 3. Converts the result with `scripts/to_starlight.py`.
 4. Builds the site. The link validator fails the build on a broken link or anchor.
 5. Writes redirect stubs for the old URLs of pages that moved, with `scripts/redirect_stubs.py` (below).
@@ -75,6 +75,12 @@ node scripts/search_quality.mjs --compact            # ranks only, one line (for
   `astro.config.mjs` and rebuild to confirm the bundle carries it.
 - When adding a query, state which page should win and why; keep English queries in the list, because a tuning that
   fixes Japanese must not move English. Ranks are on the page level (the first result for that page).
+- What is left is wording, not weights (#3574, measured on 53 queries): the browser splits a query with
+  `Intl.Segmenter` (「共有サインイン」 → 共有 / サイン / イン, 「ワークツリー」 → ワーク / ツリー) and every part also matches
+  as a prefix (ワーク → ワークスペース), so a page that says the compound once loses to pages that use its parts often.
+  No `ranking` setting near the current one moved a miss, and the page title is already a weight-7 heading (raising it
+  to 10 moved one query by one place). Putting the term in the heading of the section that covers it does work: on a
+  re-indexed copy, 「共有サインイン」 went from 5 to 2. That change belongs in agent-fleet's `guide/`.
 
 ## Layout
 
@@ -82,10 +88,9 @@ node scripts/search_quality.mjs --compact            # ranks only, one line (for
 |---|---|
 | `astro.config.mjs` | Starlight, the topics (user guide / team admin / self-hosting / reference / release notes), the link validator |
 | `src/console-slug.mjs` | Heading ids by the Console's rule (`guide/`) or github-slugger (runbooks). See ADR 0131 §2 |
-| `scripts/to_starlight.py` | Staged guide → Starlight content: titles, language routes, links, alerts → asides, 2x screenshot widths |
+| `scripts/to_starlight.py` | Staged guide → Starlight content: titles, language routes, links, alerts → asides, image sizes (WebP screenshots are 2x: half their width and height; a size it cannot read fails the build) |
 | `scripts/redirect_stubs.py` | Redirect stubs for the old URLs (above), written into `dist/` after the build |
-| `scripts/mcp_page.py` | Renders the MCP tool tables from `research/mcp-inventory.md`. Interim: the plan is to generate from the golden `list.json` files |
-| `pilot/` | Rewritten pages in the new structure, in Japanese only so far. It mirrors `guide/`: `user/…`, `ref/cli/…`, `ref/mcp/…` |
+| `pilot/` | Draft pages laid over the release's guide in previews (mirrors `guide/`). Absent while there are no drafts; production never uses it (`DOCS_PILOT=0`) |
 | `research/page-map.ja.md` | Map from every section of the current `guide/` and the shipped runbooks to a page of the new structure (#3463), agreed with the user on 2026-11-07. Rules in `research/page-map.tsv` and `research/page-titles.tsv`; `scripts/page_map.py <checkout> [--write]` checks that every heading is mapped and regenerates the tables |
 | `research/search-queries.tsv`, `scripts/search_quality.mjs` | The search-quality check (above) |
 | `research/mcp-inventory.md` | The 81 MCP tools: their routes, gates and sources, collected from the code |
@@ -103,7 +108,8 @@ Cloudflare Pages runs `scripts/pages-build.sh` (in the repository root) on every
 - **Every other branch is a preview** and always builds `/docs/`, with the pilot pages. To review pages that are not
   released, push a branch here whose `scripts/docs-ref.txt` names an agent-fleet branch (`main`, or a pull request's
   branch); its preview URL shows them.
-- Each build checks the output for dead `/docs/` links and redirects that point nowhere (`scripts/check_dist.py`).
+- Each build checks the output for dead `/docs/` links, redirects that point nowhere, and content images without a height
+  (`scripts/check_dist.py`): an image whose box is not reserved moves the page when it loads, away from an #anchor.
 
 To reproduce a deploy locally, from the repository root: `CF_PAGES_BRANCH=main bash scripts/pages-build.sh`, or any
 other branch name for a preview.

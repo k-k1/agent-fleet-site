@@ -9,11 +9,11 @@ user/start/phone	スマートフォンで使う	はじめに
 user/start/end-of-day	一日の終わりにワークスペースを止める	はじめに
 user/start/without-terminal	ターミナルを使わない人のための入口	はじめに
 user/sessions/start	セッションを始める	セッション	始める|Starting
-user/sessions/worktrees	ワークツリーで並行して作業する	セッション	始める|Starting
+user/sessions/worktrees	worktree で並行して作業する	セッション	始める|Starting
 user/sessions/from-issues	Issue やチケットから始める	セッション	始める|Starting
 user/sessions/status	セッションの状態を読む	セッション	始める|Starting
 user/sessions/reply	セッションに返事をする	セッション	会話|Conversation
-user/sessions/queue	送る内容を待たせる・ターンを止める	セッション	会話|Conversation
+user/sessions/queue	送る内容を保留する・ターンを止める	セッション	会話|Conversation
 user/sessions/plans	プランにコメントする・レビューさせる	セッション	会話|Conversation
 user/sessions/skills	スキルやコマンドを呼び出す	セッション	会話|Conversation
 user/sessions/branch-message	過去のメッセージから分岐する	セッション	会話|Conversation
@@ -21,19 +21,19 @@ user/sessions/changes	セッションが変えた内容を見る	セッション
 user/sessions/export	会話を Markdown で保存する	セッション	会話|Conversation
 user/sessions/translate	回答を自分の言語で読む	セッション	会話|Conversation
 user/sessions/stop-resume	セッションを止める・再開する	セッション	止める・片付ける|Stopping and tidying
-user/sessions/auto-stop	終わったら止める・起こしたままにする	セッション	止める・片付ける|Stopping and tidying
+user/sessions/auto-stop	終わったら止める・動かしたままにする	セッション	止める・片付ける|Stopping and tidying
 user/sessions/cleanup	終わったセッションを片付ける	セッション	止める・片付ける|Stopping and tidying
 user/sessions/budget	使いすぎたセッションを予算で止める	セッション	止める・片付ける|Stopping and tidying
 user/sessions/handoff	別のセッションやエージェントに引き継ぐ	セッション	止める・片付ける|Stopping and tidying
 user/fleet/overview	動いているセッションを一覧する	たくさんのセッション	見渡す|See the fleet
 user/fleet/graph	セッションのつながりを時系列で見る	たくさんのセッション	見渡す|See the fleet
-user/fleet/working-sets	ワーキングセットで絞り込む	たくさんのセッション	見渡す|See the fleet
+user/fleet/working-sets	作業グループで絞り込む	たくさんのセッション	見渡す|See the fleet
 user/fleet/child-sessions	セッションから子セッションを起動する	たくさんのセッション	セッション同士|Between sessions
 user/fleet/messages	セッション同士でやりとりさせる	たくさんのセッション	セッション同士|Between sessions
 user/fleet/pr-feedback	PR のレビューをセッションに伝える	たくさんのセッション	セッション同士|Between sessions
 user/fleet/fleet-visibility	セッションに全体を見せる	たくさんのセッション	セッション同士|Between sessions
-user/fleet/operator	Fleet Operator に任せる	たくさんのセッション	任せる|Hand it off
-user/fleet/operator-patterns	Fleet Operator の使いかたの例	たくさんのセッション	任せる|Hand it off
+user/fleet/operator	フリート・オペレーターに任せる	たくさんのセッション	任せる|Hand it off
+user/fleet/operator-patterns	フリート・オペレーターの使いかたの例	たくさんのセッション	任せる|Hand it off
 user/fleet/schedules	決まった時刻に実行する	たくさんのセッション	任せる|Hand it off
 user/code/connect-git	Git のサービスを接続する	コード
 user/code/clone	リポジトリをクローンする	コード
@@ -64,7 +64,7 @@ user/chat/assistant	アシスタントに質問する	チャットとメモ
 user/chat/purpose-assistants	翻訳や専用のアシスタントを使う	チャットとメモ
 user/chat/memos	メモをためて渡す	チャットとメモ
 user/team/hand-over	セッションをメンバーに渡す	チームで使う
-user/team/inbox	チームメイトに頼む（受信箱）	チームで使う
+user/team/inbox	受信箱でチームメイトに頼む	チームで使う
 user/team/share	会話を共有する	チームで使う
 user/team/usage-limits	使用量の上限の状況を見せ合う	チームで使う
 user/images/gallery	画像ギャラリーを使う	画像
@@ -87,11 +87,11 @@ user/integrations/chat-bridge	Discord・Slack とつなぐ	連携	チャット�
 user/integrations/ops-monitoring	監視ツールとつなぐ	連携	チャットと監視|Chat and monitoring
 user/integrations/mcp-servers	セッションに MCP サーバーを追加する	連携	MCP|MCP
 user/workspace/recreate	ワークスペースを作り直す	ワークスペース
-user/workspace/machine	マシンの大きさを変える	ワークスペース
+user/workspace/machine	マシンと使用状況を見る	ワークスペース
 user/workspace/toolchains	ツールチェーンを選ぶ	ワークスペース
 user/workspace/databases	データベースを使うテストを動かす	ワークスペース
 user/workspace/aws-emulator	AWS のコードを手元のエミュレーターで試す	ワークスペース
-user/workspace/export-import	ワークスペースを書き出す・取り込む	ワークスペース
+user/workspace/export-import	設定を書き出す・取り込む	ワークスペース
 user/workspace/cost	稼働時間とクラウド費用を見る	ワークスペース
 user/memory/which-memory	どのメモリを使うか決める	メモリ	見る・整える|Read and tidy
 user/memory/overview	エージェントのメモリを見る・直す	メモリ	見る・整える|Read and tidy
@@ -108,7 +108,7 @@ user/outside/move-work-in	手元の Claude Code の作業をワークスペー�
 user/settings/display	表示とアカウントを変える	設定
 user/settings/notifications	通知を受け取る	設定
 user/settings/read-aloud	読み上げを使う	設定
-user/security/credentials	資格情報の扱い	セキュリティ
+user/security/credentials	認証情報を安全に扱う	セキュリティ
 user/troubleshooting/workspace	ワークスペースが起動しない・止まった	困ったとき
 user/troubleshooting/sessions	セッションが再開できない・見当たらない	困ったとき
 user/troubleshooting/agents	エージェントにログインできない・モデルが出ない	困ったとき
@@ -126,7 +126,7 @@ admin/members/git-token	メンバーの Git トークンを入れ替える	メ�
 admin/resources/overview	リソースの使われかたを見る	リソース
 admin/resources/session-limits	セッション数の上限を決める	リソース
 admin/resources/engines	推論エンジンを使える人とモデルを決める	リソース
-admin/resources/workspace-size	ワークスペースの大きさを決める	リソース
+admin/resources/workspace-size	ワークスペースのサイズを決める	リソース
 admin/resources/idle-stop	放置されたワークスペースを止める	リソース
 admin/resources/start-at-signin	サインインしたらワークスペースを起動する	リソース
 admin/audit	監査ログを見る	監査と使用量
@@ -147,7 +147,7 @@ operate/aws-ecs/overview	ECS 構成の全体像	ECS
 operate/aws-ecs/install	ECS に構築する	ECS
 operate/aws-ecs/options	パラメータで任意の機能をオンにする	ECS
 operate/aws-ecs/alarms	データベースに届かないときのアラームを設定する	ECS
-operate/aws-ecs/workspace-size	ワークスペースの大きさを決める	ECS
+operate/aws-ecs/workspace-size	ワークスペースのサイズを決める	ECS
 operate/aws-ecs/schedules	決まった時刻の起動を有効にする	ECS
 operate/aws-ecs/egress-ip	外向きの IP アドレスを固定する	ECS
 operate/aws-ecs/egress-gateway	外向きの通信をゲートウェイで制御する	ECS
@@ -164,7 +164,7 @@ operate/aws-ecs/cost	費用を抑える	ECS
 operate/aws-ecs/lifecycle	スクリプトで構築・一時停止・撤去する	ECS
 operate/aws-ecs/teardown	撤去する	ECS
 operate/aws-ecs/iam	デプロイに必要な IAM 権限	ECS
-operate/aws-ecs/template-size	テンプレートの大きさの上限に気をつける	ECS
+operate/aws-ecs/template-size	テンプレートのサイズの上限に気をつける	ECS
 operate/aws-ecs/troubleshooting	ECS で困ったとき	ECS
 operate/kubernetes/overview	Kubernetes 構成の全体像	Kubernetes
 operate/kubernetes/gke	GKE に構築する	Kubernetes
@@ -190,17 +190,17 @@ operate/run/air-gapped	閉じたネットワークに入れる	日々の運用
 operate/run/fleet-policy	全エージェントに指示を配る	日々の運用
 operate/run/opencode-server	opencode の共有サーバーを運用する	日々の運用
 operate/run/public-internet	インターネットに公開する	日々の運用
-operate/run/deployment-label	複数のデプロイを見分ける	日々の運用
+operate/run/deployment-label	複数の配備を見分ける	日々の運用
 operate/run/idle-stop	アイドル停止と強制停止を使う	日々の運用
 operate/secure/threat-model	脅威モデルと残るリスクを知る	セキュリティ
-operate/secure/deployment-keys	配備の鍵を扱う	セキュリティ
+operate/secure/deployment-keys	配備のキーを扱う	セキュリティ
 operate/secure/egress	外向きの通信を制御する	セキュリティ
 operate/secure/mcp	MCP と外部接続のサインインを運用する	セキュリティ
 operate/secure/dev-signin	開発用サインインを使う	セキュリティ
 operate/secure/controls	そのほかの運用上の制御	セキュリティ
 operate/secure/offboarding	アクセスを取り消す・super_admin を引き継ぐ	セキュリティ
-operate/keys/kms	保存時の鍵を AWS KMS にする	鍵
-operate/keys/home-keys	ホームごとに鍵を分ける	鍵
+operate/keys/kms	保存時のキーを AWS KMS にする	鍵
+operate/keys/home-keys	ホームごとにキーを分ける	鍵
 operate/keys/bridge-tokens	ブリッジトークンを入れ替える	鍵
 operate/signin/overview	サインインの方法を設定する	サインイン
 operate/signin/google	Google でサインインする	サインイン
@@ -213,29 +213,29 @@ operate/engines/models	推論エンジンにモデルを取り込む	推論エ�
 operate/engines/status	推論エンジンの状態と履歴を見る	推論エンジン
 operate/engines/read-aloud	読み上げエンジンを動かす	推論エンジン
 operate/engines/comfyui	自前の ComfyUI で画像を生成する	推論エンジン
-operate/engines/borrow	別のデプロイのエンジンを借りる	推論エンジン
+operate/engines/borrow	別の配備のエンジンを借りる	推論エンジン
 operate/engines/llama-cpp	LAN の llama.cpp でチャットする	推論エンジン
 operate/diagnose/checklist	症状から原因を探す	困ったとき
 operate/diagnose/cannot-login	ログインできない	困ったとき
-ref/overview	リファレンスの読みかた	リファレンス
-ref/features	機能の一覧	リファレンス
-ref/agents	エージェントごとの対応状況	リファレンス
-ref/repos	リポジトリのサービスごとの対応状況	リファレンス
-ref/deploy-targets	デプロイ先ごとの違い	リファレンス
-ref/roles	ロールとできること	リファレンス
+ref/overview	リファレンス — Agent Fleet にできること	リファレンス
+ref/features	機能カタログ	リファレンス
+ref/agents	エージェント — 種類ごとにできること	リファレンス
+ref/repos	リポジトリ種別 — 何に対応しているか	リファレンス
+ref/deploy-targets	配備形態 — どこに何が在るか	リファレンス
+ref/roles	ロール — 誰が何をできるか	リファレンス
 ref/limits	上限と既定値	リファレンス
-ref/settings	設定の場所	リファレンス
+ref/settings	設定 — どこで何を決めるか	リファレンス
 ref/console-ui	アイコン・バッジ・メニュー	リファレンス
 ref/browser-pane	ブラウザペインの仕様	リファレンス
 ref/aws-profiles	AWS プロファイルの仕様	リファレンス
 ref/aws-ssm	SSM の仕様	リファレンス
 ref/bedrock-route	Amazon Bedrock のルート	リファレンス
-ref/glossary	用語集	リファレンス
-ref/cli/README	コマンドの一覧	コマンド
+ref/glossary	用語	リファレンス
+ref/cli/README	コマンド	コマンド
 ref/cli/af-aws-exec	af-aws-exec	コマンド
 ref/cli/af-gcloud-exec	af-gcloud-exec	コマンド
 ref/cli/af-db	af-db	コマンド
 ref/cli/af-memory	af-memory	コマンド
 ref/cli/af-scratch	af-scratch	コマンド
 ref/cli/af-arch-repair	af-arch-repair	コマンド
-ref/mcp/README	af の MCP ツール	MCP ツール
+ref/mcp/README	MCP ツール	MCP ツール
