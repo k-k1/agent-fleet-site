@@ -4,6 +4,7 @@
 // /docs/llms.txt, the list of every page. Shown by TableOfContents.astro (the right column) and Footer.astro (the end
 // of the page, where there is no right column).
 import { Code } from '@astrojs/starlight/components';
+import BreakAfterSlash from './BreakAfterSlash.astro';
 
 interface Props {
   class?: string;
@@ -33,7 +34,7 @@ const prompt = ja ? `${url} を読んで` : `Read ${url}`;
           : 'Send this prompt to your agent to read this page.'
     }
   </p>
-  <Code code={prompt} lang="text" meta="wrap" />
+  <BreakAfterSlash><Code code={prompt} lang="text" meta="wrap" /></BreakAfterSlash>
 </section>
 
 <style>
@@ -45,7 +46,12 @@ const prompt = ja ? `${url} を読んで` : `Read ${url}`;
   .af-for-agents :global(.expressive-code) {
     font-size: var(--sl-text-xs);
   }
-  .af-for-agents :global(.expressive-code pre code) {
-    overflow-wrap: anywhere;
+  /* The URL breaks only after a slash (BreakAfterSlash.astro), never inside a word. */
+  .af-for-agents :global(.af-nobreak) {
+    white-space: nowrap;
+  }
+  /* Expressive Code shows the copy button on hover only where there is a mouse; here it is the point of the box. */
+  .af-for-agents :global(.expressive-code .frame .copy button:not(:hover)) {
+    opacity: 0.75;
   }
 </style>
