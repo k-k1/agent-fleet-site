@@ -425,7 +425,7 @@ k-k1/agent-fleet#3463 の「今の `guide/` の各節を新しい構成のペー
 | ページ | タイトル | 元の節 | 語数 |
 |---|---|---|--:|
 | `operate/keys/kms` | 保存時のキーを AWS KMS にする | `operate/12-keys` | 1227 |
-| `operate/keys/home-keys` | ホームディレクトリごとにキーを分ける | `operate/12-keys › A key of its own for each home` | 1629 |
+| `operate/keys/home-keys` | ホームごとにキーを分ける | `operate/12-keys › A key of its own for each home` | 1629 |
 | `operate/keys/bridge-tokens` | ブリッジトークンを入れ替える | `operate/12-keys › Rotating the bridge tokens` | 265 |
 
 **サインイン**

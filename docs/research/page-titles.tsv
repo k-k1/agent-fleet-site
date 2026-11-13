@@ -155,7 +155,7 @@ operate/aws-ecs/tts	日本語の読み上げを足す	ECS
 operate/aws-ecs/engines	推論エンジンを足す	ECS
 operate/aws-ecs/slot-pool	EC2 スロットプールを使い始める	ECS
 operate/aws-ecs/slot-types	スロットのマシンの種類を選ぶ	ECS
-operate/aws-ecs/slot-homes	ホームディレクトリの休止と予備のコピーを設定する	ECS
+operate/aws-ecs/slot-homes	ホームの休止と予備のコピーを設定する	ECS
 operate/aws-ecs/slot-troubleshooting	スロットプールで困ったとき	ECS
 operate/aws-ecs/slot-maintenance	スロットを入れ替える・止める	ECS
 operate/aws-ecs/upgrade	アップグレードする	ECS
@@ -200,7 +200,7 @@ operate/secure/dev-signin	開発用サインインを使う	セキュリティ
 operate/secure/controls	そのほかの運用上の制御	セキュリティ
 operate/secure/offboarding	アクセスを取り消す・super_admin を引き継ぐ	セキュリティ
 operate/keys/kms	保存時のキーを AWS KMS にする	鍵
-operate/keys/home-keys	ホームディレクトリごとにキーを分ける	鍵
+operate/keys/home-keys	ホームごとにキーを分ける	鍵
 operate/keys/bridge-tokens	ブリッジトークンを入れ替える	鍵
 operate/signin/overview	サインインの方法を設定する	サインイン
 operate/signin/google	Google でサインインする	サインイン
