@@ -85,6 +85,23 @@ SUBJECT = {"ja": re.compile(r"\A\*\*[^*]*\]\([^)]*\)[^*]*\*\* ?は"),
            "en": re.compile(r"\A\*\*[^*]*\]\([^)]*\)[^*]*\*\* [a-z]+ ")}
 
 
+# The two sentences that become the hero's buttons keep only their link: the rest of the sentence has to be exactly
+# one of these, or the build fails, so no wording added around the link is lost. {link} is the link, any text and
+# target. 「端末を」 is the wording of releases up to v0.44.0.
+BUTTON_SENTENCES = {
+    "first-time": {"ja": ["はじめて使うなら {link} から読み始めてください。"],
+                   "en": ["If you are new, start with {link}."]},
+    "no-terminal": {"ja": ["ターミナルを一度も開かずに使いたい方は、{link} が近道です。",
+                           "端末を一度も開かずに使いたい方は、{link} が近道です。"],
+                    "en": ["If you would rather never open a terminal, {link} is the short way round."]},
+}
+
+
+def _is_button_sentence(kind: str, lang: str, sentence: str) -> bool:
+    return any(re.fullmatch(re.escape(t).replace(re.escape("{link}"), LANDING_LINK.pattern), sentence.strip())
+               for t in BUTTON_SENTENCES[kind][lang])
+
+
 def _predicate(md: str, lang: str):
     """The paragraph without its opening subject, so a card does not repeat its own title; None if it has none."""
     m = SUBJECT[lang].match(md)
@@ -172,8 +189,9 @@ def landing(lang: str, title: str, body: str, labels: dict) -> str:
             releases = b
         elif targets and targets[0].startswith("user/start/") and no_term is None:
             # The whole paragraph becomes a button: one sentence, one link, nothing else to lose.
-            if len(links) != 1 or len(_sentences(sep.join(l.strip() for l in b.splitlines()), lang)) != 1:
-                fail(f"the no-terminal paragraph is not one sentence with one link: {b.splitlines()[0]!r}")
+            sentence = sep.join(l.strip() for l in b.splitlines())
+            if not _is_button_sentence("no-terminal", lang, sentence):
+                fail(f"the no-terminal sentence {sentence!r} is not one of BUTTON_SENTENCES['no-terminal']")
             no_term = links[0]
         elif not links and not notes:
             notes.append(b)
@@ -204,8 +222,15 @@ def landing(lang: str, title: str, body: str, labels: dict) -> str:
     # The tagline leaves out the sentence that points at the first-time page: the primary button says it.
     lead_sents = _sentences(sep.join(l.strip() for l in lead.splitlines()), lang)
     lead_rest = [x for x in lead_sents if first[1] not in x]
-    if len(lead_sents) - len(lead_rest) != 1:
-        fail("the pointer to the first-time page is not one sentence of the lead paragraph")
+    pointer = [x for x in lead_sents if first[1] in x]
+    if len(pointer) != 1 or not _is_button_sentence("first-time", lang, pointer[0]):
+        fail(f"the first-time sentence {pointer!r} is not one of BUTTON_SENTENCES['first-time']")
+    # 「それ以外は、」/ "Otherwise," answers the pointer, which the tagline leaves to the button.
+    otherwise = {"ja": "それ以外は、", "en": "Otherwise, "}[lang]
+    if not lead_rest[0].startswith(otherwise):
+        fail(f"the lead's sentence after the first-time pointer does not start with {otherwise.strip()!r}")
+    rest0 = lead_rest[0][len(otherwise):]
+    lead_rest = [rest0[:1].upper() + rest0[1:], *lead_rest[1:]]
     if not lead_rest:
         fail("the lead paragraph has nothing besides the pointer to the first-time page")
 

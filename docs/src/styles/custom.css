@@ -26,3 +26,5 @@
   [data-has-hero] .hero:not(:has(> img, > .hero-html)) { grid-template-columns: 100%; }
 }
 [data-has-hero] .hero h1 { word-break: keep-all; overflow-wrap: anywhere; }
+/* The tagline spans the same column as the title rather than Starlight's 50ch. */
+[data-has-hero] .hero .tagline { max-width: none; }
