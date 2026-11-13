@@ -56,7 +56,7 @@
     <h1>Don't replace your coding agents. <span class="accent">Operate them.</span></h1>
     <p class="lead">Agent Fleet is not another agent framework. It runs the coding-agent CLIs your team already uses, unchanged, on your own servers, and takes on everything around them: isolated workspaces, real git worktrees, and one console to start, follow, steer and account for every session.</p>
     <div class="actions">
-      <a class="btn btn-primary" href="https://github.com/k-k1/agent-fleet-dist#getting-started--which-edition">Get started</a>
+      <a class="btn btn-primary" href="/docs/operate/overview/">Get started</a>
       <a class="btn btn-ghost" href="https://github.com/k-k1/agent-fleet">View the source</a>
     </div>
     <div class="agents">
@@ -85,7 +85,7 @@
       <div class="pillar">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></div>
         <h3>Work that doesn't wait for you</h3>
-        <p>Sessions run on the server, each in its own git worktree. Close your laptop: questions and permission requests reach you in the browser, on your phone, or in the session's Slack or Discord thread.</p>
+        <p>Sessions run on the server, each in its own git worktree. Close your laptop: questions and permission requests reach you in the browser, on your phone, or in the session's Slack or Discord thread. When a session waits on a PR's CI or review, or on another session, it sets a watch and picks the work back up when the notice arrives.</p>
       </div>
       <div class="pillar">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
@@ -105,9 +105,9 @@
     <div class="shift">
       <p class="shift-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>Daytime</p>
       <ol class="day">
-        <li><time>09:00</time><strong>Hand off two issues</strong><p>One goes to Claude Code and the other to Codex, each in its own git worktree.</p></li>
-        <li><time>09:10</time><strong>Close the laptop</strong><p>Both sessions keep working on the server after you leave.</p></li>
+        <li><time>09:00</time><strong>Hand off two issues</strong><p>One goes to Claude Code and the other to Codex, each in its own git worktree on the server, so closing the laptop stops neither.</p></li>
         <li><time>11:40</time><strong>Answer from your phone</strong><p>One asks for permission. The request arrives in that session's Slack thread, and you answer it there.</p></li>
+        <li><time>14:20</time><strong>CI fails, and it fixes it</strong><p>The Codex session watches the PR it opened. Told that CI failed, it fixes the failure and pushes again.</p></li>
         <li><time>16:30</time><strong>Review at a desk</strong><p>The session list shows which finished and which wait on you; each worktree's changes are a click away.</p></li>
       </ol>
     </div>
@@ -146,6 +146,7 @@
         <p>Every session is mirrored live. Questions, plans and permission prompts arrive as cards you answer in place.</p>
         <ul>
           <li>Or answer from the session's Discord / Slack thread, with buttons.</li>
+          <li>Write <code>!start</code> in that thread to start a new session on the same agent and working copy.</li>
           <li>The Console works in a phone's browser.</li>
         </ul>
       </div>
@@ -155,7 +156,7 @@
     <div class="feature">
       <div class="feature-text">
         <h3>Sessions that start sessions</h3>
-        <p>A session can hand a review to another agent kind and get one report back, or move its whole job to another kind when its usage limit runs out. The fleet graph draws who started whom, what passed between them, and when each one was working.</p>
+        <p>A session can hand a review to another agent kind and get one report back. A parent that watches a child is told when the child stops working. When a session's usage runs out, it can move its whole job to another kind. The fleet graph draws who started whom, what passed between them, and when each one was working.</p>
       </div>
       <figure class="shot"><a href="/assets/img/fleetgraph-en.webp" data-lightbox><img src="/assets/img/fleetgraph-en.webp" width="3200" height="1240" loading="lazy" decoding="async" alt="Fleet graph: one lane per session on a time axis, children under their parent, arrows for what passed between sessions, and each lane's state chip"></a></figure>
     </div>
@@ -169,7 +170,7 @@
           <li>Your own Claude Code, Claude Desktop or claude.ai can use it too.</li>
         </ul>
       </div>
-      <figure class="shot"><a href="/assets/img/memory-en.webp" data-lightbox><img src="/assets/img/memory-en.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="Settings, Agent memory: memories written by sessions of four agent kinds and by the member, one opened with its scope, author and use count"></a></figure>
+      <figure class="shot"><a href="/assets/img/memory-en.webp" data-lightbox><img src="/assets/img/memory-en.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="Settings, Agent memory: memories written by sessions of several agent kinds and by the member, one pinned memory opened with its scope, type, author and use count"></a></figure>
     </div>
 
     <div class="feature">
@@ -177,24 +178,24 @@
         <h3>One yardstick for spend</h3>
         <p>Token use is broken down by feature, agent and model, over 24 hours, 7 days or 30 days. Calls that report no tokens are counted as unmeasured, never as free.</p>
       </div>
-      <figure class="shot"><a href="/assets/img/usage-en.webp" data-lightbox><img src="/assets/img/usage-en.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="Usage tab: a stacked per-feature token chart over 30 days, KPI tiles, and breakdowns by feature, agent and model"></a></figure>
+      <figure class="shot"><a href="/assets/img/usage-en.webp" data-lightbox><img src="/assets/img/usage-en.webp" width="3000" height="2000" loading="lazy" decoding="async" alt="Settings, Agent usage: a stacked per-feature token chart over 30 days, KPI tiles, and breakdowns by feature, agent and model"></a></figure>
     </div>
 
     <div class="minor">
       <div>
         <h3>Unattended work</h3>
-        <p>Scheduled runs wake a stopped workspace and run the prompt. A Claude Code, Muse Code or Managed Codex turn cut short by a usage limit resumes when the limit lifts. Any other session can move to an agent that still has quota, so nothing sits dead until morning.</p>
+        <p>Scheduled runs wake a stopped workspace and run the prompt, and can be set to run only when a saved work item query has something new. A Claude Code, Muse Code or Managed Codex turn cut short by a usage limit resumes when the limit lifts. Any other session can move to an agent that still has quota, so nothing sits dead until morning.</p>
       </div>
       <div>
         <h3>Rules that reach every agent</h3>
-        <p>Fleet-wide policy and per-member instructions reach each agent kind in its CLI's own idiom; Cursor is the one kind that takes neither. The memories Claude Code and Codex build up on their own are snapshotted and can be rolled back.</p>
+        <p>Fleet-wide policy and per-member instructions reach each agent kind in its CLI's own idiom; Cursor is the one kind that takes neither. A tenant administrator can set the model, execution method and other values the launch dialog opens with for members. The memories Claude Code, Codex and Muse Code build up on their own are snapshotted and can be rolled back.</p>
       </div>
     </div>
 
     <div class="gallery">
       <figure>
-        <div class="shot"><a href="/assets/img/launch-en.webp" data-lightbox><img src="/assets/img/launch-en.webp" width="2800" height="1800" loading="lazy" decoding="async" alt="Launch dialog: pick the agent CLI, its model, reasoning effort, start mode and whether to run in a fresh git worktree"></a></div>
-        <figcaption><strong>Start anything from one dialog</strong>: pick the agent, model, reasoning effort and start mode, and run in a fresh git worktree or the working copy as it is.</figcaption>
+        <div class="shot"><a href="/assets/img/launch-en.webp" data-lightbox><img src="/assets/img/launch-en.webp" width="2800" height="1800" loading="lazy" decoding="async" alt="The Start working dialog: pick the agent, its model and a first prompt, with a Location row (a new worktree on a new branch off main) and a More row below"></a></div>
+        <figcaption><strong>Start anything from one dialog</strong>: pick the agent, model and first prompt. Location chooses a fresh git worktree or the working copy as it is; reasoning effort and start mode are under More.</figcaption>
       </figure>
       <figure>
         <div class="shot"><a href="/assets/img/split-en.webp" data-lightbox><img src="/assets/img/split-en.webp" width="3200" height="1960" loading="lazy" decoding="async" alt="Three panes: the chat mirror, a live terminal attached to a shell session, and the repository's working-tree changes with a commit box"></a></div>
@@ -205,7 +206,7 @@
         <figcaption><strong>Real git, in the console</strong>: the commit graph beside the selected commit's diff, with staging and commit, for each working copy and worktree.</figcaption>
       </figure>
       <figure>
-        <div class="shot"><a href="/assets/img/terminal-en.webp" data-lightbox><img src="/assets/img/terminal-en.webp" width="2560" height="1520" loading="lazy" decoding="async" alt="A terminal pane attached to a shell session, showing a build and a git status run"></a></div>
+        <div class="shot"><a href="/assets/img/terminal-en.webp" data-lightbox><img src="/assets/img/terminal-en.webp" width="2560" height="1520" loading="lazy" decoding="async" alt="A terminal pane attached to a shell session, showing a build, a git status and a test run"></a></div>
         <figcaption><strong>A real terminal, too</strong>: a plain shell, or an agent started as Terminal (CLI), can be attached as a live PTY.</figcaption>
       </figure>
     </div>
@@ -225,7 +226,7 @@
       <li><h3>Tested against the real CLI</h3><p>A daily watcher notices when a CLI publishes a new version and dispatches a contract test that drives the real CLI, its interactive TUI included, against what Agent Fleet depends on.</p></li>
       <li><h3>Seen is not tested</h3><p>"We saw a new version" and "we tested it" are recorded separately, so a release that has not passed its contract is never mistaken for one that has.</p></li>
     </ol>
-    <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/v0.38.0/docs/build/10-development.md#detecting-upstream-cli-breakage">How the two halves fit together →</a></p>
+    <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/v0.45.0/docs/build/10-development.md#detecting-upstream-cli-breakage">How the two halves fit together →</a></p>
   </div>
 </section>
 
@@ -241,10 +242,10 @@
       <li><h3>Isolated workspaces</h3><p>Each member gets a persistent container with cgroup CPU and memory quotas and per-user network isolation. The Docker-less native edition uses a bubblewrap sandbox instead.</p></li>
       <li><h3>Your identity provider</h3><p>Sign in with Google, Microsoft Entra ID, Okta, any OIDC provider or a GitHub organization. It supports tenants, with member, tenant administrator and deployment administrator roles.</p></li>
       <li><h3>Your own seats</h3><p>Each member signs in to the agent CLIs with their own account. The deployment neither bundles nor shares AI-provider credentials.</p></li>
-      <li><h3>Outbound traffic on record</h3><p>On AWS, an optional egress gateway (a preview) sends workspace web traffic out through one address, records each connection with its workspace, and can enforce an allowlist. It drops other traffic, such as git over SSH. <a href="/docs/operate/choose/#choose-the-egress-route-on-aws">Choosing the egress route</a></p></li>
+      <li><h3>Outbound traffic on record</h3><p>On AWS, an optional egress gateway (a preview) sends workspace traffic out through one address, records each connection with its workspace, and can enforce an allowlist. When it enforces, traffic other than the web, such as git over SSH or a database, passes only to destinations and ports an administrator names. <a href="/docs/operate/choose/#choose-the-egress-route-on-aws">Choosing the egress route</a></p></li>
       <li><h3>An audit trail</h3><p>Operations that change or destroy something are written to the tenant's audit log, with who did them. Terminal input and output are not stored.</p></li>
       <li><h3>Encrypted secrets</h3><p>Credentials are stored with envelope encryption: per-workspace keys wrapped by a tenant key.</p></li>
-      <li><h3>Auditable, and candid</h3><p>The source is Apache-2.0. The <a href="https://github.com/k-k1/agent-fleet/blob/v0.38.0/SECURITY.md">security policy</a> documents the threat model and the residual risks an operator should understand.</p></li>
+      <li><h3>Auditable, and candid</h3><p>The source is Apache-2.0. The residual risks an operator should understand are in the guide's <a href="/docs/operate/secure/threat-model/">threat model and residual risks</a> and in the <a href="https://github.com/k-k1/agent-fleet/blob/v0.45.0/SECURITY.md">security policy</a>.</p></li>
     </ul>
   </div>
 </section>
@@ -294,7 +295,7 @@
       <div>
         <h3>Try it on your own machine</h3>
         <p>The native edition needs Linux on x86_64 or arm64, WSL2, or a Linux VM on an Apple Silicon Mac, and no Docker. On a Mac you can also run the Compose edition on Docker Desktop, OrbStack or colima, for one user. Each member signs in to the agent CLIs with their own account from the Console.</p>
-        <p><a href="https://github.com/k-k1/agent-fleet-dist#installing-the-native-edition-no-docker-wsl2--single-user-linux">Installer details</a> · <a href="https://github.com/k-k1/agent-fleet-dist#installing-the-docker-compose-edition-team-on-prem">Setting up compose for a team</a> · <a href="https://github.com/k-k1/agent-fleet/blob/v0.38.0/deploy/compose/README.md#macos-apple-silicon">Mac (Apple Silicon)</a></p>
+        <p><a href="/docs/operate/native/install/">Installing the native edition</a> · <a href="/docs/operate/compose/install/">Setting up compose for a team</a> · <a href="/docs/operate/compose/macos/">Running on a Mac (Apple Silicon)</a></p>
       </div>
       <pre><code>curl -fsSL https://raw.githubusercontent.com/k-k1/agent-fleet-dist/main/install.sh | bash
 af start
@@ -308,7 +309,7 @@ af start
     <img src="/assets/brand/agent-fleet-banner.webp" width="1120" height="480" loading="lazy" decoding="async" alt="Agent Fleet illustration: agents at work in shipping containers around a lighthouse labelled Fleet Control">
     <h2 id="closing-h">Close your laptop. The agents keep working.</h2>
     <div class="actions">
-      <a class="btn btn-primary" href="https://github.com/k-k1/agent-fleet-dist#getting-started--which-edition">Get started</a>
+      <a class="btn btn-primary" href="/docs/operate/overview/">Get started</a>
       <a class="btn btn-ghost" href="/docs/">Read the guide</a>
     </div>
   </div>
@@ -324,8 +325,8 @@ af start
         <a href="https://github.com/k-k1/agent-fleet">Source</a>
         <a href="https://github.com/k-k1/agent-fleet-dist/releases">Releases</a>
         <a href="/docs/">Documentation</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/v0.38.0/SECURITY.md">Security policy</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/v0.38.0/LICENSE">License (Apache-2.0)</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/v0.45.0/SECURITY.md">Security policy</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/v0.45.0/LICENSE">License (Apache-2.0)</a>
         <a href="/ja/" hreflang="ja" lang="ja">日本語</a>
       </nav>
     </div>
