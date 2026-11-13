@@ -1,54 +1,204 @@
 ---
-// Starlight's header, plus the language and theme selects on narrow screens for pages without a sidebar.
-// Below 50rem Starlight shows those selects only in the mobile menu, which is part of the sidebar; the splash landing
-// page (/docs/, /docs/ja/) has none, so a phone had no way to switch language there. Pages with a sidebar are
-// unchanged.
-import Default from '@astrojs/starlight/components/Header.astro';
+// Starlight's header (@astrojs/starlight/components/Header.astro, same markup and grid) with three changes:
+//
+// 1. The site title links to the product site's top page (/ or /ja/), not to the docs root, like the product site's
+//    own logo; the docs root is the "Docs" link of 2.
+// 2. The product site's header links (ProductNav.astro: Features, Docs, Releases) sit at the start of the right
+//    group, between the search and Starlight's GitHub icon. Below 50rem Starlight hides that group: on pages with
+//    a sidebar the links are in the mobile menu instead (MobileMenuFooter.astro).
+// 3. Pages without a sidebar (the splash landing, /docs/ and /docs/ja/) have no mobile menu, so below 50rem the
+//    header itself carries a small menu with the links and GitHub, and the language and theme selects.
+import config from 'virtual:starlight/user-config';
+import { logos } from 'virtual:starlight/user-images';
+import { Icon } from '@astrojs/starlight/components';
 import LanguageSelect from 'virtual:starlight/components/LanguageSelect';
+import Search from 'virtual:starlight/components/Search';
+import SocialIcons from 'virtual:starlight/components/SocialIcons';
 import ThemeSelect from 'virtual:starlight/components/ThemeSelect';
+import ProductNav from './ProductNav.astro';
+import { productLinks } from './product-links';
 
-const { hasSidebar } = Astro.locals.starlightRoute;
+const { hasSidebar, siteTitle, locale } = Astro.locals.starlightRoute;
+const { top, menu } = productLinks(locale);
+const shouldRenderSearch =
+  config.pagefind || config.components.Search !== '@astrojs/starlight/components/Search.astro';
+const logo = config.logo && logos.dark;
 ---
 
-{
-  hasSidebar ? (
-    <Default><slot /></Default>
-  ) : (
-    <div class="af-header">
-      <Default><slot /></Default>
-      <div class="af-narrow-selects print:hidden">
+<div class:list={['header', { 'af-splash': !hasSidebar }]}>
+  <div class="title-wrapper sl-flex">
+    <a href={top} class="site-title sl-flex">
+      {logo && <img alt={config.logo?.alt ?? ''} src={logo.src} width={logo.width} height={logo.height} />}
+      <span translate="no">{siteTitle}</span>
+    </a>
+  </div>
+  <div class="sl-flex print:hidden">{shouldRenderSearch && <Search />}</div>
+  <div class="sl-hidden md:sl-flex print:hidden right-group">
+    <ProductNav class="af-wide-nav" />
+    <div class="sl-flex social-icons"><SocialIcons /></div>
+    <ThemeSelect />
+    <LanguageSelect />
+  </div>
+  {
+    !hasSidebar && (
+      <div class="af-narrow print:hidden">
         <LanguageSelect />
         <ThemeSelect />
+        <details class="af-menu">
+          <summary aria-label={menu} title={menu}>
+            <Icon name="bars" />
+          </summary>
+          <ProductNav github class="af-menu-list" />
+        </details>
       </div>
-    </div>
-  )
-}
+    )
+  }
+</div>
+
+<script>
+  // The splash page's phone menu closes on a click outside it and on Escape, like a menu.
+  const menus = () => document.querySelectorAll<HTMLDetailsElement>('details.af-menu[open]');
+  document.addEventListener('click', (e) => {
+    for (const d of menus()) if (!d.contains(e.target as Node)) d.open = false;
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    for (const d of menus()) {
+      d.open = false;
+      d.querySelector('summary')?.focus();
+    }
+  });
+</script>
 
 <style>
-  .af-header {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    height: 100%;
+  /* Starlight's header and site-title styles (Header.astro, SiteTitle.astro), in the same layer. */
+  @layer starlight.core {
+    .header {
+      display: flex;
+      gap: var(--sl-nav-gap);
+      justify-content: space-between;
+      align-items: center;
+      height: 100%;
+    }
+    .title-wrapper {
+      overflow: clip;
+      padding: 0.25rem;
+      margin: -0.25rem;
+      min-width: 0;
+    }
+    .right-group,
+    .social-icons {
+      gap: 1rem;
+      align-items: center;
+    }
+    .social-icons::after {
+      content: '';
+      height: 2rem;
+      border-inline-end: 1px solid var(--sl-color-gray-5);
+    }
+    .site-title {
+      align-items: center;
+      gap: var(--sl-nav-gap);
+      font-size: var(--sl-text-h4);
+      font-weight: 600;
+      color: var(--sl-color-text-accent);
+      text-decoration: none;
+      white-space: nowrap;
+      min-width: 0;
+    }
+    .site-title span {
+      overflow: hidden;
+    }
+    .site-title img {
+      height: calc(var(--sl-nav-height) - 2 * var(--sl-nav-pad-y));
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      object-position: 0 50%;
+    }
+    @media (min-width: 50rem) {
+      :global(:root[data-has-sidebar]) {
+        --__sidebar-pad: calc(2 * var(--sl-nav-pad-x));
+      }
+      :global(:root:not([data-has-toc])) {
+        --__toc-width: 0rem;
+      }
+      .header {
+        --__sidebar-width: max(0rem, var(--sl-content-inline-start, 0rem) - var(--sl-nav-pad-x));
+        --__main-column-fr: calc(
+          (
+              100% + var(--__sidebar-pad, 0rem) - var(--__toc-width, var(--sl-sidebar-width)) -
+                (2 * var(--__toc-width, var(--sl-nav-pad-x))) - var(--sl-content-inline-start, 0rem) -
+                var(--sl-content-width)
+            ) / 2
+        );
+        display: grid;
+        grid-template-columns:
+          minmax(calc(var(--__sidebar-width) + max(0rem, var(--__main-column-fr) - var(--sl-nav-gap))), auto)
+          1fr
+          auto;
+        align-content: center;
+      }
+    }
   }
-  .af-header > :global(:first-child) {
-    flex: 1;
-    min-width: 0;
+
+  /* The links take room from the search box; below 64rem a page with a sidebar has none to spare, so they wait for
+     the wider screen there. The mobile menu has them below 50rem; between the two, the title still leads home. */
+  @media (min-width: 50rem) and (max-width: 63.99rem) {
+    :global(:root[data-has-sidebar] .af-wide-nav) {
+      display: none;
+    }
   }
-  .af-narrow-selects {
+
+  .af-narrow {
     display: flex;
     align-items: center;
     gap: 0.75rem;
   }
   @media (min-width: 50rem) {
-    .af-narrow-selects {
+    .af-narrow {
       display: none;
     }
   }
-  /* On a phone the two selects leave no room for the site name: the logo stays, the name is kept for screen readers
-     only (the logo's alt is empty), and the hero below says it anyway. */
+  .af-menu {
+    position: relative;
+  }
+  .af-menu summary {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    padding: 0.25rem;
+    color: var(--sl-color-gray-1);
+    cursor: pointer;
+    font-size: 1.25rem;
+  }
+  .af-menu summary::-webkit-details-marker {
+    display: none;
+  }
+  .af-menu :global(.af-menu-list) {
+    position: absolute;
+    inset-inline-end: 0;
+    top: calc(100% + 0.5rem);
+    z-index: 10;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    min-width: 10rem;
+    padding: 0.25rem 0;
+    background: var(--sl-color-bg-nav);
+    border: 1px solid var(--sl-color-hairline-shade);
+    border-radius: 0.5rem;
+    box-shadow: var(--sl-shadow-md);
+    font-size: var(--sl-text-base);
+  }
+  .af-menu :global(.af-menu-list a) {
+    padding: 0.5rem 1rem;
+  }
+
+  /* On a phone the selects and the menu leave no room for the site name on the splash page: the logo stays, the
+     name is kept for screen readers only (the logo's alt is empty), and the hero below says it anyway. */
   @media (max-width: 49.99rem) {
-    .af-header :global(.site-title span) {
+    .af-splash .site-title span {
       position: absolute;
       width: 1px;
       height: 1px;
