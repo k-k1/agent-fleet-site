@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import starlightLinksValidator from 'starlight-links-validator';
@@ -57,11 +57,25 @@ const userTopic = {
   ],
 };
 
+// The reference pages directly under ref/, in the reading order of research/page-titles.tsv; a page the TSV does
+// not list yet follows by name, so a new page is never left out. ref/cli, ref/mcp and ref/releases have groups or a
+// topic of their own and are not repeated here.
+const TITLES_FILE = new URL('./research/page-titles.tsv', import.meta.url);
+const refPages = () => {
+  const dir = new URL('ref/', CONTENT);
+  if (!existsSync(dir)) return [];
+  const built = new Set(readdirSync(dir).filter((f) => f.endsWith('.md') && f !== 'index.md').map((f) => f.slice(0, -3)));
+  const ordered = existsSync(TITLES_FILE)
+    ? readFileSync(TITLES_FILE, 'utf8').split('\n').map((l) => l.split('\t')[0])
+        .filter((id) => /^ref\/[^/]+$/.test(id)).map((id) => id.slice(4)).filter((name) => built.delete(name))
+    : [];
+  return [...ordered, ...[...built].sort()].map((name) => ({ slug: `ref/${name}` }));
+};
+
 const referenceItems = [
+  ...(has('ref') ? [{ slug: 'ref' }] : []),
+  ...refPages(),
   ...groups(['Commands', 'コマンド', 'ref/cli'], ['MCP tools', 'MCP ツール', 'ref/mcp']),
-  ...(has('ref/cli') || has('ref/mcp')
-    ? [group('Everything else (current layout)', 'その他（現行の構成）', 'ref', true)]
-    : [{ autogenerate: { directory: 'ref' } }]),
 ];
 
 // One topic per reader, like the shelves of guide/; each topic has its own sidebar.
