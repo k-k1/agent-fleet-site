@@ -1,0 +1,19 @@
+---
+// Starlight's mobile menu footer (pages with a sidebar, below 50rem), with the product site's header links above
+// it: Header.astro shows them only on wider screens. GitHub stays Starlight's icon in the default footer.
+import Default from '@astrojs/starlight/components/MobileMenuFooter.astro';
+import ProductNav from './ProductNav.astro';
+---
+
+<ProductNav class="af-mobile-nav" />
+<Default />
+
+<style>
+  :global(.af-mobile-nav) {
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    padding-block: 1rem;
+    border-top: 1px solid var(--sl-color-gray-6);
+    font-size: var(--sl-text-base);
+  }
+</style>

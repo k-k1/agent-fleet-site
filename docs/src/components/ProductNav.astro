@@ -1,0 +1,46 @@
+---
+// The links of the product site's header (site/index.html, site/ja/index.html), worded as there, for the docs header
+// (Header.astro) and the phone menu (MobileMenuFooter.astro). The product top itself is the site title's link.
+// GitHub is listed only where Starlight's own GitHub icon is not shown (`github`): the splash page's phone menu.
+import { productLinks } from './product-links';
+
+interface Props {
+  github?: boolean;
+  class?: string;
+}
+const { github = false, class: className } = Astro.props;
+const { links, label } = productLinks(Astro.locals.starlightRoute.locale);
+---
+
+<nav class:list={['af-product-nav', className]} aria-label={label}>
+  {
+    links
+      .filter((l) => github || !l.github)
+      .map((l) => (
+        <a href={l.href} aria-current={l.current ? 'true' : undefined}>
+          {l.text}
+        </a>
+      ))
+  }
+</nav>
+
+<style>
+  .af-product-nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: var(--sl-text-sm);
+    white-space: nowrap;
+  }
+  .af-product-nav a {
+    color: var(--sl-color-gray-2);
+    text-decoration: none;
+  }
+  .af-product-nav a:hover {
+    color: var(--sl-color-white);
+  }
+  .af-product-nav a[aria-current] {
+    color: var(--sl-color-text-accent);
+    font-weight: 600;
+  }
+</style>

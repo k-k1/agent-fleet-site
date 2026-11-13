@@ -119,7 +119,7 @@ def _attr(s: str) -> str:
     return "{" + json.dumps(s, ensure_ascii=False) + "}"
 
 
-def landing(lang: str, title: str, body: str, labels: dict) -> str:
+def landing(lang: str, title: str, body: str, labels: dict, try_it: str = "") -> str:
     """The root page as a Starlight splash page, built from the guide's README (already link-converted).
 
     The README stays plain Markdown for the containers and GitHub; this reads its parts and fails on anything it
@@ -131,6 +131,7 @@ def landing(lang: str, title: str, body: str, labels: dict) -> str:
     the hero's buttons (each must be one sentence with one link), the table's shelf link becomes a card titled with
     the topic label, a shelf paragraph loses only its subject (its own name, which is the card's title), and every
     other sentence is a card's description or text below the cards. Anything that does not fit fails the build.
+    `try_it` (oneliner()) is appended after it all.
     """
     sep = " " if lang == "en" else ""
     blocks = [b.strip("\n") for b in re.split(r"\n\s*\n", body.strip()) if b.strip()]
@@ -267,8 +268,105 @@ def landing(lang: str, title: str, body: str, labels: dict) -> str:
         card("releases", rel_url, _plain(rel_desc)).strip(),
         "",
         *[t + "\n" for t in tail],
+        *([try_it] if try_it else []),
     ]
     return "---\n" + "\n".join(fm) + "\n---\n\n" + "\n".join(out)
+
+
+# The one-liner block under the landing's cards: the commands come from the guide's native install page, never typed
+# here, so the landing cannot advertise an installer the release does not have. Releases up to v0.44.0 have no
+# guide/operate/native/ yet; their native page is the runbook (deploy/native/README.md, English only).
+NATIVE_PAGES = ("operate/native/*.md", "operate/runbooks/native.md")
+COMPOSE_PAGES = ("operate/compose/install.md", "operate/runbooks/compose.md")
+# The block, line by line: the installer piped to bash, then `af start`, then comment lines (what to open).
+ONELINER_SHAPE = [
+    re.compile(r"curl -fsSL https://raw\.githubusercontent\.com/k-k1/agent-fleet-dist/main/install\.sh \| bash"),
+    re.compile(r"af start(\s+#.*)?"),
+]
+ONELINER_COMMENT = re.compile(r"# .*")
+FENCE_BLOCK = re.compile(r"^```(\w*)\n(.*?)^```\s*$", re.S | re.M)
+# What the sentence above the block says, which the native page has to say too.
+ONELINER_FACTS = ("WSL2", "Apple Silicon", "Docker")
+ONELINER_TEXT = {
+    "ja": ("手元で 1 人で試す",
+           "Docker を使わずに、自分のマシンで 1 人で使う形です。Linux か WSL2 で動き、Apple Silicon の Mac では "
+           "Linux の VM の中で動かします。チームで使うなら [{compose}]({compose_url}) を選んでください。"
+           "詳しい手順は [{native}]({native_url}) にあります。"),
+    "en": ("Try it on your own machine",
+           "For a single user on their own machine, without Docker: it runs on Linux or WSL2, and on an Apple Silicon "
+           "Mac inside a Linux VM. For a team, use [{compose}]({compose_url}) instead. The full steps are in "
+           "[{native}]({native_url})."),
+}
+
+
+def _localized(staged: Path, rel: str, lang: str):
+    """The page's file in this language, else its English one (the runbooks have no Japanese)."""
+    en = staged / rel
+    ja = en.with_name(en.name[:-3] + ".ja.md")
+    return ja if lang == "ja" and ja.is_file() else (en if en.is_file() else None)
+
+
+def _h1(path: Path) -> str:
+    for line in path.read_text(encoding="utf-8").splitlines():
+        h = H1.match(line)
+        if h:
+            return h.group(1)
+    raise LandingError(f"{path}: no H1 to title the one-liner's link with")
+
+
+def oneliner(staged: Path, lang: str) -> str:
+    """The landing's "try it on your own machine" section, with the commands taken from the native install page.
+
+    Fails the build when no page has the block, more than one does, or the block is not the installer line, `af
+    start` and comments: a landing that shows a changed or partial command is worse than a failed build.
+    """
+    def fail(why):
+        raise LandingError(f"one-liner: {why}; update oneliner() in scripts/to_starlight.py to the page's new shape")
+
+    found = []
+    for pattern in NATIVE_PAGES:
+        for page in sorted(staged.glob(pattern)):
+            if page.name.endswith(".ja.md"):
+                continue
+            for _, code in FENCE_BLOCK.findall(page.read_text(encoding="utf-8")):
+                if "install.sh | bash" in code:
+                    found.append((page, code))
+        if found:
+            break
+    if not found:
+        fail(f"no code block with `install.sh | bash` in {' or '.join(NATIVE_PAGES)}")
+    if len({p for p, _ in found}) != 1 or len(found) != 1:
+        fail(f"more than one block with `install.sh | bash`: {[str(p.relative_to(staged)) for p, _ in found]}")
+    page, _ = found[0]
+    rel = page.relative_to(staged).as_posix()
+    src = _localized(staged, rel, lang)
+    blocks = [(info, code) for info, code in FENCE_BLOCK.findall(src.read_text(encoding="utf-8"))
+              if "install.sh | bash" in code]
+    if len(blocks) != 1:
+        fail(f"{src.relative_to(staged)} has {len(blocks)} blocks with `install.sh | bash`, not one")
+    info, code = blocks[0]
+    lines = code.rstrip("\n").split("\n")
+    if info != "bash":
+        fail(f"the block in {src.relative_to(staged)} is ```{info}, not ```bash")
+    if len(lines) < len(ONELINER_SHAPE) or not all(r.fullmatch(l) for r, l in zip(ONELINER_SHAPE, lines)) \
+            or not all(ONELINER_COMMENT.fullmatch(l) for l in lines[len(ONELINER_SHAPE):]):
+        fail(f"the block in {src.relative_to(staged)} is not the installer line, `af start` and comments:\n{code}")
+    text = src.read_text(encoding="utf-8")
+    missing = [f for f in ONELINER_FACTS if f not in text]
+    if missing:
+        fail(f"{src.relative_to(staged)} no longer mentions {missing}, which the landing's sentence says")
+    compose = next((c for c in (_localized(staged, r, lang) for r in COMPOSE_PAGES) if c), None)
+    if compose is None:
+        fail(f"none of {COMPOSE_PAGES} is built, for the link to the team install")
+
+    def url(p):
+        return url_of(*split_lang(p.relative_to(staged)))
+
+    heading, sentence = ONELINER_TEXT[lang]
+    sentence = sentence.format(compose=_h1(compose), compose_url=url(compose), native=_h1(src), native_url=url(src))
+    if re.search(r"[{}<>]", sentence):
+        fail(f"the sentence {sentence!r} has characters MDX would read as code")
+    return f"## {heading}\n\n{sentence}\n\n```bash\n{chr(10).join(lines)}\n```\n"
 
 
 class ImageSizeError(ValueError):
@@ -571,7 +669,7 @@ def main():
             labels = json.loads((site / "src/topic-labels.json").read_text(encoding="utf-8"))
             dst = out / ("ja/" if lang == "ja" else "") / "index.mdx"
             dst.parent.mkdir(parents=True, exist_ok=True)
-            dst.write_text(landing(lang, title, body_text, labels), encoding="utf-8")
+            dst.write_text(landing(lang, title, body_text, labels, oneliner(staged, lang)), encoding="utf-8")
             continue
 
         fm = [f"title: {yaml_str(title)}"]

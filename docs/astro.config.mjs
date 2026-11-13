@@ -119,8 +119,13 @@ export default defineConfig({
     starlight({
       title: 'Agent Fleet',
       customCss: ['./src/styles/custom.css'],
-      // Adds the language and theme selects on phones to pages without a sidebar (the splash landing page).
-      components: { Header: './src/components/Header.astro' },
+      // The product site's header links and a site title that leads to the product top; on phones, a menu and the
+      // language and theme selects on pages without a sidebar (the splash landing page), the links in the mobile menu
+      // on the others.
+      components: {
+        Header: './src/components/Header.astro',
+        MobileMenuFooter: './src/components/MobileMenuFooter.astro',
+      },
       logo: { src: './src/assets/icon.png' },
       favicon: '/favicon.png',
       defaultLocale: 'root',
