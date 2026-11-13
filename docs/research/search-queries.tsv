@@ -58,7 +58,8 @@ Jira	en	user/integrations/jira/	3
 # 「1 回のログインで複数のプロファイルを使う」), while ref/aws-profiles has it as a heading and pages about sign-in
 # (operate/secure/dev-signin, user/settings/display) match サインイン many times. The browser splits the query into
 # 共有 / サイン / イン, and no ranking setting changes that order (#3574). With the word in that section's heading the
-# query ranks 2 (measured on a re-indexed copy); tighten to 3 when the guide does that.
+# query ranks 2 (measured on a re-indexed copy). k-k1/agent-fleet#4013 adds that heading; the site builds from a
+# release, so keep 5 until a release containing #4013 is pinned in scripts/docs-ref.txt, then tighten 共有サインイン to 3.
 # shared sign-in allows 8: the operate task pages (secure/dev-signin, signin/*) carry "sign-in" in their titles
 # and rank above the expected page for the bare words; the specific query 「共有ログイン」 still holds at 3.
 # The bare word "deploy" matches nearly every operate page, so it is not a query: "choose where to deploy" and
