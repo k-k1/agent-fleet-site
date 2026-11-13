@@ -1,0 +1,11 @@
+---
+// Renders its slot (an Expressive Code block) so that its text lines break only after a "/": each run between slashes
+// and spaces is kept on one line, and a <wbr> follows every slash (not the first of "//"). Only the text inside <pre>
+// changes; the copy button copies its data-code attribute, which stays as it was.
+const html = await Astro.slots.render('default');
+const text = (t: string) =>
+  t.replace(/[^\s/]+|\/+/g, (run) => (run.startsWith('/') ? `${run}<wbr>` : `<span class="af-nobreak">${run}</span>`));
+const out = html.replace(/<pre[\s\S]*?<\/pre>/g, (pre) => pre.replace(/>([^<]+)</g, (_, t) => `>${text(t)}<`));
+---
+
+<Fragment set:html={out} />

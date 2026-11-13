@@ -29,6 +29,10 @@ cd "$HERE"
 # otherwise drop the heap limit.
 NODE_OPTIONS="${NODE_OPTIONS:-} --max-old-space-size=2048" npx astro build
 
+# The text for agents (each page's index.md and llms.txt, written by to_starlight.py) goes next to the HTML. Copied
+# after the build rather than generated into public/, which holds committed files and lays them over the page tree.
+cp -r "$HERE/agent-text/." "$HERE/dist/"
+
 # Old URLs of pages that moved (guide/_redirects.tsv) get redirect stubs. After the build, so that Pagefind and the
 # sitemap never see them.
 python3 -I "$HERE/scripts/redirect_stubs.py" "$REPO" "$TAG" "$HERE/dist"
