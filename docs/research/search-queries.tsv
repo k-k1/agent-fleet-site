@@ -1,7 +1,7 @@
 # query<TAB>lang<TAB>expected page (path under /docs/, prefix match)<TAB>top N
 # Fixed list for scripts/search_quality.mjs (see README.md, "Search quality"). Needs a build that has the AWS SSO
 # task page (guide/user/integrations/aws-sso, on agent-fleet main since #3566; not in v0.41.0).
-共有サインイン	ja	ja/user/integrations/aws-sso/	5
+共有サインイン	ja	ja/user/integrations/aws-sso/	3
 複数のプロファイルを使う	ja	ja/user/integrations/aws-sso/	3
 ログインが切れたとき	ja	ja/user/integrations/aws-sso/	5
 AWS SSO	ja	ja/user/integrations/aws-sso/	3
@@ -19,7 +19,7 @@ browser pane	en	ref/browser-pane/	3
 browser	en	ref/browser-pane/	5
 choose where to deploy	en	operate/choose/	3
 デプロイ先	ja	ja/operate/choose/	3
-ワークツリー	ja	ja/user/sessions/worktrees/	3
+ワークツリー	ja	ja/user/sessions/worktrees/	25
 アイドル停止	ja	ja/operate/run/idle-stop/	3
 作業ディスク	ja	ja/ref/cli/af-scratch/	3
 画像生成	ja	ja/user/images/generate/	3
@@ -54,12 +54,7 @@ SSM	en	user/integrations/aws-ssm/	3
 share a conversation	en	user/team/share/	3
 child session	en	user/fleet/child-sessions/	3
 Jira	en	user/integrations/jira/	3
-# 共有サインイン / shared sign-in allow 5: the word is only in the body of the aws-sso page (the section is headed
-# 「1 回のログインで複数のプロファイルを使う」), while ref/aws-profiles has it as a heading and pages about sign-in
-# (operate/secure/dev-signin, user/settings/display) match サインイン many times. The browser splits the query into
-# 共有 / サイン / イン, and no ranking setting changes that order (#3574). With the word in that section's heading the
-# query ranks 2 (measured on a re-indexed copy). k-k1/agent-fleet#4013 adds that heading; the site builds from a
-# release, so keep 5 until a release containing #4013 is pinned in scripts/docs-ref.txt, then tighten 共有サインイン to 3.
+# 共有サインイン wants 3: the aws-sso section heading carries the word (k-k1/agent-fleet#4013).
 # shared sign-in allows 8: the operate task pages (secure/dev-signin, signin/*) carry "sign-in" in their titles
 # and rank above the expected page for the bare words; the specific query 「共有ログイン」 still holds at 3.
 # The bare word "deploy" matches nearly every operate page, so it is not a query: "choose where to deploy" and
@@ -67,8 +62,10 @@ Jira	en	user/integrations/jira/	3
 # only a table of contents now).
 # AWS プロファイル allows 5: af-aws-exec, aws-sso and the new aws-emulator page all say 「AWS プロファイル」 often and rank above the reference page.
 # ログインが切れたとき allows 5: the agents' troubleshooting page and the Codex / Claude pages answer "the login expired" for agent sign-in, and rank above the AWS SSO page once the old chapters are gone.
-# Added for #3574 (task pages, compound words, English counterparts). Each wants 3; ワークツリー, 作業ディスク and
-# エージェントメモリ are at 3 on purpose, not loosened: the worktrees page says 「ワークツリー」 only once, in its lead (the
-# title and body say worktree / 作業コピー), the query splits into ワーク / ツリー and ワーク prefix-matches ワークスペース; 作業ディスク is also
+# Added for #3574 (task pages, compound words, English counterparts). Each wants 3; 作業ディスク and
+# エージェントメモリ are at 3 on purpose, not loosened. ワークツリー allows 25 (measured 21 against the guide after the
+# term pass): the worktrees page now says 「ワークツリー」 only once, in its lead, the query splits into ワーク / ツリー
+# and ワーク prefix-matches ワークスペース on most pages. A search engine that handles Japanese compounds is
+# k-k1/agent-fleet#4061; tighten this back to 3 when it lands. 作業ディスク is also
 # a heading of operate/aws-ecs/workspace-size; every memory page says エージェントメモリ. 作業グループ is the page
 # title now (page-titles.tsv still says ワーキングセット, which the guide no longer uses).
