@@ -75,6 +75,12 @@ node scripts/search_quality.mjs --compact            # ranks only, one line (for
   `astro.config.mjs` and rebuild to confirm the bundle carries it.
 - When adding a query, state which page should win and why; keep English queries in the list, because a tuning that
   fixes Japanese must not move English. Ranks are on the page level (the first result for that page).
+- What is left is wording, not weights (#3574, measured on 53 queries): the browser splits a query with
+  `Intl.Segmenter` (「共有サインイン」 → 共有 / サイン / イン, 「ワークツリー」 → ワーク / ツリー) and every part also matches
+  as a prefix (ワーク → ワークスペース), so a page that says the compound once loses to pages that use its parts often.
+  No `ranking` setting near the current one moved a miss, and the page title is already a weight-7 heading (raising it
+  to 10 moved one query by one place). Putting the term in the heading of the section that covers it does work: on a
+  re-indexed copy, 「共有サインイン」 went from 5 to 2. That change belongs in agent-fleet's `guide/`.
 
 ## Layout
 

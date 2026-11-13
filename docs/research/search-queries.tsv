@@ -19,9 +19,46 @@ browser pane	en	ref/browser-pane/	3
 browser	en	ref/browser-pane/	5
 choose where to deploy	en	operate/choose/	3
 デプロイ先	ja	ja/operate/choose/	3
-# 共有サインイン / shared sign-in allow 5: the word is only in the body of the aws-sso page, while the chapters
-# operate/05-signin and user/team/share and the reference ref/aws-profiles (heading 「共有サインイン」) match it
-# more directly. Tightening these to 3 needs a heading in the guide (see the PR for #3574).
+ワークツリー	ja	ja/user/sessions/worktrees/	3
+アイドル停止	ja	ja/operate/run/idle-stop/	3
+作業ディスク	ja	ja/ref/cli/af-scratch/	3
+画像生成	ja	ja/user/images/generate/	3
+画像を生成する	ja	ja/user/images/generate/	3
+エージェントメモリ	ja	ja/user/memory/overview/	3
+ブラウザペイン	ja	ja/ref/browser-pane/	3
+SSM	ja	ja/user/integrations/aws-ssm/	3
+SSM で EC2 にログイン	ja	ja/user/integrations/aws-ssm/	3
+セッションの共有	ja	ja/user/team/share/	3
+会話を共有する	ja	ja/user/team/share/	3
+子セッション	ja	ja/user/fleet/child-sessions/	3
+作業グループ	ja	ja/user/fleet/working-sets/	3
+料金と使用量	ja	ja/user/agents/usage/	3
+通知	ja	ja/user/settings/notifications/	3
+Jira	ja	ja/user/integrations/jira/	3
+Confluence	ja	ja/user/integrations/confluence/	3
+内蔵の Git	ja	ja/user/code/internal-git/	3
+マシンの大きさ	ja	ja/user/workspace/machine/	3
+ツールチェーン	ja	ja/user/workspace/toolchains/	3
+ワークスペースを作り直す	ja	ja/user/workspace/recreate/	3
+引き継ぐ	ja	ja/user/sessions/handoff/	3
+スナップショット	ja	ja/user/memory/snapshots/	3
+予算	ja	ja/user/sessions/budget/	3
+MCP サーバーを追加	ja	ja/user/integrations/mcp-servers/	3
+画像ギャラリー	ja	ja/user/images/gallery/	3
+Google でサインイン	ja	ja/operate/signin/google/	3
+worktree	en	user/sessions/worktrees/	3
+idle stop	en	operate/run/idle-stop/	3
+generate an image	en	user/images/generate/	3
+agent memory	en	user/memory/overview/	3
+SSM	en	user/integrations/aws-ssm/	3
+share a conversation	en	user/team/share/	3
+child session	en	user/fleet/child-sessions/	3
+Jira	en	user/integrations/jira/	3
+# 共有サインイン / shared sign-in allow 5: the word is only in the body of the aws-sso page (the section is headed
+# 「1 回のログインで複数のプロファイルを使う」), while ref/aws-profiles has it as a heading and pages about sign-in
+# (operate/secure/dev-signin, user/settings/display) match サインイン many times. The browser splits the query into
+# 共有 / サイン / イン, and no ranking setting changes that order (#3574). With the word in that section's heading the
+# query ranks 2 (measured on a re-indexed copy); tighten to 3 when the guide does that.
 # shared sign-in allows 8: the operate task pages (secure/dev-signin, signin/*) carry "sign-in" in their titles
 # and rank above the expected page for the bare words; the specific query 「共有ログイン」 still holds at 3.
 # The bare word "deploy" matches nearly every operate page, so it is not a query: "choose where to deploy" and
@@ -29,3 +66,8 @@ choose where to deploy	en	operate/choose/	3
 # only a table of contents now).
 # AWS プロファイル allows 5: af-aws-exec, aws-sso and the new aws-emulator page all say 「AWS プロファイル」 often and rank above the reference page.
 # ログインが切れたとき allows 5: the agents' troubleshooting page and the Codex / Claude pages answer "the login expired" for agent sign-in, and rank above the AWS SSO page once the old chapters are gone.
+# Added for #3574 (task pages, compound words, English counterparts). Each wants 3; ワークツリー, 作業ディスク and
+# エージェントメモリ are at 3 on purpose, not loosened: the worktrees page says 「ワークツリー」 only in its title (the
+# body says 作業コピー), the query splits into ワーク / ツリー and ワーク prefix-matches ワークスペース; 作業ディスク is also
+# a heading of operate/aws-ecs/workspace-size; every memory page says エージェントメモリ. 作業グループ is the page
+# title now (page-titles.tsv still says ワーキングセット, which the guide no longer uses).
