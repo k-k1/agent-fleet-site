@@ -52,6 +52,21 @@ with `#anchor` is a section that moved out of a page). Cloudflare Pages serves s
 The history is why `scripts/pages-build.sh` clones agent-fleet blobless instead of shallow: a shallow clone has no
 earlier release, and its Japanese stubs would map no section.
 
+## Text for agents
+
+Every page is also published as Markdown next to its HTML, `/docs/<path>/index.md` (`/docs/ja/<path>/index.md`), and
+`/docs/llms.txt` lists every page with its title, its audience and that URL, a section per topic in English and then
+in Japanese. `scripts/to_starlight.py` writes both into `agent-text/` from the staged guide, and `build.sh` copies them
+into `dist/` after the build. The Markdown is the guide's own: GitHub alerts and code blocks as written, every link an
+absolute URL (a page link points at that page's `index.md`). A page the guide has only in English is built at its
+Japanese URL too (Starlight's fallback), so its Markdown is copied there and llms.txt marks it 「（英語のみ）」.
+
+Every page shows a "For agents" box with a prompt to copy (`Read https://agent-fleet.org/docs/<path>/index.md`; the
+home pages point at llms.txt): under "On this page" in the right column (`src/components/TableOfContents.astro`), and
+at the end of the page where there is no right column, on narrow screens, on pages without headings and on the home
+pages (`src/components/Footer.astro`). `scripts/check_dist.py` fails when a built page has no `index.md` or llms.txt
+does not list it.
+
 ## Search quality
 
 Search is Pagefind, built into `dist/pagefind/` by Starlight. It segments Japanese, so a compound such as 「共有サインイン」

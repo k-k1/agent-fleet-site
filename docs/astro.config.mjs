@@ -119,8 +119,13 @@ export default defineConfig({
     starlight({
       title: 'Agent Fleet',
       customCss: ['./src/styles/custom.css'],
-      // Adds the language and theme selects on phones to pages without a sidebar (the splash landing page).
-      components: { Header: './src/components/Header.astro' },
+      // Header: adds the language and theme selects on phones to pages without a sidebar (the splash landing page).
+      // TableOfContents and Footer: the "For agents" box, in the right column or at the end of the page.
+      components: {
+        Header: './src/components/Header.astro',
+        TableOfContents: './src/components/TableOfContents.astro',
+        Footer: './src/components/Footer.astro',
+      },
       logo: { src: './src/assets/icon.png' },
       favicon: '/favicon.png',
       defaultLocale: 'root',
