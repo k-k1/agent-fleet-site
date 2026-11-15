@@ -139,13 +139,28 @@ forwarding and analytics are on Cloudflare's free plan. In this order:
    provider before anything points at the address — the main repository's `SECURITY.md`, the
    page footer and `security.txt` all do. Routing only receives: a reply goes out from the
    destination mailbox, under that address.
-6. **Analytics.** Pages project → Metrics → Web Analytics (on). The beacon is written into the
-   pages at deploy time, so switching it on takes effect with the next deployment, not at once.
-   It uses no cookies or other client-side state. The injected beacon loads from
-   `static.cloudflareinsights.com` and reports to `cloudflareinsights.com/cdn-cgi/rum`; the CSP
-   in `_headers` allows exactly those two hosts, so trimming either breaks it silently. Ad blockers
-   stop it, so read its numbers as a floor; the zone's own Analytics counts every request,
-   bots included. Nothing else is loaded from a third party.
+6. **Analytics.** Use the zone's own Web Analytics site, not the Pages project's: Web
+   Analytics → *Add a site* → `agent-fleet.org` with *Automatic setup*, and leave the Pages
+   project's Metrics → Web Analytics **off**. The Pages toggle creates a second site named
+   after the `pages.dev` host, and it takes the custom domain in as an extra hostname, so
+   the numbers of `agent-fleet.org` end up mixed with those of `pages.dev`. With the Pages
+   toggle on, the HTML already carries a beacon and the zone's automatic injection stays
+   silent, which leaves the `agent-fleet.org` site at zero. Switching the Pages toggle
+   off took effect without a new deployment (measured: the beacon was gone from the served
+   HTML at once). The setting offers *excluding visitor data in the EU*; pick it only when
+   that is the intent. The beacon uses no cookies or other client-side state and loads from
+   `static.cloudflareinsights.com`, reporting to `cloudflareinsights.com/cdn-cgi/rum`; the
+   CSP in `_headers` allows exactly those two hosts, so trimming either breaks it silently.
+   Ad blockers stop it, so read its numbers as a floor; the zone's own Analytics counts every
+   request, bots included. Nothing else is loaded from a third party.
+7. **Search.** Google Search Console → add the *Domain* property `agent-fleet.org` and
+   verify it with the TXT record it prints (zone DNS → Add record, type `TXT`, name `@`;
+   leave the MX / SPF / DKIM records of step 5 alone). Then submit two sitemaps:
+   `https://agent-fleet.org/sitemap.xml` (this repository, hand-written: add a page here
+   and in that file together) and `https://agent-fleet.org/docs/sitemap-index.xml` (built
+   with the guide). `robots.txt` names both. The sitemap list shows "Couldn't fetch" until
+   Google first reads them, which can take hours; it is not an error. Inspecting the
+   sitemap URL itself says "not on Google" for the same reason it is not a page.
 
 ### After switching DNS
 
