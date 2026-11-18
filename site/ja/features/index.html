@@ -438,6 +438,11 @@
           <p class="guide"><a href="/docs/ja/user/chat/memos/">利用ガイド →</a></p>
         </li>
         <li>
+          <h4>メモの自動実行</h4>
+          <p>メモのカテゴリに指示とエージェントを設定すると、実行待ちのメモがセッションとして実行されます。「今すぐ実行」で始めることも、時間帯や件数を決めて自動で始めることもできます。セッションが追加したメモは、承認するまで実行されません。使うには、先にテナント管理者が許可します。</p>
+          <p class="guide"><a href="/docs/ja/user/chat/memo-auto-run/">利用ガイド →</a></p>
+        </li>
+        <li>
           <h4>定時実行</h4>
           <p>フリート・オペレーターに「毎晩 2 時に…」と頼むだけで設定できます。ワークスペースが停止していても、時刻になれば起動して実行します。保存した課題クエリに新しい結果があるときだけ動かすこともできます。</p>
           <p class="guide"><a href="/docs/ja/user/fleet/schedules/">利用ガイド →</a></p>
@@ -775,6 +780,11 @@
           <p class="guide"><a href="/docs/ja/user/troubleshooting/agents/#使いたいモデルが選べない指定したのに起動を断られる">利用ガイド →</a></p>
         </li>
         <li>
+          <h4>使わせるモデルの経路を決める</h4>
+          <p>テナント管理者が、資格情報の種類と送り先で経路を制限できます。サブスクリプションは使わせない、Amazon Bedrock だけ、従量課金のキーは 1 社を除いてすべて、といった形です。各層は上の層を狭めることしかできず、禁止した経路は起動ダイアログ、エージェントと認証情報のページ、画像生成、アシスタントから消えます。</p>
+          <p class="guide"><a href="/docs/ja/admin/access/model-access/">利用ガイド →</a></p>
+        </li>
+        <li>
           <h4>監査ログ</h4>
           <p>変更の操作を記録します。ターミナルの入出力は保存しません。</p>
           <p class="guide"><a href="/docs/ja/admin/audit/#記録されるもの">利用ガイド →</a></p>
@@ -783,6 +793,11 @@
           <h4>メンバーごとの上限</h4>
           <p>同時に動かせるセッション数と、ワークスペースのサイズ（メモリ・CPU・ディスク）を、メンバーごとに管理者が設定できます。</p>
           <p class="guide"><a href="/docs/ja/admin/resources/session-limits/#メンバーの上限を決める">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>次の起動をブーストする</h4>
+          <p>ECS の EC2 で、テナントが許可していれば、メンバーは設定 →「マシン」から、次の起動を同じクラスの一段上のサイズに 1〜24 時間だけ上げられます。月あたりの時間の予算は保存されますが、まだ強制されません。</p>
+          <p class="guide"><a href="/docs/ja/user/workspace/machine/#次の起動をブーストする">利用ガイド →</a></p>
         </li>
         <li>
           <h4>接続元の制限</h4>
@@ -877,8 +892,8 @@
         <a href="https://github.com/k-k1/agent-fleet">ソース</a>
         <a href="https://github.com/k-k1/agent-fleet-dist/releases">リリース</a>
         <a href="/docs/ja/">ドキュメント</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/v0.45.0/SECURITY.md">セキュリティポリシー</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/v0.45.0/LICENSE">ライセンス（Apache-2.0）</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/v0.47.0/SECURITY.md">セキュリティポリシー</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/v0.47.0/LICENSE">ライセンス（Apache-2.0）</a>
         <a href="/features/" hreflang="en" lang="en">English</a>
       </nav>
     </div>
