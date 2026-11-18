@@ -438,6 +438,11 @@
           <p class="guide"><a href="/docs/user/chat/memos/">In the guide →</a></p>
         </li>
         <li>
+          <h4>Memo auto-run</h4>
+          <p>Give a memo category an instruction and an agent, and its waiting memos run as sessions: by “Run now”, or by themselves in a time window or once enough are waiting. A memo a session adds waits for your approval. A tenant administrator allows it first.</p>
+          <p class="guide"><a href="/docs/user/chat/memo-auto-run/">In the guide →</a></p>
+        </li>
+        <li>
           <h4>Scheduled runs</h4>
           <p>Tell the Fleet Operator “every night at 2:00, …”. The schedule wakes a stopped workspace to run it, and can run only when a saved work item query has something new.</p>
           <p class="guide"><a href="/docs/user/fleet/schedules/">In the guide →</a></p>
@@ -775,6 +780,11 @@
           <p class="guide"><a href="/docs/user/troubleshooting/agents/#the-model-you-want-is-not-offered-or-launching-with-it-is-refused">In the guide →</a></p>
         </li>
         <li>
+          <h4>Which model routes members may use</h4>
+          <p>A tenant administrator limits routes by type of credential and destination: no subscriptions, only Amazon Bedrock, or every metered key but one provider. Each layer can only narrow the one above, and what is forbidden disappears from the launch dialog, the agents and credentials pages, image generation and the assistant.</p>
+          <p class="guide"><a href="/docs/admin/access/model-access/">In the guide →</a></p>
+        </li>
+        <li>
           <h4>Audit log</h4>
           <p>Changes are recorded; terminal input and output are not stored.</p>
           <p class="guide"><a href="/docs/admin/audit/#what-is-recorded">In the guide →</a></p>
@@ -783,6 +793,11 @@
           <h4>Per-member limits</h4>
           <p>Concurrent sessions, and each member's workspace size: memory, CPU and disk.</p>
           <p class="guide"><a href="/docs/admin/resources/session-limits/#set-a-members-limit">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Boost the next start</h4>
+          <p>On ECS EC2, where the tenant allows it, a member raises the next start one size up in the same class for 1 to 24 hours, from Settings › Machine. The monthly hours budget is stored but not enforced yet.</p>
+          <p class="guide"><a href="/docs/user/workspace/machine/#boost-the-next-start">In the guide →</a></p>
         </li>
         <li>
           <h4>Allowed networks</h4>
@@ -877,8 +892,8 @@
         <a href="https://github.com/k-k1/agent-fleet">Source</a>
         <a href="https://github.com/k-k1/agent-fleet-dist/releases">Releases</a>
         <a href="/docs/">Documentation</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/v0.45.0/SECURITY.md">Security policy</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/v0.45.0/LICENSE">License (Apache-2.0)</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/v0.47.0/SECURITY.md">Security policy</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/v0.47.0/LICENSE">License (Apache-2.0)</a>
         <a href="/ja/features/" hreflang="ja" lang="ja">日本語</a>
       </nav>
     </div>
