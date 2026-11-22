@@ -277,6 +277,11 @@
           <p class="guide"><a href="/docs/user/memory/overview/">In the guide →</a></p>
         </li>
         <li>
+          <h4>A view of its own</h4>
+          <p>The Memory view on the activity bar lists your memories by scope, with search, scope and type filters and the tidy-up's pending suggestions. Each memory opens in a pane of its own, like a file, where you read, edit, pin or forget it.</p>
+          <p class="guide"><a href="/docs/user/memory/overview/#open-the-memory-view">In the guide →</a></p>
+        </li>
+        <li>
           <h4>Every change, and its author</h4>
           <p>The Console lists each change with the agent and session that made it. Edit, pin or forget a memory, bring a forgotten one back, purge its past revisions, or revert a change. The list pages back to the very first change.</p>
           <p class="guide"><a href="/docs/user/memory/changes/">In the guide →</a></p>
@@ -441,6 +446,16 @@
           <h4>Memo auto-run</h4>
           <p>Give a memo category an instruction and an agent, and its waiting memos run as sessions: by “Run now”, or by themselves in a time window or once enough are waiting. A memo a session adds waits for your approval. A tenant administrator allows it first.</p>
           <p class="guide"><a href="/docs/user/chat/memo-auto-run/">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Every run in one view</h4>
+          <p>The Auto-run view lists the runs by category, with the work item, the pull request and its state, and the sessions each run started, such as reviewers. Stop a run's sessions or delete its worktree from its row, and clear finished runs at once.</p>
+          <p class="guide"><a href="/docs/user/chat/memo-auto-run/#see-the-runs">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>In order, one part per run</h4>
+          <p>A memo can wait until the memos it builds on have run and their pull requests are merged. Approving a memo also covers the follow-ups its run adds, up to <b class="num">4</b> by default, so a big task lands one pull request per run. A run that cannot do the work yet hands its memo back for later.</p>
+          <p class="guide"><a href="/docs/user/chat/memo-auto-run/#make-a-memo-wait-for-another">In the guide →</a></p>
         </li>
         <li>
           <h4>Scheduled runs</h4>
@@ -848,7 +863,7 @@
         </li>
         <li>
           <h4>Resume after a limit</h4>
-          <p>A turn cut short by a usage limit picks up again once the limit resets. This works for Claude, Muse Code, and Codex when Managed; any other session can move to an agent that still has quota.</p>
+          <p>A turn cut short by a usage limit picks up again once the limit resets. This works for Claude, Muse Code, and Codex when Managed; any other session can move to an agent that still has quota. On a Claude subscription you choose who resumes: Agent Fleet (the workspace can stop while it waits), Claude Code itself, or nobody.</p>
           <p class="guide"><a href="/docs/ref/agents/#states-shown-in-the-mirror">In the guide →</a></p>
         </li>
         <li>
@@ -860,6 +875,11 @@
           <h4>Running-time heatmap</h4>
           <p>Hours of the day against dates, coloured by time running or by session count.</p>
           <p class="guide"><a href="/docs/user/workspace/cost/#see-the-running-time">In the guide →</a></p>
+        </li>
+        <li>
+          <h4>Resource use by day <span class="flag flag-aws">AWS only</span></h4>
+          <p>On ECS EC2, a table per UTC day and box: CPU, memory, the memory-pressure peak and minutes above the warning threshold, kept for <b class="num">90</b> days. A tenant administrator sees it for each member and for the whole tenant.</p>
+          <p class="guide"><a href="/docs/user/workspace/cost/#see-resource-use-by-day">In the guide →</a></p>
         </li>
         <li>
           <h4>A budget per session</h4>
@@ -892,8 +912,8 @@
         <a href="https://github.com/k-k1/agent-fleet">Source</a>
         <a href="https://github.com/k-k1/agent-fleet-dist/releases">Releases</a>
         <a href="/docs/">Documentation</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/v0.47.0/SECURITY.md">Security policy</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/v0.47.0/LICENSE">License (Apache-2.0)</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/v0.48.0/SECURITY.md">Security policy</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/v0.48.0/LICENSE">License (Apache-2.0)</a>
         <a href="/ja/features/" hreflang="ja" lang="ja">日本語</a>
       </nav>
     </div>

@@ -277,6 +277,11 @@
           <p class="guide"><a href="/docs/ja/user/memory/overview/">利用ガイド →</a></p>
         </li>
         <li>
+          <h4>メモリのビュー</h4>
+          <p>アクティビティバーのメモリビューに、メモリが範囲ごとに並びます。検索、範囲と種類の絞り込み、自動整理の提案もここにあります。メモリはファイルのように専用のペインで開き、読む・編集する・ピン留めする・忘れさせるができます。</p>
+          <p class="guide"><a href="/docs/ja/user/memory/overview/#メモリビューを開く">利用ガイド →</a></p>
+        </li>
+        <li>
           <h4>変更と書き手がすべて残る</h4>
           <p>Console は、変更ごとにそれを書いたエージェントとセッションを並べます。メモリの編集・ピン留め・忘れさせることも、忘れさせたものを戻すことも、過去のバージョンの削除や変更の取り消しもできます。一覧は最初の変更までさかのぼれます。</p>
           <p class="guide"><a href="/docs/ja/user/memory/changes/">利用ガイド →</a></p>
@@ -441,6 +446,16 @@
           <h4>メモの自動実行</h4>
           <p>メモのカテゴリに指示とエージェントを設定すると、実行待ちのメモがセッションとして実行されます。「今すぐ実行」で始めることも、時間帯や件数を決めて自動で始めることもできます。セッションが追加したメモは、承認するまで実行されません。使うには、先にテナント管理者が許可します。</p>
           <p class="guide"><a href="/docs/ja/user/chat/memo-auto-run/">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>実行をひとつのビューで</h4>
+          <p>「自動実行」ビューに実行がカテゴリごとに並び、作業項目、プルリクエストとその状態、レビュー役など実行が起動したセッションが出ます。行から実行のセッションを止めたり worktree を消したりでき、終わった実行はまとめて片付けられます。</p>
+          <p class="guide"><a href="/docs/ja/user/chat/memo-auto-run/#実行を見る">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>順番に、1 回に 1 つずつ</h4>
+          <p>メモは、前提のメモが実行されてそのプルリクエストがマージされるまで待てます。メモを承認すると、その実行が追加する続きのメモも既定で <b class="num">4</b> 件まで承認なしで受け付けるので、大きな作業を実行 1 回にプルリクエスト 1 つずつ進められます。まだできない作業は、実行がメモをキューに戻して後でやり直します。</p>
+          <p class="guide"><a href="/docs/ja/user/chat/memo-auto-run/#メモを別のメモの後に実行する">利用ガイド →</a></p>
         </li>
         <li>
           <h4>定時実行</h4>
@@ -848,7 +863,7 @@
         </li>
         <li>
           <h4>上限の後に自動で再開</h4>
-          <p>利用上限で止まったターンは、上限がリセットされると自動で再開します。Claude、Muse Code、マネージドの Codex が対象です。ほかのセッションは、利用枠の残っているエージェントへ移せます。</p>
+          <p>利用上限で止まったターンは、上限がリセットされると自動で再開します。Claude、Muse Code、マネージドの Codex が対象です。ほかのセッションは、利用枠の残っているエージェントへ移せます。Claude のサブスクリプションでは、再開を Agent Fleet に任せるか（待つ間ワークスペースは止まれます）、Claude Code 自身に任せるか、オフにするかを選べます。</p>
           <p class="guide"><a href="/docs/ja/ref/agents/#ミラーに出る状態">利用ガイド →</a></p>
         </li>
         <li>
@@ -860,6 +875,11 @@
           <h4>稼働時間のヒートマップ</h4>
           <p>時刻と日付のマス目を、稼働時間またはセッション数で色分けします。</p>
           <p class="guide"><a href="/docs/ja/user/workspace/cost/#稼働時間を見る">利用ガイド →</a></p>
+        </li>
+        <li>
+          <h4>日ごとのリソース使用 <span class="flag flag-aws">AWS 版のみ</span></h4>
+          <p>ECS EC2 では、UTC の日と箱ごとに CPU、メモリ、メモリ逼迫のピーク、警告のしきい値を超えた分数を表にし、<b class="num">90</b> 日残します。テナント管理者はメンバーごとと、テナント全体の表を見られます。</p>
+          <p class="guide"><a href="/docs/ja/user/workspace/cost/#日ごとのリソース使用を見る">利用ガイド →</a></p>
         </li>
         <li>
           <h4>セッションごとの予算</h4>
@@ -892,8 +912,8 @@
         <a href="https://github.com/k-k1/agent-fleet">ソース</a>
         <a href="https://github.com/k-k1/agent-fleet-dist/releases">リリース</a>
         <a href="/docs/ja/">ドキュメント</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/v0.47.0/SECURITY.md">セキュリティポリシー</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/v0.47.0/LICENSE">ライセンス（Apache-2.0）</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/v0.48.0/SECURITY.md">セキュリティポリシー</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/v0.48.0/LICENSE">ライセンス（Apache-2.0）</a>
         <a href="/features/" hreflang="en" lang="en">English</a>
       </nav>
     </div>
