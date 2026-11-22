@@ -35,6 +35,7 @@ user/fleet/fleet-visibility	セッションに全体を見せる	たくさんの
 user/fleet/operator	フリート・オペレーターに任せる	たくさんのセッション	任せる|Hand it off
 user/fleet/operator-patterns	フリート・オペレーターの使いかたの例	たくさんのセッション	任せる|Hand it off
 user/fleet/schedules	決まった時刻に実行する	たくさんのセッション	任せる|Hand it off
+user/fleet/memo-auto-run-practices	メモの自動実行で、見ていなくても作業を進める	たくさんのセッション	任せる|Hand it off
 user/code/connect-git	Git のサービスを接続する	コード
 user/code/clone	リポジトリをクローンする	コード
 user/code/internal-git	内蔵の Git を使う	コード
