@@ -458,8 +458,13 @@
           <p class="guide"><a href="/docs/ja/user/chat/memo-auto-run/#メモを別のメモの後に実行する">利用ガイド →</a></p>
         </li>
         <li>
+          <h4>メモごとに決める</h4>
+          <p>メモごとに、カテゴリの代わりにその実行のエージェント・モデル・エフォートと、それより前には始めない日時を決められます。キューの設定はリポジトリの <code>.agent-fleet/autorun.yaml</code> にも置け、違いを項目ごとに見て承認します。</p>
+          <p class="guide"><a href="/docs/ja/user/chat/memo-auto-run/#メモ専用のエージェントモデルエフォートで実行する">利用ガイド →</a></p>
+        </li>
+        <li>
           <h4>定時実行</h4>
-          <p>フリート・オペレーターに「毎晩 2 時に…」と頼むだけで設定できます。ワークスペースが停止していても、時刻になれば起動して実行します。保存した課題クエリに新しい結果があるときだけ動かすこともできます。</p>
+          <p>フリート・オペレーターに「毎晩 2 時に…」と頼むだけで設定できます。ワークスペースが停止していても、時刻になれば起動して実行します。保存した課題クエリに新しい結果があるときだけ動かすこともできます。セッションが書いたスケジュールは、あなたが承認するまで動きません。</p>
           <p class="guide"><a href="/docs/ja/user/fleet/schedules/">利用ガイド →</a></p>
         </li>
       </ul>
@@ -759,6 +764,11 @@
           <p class="guide"><a href="/docs/ja/user/start/phone/">利用ガイド →</a></p>
         </li>
         <li>
+          <h4>プッシュ通知</h4>
+          <p>Console を閉じていても、あなたを待っている質問・計画・許可や、終わった回答がスマホやパソコンにプッシュで届きます。何を届けるかは端末ごとに選べ、見ているセッションは届きません。管理者が有効にします。</p>
+          <p class="guide"><a href="/docs/ja/user/settings/notifications/#スマートフォンにプッシュ通知を受け取る">利用ガイド →</a></p>
+        </li>
+        <li>
           <h4>読み上げ <span class="flag flag-off">既定はオフ</span></h4>
           <p>回答をセッションごとの声で読み上げ、ペインの位置に合わせて声が左右から聞こえます。声はずんだもん（VOICEVOX、管理者が起動）または Amazon Polly。</p>
           <p class="guide"><a href="/docs/ja/user/settings/read-aloud/">利用ガイド →</a></p>
@@ -912,8 +922,8 @@
         <a href="https://github.com/k-k1/agent-fleet">ソース</a>
         <a href="https://github.com/k-k1/agent-fleet-dist/releases">リリース</a>
         <a href="/docs/ja/">ドキュメント</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/v0.48.0/SECURITY.md">セキュリティポリシー</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/v0.48.0/LICENSE">ライセンス（Apache-2.0）</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/v0.49.0/SECURITY.md">セキュリティポリシー</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/v0.49.0/LICENSE">ライセンス（Apache-2.0）</a>
         <a href="/features/" hreflang="en" lang="en">English</a>
       </nav>
     </div>
