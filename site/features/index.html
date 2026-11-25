@@ -306,6 +306,11 @@
           <p>What Claude Code, Codex and Muse Code remember on their own is snapshotted a few minutes after an agent stops. You can roll it back, and undo the rollback.</p>
           <p class="guide"><a href="/docs/user/memory/snapshots/">In the guide →</a></p>
         </li>
+        <li>
+          <h4>Promote to the repository’s documents</h4>
+          <p>A memory that sessions have confirmed is proposed as a change to the repository’s own documents. Once the change is merged, the memory points at the document instead.</p>
+          <p class="guide"><a href="/docs/user/memory/lint/#promote-memories-to-project-documents">In the guide →</a></p>
+        </li>
       </ul>
     </div>
 
@@ -459,12 +464,12 @@
         </li>
         <li>
           <h4>Each memo its own way</h4>
-          <p>A memo can name the agent, model and effort its run uses instead of the category’s, and a time before which it does not start. A repository can carry its queue settings in <code>.agent-fleet/autorun.yaml</code>, which you compare and approve field by field.</p>
+          <p>A memo can name the agent, model and effort its run uses instead of the category’s, and a time before which it does not start. A repository can carry its queue settings in <code>.agent-fleet/autorun.yaml</code>, which you compare and approve field by field. “Run next” puts a waiting memo ahead of the older ones.</p>
           <p class="guide"><a href="/docs/user/chat/memo-auto-run/#run-a-memo-with-its-own-agent-model-or-effort">In the guide →</a></p>
         </li>
         <li>
           <h4>Scheduled runs</h4>
-          <p>Tell the Fleet Operator “every night at 2:00, …”. The schedule wakes a stopped workspace to run it, and can run only when a saved work item query has something new. A schedule a session writes waits for your approval before it runs.</p>
+          <p>Tell the Fleet Operator “every night at 2:00, …”. The schedule wakes a stopped workspace to run it, and can run only when a saved work item query has something new. A schedule a session writes waits for your approval before it runs, and a schedule can list the sessions its runs start in the Sessions view.</p>
           <p class="guide"><a href="/docs/user/fleet/schedules/">In the guide →</a></p>
         </li>
       </ul>
@@ -546,8 +551,13 @@
           <p class="guide"><a href="/docs/user/preview/agent-browser/">In the guide →</a></p>
         </li>
         <li>
+          <h4>Spaces</h4>
+          <p>Work that is not a repository starts in a space: a folder of its own under <code>~/spaces</code>, with its sessions listed together and the files you attach copied in. Deleting a space moves it to the trash with its sessions.</p>
+          <p class="guide"><a href="/docs/user/sessions/spaces/">In the guide →</a></p>
+        </li>
+        <li>
           <h4>A real terminal</h4>
-          <p>A plain shell, or an agent started as Terminal (CLI), can be attached as a live PTY, with a control-key row on phones. Managed sessions show the chat only.</p>
+          <p>A plain shell, or an agent started as Terminal (CLI), can be attached as a live PTY, with a control-key row on phones. Managed sessions show the chat only. The Terminals view lists your shells by place and your SSM sessions by machine.</p>
           <p class="guide"><a href="/docs/user/files/terminal/">In the guide →</a></p>
         </li>
         <li>
@@ -754,6 +764,11 @@
           <p class="guide"><a href="/docs/user/start/shortcuts/">In the guide →</a></p>
         </li>
         <li>
+          <h4>Active view</h4>
+          <p>The left pane lists what is going on now as cards, by repository and space, with child sessions folded under their parent. Any view’s icon on the activity bar can be turned off.</p>
+          <p class="guide"><a href="/docs/user/fleet/overview/#in-the-left-pane-the-active-view">In the guide →</a></p>
+        </li>
+        <li>
           <h4>Panes</h4>
           <p>Up to <b class="num">4 × 2</b> panes side by side; any pane pops out into its own browser tab.</p>
           <p class="guide"><a href="/docs/user/start/panes/">In the guide →</a></p>
@@ -765,7 +780,7 @@
         </li>
         <li>
           <h4>Push notifications</h4>
-          <p>With the Console closed, a question, a plan or permission waiting for you, or a finished answer reaches your phone or computer as a push. Choose what is pushed per device; the session you are looking at is not pushed. An administrator switches it on.</p>
+          <p>With the Console closed, a question, a plan or permission waiting for you, or a finished answer reaches your phone or computer as a push. Choose what is pushed per device; the session you are looking at is not pushed. Pushes from auto-run and schedule sessions can be switched off, and each title says where it came from. An administrator switches it on.</p>
           <p class="guide"><a href="/docs/user/settings/notifications/#get-push-notifications-on-your-phone">In the guide →</a></p>
         </li>
         <li>
@@ -821,7 +836,7 @@
         </li>
         <li>
           <h4>Boost the next start</h4>
-          <p>On ECS EC2, where the tenant allows it, a member raises the next start one size up in the same class for 1 to 24 hours, from Settings › Machine. The monthly hours budget is stored but not enforced yet.</p>
+          <p>On ECS EC2, where the tenant allows it, a member raises the next start one size up in the same class for 1 to 24 hours, from Settings › Machine. A monthly hours budget caps it, and the tenant sees each member’s boosted hours.</p>
           <p class="guide"><a href="/docs/user/workspace/machine/#boost-the-next-start">In the guide →</a></p>
         </li>
         <li>
@@ -922,8 +937,8 @@
         <a href="https://github.com/k-k1/agent-fleet">Source</a>
         <a href="https://github.com/k-k1/agent-fleet-dist/releases">Releases</a>
         <a href="/docs/">Documentation</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/v0.49.0/SECURITY.md">Security policy</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/v0.49.0/LICENSE">License (Apache-2.0)</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/v0.50.0/SECURITY.md">Security policy</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/v0.50.0/LICENSE">License (Apache-2.0)</a>
         <a href="/ja/features/" hreflang="ja" lang="ja">日本語</a>
       </nav>
     </div>
