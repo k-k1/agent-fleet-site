@@ -9,9 +9,11 @@ user/start/phone	スマートフォンで使う	はじめに
 user/start/end-of-day	一日の終わりにワークスペースを止める	はじめに
 user/start/without-terminal	ターミナルを使わない人のための入口	はじめに
 user/sessions/start	セッションを始める	セッション	始める|Starting
+user/sessions/spaces	スペースで作業を始める	セッション	始める|Starting
 user/sessions/worktrees	worktree で並行して作業する	セッション	始める|Starting
 user/sessions/from-issues	Issue やチケットから始める	セッション	始める|Starting
 user/sessions/status	セッションの状態を読む	セッション	始める|Starting
+user/sessions/terminals	シェルと SSM セッションを探す	セッション	始める|Starting
 user/sessions/reply	セッションに返事をする	セッション	会話|Conversation
 user/sessions/queue	送る内容を保留する・ターンを止める	セッション	会話|Conversation
 user/sessions/plans	プランにコメントする・レビューさせる	セッション	会話|Conversation
