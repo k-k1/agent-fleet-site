@@ -226,7 +226,7 @@
       <li><h3>Tested against the real CLI</h3><p>A daily watcher notices when a CLI publishes a new version and dispatches a contract test that drives the real CLI, its interactive TUI included, against what Agent Fleet depends on.</p></li>
       <li><h3>Seen is not tested</h3><p>"We saw a new version" and "we tested it" are recorded separately, so a release that has not passed its contract is never mistaken for one that has.</p></li>
     </ol>
-    <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/v0.50.0/docs/build/10-development.md#detecting-upstream-cli-breakage">How the two halves fit together →</a></p>
+    <p class="more"><a href="https://github.com/k-k1/agent-fleet/blob/v0.51.0/docs/build/10-development.md#detecting-upstream-cli-breakage">How the two halves fit together →</a></p>
   </div>
 </section>
 
@@ -245,7 +245,7 @@
       <li><h3>Outbound traffic on record</h3><p>On AWS, an optional egress gateway (a preview) sends workspace traffic out through one address, records each connection with its workspace, and can enforce an allowlist. When it enforces, traffic other than the web, such as git over SSH or a database, passes only to destinations and ports an administrator names. <a href="/docs/operate/choose/#choose-the-egress-route-on-aws">Choosing the egress route</a></p></li>
       <li><h3>An audit trail</h3><p>Operations that change or destroy something are written to the tenant's audit log, with who did them. Terminal input and output are not stored.</p></li>
       <li><h3>Encrypted secrets</h3><p>Credentials are stored with envelope encryption: per-workspace keys wrapped by a tenant key.</p></li>
-      <li><h3>Auditable, and candid</h3><p>The source is Apache-2.0. The residual risks an operator should understand are in the guide's <a href="/docs/operate/secure/threat-model/">threat model and residual risks</a> and in the <a href="https://github.com/k-k1/agent-fleet/blob/v0.50.0/SECURITY.md">security policy</a>.</p></li>
+      <li><h3>Auditable, and candid</h3><p>The source is Apache-2.0. The residual risks an operator should understand are in the guide's <a href="/docs/operate/secure/threat-model/">threat model and residual risks</a> and in the <a href="https://github.com/k-k1/agent-fleet/blob/v0.51.0/SECURITY.md">security policy</a>.</p></li>
     </ul>
   </div>
 </section>
@@ -325,8 +325,8 @@ af start
         <a href="https://github.com/k-k1/agent-fleet">Source</a>
         <a href="https://github.com/k-k1/agent-fleet-dist/releases">Releases</a>
         <a href="/docs/">Documentation</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/v0.50.0/SECURITY.md">Security policy</a>
-        <a href="https://github.com/k-k1/agent-fleet/blob/v0.50.0/LICENSE">License (Apache-2.0)</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/v0.51.0/SECURITY.md">Security policy</a>
+        <a href="https://github.com/k-k1/agent-fleet/blob/v0.51.0/LICENSE">License (Apache-2.0)</a>
         <a href="/ja/" hreflang="ja" lang="ja">日本語</a>
       </nav>
     </div>

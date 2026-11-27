@@ -85,8 +85,8 @@ def _plain(md: str) -> str:
     return t.replace(open_, "").replace(close, "").strip()
 
 
-# A shelf paragraph opens with its own name as the subject: 「**[リファレンス](…)** は」, "**The [Reference](…)** is".
-SUBJECT = {"ja": re.compile(r"\A\*\*[^*]*\]\([^)]*\)[^*]*\*\* ?は"),
+# A shelf title can introduce the Japanese description with は or では、.
+SUBJECT = {"ja": re.compile(r"\A\*\*[^*]*\]\([^)]*\)[^*]*\*\* ?(?:では、|は)"),
            "en": re.compile(r"\A\*\*[^*]*\]\([^)]*\)[^*]*\*\* [a-z]+ ")}
 
 
